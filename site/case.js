@@ -153,7 +153,8 @@
 
   var repo = el("p", {});
   repo.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
-  repo.appendChild(el("code", {}, p.repo + "/"));
-  repo.appendChild(document.createTextNode(" (replace this line with your GitHub link)."));
+  var link = el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub");
+  repo.appendChild(link);
+  repo.appendChild(document.createTextNode("."));
   section("Reproduce it", repo);
 })();
