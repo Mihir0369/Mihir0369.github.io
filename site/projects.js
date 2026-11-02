@@ -119,19 +119,87 @@ window.PROJECTS = [
       { file: "images/03-outcomes.png", caption: "Outcomes: share of requests still open by division, with drill-through to request types" },
       { file: "images/04-types.png", caption: "Request types: top types, taxonomy-era filter and the naming-change warning" }
     ],
+    kpis: [
+      { label: "Requests in 2025", value: "500,269", sub: "\u25b2 14.5% vs 2024", icon: "bars" },
+      { label: "Resolved", value: "80.5%", sub: "of 2025 requests", icon: "check" },
+      { label: "Still open", value: "7.8%", sub: "of 2025 requests", icon: "clock" },
+      { label: "Parks & forestry still open", value: "49.4%", sub: "\u25b2 45.1 pts vs other divisions", icon: "warn" }
+    ],
+    facts: [
+      { label: "Busiest month in 2025", value: "Feb 2025", sub: "53,707 requests, lifted by new snow request types" },
+      { label: "Quietest month in 2025", value: "Jan 2025", sub: "32,793 requests" },
+      { label: "Parks & forestry share of open requests", value: "47.9%", sub: "of all open requests, from 7.5% of requests" }
+    ],
+    glance: [
+      { value: "1,351,594", label: "requests, 2023 to 2025" },
+      { value: "829", label: "request types, each in one division" },
+      { value: "7", label: "divisions" },
+      { value: "295,239", label: "rows after monthly summary" }
+    ],
     chapters: [
-      { title: "Demand rose 14.5% in 2025", text: "Requests went from 414,282 in 2023 to 437,043 in 2024 and 500,269 in 2025. Part of the February 2025 spike comes from snow-related request types that only exist from January 2025, so the true rise in demand is smaller than the headline suggests.", chart: 1 },
-      { title: "Half of parks and forestry requests are still open", text: "49.4% of 2025 requests in parks, forestry and environment are open, and so are 44.7% of its 2023 requests. Every other division is between 1.4% and 6.6%. The data cannot say whether this is a backlog or statuses nobody updated.", chart: 0 },
-      { title: "Request types were renamed in January 2025", text: "255 type names appear only in 2025 and cover 58.2% of that year's requests. Type-level growth is only valid within 2023 to 2024 or within 2025, so the report adds a Taxonomy Era filter instead of comparing across the break.", warn: true },
-      { title: "Some types are cancelled far more often than others", text: "10.3% of 2025 requests were cancelled overall, but dead-wildlife pick-up was cancelled 38.8% of the time (6,026 of 15,513). Duplicate or repeat calls are one possible reason; I have not tested it." }
+      {
+        title: "Demand rose 14.5% in 2025",
+        text: "Requests went from 414,282 in 2023 to 437,043 in 2024 and 500,269 in 2025. Part of the February 2025 spike comes from snow-related request types that only exist from January 2025, so the true rise in demand is smaller than the headline suggests.",
+        stat: { value: "+14.5%", label: "more requests in 2025 than in 2024" },
+        visuals: [
+          { ref: 1 },
+          { type: "bar", orient: "v", title: "Requests by year", labels: ["2023", "2024", "2025"], values: [414282, 437043, 500269], unit: "requests", highlight: 2 }
+        ]
+      },
+      {
+        title: "Half of parks and forestry requests are still open",
+        text: "49.4% of 2025 requests in parks, forestry and environment are open, and so are 44.7% of its 2023 requests, so these are old requests and not only recent ones. Every other division is between 1.4% and 6.6%. Within the division, general pruning is 66.2% open and tree removal 73.3%. The data cannot say whether this is a backlog or statuses nobody updated.",
+        stat: { value: "49.4%", label: "of 2025 parks, forestry and environment requests are open" },
+        visuals: [
+          { ref: 0 },
+          {
+            type: "bar", grouped: true, title: "Share still open, by division and year",
+            labels: ["Parks, Forestry & Environment", "Transportation Services", "Toronto Water", "Municipal Licensing & Standards", "Solid Waste Management", "311"],
+            datasets: [
+              { label: "2023", values: [44.7, 14.3, 12.2, 5.5, 1.2, 9.4] },
+              { label: "2024", values: [51.5, 9.3, 7.1, 8.1, 1.2, 2.9] },
+              { label: "2025", values: [49.4, 6.6, 5.7, 5.6, 1.7, 1.4] }
+            ],
+            unit: "% still open", suffix: "%"
+          },
+          {
+            type: "bar", title: "Parks, forestry and environment: share still open, by request type (2023 to 2025)",
+            labels: ["General Pruning", "Storm Clean Up", "Tree Emergency Clean-Up", "General Tree Maintenance", "Stemming", "Dangerous Private Tree Investigation", "By-Law Contravention Invest", "Residential or Park Tree Removal"],
+            values: [66.2, 29.8, 37.0, 62.0, 68.2, 2.6, 11.7, 73.3], unit: "% still open", suffix: "%"
+          }
+        ]
+      },
+      {
+        title: "Request types were renamed in January 2025",
+        text: "255 type names appear only in 2025 and cover 58.2% of that year's requests. Type-level growth is only valid within 2023 to 2024 or within 2025, so the report adds a Taxonomy Era filter instead of comparing across the break.",
+        stat: { value: "58.2%", label: "of 2025 requests use type names introduced in January 2025" },
+        warn: true,
+        visuals: [
+          { type: "doughnut", title: "2025 requests by type-name status", labels: ["Under renamed or new types", "Other requests"], values: [290985, 209284], unit: "requests" },
+          { type: "bar", title: "February 2025 requests for type names that did not exist in February 2024", labels: ["Sidewalk Snow Clearing Required", "Road Plowing Request", "Driveway Blocked By Plowed Snowbank", "Snow at Intersections - Impeded Mobility", "Residential Bin Lid Damaged", "Road Pothole / Road Damage"], values: [8722, 4987, 3811, 1248, 1233, 1154], unit: "requests" }
+        ]
+      },
+      {
+        title: "Some types are cancelled far more often than others",
+        text: "10.3% of 2025 requests were cancelled overall, but dead-wildlife pick-up was cancelled 38.8% of the time (6,026 of 15,513) and missed recycling pick-up 28.6%. Duplicate or repeat calls are one possible reason; I have not tested it.",
+        stat: { value: "38.8%", label: "of dead-wildlife pick-up requests were cancelled in 2025" },
+        visuals: [
+          {
+            type: "bar", title: "Share cancelled in 2025, 10 highest among types with 5,000+ requests",
+            labels: ["Pick up Dead Wildlife", "Res / Recycle / Not Picked Up", "Clean up Illegal Dumping on City Road Allowance", "Res / Garbage / Not Picked Up", "Residential Furniture / Not Picked Up", "Res / Organic Green Bin / Not Picked Up", "Injured - Wildlife", "Long Grass and Prohibited Plants on Private Property", "Waste or Illegal Dumping on Private Property", "Zoning Regulations Violations"],
+            values: [38.8, 28.6, 28.0, 26.7, 23.7, 20.1, 14.1, 11.5, 10.8, 9.4], unit: "% cancelled", suffix: "%", highlight: 0
+          }
+        ]
+      }
     ],
     model: {
+      intro: "The report is built on a star schema: one fact table of monthly request counts, and four small dimension tables that hold the names, so filters are fast and every measure reads the same way.",
       tables: [
-        { name: "requests", role: "Fact", rows: "295,239 monthly summary rows (1,351,594 requests)" },
-        { name: "Date", role: "Dimension", rows: "Calendar 2023 to 2025, marked as the date table" },
-        { name: "Dim_Division", role: "Dimension", rows: "7 divisions" },
-        { name: "Dim_ServiceType", role: "Dimension", rows: "829 request types, each in one division, with a Taxonomy Era flag" },
-        { name: "Dim_Status", role: "Dimension", rows: "4 statuses in a fixed order: Resolved, Open, Cancelled, Unknown" }
+        { name: "requests", role: "Fact", short: "295,239 monthly rows", rows: "295,239 monthly summary rows (1,351,594 requests)" },
+        { name: "Date", role: "Dimension", short: "2023 to 2025 calendar", rows: "Calendar 2023 to 2025, marked as the date table" },
+        { name: "Dim_Division", role: "Dimension", short: "7 divisions", rows: "7 divisions" },
+        { name: "Dim_ServiceType", role: "Dimension", short: "829 types, era flag", rows: "829 request types, each in one division, with a Taxonomy Era flag" },
+        { name: "Dim_Status", role: "Dimension", short: "4 statuses, fixed order", rows: "4 statuses in a fixed order: Resolved, Open, Cancelled, Unknown" }
       ],
       measures: [
         { name: "Open %", dax: "DIVIDE ( CALCULATE ( [Requests], requests[status_group] = \"Open\" ), [Requests] )" },
@@ -146,7 +214,9 @@ window.PROJECTS = [
         title: "Share of 2025 requests still open, by division",
         labels: ["Parks, Forestry & Environment", "Transportation Services", "Toronto Water", "Municipal Licensing & Standards", "Solid Waste Management", "311"],
         values: [49.4, 6.6, 5.7, 5.6, 1.7, 1.4],
-        unit: "% still open"
+        unit: "% still open",
+        suffix: "%",
+        highlight: 0
       },
       {
         type: "line",

@@ -13,6 +13,7 @@
     var next = dark ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
+    location.reload();
   });
 
   function el(tag, attrs, text) {
@@ -21,6 +22,7 @@
     if (text != null) n.textContent = text;
     return n;
   }
+  function add(parent, child) { parent.appendChild(child); return child; }
   function section(title, content, cls) {
     var s = el("section", cls ? { "class": cls } : {});
     if (title) s.appendChild(el("h2", {}, title));
@@ -28,20 +30,106 @@
   }
   function ul(items) { var u = el("ul"); items.forEach(function (t) { u.appendChild(el("li", {}, t)); }); return u; }
   function slot(text) { return el("div", { "class": "slot" }, text); }
-
-  function drawChart(c, host) {
-    var box = el("div", { "class": "chartbox", style: "height:320px" });
-    var canvas = el("canvas", { role: "img", "aria-label": c.title });
-    box.appendChild(canvas); host.appendChild(box);
-    if (!window.Chart) return;
-    var css = getComputedStyle(root);
-    var color = css.getPropertyValue("--accent").trim() || "#1f6f5c";
-    new Chart(canvas, {
-      type: c.type || "bar",
-      data: { labels: c.labels, datasets: [{ data: c.values, backgroundColor: color, borderColor: color, pointRadius: 2 }] },
-      options: { maintainAspectRatio: false, indexAxis: c.type === "line" ? "x" : "y", plugins: { legend: { display: false } },
-        scales: { x: { beginAtZero: true, ticks: { maxTicksLimit: 10 } }, y: { beginAtZero: true, title: { display: !!c.unit && c.type === "line", text: c.unit || "" } } } }
+  function fmt(v, suffix) {
+    if (suffix) return (Math.round(v * 10) / 10).toFixed(1) + suffix;
+    return Number(v).toLocaleString("en-CA");
+  }
+  function wrap(label, n) {
+    var words = String(label).split(" "), lines = [], cur = "";
+    words.forEach(function (w) {
+      if ((cur + " " + w).trim().length > n && cur) { lines.push(cur); cur = w; } else { cur = (cur + " " + w).trim(); }
     });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+
+  /* ---------- small icons for the cards (own drawings, same set as the report) */
+  var ICONS = {
+    bars: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="12" width="4" height="8" fill="currentColor"/><rect x="10" y="7" width="4" height="13" fill="currentColor"/><rect x="16" y="3" width="4" height="17" fill="currentColor"/></svg>',
+    check: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+    warn: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5L22 20H2z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.3" fill="currentColor"/></svg>'
+  };
+
+  /* ---------- charts */
+  var css = getComputedStyle(root);
+  function cv(name, dflt) { return css.getPropertyValue(name).trim() || dflt; }
+  var COL = { navy: cv("--accent", "#1B3A5C"), amber: cv("--amber", "#C77700"), grey: cv("--grey", "#8A9BAE"), teal: cv("--teal", "#2A7F8E"),
+              muted: cv("--muted", "#4A5B6C"), line: cv("--line", "#D9E2E8"), light: "#C9D3DC" };
+  if (window.Chart) { Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif'; Chart.defaults.color = COL.muted; }
+
+  var valueLabels = {
+    id: "valueLabels",
+    afterDatasetsDraw: function (chart, args, opts) {
+      if (!opts || !opts.show) return;
+      var ctx = chart.ctx; ctx.save();
+      ctx.fillStyle = cv("--text", "#1F2D3D"); ctx.font = '600 12px "Segoe UI", system-ui, sans-serif';
+      var horizontal = chart.options.indexAxis === "y";
+      chart.getDatasetMeta(0).data.forEach(function (bar, i) {
+        var v = chart.data.datasets[0].data[i];
+        var t = fmt(v, opts.suffix);
+        if (horizontal) { ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(t, bar.x + 6, bar.y); }
+        else { ctx.textAlign = "center"; ctx.textBaseline = "bottom"; ctx.fillText(t, bar.x, bar.y - 5); }
+      });
+      ctx.restore();
+    }
+  };
+
+  function viz(c, host) {
+    var box = el("div", { "class": "viz" });
+    if (c.title) box.appendChild(el("div", { "class": "viz-title" }, c.title));
+    var type = c.type || "bar";
+    var horizontal = type === "bar" && c.orient !== "v";
+    var n = c.labels.length;
+    var h = type === "line" ? 300 : type === "doughnut" ? 270 : horizontal ? Math.max(200, n * (c.datasets ? 62 : 38) + 70) : 280;
+    var holder = el("div", { "class": "chartbox", style: "height:" + h + "px" });
+    var canvas = el("canvas", { role: "img", "aria-label": c.title || "chart" });
+    holder.appendChild(canvas); box.appendChild(holder); host.appendChild(box);
+    if (!window.Chart) { holder.appendChild(slot("Chart library did not load (offline?).")); return; }
+
+    var data, options;
+    var grid = { color: COL.line };
+    if (type === "doughnut") {
+      data = { labels: c.labels, datasets: [{ data: c.values, backgroundColor: [COL.amber, COL.light], borderWidth: 0 }] };
+      options = { maintainAspectRatio: false, cutout: "62%", plugins: { legend: { position: "bottom" },
+        tooltip: { callbacks: { label: function (x) { return " " + x.label + ": " + fmt(x.raw) + " (" + (100 * x.raw / c.values.reduce(function (a, b) { return a + b; }, 0)).toFixed(1) + "%)"; } } } } };
+    } else {
+      var grouped = !!c.datasets;
+      var yearCols = [COL.light, "#5F7C99", COL.navy];
+      var datasets = grouped
+        ? c.datasets.map(function (d, i) { return { label: d.label, data: d.values, backgroundColor: d.color || yearCols[i % 3], borderWidth: 0 }; })
+        : [{ data: c.values, borderWidth: type === "line" ? 3 : 0, tension: 0.25, pointRadius: type === "line" ? 2 : 0,
+             borderColor: COL.navy,
+             backgroundColor: c.highlight != null ? c.values.map(function (v, i) { return i === c.highlight ? COL.amber : COL.grey; }) : COL.navy }];
+      var valAxis = { beginAtZero: true, grid: grid, title: { display: !!c.unit, text: c.unit || "" },
+        ticks: { maxTicksLimit: 8, callback: function (v) { return c.suffix ? v + c.suffix : Number(v).toLocaleString("en-CA"); } } };
+      var catAxis = { grid: { display: false }, ticks: { autoSkip: type === "line", maxTicksLimit: type === "line" ? 12 : undefined,
+        callback: function (v) { var l = this.getLabelForValue(v); return horizontal ? wrap(l, 26) : l; } } };
+      data = { labels: c.labels, datasets: datasets };
+      options = { maintainAspectRatio: false, indexAxis: horizontal ? "y" : "x",
+        layout: { padding: { right: horizontal && !grouped ? 48 : 8, top: !horizontal && type === "bar" ? 18 : 0 } },
+        plugins: { legend: { display: grouped, position: "bottom" }, valueLabels: { show: type === "bar" && !grouped, suffix: c.suffix },
+          tooltip: { callbacks: { label: function (x) { return " " + (x.dataset.label ? x.dataset.label + ": " : "") + fmt(x.raw, c.suffix); } } } },
+        scales: horizontal ? { x: valAxis, y: catAxis } : { x: catAxis, y: valAxis } };
+    }
+    new Chart(canvas, { type: type, data: data, options: options, plugins: [valueLabels] });
+  }
+
+  /* ---------- cards */
+  function card(k, withIcon) {
+    var c = el("div", { "class": "kpi" });
+    var top = add(c, el("div", { "class": "kpi-top" }));
+    var txt = add(top, el("div"));
+    txt.appendChild(el("div", { "class": "kpi-label" }, k.label));
+    if (k.sub) txt.appendChild(el("div", { "class": "kpi-sub" }, k.sub));
+    if (withIcon && k.icon && ICONS[k.icon]) { var ic = add(top, el("span", { "class": "kpi-icon", "aria-hidden": "true" })); ic.innerHTML = ICONS[k.icon]; }
+    c.appendChild(el("div", { "class": "kpi-value" }, k.value));
+    return c;
+  }
+  function cardRow(items, cls, withIcon) {
+    var r = el("div", { "class": cls });
+    items.forEach(function (k) { r.appendChild(card(k, withIcon)); });
+    return r;
   }
 
   if (!p) { main.appendChild(el("p", {}, "Case study not found.")); return; }
@@ -58,16 +146,39 @@
   tl.appendChild(el("span", { "class": "tag real" }, p.provenance + " data"));
   p.tools.forEach(function (t) { tl.appendChild(el("span", { "class": "tag" }, t)); });
   head.appendChild(tl);
-  var empty = p.headline.value == null;
-  var stat = el("div", { "class": "stat hero-stat" });
-  stat.appendChild(el("div", { "class": "big" + (empty ? " empty" : "") }, empty ? "to fill in" : p.headline.value));
-  stat.appendChild(el("div", { "class": "label" }, p.headline.label));
-  head.appendChild(stat);
+  if (!p.kpis) {
+    var empty = p.headline.value == null;
+    var stat = el("div", { "class": "stat hero-stat" });
+    stat.appendChild(el("div", { "class": "big" + (empty ? " empty" : "") }, empty ? "to fill in" : p.headline.value));
+    stat.appendChild(el("div", { "class": "label" }, p.headline.label));
+    head.appendChild(stat);
+  }
   main.appendChild(head);
 
-  /* ---- question and data */
-  section("The question", el("p", {}, p.question));
-  section("The data", el("p", {}, p.data + " Source: " + p.source + "."));
+  /* ---- KPI and finding cards, like the report's Overview page */
+  if (p.kpis) {
+    var kwrap = el("section", { "class": "kpi-block" });
+    kwrap.appendChild(cardRow(p.kpis, "kpis", true));
+    if (p.facts) kwrap.appendChild(cardRow(p.facts, "facts", false));
+    main.appendChild(kwrap);
+  }
+
+  /* ---- question and data (two columns: text left, visual right) */
+  if (p.glance) {
+    var sp = el("section", { "class": "split" });
+    var left = add(sp, el("div", { "class": "split-text" }));
+    left.appendChild(el("h2", {}, "The question"));
+    left.appendChild(el("p", {}, p.question));
+    left.appendChild(el("h2", {}, "The data"));
+    left.appendChild(el("p", {}, p.data + " Source: " + p.source + "."));
+    var right = add(sp, el("div", { "class": "split-visual" }));
+    right.appendChild(el("div", { "class": "viz-title" }, "The data at a glance"));
+    right.appendChild(cardRow(p.glance.map(function (g) { return { label: g.label, value: g.value }; }), "glance", false));
+    main.appendChild(sp);
+  } else {
+    section("The question", el("p", {}, p.question));
+    section("The data", el("p", {}, p.data + " Source: " + p.source + "."));
+  }
 
   /* ---- Power BI report screenshots */
   if (p.shots && p.shots.length) {
@@ -75,12 +186,11 @@
     p.shots.forEach(function (s) {
       var fig = el("figure", { "class": "shot" });
       var img = el("img", { src: s.file, alt: s.caption, loading: "lazy" });
-      img.addEventListener("error", function () {
-        var ph = slot("Screenshot not added yet: save it as site/" + s.file);
-        img.replaceWith(ph);
-      });
-      fig.appendChild(img);
-      fig.appendChild(el("figcaption", {}, s.caption));
+      img.addEventListener("error", function () { img.replaceWith(slot("Screenshot not added yet: save it as site/" + s.file)); });
+      var open = el("a", { href: s.file, target: "_blank", rel: "noopener", title: "Open full size" });
+      open.appendChild(img);
+      fig.appendChild(open);
+      fig.appendChild(el("figcaption", {}, s.caption + " (click to enlarge)"));
       gal.appendChild(fig);
     });
     section("The Power BI report", gal, "pbi");
@@ -95,23 +205,26 @@
     section("What I found", slot("To fill in after you run the analysis: 3 to 5 findings, each with a number and its sample size."));
   }
 
-  /* ---- chapters (one finding each), else plain charts */
+  /* ---- chapters: explanation left, visuals right */
   if (p.chapters && p.chapters.length) {
     p.chapters.forEach(function (ch, i) {
-      var box = el("div", { "class": "chapter" + (ch.warn ? " warn" : "") });
-      box.appendChild(el("div", { "class": "n" }, String(i + 1).padStart(2, "0")));
-      var body = el("div", { "class": "chapter-body" });
-      body.appendChild(el("h2", {}, ch.title));
-      body.appendChild(el("p", {}, ch.text));
-      if (ch.chart != null && charts[ch.chart]) {
-        body.appendChild(el("div", { "class": "chart-title" }, charts[ch.chart].title));
-        drawChart(charts[ch.chart], body);
+      var box = el("div", { "class": "chapter split" + (ch.warn ? " warn" : "") });
+      var txt = add(box, el("div", { "class": "split-text chapter-body" }));
+      txt.appendChild(el("div", { "class": "n" }, String(i + 1).padStart(2, "0")));
+      txt.appendChild(el("h2", {}, ch.title));
+      txt.appendChild(el("p", {}, ch.text));
+      if (ch.stat) {
+        var m = add(txt, el("div", { "class": "kpi mini" }));
+        m.appendChild(el("div", { "class": "kpi-value" }, ch.stat.value));
+        m.appendChild(el("div", { "class": "kpi-label" }, ch.stat.label));
       }
-      box.appendChild(body);
+      var vis = add(box, el("div", { "class": "split-visual" }));
+      var specs = ch.visuals || (ch.chart != null ? [{ ref: ch.chart }] : []);
+      specs.forEach(function (v) { viz(v.ref != null ? charts[v.ref] : v, vis); });
       main.appendChild(box);
     });
   } else {
-    charts.forEach(function (c) { var h = el("div"); drawChart(c, h); section(c.title, h); });
+    charts.forEach(function (c) { var h = el("div"); viz(c, h); section(c.title, h); });
   }
 
   /* ---- recommendations */
@@ -128,33 +241,41 @@
     section("What I would recommend", slot("To fill in: 2 to 3 actions someone could take, tied to the findings above."));
   }
 
-  /* ---- data, model and method */
   section("What I did", ul(p.approach));
+
+  /* ---- model: explanation left, star schema right */
   if (p.model) {
-    var m = el("div", { "class": "model" });
-    var tbl = el("table");
-    var hr = el("tr"); ["Table", "Role", "Contents"].forEach(function (h) { hr.appendChild(el("th", {}, h)); });
-    tbl.appendChild(hr);
-    p.model.tables.forEach(function (t) {
-      var r = el("tr"); r.appendChild(el("td", {}, t.name)); r.appendChild(el("td", {}, t.role)); r.appendChild(el("td", {}, t.rows)); tbl.appendChild(r);
-    });
-    m.appendChild(tbl);
-    m.appendChild(el("h3", {}, "Key measures"));
+    var ms = el("section", { "class": "split model" });
+    var ml = add(ms, el("div", { "class": "split-text" }));
+    ml.appendChild(el("h2", {}, "Model and measures"));
+    if (p.model.intro) ml.appendChild(el("p", {}, p.model.intro));
+    ml.appendChild(el("h3", {}, "Key measures"));
     p.model.measures.forEach(function (x) {
       var d = el("div", { "class": "measure" });
       d.appendChild(el("strong", {}, x.name));
       d.appendChild(el("code", {}, x.dax));
-      m.appendChild(d);
+      ml.appendChild(d);
     });
-    if (p.model.note) m.appendChild(el("p", { "class": "note" }, p.model.note));
-    section("Model and measures", m);
+    if (p.model.note) ml.appendChild(el("p", { "class": "note" }, p.model.note));
+
+    var mr = add(ms, el("div", { "class": "split-visual" }));
+    mr.appendChild(el("div", { "class": "viz-title" }, "Star schema"));
+    var fact = p.model.tables.filter(function (t) { return t.role === "Fact"; })[0];
+    var dims = p.model.tables.filter(function (t) { return t.role !== "Fact"; });
+    var star = add(mr, el("div", { "class": "star" }));
+    var pos = ["top", "right", "bottom", "left"];
+    add(star, el("div", { "class": "sd fact" })).innerHTML = "<b>" + fact.name + "</b><small>" + (fact.short || "fact table") + "</small>";
+    dims.slice(0, 4).forEach(function (d, i) {
+      add(star, el("div", { "class": "sd dim " + pos[i] })).innerHTML = "<b>" + d.name + "</b><small>" + (d.short || d.rows) + "</small>";
+    });
+    main.appendChild(ms);
   }
+
   section("Limits of this analysis", ul(p.limits));
 
   var repo = el("p", {});
   repo.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
-  var link = el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub");
-  repo.appendChild(link);
+  repo.appendChild(el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
   repo.appendChild(document.createTextNode("."));
   section("Reproduce it", repo);
 })();
