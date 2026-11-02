@@ -1,0 +1,32 @@
+table Dim_ServiceType
+	lineageTag: f92300d0-6472-4c0c-9ac0-39b6ac2d981c
+
+	column 'Service Type'
+		lineageTag: 83811927-d886-4c20-9268-5dac40df84e6
+		summarizeBy: none
+		sourceColumn: [Service Type]
+
+	column Division
+		lineageTag: a54f539a-8b01-4b69-8fe4-3991873cbdbc
+		summarizeBy: none
+		sourceColumn: [Division]
+
+	column 'Taxonomy Era'
+		lineageTag: 87077795-0229-4e82-b497-d453c9bfdc66
+		summarizeBy: none
+		sourceColumn: [Taxonomy Era]
+
+	partition Dim_ServiceType = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS (
+				    VALUES ( requests[service_request_type] ),
+				    "Service Type", requests[service_request_type],
+				    "Division", CALCULATE ( MAX ( requests[division_group] ) ),
+				    "Taxonomy Era",
+				        VAR early = CALCULATE ( COUNTROWS ( requests ), 'Date'[Year] <= 2024 )
+				        VAR late = CALCULATE ( COUNTROWS ( requests ), 'Date'[Year] = 2025 )
+				        RETURN
+				            IF ( early > 0 && late > 0, "In both periods", IF ( early > 0, "2023-24 only", "2025 only" ) )
+				)
+

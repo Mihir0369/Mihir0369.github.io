@@ -1,0 +1,69 @@
+table requests
+	lineageTag: 9ab42299-edb6-44ac-a2e6-11d50407a61b
+
+	column division_group
+		dataType: string
+		isHidden
+		lineageTag: 4922ff31-9cd5-4d27-ad71-61451ba13a16
+		summarizeBy: none
+		sourceColumn: division_group
+
+	column service_request_type
+		dataType: string
+		isHidden
+		lineageTag: 2a62c11d-43c6-4186-aa66-5d828f5bc7bd
+		summarizeBy: none
+		sourceColumn: service_request_type
+
+	column ward_name
+		dataType: string
+		lineageTag: d04a91dc-06f1-40e9-8e7c-1e11f34cb594
+		summarizeBy: none
+		sourceColumn: ward_name
+
+	column status_group
+		dataType: string
+		isHidden
+		lineageTag: 23ab3763-55c2-4aa1-b347-2dc5462ad2d9
+		summarizeBy: none
+		sourceColumn: status_group
+
+	column location_type
+		dataType: string
+		lineageTag: 056a777b-4f83-45f1-85f1-9c904001d2f3
+		summarizeBy: none
+		sourceColumn: location_type
+
+	column requests
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8bc2fe2d-5396-4580-a3b5-d83db1d26365
+		summarizeBy: none
+		sourceColumn: requests
+
+	column MonthStart
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 51e6f916-0f6d-47ab-bf84-125aad12aa1c
+		summarizeBy: none
+		sourceColumn: MonthStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition requests = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(CsvPath), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"month", type text}, {"year", Int64.Type}, {"division_group", type text}, {"service_request_type", type text}, {"ward_name", type text}, {"status_group", type text}, {"location_type", type text}, {"requests", Int64.Type}}),
+				    AddDate = Table.AddColumn(Typed, "MonthStart", each Date.FromText([month] & "-01"), type date),
+				    FixWard = Table.ReplaceValue(AddDate, null, "Unknown ward", Replacer.ReplaceValue, {"ward_name"}),
+				    FixDiv = Table.ReplaceValue(FixWard, null, "Unknown division", Replacer.ReplaceValue, {"division_group"}),
+				    Slim = Table.RemoveColumns(FixDiv, {"month", "year"})
+				in
+				    Slim
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,5 @@
+expression CsvPath = "C:\Users\12268\Desktop\Co-op\FInal\Portfolio Projects\03-government-311\requests_monthly_agg.csv" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: f149385d-bf28-420a-b091-5dfde9267023
+
+	annotation PBI_ResultType = Text
+

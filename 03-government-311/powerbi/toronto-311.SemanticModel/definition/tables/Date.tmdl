@@ -1,0 +1,45 @@
+table Date
+	lineageTag: 64b29f1e-fd4e-45de-831f-422d7646d3a5
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Long Date
+		lineageTag: de5797df-be1e-4386-8321-69e2bbfc3045
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Year
+		formatString: 0
+		lineageTag: 37a04cf6-6e79-40c5-8a44-7441a8a80984
+		summarizeBy: none
+		sourceColumn: [Year]
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: d5bf90eb-030a-404d-9231-34593816ab0c
+		summarizeBy: none
+		sourceColumn: [Month Number]
+
+	column Month
+		lineageTag: 52e7dab2-e524-4634-b833-460e8151e838
+		summarizeBy: none
+		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
+
+	column 'Year Month'
+		lineageTag: f9bcf4f6-d1da-4241-a087-e0c98c5be1c0
+		summarizeBy: none
+		sourceColumn: [Year Month]
+
+	partition Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 2023, 1, 1 ), DATE ( 2025, 12, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "mmm" ),
+				    "Year Month", FORMAT ( [Date], "yyyy-mm" )
+				)
+

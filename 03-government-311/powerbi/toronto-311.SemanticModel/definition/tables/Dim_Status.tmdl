@@ -1,0 +1,31 @@
+table Dim_Status
+	lineageTag: 3d30f6ae-f380-4058-b963-a85bf02d0770
+
+	column Status
+		lineageTag: d9d0b847-6161-4f97-a657-8634f473a48c
+		summarizeBy: none
+		sourceColumn: [Status]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		isHidden
+		formatString: 0
+		lineageTag: a38c14e8-5c91-4ac2-aace-c0d44c25b674
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	column 'Is Open'
+		lineageTag: 17c6832b-7f81-4aec-aef5-0fd9b6f1bd09
+		summarizeBy: none
+		sourceColumn: [Is Open]
+
+	partition Dim_Status = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Status", STRING,
+				    "Sort Order", INTEGER,
+				    "Is Open", BOOLEAN,
+				    { { "Resolved", 1, FALSE }, { "Open", 2, TRUE }, { "Cancelled", 3, FALSE }, { "Unknown", 4, FALSE } }
+				)
+

@@ -1,0 +1,12 @@
+table Dim_Division
+	lineageTag: bd7ed515-87e3-4ecd-8862-57f8658e25f9
+
+	column Division
+		lineageTag: 14b48031-3620-4775-bc73-08963a8a9d49
+		summarizeBy: none
+		sourceColumn: [Division]
+
+	partition Dim_Division = calculated
+		mode: import
+		source = SELECTCOLUMNS ( VALUES ( requests[division_group] ), "Division", requests[division_group] )
+

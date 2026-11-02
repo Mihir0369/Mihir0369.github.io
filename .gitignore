@@ -1,0 +1,17 @@
+# Data and generated files (re-create with the loader scripts)
+*.db
+*.zip
+stg_requests.csv
+requests_monthly_agg.csv
+**/data/
+**/__pycache__/
+.venv/
+
+# Power BI local files
+**/.pbi/
+**/*.abf
+**/localSettings.json
+**/cache.abf
+
+# Editor and tool settings
+.claude/

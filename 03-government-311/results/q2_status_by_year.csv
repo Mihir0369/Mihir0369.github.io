@@ -1,0 +1,13 @@
+year,status_group,requests,pct_of_year
+2023,Cancelled,47693,11.5
+2023,Open,40281,9.7
+2023,Resolved,321562,77.6
+2023,Unknown,4746,1.1
+2024,Cancelled,47128,10.8
+2024,Open,40864,9.4
+2024,Resolved,340217,77.8
+2024,Unknown,8834,2.0
+2025,Cancelled,51669,10.3
+2025,Open,38863,7.8
+2025,Resolved,402820,80.5
+2025,Unknown,6917,1.4

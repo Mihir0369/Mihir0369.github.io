@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "start",
+    "overview",
+    "outcomes",
+    "types",
+    "detail",
+    "tip_status"
+  ],
+  "activePageName": "start"
+}

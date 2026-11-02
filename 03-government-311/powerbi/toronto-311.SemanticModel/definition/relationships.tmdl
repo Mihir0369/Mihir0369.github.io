@@ -1,0 +1,16 @@
+relationship requests_to_date
+	fromColumn: requests.MonthStart
+	toColumn: Date.Date
+
+relationship requests_to_division
+	fromColumn: requests.division_group
+	toColumn: Dim_Division.Division
+
+relationship requests_to_servicetype
+	fromColumn: requests.service_request_type
+	toColumn: Dim_ServiceType.'Service Type'
+
+relationship requests_to_status
+	fromColumn: requests.status_group
+	toColumn: Dim_Status.Status
+
