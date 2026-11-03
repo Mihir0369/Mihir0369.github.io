@@ -115,6 +115,54 @@ window.PROJECTS = [
       { label: "Download report (PDF)", file: "downloads/toronto-311-report.pdf", note: "All four report pages, as exported from Power BI Desktop." },
       { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
     ],
+    story: {
+      dek: "Toronto publishes every 311 request. I looked at 1.35 million of them from 2023 to 2025 to answer two questions a city manager faces: where do requests stay unresolved, and what is really behind the growth in demand?",
+      meta: [
+        { k: "Data", v: "City of Toronto Open Data, 311 Service Requests, 2023 to 2025 (real, Open Government Licence)" },
+        { k: "Scope", v: "1,351,594 requests, 7 divisions, 829 request types" },
+        { k: "Tools", v: "Power BI, DAX, Power Query, SQL, Python" }
+      ],
+      findings: [
+        "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
+        "Demand grew 14.5% in 2025, to 500,269 requests, but part of that is new request types, not more problems.",
+        "58.2% of 2025 requests sit under renamed or new request types, so year-over-year growth by type is not valid.",
+        "Dead-wildlife pick-up is cancelled 38.8% of the time, the highest of any large request type."
+      ],
+      chapters: [
+        { n: "01 \u00b7 DEMAND", ch: 0, title: "Demand rose 14.5%, but not all of it is new demand",
+          paras: ["Requests went from 414,282 in 2023 to 437,043 in 2024 and 500,269 in 2025.",
+                  "February 2025 alone had 53,707 requests, against 24,871 a year earlier, and 19,876 of them were snow types that only exist from January 2025. The true rise is smaller than the headline suggests."],
+          note: "With this data I cannot separate more demand from better capture.",
+          tabs: ["By month", "By year"], src: "Source: Open Data Toronto, 311 Service Requests, 2023 to 2025." },
+        { n: "02 \u00b7 WHERE IT STALLS", ch: 1, title: "One division leaves half its requests open",
+          paras: ["49.4% of 2025 requests in parks, forestry and environment are open, and so are 44.7% of its 2023 requests, so these are old requests and not only recent ones. Every other division is between 1.4% and 6.6%.",
+                  "Inside the division, general pruning is 66.2% open and tree removal 73.3%."],
+          note: "An open status could mean a real backlog or a status nobody updated. The data cannot separate the two.",
+          tabs: ["By division", "By division and year", "Forestry types"], src: "Open = status Open or In Progress at the data snapshot. No close date is published." },
+        { n: "03 \u00b7 A NAMING TRAP", ch: 2, title: "Renamed request types break year-over-year growth",
+          paras: ["255 type names appear only in 2025 and cover 58.2% of that year's requests. Bin lid repairs, for example, were renamed.",
+                  "So type-level growth is only valid within 2023 to 2024 or within 2025. The report adds a Taxonomy Era filter and a warning instead of showing invalid growth rates."],
+          note: "This is the trap of comparing years: what looks like growth can be a new label.",
+          tabs: ["Renamed share", "February snow types"], src: "Type names compared between February 2024 and February 2025." },
+        { n: "04 \u00b7 CANCELLATIONS", ch: 3, title: "Some request types are cancelled far more than others",
+          paras: ["10.3% of 2025 requests were cancelled, but dead-wildlife pick-up was cancelled 38.8% of the time (6,026 of 15,513) and missed recycling pick-up 28.6%.",
+                  "Repeat or duplicate calls are one possible reason, but I have not tested it."],
+          note: "Shown for 2025 request types with at least 5,000 requests.", tabs: [], src: "Source: Open Data Toronto, 311 Service Requests, 2025." }
+      ],
+      recs: [
+        { who: "Parks, Forestry and Environment lead", title: "Audit the open requests and publish expected waits", text: "Check whether the old open requests are a real backlog or statuses never updated, then set expected waits for pruning and tree removal.", measure: "Measure: open share, 49.4% in 2025" },
+        { who: "311 data team", title: "Publish a closed date and a type-rename mapping", text: "A closed date makes time to close measurable. A mapping table keeps year-over-year comparisons valid when types are renamed.", measure: "Measure: share of requests with a time to close" },
+        { who: "311 service operations", title: "Test why some types are cancelled so often", text: "Check whether duplicate or repeat calls drive cancellations on dead-wildlife and missed-pickup requests. This is a hypothesis, not a finding.", measure: "Measure: cancelled share, 10.3% overall" }
+      ],
+      recNote: "These are proposals. The data has no before-and-after, so I do not claim a measured effect.",
+      pipeline: [
+        { i: "01 \u00b7 SOURCE", b: "Open Data Toronto", s: "Three yearly request files, 1,351,594 rows" },
+        { i: "02 \u00b7 PREPARE", b: "Python and SQL", s: "Repaired about 8% of rows broken by an unquoted comma; grouped statuses and the renamed division" },
+        { i: "03 \u00b7 CHECK", b: "Reconciliation", s: "Ten SQL queries; totals, yearly counts and shares reconciled to the report" },
+        { i: "04 \u00b7 MODEL", b: "Star schema", s: "One fact table of monthly counts, four dimensions, 47 DAX measures" },
+        { i: "05 \u00b7 REPORT", b: "Power BI", s: "4 pages with drill-through, a tooltip page, navigation and a custom theme" }
+      ]
+    },
     brief: {
       findings: [
         "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",

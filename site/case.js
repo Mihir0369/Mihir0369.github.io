@@ -65,16 +65,16 @@
     }
   };
 
-  function viz(c, host) {
-    var box = el("div", { "class": "viz" });
-    if (c.title) box.appendChild(el("div", { "class": "viz-title" }, c.title));
+  function viz(c, host, bare) {
+    var box = bare ? host : el("div", { "class": "viz" });
+    if (c.title && !bare) box.appendChild(el("div", { "class": "viz-title" }, c.title));
     var type = c.type || "bar";
     var horizontal = type === "bar" && c.orient !== "v";
     var n = c.labels.length;
     var h = type === "line" ? 300 : type === "doughnut" ? 270 : horizontal ? Math.max(200, n * (c.datasets ? 62 : 38) + 70) : 280;
     var holder = el("div", { "class": "chartbox", style: "height:" + h + "px" });
     var canvas = el("canvas", { role: "img", "aria-label": c.title || "chart" });
-    holder.appendChild(canvas); box.appendChild(holder); host.appendChild(box);
+    holder.appendChild(canvas); box.appendChild(holder); if (!bare) host.appendChild(box);
     if (!window.Chart) { holder.appendChild(slot("Chart library did not load (offline?).")); return; }
 
     var data, options;
@@ -125,6 +125,110 @@
   if (!p) { main.appendChild(el("p", {}, "Case study not found.")); return; }
   document.title = p.title;
   var charts = p.charts || (p.chart ? [p.chart] : []);
+
+  /* Story layout: facts, report, findings, chapters, recommendations, method */
+  function renderStory() {
+    var S = p.story;
+    function div(cls, parent, text) { var d = el("div", cls ? { "class": cls } : {}, text); if (parent) parent.appendChild(d); return d; }
+    function sec(cls, title) { var s = el("section", { "class": cls }); if (title) s.appendChild(el("h2", {}, title)); main.appendChild(s); return s; }
+
+    var h = sec("case-head s-head");
+    var cr = div("crumbs", h);
+    cr.appendChild(el("a", { href: "index.html#work" }, "Work")); cr.appendChild(document.createTextNode(" / " + p.sector));
+    h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
+    h.appendChild(el("h1", {}, p.title));
+    h.appendChild(el("p", { "class": "dek" }, S.dek));
+    var fr = div("facts", h);
+    p.kpis.forEach(function (k) {
+      var f = div("fact", fr);
+      div("k", f, k.label); div("v", f, k.value); div("s", f, k.sub || "");
+    });
+    var mr = div("meta-row", h);
+    S.meta.forEach(function (m) {
+      var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": ")); sp.appendChild(document.createTextNode(m.v)); mr.appendChild(sp);
+    });
+
+    var r = sec("s-pbi");
+    var rh = div("pbi-head", r);
+    var rl = div("", rh);
+    rl.appendChild(el("h2", {}, "Power BI report"));
+    rl.appendChild(el("p", {}, "Exported from Power BI Desktop. Select a page to view it full size."));
+    var ps = div("pbi-stats", rh);
+    p.stats.forEach(function (s) { var d = div("", ps); d.appendChild(el("b", {}, s.value)); d.appendChild(el("span", {}, s.label)); });
+    r.appendChild(gallery());
+    var pf = div("pbi-foot", r);
+    var chp = div("chips", pf);
+    p.techniques.slice(0, 7).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
+    var dls = div("dls", pf);
+    p.downloads.forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn " + (i ? "primary" : "ghost"), href: d.file, download: "" }, d.label)); });
+    r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
+
+    var kf = sec("s-tldr", "Key findings");
+    var ol = el("ol"); S.findings.forEach(function (t) { ol.appendChild(el("li", {}, t)); }); kf.appendChild(ol);
+
+    S.chapters.forEach(function (ch) {
+      var cs = sec("s-chapter");
+      var tx = div("text", cs);
+      div("n", tx, ch.n);
+      tx.appendChild(el("h2", {}, ch.title));
+      ch.paras.forEach(function (t) { tx.appendChild(el("p", {}, t)); });
+      if (ch.note) tx.appendChild(el("p", { "class": "note" }, ch.note));
+      var vc = div("s-viz", cs);
+      var vis = p.chapters[ch.ch].visuals.map(function (v) { return v.ref != null ? charts[v.ref] : v; });
+      var title = div("vt", vc);
+      var seg = null;
+      if (vis.length > 1) { var ctl = div("ctl", vc); seg = div("seg", ctl); }
+      var holder = div("cv-host", vc);
+      div("src", vc, ch.src);
+      function show(i) {
+        var old = holder.querySelector("canvas");
+        if (old && window.Chart && Chart.getChart(old)) Chart.getChart(old).destroy();
+        holder.innerHTML = "";
+        title.textContent = vis[i].title;
+        viz(vis[i], holder, true);
+        if (seg) Array.prototype.forEach.call(seg.children, function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+      }
+      if (seg) vis.forEach(function (v, i) {
+        var b = el("button", { type: "button", "aria-pressed": "false" }, ch.tabs[i]);
+        b.addEventListener("click", function () { show(i); });
+        seg.appendChild(b);
+      });
+      show(0);
+    });
+
+    var rc = sec("s-block", "Recommendations");
+    var rg = div("s-recs", rc);
+    S.recs.forEach(function (x) {
+      var d = div("rec", rg);
+      div("who", d, x.who);
+      d.appendChild(el("h3", {}, x.title));
+      d.appendChild(el("p", {}, x.text));
+      div("m", d, x.measure);
+    });
+    if (S.recNote) rc.appendChild(el("p", { "class": "pbi-note" }, S.recNote));
+
+    var mt = sec("s-block", "Data, model and method");
+    var pl = div("pipeline", mt);
+    S.pipeline.forEach(function (x) {
+      var d = div("step", pl);
+      div("i", d, x.i); d.appendChild(el("b", {}, x.b)); d.appendChild(el("span", {}, x.s));
+    });
+    var bg = div("build-grid", mt);
+    var p1 = div("panel", bg);
+    p1.appendChild(el("h3", {}, "Core measures (from the model)"));
+    var pre = el("pre", { "class": "code" });
+    pre.textContent = p.model.measures.map(function (m) { return m.name + " =\n    " + m.dax; }).join("\n\n");
+    p1.appendChild(pre);
+    var p2 = div("panel", bg);
+    p2.appendChild(el("h3", {}, "Limits of this analysis"));
+    p2.appendChild(ul(p.limits));
+
+    var gh = el("p", { "class": "pbi-note" });
+    gh.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
+    gh.appendChild(el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
+    mt.appendChild(gh);
+  }
+  if (p.story) { renderStory(); return; }
 
   /* ---- head */
   var head = el("section", { "class": "case-head" });
