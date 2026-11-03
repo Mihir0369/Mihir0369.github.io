@@ -111,6 +111,10 @@ window.PROJECTS = [
       { action: "Publish a mapping table whenever request types are renamed.", owner: "311 data owner", track: "Share of requests under renamed or new types that map back to a prior type: 58.2% of 2025 requests are affected today." },
       { action: "Test whether duplicate or repeat calls drive cancellations on the cancel-heavy types. This is a hypothesis, not a finding.", owner: "311 service operations", track: "Cancelled share: 10.3% overall in 2025, 38.8% for dead-wildlife pick-up." }
     ],
+    downloads: [
+      { label: "Download report (PDF)", file: "downloads/toronto-311-report.pdf", note: "All four report pages, as exported from Power BI Desktop." },
+      { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
+    ],
     stats: [
       { value: "4", label: "report pages", sub: "+ drill-through and tooltip" },
       { value: "41", label: "data visuals", sub: "cards, charts, slicers, tables" },

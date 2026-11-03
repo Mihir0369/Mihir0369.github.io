@@ -215,3 +215,7 @@ iframe.embed { width: 100%; height: 620px; border: 0; border-radius: var(--radiu
 .st small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .chip { background: var(--accent-soft); color: var(--navy); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13.5px; }
+
+.downloads { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 18px; }
+.dl p { margin: 8px 0 0; font-size: 14px; color: var(--muted); max-width: 48ch; }
+.build .downloads { order: 3; } .build { display: flex; flex-direction: column; }

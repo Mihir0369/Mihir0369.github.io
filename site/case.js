@@ -157,6 +157,16 @@
       sr.appendChild(d);
     });
     bs.appendChild(sr);
+    if (p.downloads) {
+      var dl = el("div", { "class": "downloads" });
+      p.downloads.forEach(function (d) {
+        var box = el("div", { "class": "dl" });
+        box.appendChild(el("a", { "class": "btn primary", href: d.file, download: "" }, d.label));
+        box.appendChild(el("p", {}, d.note));
+        dl.appendChild(box);
+      });
+      bs.appendChild(dl);
+    }
     if (p.techniques) {
       var ch = el("div", { "class": "chips" });
       p.techniques.forEach(function (t) { ch.appendChild(el("span", { "class": "chip" }, t)); });
