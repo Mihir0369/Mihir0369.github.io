@@ -105,6 +105,20 @@ window.PROJECTS = [
       "Publish a mapping table whenever request types are renamed, so year-over-year comparisons stay possible.",
       "Review the cancel-heavy types, such as dead-wildlife pick-up and missed recycling, to test whether duplicate or repeat calls are behind the cancellations. This is a hypothesis I have not tested."
     ],
+    impact: [
+      { action: "Audit the open parks, forestry and environment requests and publish expected waits for pruning and tree removal.", owner: "Division lead, Parks, Forestry and Environment", track: "Open share of the division's requests: 49.4% in 2025, against 1.4% to 6.6% elsewhere." },
+      { action: "Add a closed date to the open dataset so time to close can be measured.", owner: "Open data and 311 data team", track: "Share of requests with a measurable time to close: 0% today." },
+      { action: "Publish a mapping table whenever request types are renamed.", owner: "311 data owner", track: "Share of requests under renamed or new types that map back to a prior type: 58.2% of 2025 requests are affected today." },
+      { action: "Test whether duplicate or repeat calls drive cancellations on the cancel-heavy types. This is a hypothesis, not a finding.", owner: "311 service operations", track: "Cancelled share: 10.3% overall in 2025, 38.8% for dead-wildlife pick-up." }
+    ],
+    impactNote: "These are proposals. The data has no before-and-after, so I do not claim a measured effect.",
+    pitfalls: [
+      { title: "A broken CSV", text: "About 8% of rows had an unquoted comma inside the division name, which shifted every later column. I repaired them in the loader and reconciled row counts against the source files." },
+      { title: "Two spellings, one type", text: "SQL counted 255 renamed types and the model counts 254, because \"Picked\" and \"PIcked\" differ only by case and DAX merges them. Request totals match exactly." },
+      { title: "Status is a snapshot", text: "With no close date, open share is a status at extraction time, so I never trend it as if it were a rate. Cards only compare same-year or same-volume figures." },
+      { title: "Renamed types break year-over-year", text: "Type names changed in January 2025. I added an era flag to the type dimension and a warning on the Types page rather than show invalid growth rates." },
+      { title: "A February spike with two explanations", text: "February 2025 requests more than doubled on February 2024, but 19,876 were snow types that only exist from 2025. I report it as unresolved: more demand, better capture, or both." }
+    ],
     limits: [
       "No close date: I report request status as of the data snapshot, not how long anything took.",
       "An open status could mean a genuine backlog or a status never updated. The data cannot separate the two.",

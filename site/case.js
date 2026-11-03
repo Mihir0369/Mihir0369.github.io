@@ -216,8 +216,25 @@
     charts.forEach(function (c) { var h = el("div"); viz(c, h); section(c.title, h); });
   }
 
-  /* ---- recommendations */
-  if (p.recommend.length) {
+  /* ---- impact: who acts, what changes, what to track */
+  if (p.impact && p.impact.length) {
+    var imp = el("div", { "class": "recs impact" });
+    p.impact.forEach(function (x, i) {
+      var c = el("div", { "class": "rec" });
+      c.appendChild(el("span", { "class": "rn" }, String(i + 1)));
+      var b = el("div");
+      b.appendChild(el("p", {}, x.action));
+      var m = el("p", { "class": "rec-meta" });
+      m.appendChild(el("strong", {}, "Who: ")); m.appendChild(document.createTextNode(x.owner));
+      m.appendChild(el("br"));
+      m.appendChild(el("strong", {}, "Track: ")); m.appendChild(document.createTextNode(x.track));
+      b.appendChild(m);
+      c.appendChild(b);
+      imp.appendChild(c);
+    });
+    if (p.impactNote) imp.appendChild(el("p", { "class": "note" }, p.impactNote));
+    section("Impact: what should change", imp);
+  } else if (p.recommend.length) {
     var rec = el("div", { "class": "recs" });
     p.recommend.forEach(function (t, i) {
       var c = el("div", { "class": "rec" });
@@ -231,6 +248,31 @@
   }
 
   section("What I did", ul(p.approach));
+
+  /* ---- pitfalls and decisions */
+  if (p.pitfalls && p.pitfalls.length) {
+    var pf = el("div", { "class": "recs pitfalls" });
+    p.pitfalls.forEach(function (x) {
+      var c = el("div", { "class": "rec" });
+      var b = el("div");
+      b.appendChild(el("h3", {}, x.title));
+      b.appendChild(el("p", {}, x.text));
+      c.appendChild(b);
+      pf.appendChild(c);
+    });
+    section("Pitfalls and decisions", pf);
+  }
+
+  /* ---- live report or walkthrough, shown only when a link exists */
+  if (p.embed) {
+    var fr = el("iframe", { src: p.embed, title: p.title + " live report", loading: "lazy", allowfullscreen: "true" });
+    fr.className = "embed";
+    section("Live report", fr);
+  } else if (p.walkthrough) {
+    var vf = el("iframe", { src: p.walkthrough, title: p.title + " walkthrough", loading: "lazy", allowfullscreen: "true" });
+    vf.className = "embed";
+    section("Walkthrough", vf);
+  }
 
   /* ---- model: explanation left, star schema right */
   if (p.model) {

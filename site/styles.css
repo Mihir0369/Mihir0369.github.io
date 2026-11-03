@@ -196,3 +196,12 @@ footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 24px 0 40
 
 .chapter .split-text { position: sticky; top: 20px; }
 @media (max-width: 880px) { .chapter .split-text { position: static; } }
+
+/* impact and pitfalls cards, live report embed */
+.rec-meta { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.rec-meta strong { color: var(--navy); }
+.recs.pitfalls .rec h3 { margin: 0 0 4px; font-size: 16px; color: var(--navy); }
+.recs.pitfalls .rec p { margin: 0; }
+iframe.embed { width: 100%; height: 620px; border: 0; border-radius: var(--radius); background: var(--surface); }
+.recs > .note { grid-column: 1 / -1; margin: 0; }
+.recs.impact { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 700px) { .recs.impact { grid-template-columns: 1fr; } }
