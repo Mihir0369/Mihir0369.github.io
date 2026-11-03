@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "household-credit"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "214edc9e-20f1-56b9-8f15-0baf6109459c"
+  }
+}

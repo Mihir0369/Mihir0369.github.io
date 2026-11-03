@@ -41,3 +41,28 @@ Mortgage Spread to Prime = [5Y Mortgage Rate] - [Prime Rate]
 
 ## Stretch
 Add a simple lagged correlation between rate changes and credit growth. State clearly that this is correlation, not causation.
+
+---
+
+## What was built (results)
+
+**Run order**
+1. `python fetch_banking_data.py` downloads the rates and the three Statistics Canada tables into `banking.db` and raw CSVs (not committed).
+2. `python build_model_data.py` writes the model-ready tables to `model/` and prints the checks.
+3. `python build_powerbi.py` generates the Power BI project in `powerbi/` (open `household-credit.pbip`). Re-running it overwrites that folder, so edit the script, not the output.
+
+**Report pages:** Start here, Rates, Credit, Rate lag. A Reset filters button clears the slicers; the Year filter carries across Rates and Credit.
+
+**Model:** `fact_credit`, `fact_rates`, `fact_debt`, `lag_correlation`, plus `Date`, `Dim_Category`, `Dim_DebtMeasure` and `LagSteps` (the lag selector), and a measures table with 51 DAX measures.
+
+**Results (checked against the model tables)**
+- Household credit: $1.5 trillion (Jan 2010) to $3.3 trillion (Aug 2026). Year-over-year growth peaked at 8.7% (May 2022), fell to 3.5% by Oct 2023 and is 4.1% now.
+- Prime rate: 2.45% (Feb 2022) to 7.20% (Jul 2023, held 11 months), 4.45% now.
+- Credit growth versus the prime-rate change over the previous 12 months is most negative at an 18-month lag: correlation -0.52 over 170 months (-0.17 at 6 months, -0.43 at 12). Using the rate level instead gives a best lag of about 8 months, so the delay depends on the method.
+- Debt service ratio: 12.6% (Apr 2020 quarter), 15.2% (Jan 2023 quarter), 14.5% now.
+
+**Data traps handled**
+- Category names repeat across the lender hierarchy (for example "Chartered banks" appears under several parents), so only the 8 categories that appear once per month are used.
+- Auto loans start in 2016; this is the only gap.
+- Credit cards (2011 to 2012) and personal loans (2013 to 2014) show year-over-year spikes above 20% that look like reclassifications, so they are used as latest-month figures only.
+- Credit data ends Aug 2026, rates Oct 2026 and debt service Apr 2026.

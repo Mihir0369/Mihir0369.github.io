@@ -1,0 +1,14 @@
+table LagSteps
+	lineageTag: 874868f6-4e09-5405-adac-e9b0113331ce
+
+	column 'Lag Months'
+		dataType: int64
+		formatString: 0
+		lineageTag: 87d4c492-a8a6-5a43-b059-d882f2e61a8f
+		summarizeBy: none
+		sourceColumn: [Lag Months]
+
+	partition LagSteps = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS ( GENERATESERIES ( 0, 24, 1 ), "Lag Months", [Value] )

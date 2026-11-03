@@ -109,7 +109,12 @@
       var grouped = !!c.datasets;
       var yearCols = [COL.light, "#5F7C99", COL.navy];
       var datasets = grouped
-        ? c.datasets.map(function (d, i) { return { label: d.label, data: d.values, backgroundColor: d.color || yearCols[i % 3], borderWidth: 0 }; })
+        ? c.datasets.map(function (d, i) {
+            var lc = d.color || [COL.navy, COL.teal, COL.amber][i % 3];
+            return type === "line"
+              ? { label: d.label, data: d.values, borderColor: lc, backgroundColor: lc, borderWidth: 3, pointRadius: 0, tension: 0.2, spanGaps: false }
+              : { label: d.label, data: d.values, backgroundColor: d.color || yearCols[i % 3], borderWidth: 0 };
+          })
         : [{ data: c.values, borderWidth: type === "line" ? 3 : 0, tension: 0.25, pointRadius: type === "line" ? 2 : 0,
              borderColor: COL.navy,
              backgroundColor: c.highlight != null ? c.values.map(function (v, i) { return i === c.highlight ? COL.amber : COL.grey; }) : COL.navy }];
@@ -120,7 +125,7 @@
       data = { labels: c.labels, datasets: datasets };
       options = { maintainAspectRatio: false, indexAxis: horizontal ? "y" : "x",
         layout: { padding: { right: horizontal && !grouped ? 48 : 8, top: !horizontal && type === "bar" ? 18 : 0 } },
-        plugins: { legend: { display: grouped, position: "bottom" }, valueLabels: { show: type === "bar" && !grouped, suffix: c.suffix },
+        plugins: { legend: { display: grouped, position: "bottom" }, valueLabels: { show: type === "bar" && !grouped && !c.noLabels, suffix: c.suffix },
           tooltip: { callbacks: { label: function (x) { return " " + (x.dataset.label ? x.dataset.label + ": " : "") + fmt(x.raw, c.suffix); } } } },
         scales: horizontal ? { x: valAxis, y: catAxis } : { x: catAxis, y: valAxis } };
     }
@@ -181,7 +186,10 @@
     put(code.slice(last));
   }
   function renderStory() {
-    var S = p.story;
+    var S = p.story || {
+      dek: p.summary,
+      meta: [{ k: "Data", v: p.source + " (" + p.provenance.toLowerCase() + ")" }, { k: "Tools", v: p.tools.join(", ") }]
+    };
     function div(cls, parent, text) { var d = el("div", cls ? { "class": cls } : {}, text); if (parent) parent.appendChild(d); return d; }
     function sec(cls, title) { var s = el("section", { "class": cls }); if (title) s.appendChild(el("h2", {}, title)); main.appendChild(s); return s; }
 
@@ -191,7 +199,8 @@
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));
-    h.appendChild(cardRow(p.kpis, "kpis", true));
+    h.appendChild(p.kpis ? cardRow(p.kpis, "kpis", true)
+      : cardRow([{ label: p.headline.label, value: p.headline.value == null ? "to fill in" : p.headline.value, sub: "Headline result", icon: "bars" }], "kpis one", true));
     var mr = div("meta-row", h);
     S.meta.forEach(function (m) {
       var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": ")); sp.appendChild(document.createTextNode(m.v)); mr.appendChild(sp);
@@ -203,19 +212,25 @@
     rl.appendChild(el("h2", {}, "Power BI report"));
     rl.appendChild(el("p", {}, "Exported from Power BI Desktop. Select a page to view it full size."));
     var ps = div("pbi-stats", rh);
-    p.stats.forEach(function (s) { var d = div("pst", ps); d.appendChild(el("span", {}, s.label)); d.appendChild(el("b", {}, s.value)); });
-    r.appendChild(gallery());
+    (p.stats || []).forEach(function (s) { var d = div("pst", ps); d.appendChild(el("span", {}, s.label)); d.appendChild(el("b", {}, s.value)); });
+    r.appendChild(p.shots && p.shots.length ? gallery() : slot("Power BI report screenshots: to add once the report is built."));
     var pf = div("pbi-foot", r);
     var chp = div("chips", pf);
-    (S.chips || p.techniques.slice(0, 7)).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
+    (S.chips || (p.techniques || []).slice(0, 7)).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
     var dls = div("dls", pf);
-    p.downloads.forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn " + (i ? "primary" : "ghost"), href: d.file, download: "" }, d.label)); });
-    r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
+    (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn " + (i ? "primary" : "ghost"), href: d.file, download: "" }, d.label)); });
+    if (p.downloads) r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
 
     var kf = sec("s-tldr", "Key findings");
-    var ol = el("ol"); S.findings.forEach(function (t) { ol.appendChild(rich(el("li"), t)); }); kf.appendChild(ol);
+    var fnd = S.findings || p.found || [];
+    if (fnd.length) { var ol = el("ol"); fnd.forEach(function (t) { ol.appendChild(rich(el("li"), t)); }); kf.appendChild(ol); }
+    else kf.appendChild(slot("Findings to fill in after the analysis: 3 to 5 findings, each with a number and its sample size."));
 
-    S.chapters.forEach(function (ch) {
+    if (!S.chapters) {
+      var an = sec("s-block", "Analysis");
+      an.appendChild(slot("Chapters to fill in: each one a claim, two short paragraphs and one chart."));
+    }
+    (S.chapters || []).forEach(function (ch) {
       var cs = sec("s-chapter");
       var tx = div("text", cs);
       div("n", tx, ch.n);
@@ -246,33 +261,38 @@
     });
 
     var rc = sec("s-block", "Recommendations");
+    var recs = S.recs || (p.recommend || []).map(function (t) { return { text: t }; });
     var rg = div("s-recs", rc);
-    S.recs.forEach(function (x) {
+    if (!recs.length) rc.appendChild(slot("Recommendations to fill in: 2 to 3 actions, each with who should act and what to measure."));
+    recs.forEach(function (x) {
       var d = div("rec", rg);
-      div("who", d, x.who);
-      d.appendChild(el("h3", {}, x.title));
+      if (x.who) div("who", d, x.who);
+      if (x.title) d.appendChild(el("h3", {}, x.title));
       d.appendChild(rich(el("p"), x.text));
-      div("m", d, x.measure);
+      if (x.measure) div("m", d, x.measure);
     });
     if (S.recNote) rc.appendChild(el("p", { "class": "pbi-note" }, S.recNote));
 
     var mt = sec("s-block", "Data, model and method");
     var pl = div("pipeline", mt);
-    S.pipeline.forEach(function (x) {
+    var pipe = S.pipeline || (p.approach || []).map(function (t, i) { return { i: "0" + (i + 1) + " \u00b7 STEP", s: t }; });
+    pipe.forEach(function (x) {
       var d = div("step", pl);
-      div("i", d, x.i); d.appendChild(el("b", {}, x.b)); d.appendChild(rich(el("span"), x.s));
+      div("i", d, x.i); if (x.b) d.appendChild(el("b", {}, x.b)); d.appendChild(rich(el("span"), x.s));
     });
     var bg = div("build-grid", mt);
-    var p1 = div("panel dax-panel", bg);
-    p1.appendChild(el("h3", {}, "Core measures (from the model)"));
-    var pre = el("pre", { "class": "code dax" });
-    p.model.measures.forEach(function (m, i) {
-      if (i) pre.appendChild(document.createTextNode("\n\n"));
-      pre.appendChild(el("span", { "class": "dx-name" }, m.name + " ="));
-      pre.appendChild(document.createTextNode("\n"));
-      dax(pre, m.dax);
-    });
-    p1.appendChild(pre);
+    if (p.model && p.model.measures) {
+      var p1 = div("panel dax-panel", bg);
+      p1.appendChild(el("h3", {}, "Core measures (from the model)"));
+      var pre = el("pre", { "class": "code dax" });
+      p.model.measures.forEach(function (m, i) {
+        if (i) pre.appendChild(document.createTextNode("\n\n"));
+        pre.appendChild(el("span", { "class": "dx-name" }, m.name + " ="));
+        pre.appendChild(document.createTextNode("\n"));
+        dax(pre, m.dax);
+      });
+      p1.appendChild(pre);
+    } else { bg.className += " solo"; }
     var p2 = div("panel", bg);
     p2.appendChild(el("h3", {}, "Limits of this analysis"));
     var lu = el("ul");
@@ -290,7 +310,7 @@
     });
     main.appendChild(nv);
   }
-  if (p.story) { renderStory(); return; }
+  renderStory(); return;
 
   /* ---- head */
   var head = el("section", { "class": "case-head" });

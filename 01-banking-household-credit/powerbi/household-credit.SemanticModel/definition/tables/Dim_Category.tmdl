@@ -1,0 +1,34 @@
+table Dim_Category
+	lineageTag: 36cacc45-12aa-549b-b9ec-ebd4ffab2674
+
+	column Category
+		lineageTag: f04c9364-043d-5141-893e-66e2f7c728bf
+		summarizeBy: none
+		sourceColumn: [Category]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 50ecc3f9-7753-51ba-add9-efa5d5796619
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Category = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Category", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Total household credit", 1 },
+				        { "Mortgage loans", 2 },
+				        { "Non-mortgage loans", 3 },
+				        { "Credit cards", 4 },
+				        { "Lines of credit", 5 },
+				        { "Home equity lines of credit", 6 },
+				        { "Personal loans", 7 },
+				        { "Auto loans", 8 }
+				    }
+				)

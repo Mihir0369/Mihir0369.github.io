@@ -1,0 +1,38 @@
+table lag_correlation
+	lineageTag: f12ab367-63a6-5553-badf-80a7eccc212e
+
+	column lag_months
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: fbc2136b-1a70-5f7a-85ba-9ae18a807d00
+		summarizeBy: none
+		sourceColumn: lag_months
+
+	column correlation
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 2d3802b1-b4d9-53b6-8598-f47b80d3d76b
+		summarizeBy: none
+		sourceColumn: correlation
+
+	column n
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: fec2a478-26cd-5077-b67e-ad1b02116c08
+		summarizeBy: none
+		sourceColumn: n
+
+	partition lag_correlation = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\lag_correlation.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"lag_months", Int64.Type}, {"correlation", type number}, {"n", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,4 @@
+expression ModelFolder = "C:\Users\12268\Desktop\Co-op\FInal\Portfolio Projects\01-banking-household-credit\model" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 99a55017-acb3-5ac4-adb4-89cfe3416502
+
+	annotation PBI_ResultType = Text

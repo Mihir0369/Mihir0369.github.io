@@ -1,0 +1,19 @@
+relationship credit_to_date
+	fromColumn: fact_credit.MonthStart
+	toColumn: Date.Date
+
+relationship credit_to_category
+	fromColumn: fact_credit.category
+	toColumn: Dim_Category.Category
+
+relationship rates_to_date
+	fromColumn: fact_rates.MonthStart
+	toColumn: Date.Date
+
+relationship debt_to_date
+	fromColumn: fact_debt.quarter_start
+	toColumn: Date.Date
+
+relationship debt_to_measure
+	fromColumn: fact_debt.debt_measure
+	toColumn: Dim_DebtMeasure.'Debt measure'

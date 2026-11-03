@@ -17,3 +17,6 @@ requests_monthly_agg.csv
 .claude/
 
 !site/downloads/*.zip
+
+# Project 01: raw downloads are re-created by fetch_banking_data.py
+01-banking-household-credit/*.csv

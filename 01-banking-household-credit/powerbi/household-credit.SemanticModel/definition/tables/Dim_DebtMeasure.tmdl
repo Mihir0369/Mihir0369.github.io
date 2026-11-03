@@ -1,0 +1,29 @@
+table Dim_DebtMeasure
+	lineageTag: 855ad736-7840-5736-9023-497d90bb0cc3
+
+	column 'Debt measure'
+		lineageTag: ece636f1-5817-5ff3-bf5b-5b97d822e7a7
+		summarizeBy: none
+		sourceColumn: [Debt measure]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 50ecc3f9-7753-51ba-add9-efa5d5796619
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_DebtMeasure = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Debt measure", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Total debt service ratio", 1 },
+				        { "Mortgage debt service ratio", 2 },
+				        { "Non-mortgage debt service ratio", 3 }
+				    }
+				)

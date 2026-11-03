@@ -24,8 +24,8 @@ window.PROJECTS = [
     summary: "Household credit balances set against the policy rate, prime and mortgage rates, to see how long rate changes take to show up in borrowing.",
     provenance: "Real",
     source: "Bank of Canada Valet API; Statistics Canada tables 36-10-0639, 38-10-0238, 11-10-0065",
-    tools: ["Power BI", "DAX", "SQL", "Python"],
-    headline: { value: null, label: "months until credit growth responds most to a rate change (lag with the strongest correlation)" },
+    tools: ["Power BI", "Power Query", "DAX", "Python"],
+    headline: { value: "18 months", label: "after a rate rise before credit growth is lowest (correlation -0.52)" },
     question: "When the Bank of Canada moves rates, how long before household borrowing and debt-service burden change, and in which credit categories?",
     data: "Daily rates from the Bank of Canada Valet API rolled up to months. Monthly household credit liabilities by category, plus quarterly credit summary and debt-service indicators, from Statistics Canada. Market-level data only: no customer or account records.",
     approach: [
@@ -34,15 +34,122 @@ window.PROJECTS = [
       "Compare YoY credit growth with rate changes at lags of 0 to 12 months, with a lag slicer.",
       "Document every DAX measure and its definition."
     ],
-    found: [],
-    recommend: [],
+    found: [
+      "Household credit grew from $1.5 trillion in January 2010 to $3.3 trillion in August 2026, 2.2 times as large.",
+      "Credit growth peaked at 8.7% in May 2022 and slowed to 3.5% by October 2023, after the prime rate rose from 2.45% to 7.20%.",
+      "Credit growth is lowest about 18 months after a rate rise, with a correlation of -0.52. At 6 months it is only -0.17.",
+      "Debt payments took 15.2% of household income in early 2023, up from 12.6% in the April 2020 quarter, and are 14.5% now."
+    ],
+    recommend: [
+      "Plan for a delayed response: expect credit growth to react to a rate change over about 1.5 years, not right away.",
+      "Track the debt service ratio each quarter next to rates; it was 15.2% in early 2023 and is 14.5% now.",
+      "Add delinquency data to test whether higher debt service led to missed payments; this public data cannot."
+    ],
     limits: [
       "Correlation is not causation: many things move at once when rates change.",
+      "Rates and credit both trend and the 12-month windows overlap, so the lag is a pattern, not a precise delay.",
       "The data is national and aggregated, so it says nothing about individual borrowers or default risk.",
-      "I did not find a Statistics Canada table with delinquency or arrears, so the project does not report it."
+      "I did not find a Statistics Canada table with delinquency or arrears, so the project does not report it.",
+      "Credit data ends in August 2026, rates in October 2026 and debt service in April 2026.",
+      "Credit cards and personal loans show jumps in 2011 to 2014 that look like reclassifications, so they are used as latest-month figures only."
     ],
     repo: "01-banking-household-credit",
-    chart: null
+    shots: [
+      { file: "images/hc-1-start.png", caption: "Start here: the question, three findings and how to use the report" },
+      { file: "images/hc-2-rates.png", caption: "Rates: policy, prime and 5-year mortgage rates, 2010 to 2026" },
+      { file: "images/hc-3-credit.png", caption: "Credit: growth for the total and each category, with a scorecard" },
+      { file: "images/hc-4-lag.png", caption: "Rate lag: pick a lag in months to compare credit growth with an earlier rate change" }
+    ],
+    kpis: [
+      { label: "Household credit", value: "$3.3T", sub: "As of Aug 2026", icon: "bars" },
+      { label: "Credit growth", value: "4.1%", sub: "\u25bc from 8.7% (May 2022)", icon: "clock" },
+      { label: "Prime rate", value: "4.45%", sub: "\u25bc from 7.20% (Jul 2023)", icon: "check" },
+      { label: "Strongest lag", value: "18 months", sub: "Correlation -0.52", icon: "warn" }
+    ],
+    stats: [
+      { value: "4", label: "report pages", sub: "" },
+      { value: "31", label: "data visuals", sub: "" },
+      { value: "9", label: "tables", sub: "4 data, 4 helper, 1 measures" },
+      { value: "5", label: "relationships", sub: "" },
+      { value: "51", label: "DAX measures", sub: "" }
+    ],
+    techniques: ["Star schema", "Date table", "Year-over-year DAX", "Lag selector", "DAX variables", "Reset-filters bookmark", "Custom theme (JSON)", "PBIP + TMDL project"],
+    downloads: [
+      { label: "Download report (PDF)", file: "downloads/household-credit-report.pdf", note: "All four report pages, as exported from Power BI Desktop." },
+      { label: "Download the Power BI project (.zip)", file: "downloads/household-credit-powerbi-project.zip", note: "The .pbip project plus the model CSVs. The README inside says how to set the CSV folder." }
+    ],
+    chapters: [
+      { visuals: [{ ref: 0 }] },
+      { visuals: [{ ref: 1 }, { ref: 2 }] },
+      { visuals: [{ ref: 3 }] },
+      { visuals: [{ ref: 4 }] }
+    ],
+    charts: [
+      {"type": "line", "title": "Policy, prime and 5-year mortgage rates by month (%)", "labels": ["2010-01", "2010-02", "2010-03", "2010-04", "2010-05", "2010-06", "2010-07", "2010-08", "2010-09", "2010-10", "2010-11", "2010-12", "2011-01", "2011-02", "2011-03", "2011-04", "2011-05", "2011-06", "2011-07", "2011-08", "2011-09", "2011-10", "2011-11", "2011-12", "2012-01", "2012-02", "2012-03", "2012-04", "2012-05", "2012-06", "2012-07", "2012-08", "2012-09", "2012-10", "2012-11", "2012-12", "2013-01", "2013-02", "2013-03", "2013-04", "2013-05", "2013-06", "2013-07", "2013-08", "2013-09", "2013-10", "2013-11", "2013-12", "2014-01", "2014-02", "2014-03", "2014-04", "2014-05", "2014-06", "2014-07", "2014-08", "2014-09", "2014-10", "2014-11", "2014-12", "2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12", "2016-01", "2016-02", "2016-03", "2016-04", "2016-05", "2016-06", "2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12", "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12", "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08", "2018-09", "2018-10", "2018-11", "2018-12", "2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "unit": "% per year", "noLabels": true, "datasets": [{"label": "Policy rate", "values": [0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.75, 0.75, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 1.0, 1.0, 1.0, 1.0, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.5, 1.5, 1.5, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 1.0, 1.0, 1.5, 2.5, 2.5, 3.25, 3.75, 3.75, 4.25, 4.5, 4.5, 4.5, 4.5, 4.5, 4.75, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.75, 4.5, 4.5, 4.25, 3.75, 3.75, 3.25, 3.0, 3.0, 2.75, 2.75, 2.75, 2.75, 2.75, 2.75, 2.5, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.5]}, {"label": "Prime rate", "values": [2.25, 2.25, 2.25, 2.25, 2.25, 2.5, 2.75, 2.75, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.85, 2.85, 2.85, 2.85, 2.85, 2.85, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.95, 2.95, 3.2, 3.2, 3.2, 3.2, 3.45, 3.45, 3.45, 3.45, 3.45, 3.45, 3.7, 3.7, 3.7, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 3.95, 2.95, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.45, 2.7, 3.2, 3.2, 3.7, 4.7, 4.7, 5.45, 5.45, 5.95, 6.45, 6.45, 6.7, 6.7, 6.7, 6.7, 6.95, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 7.2, 6.95, 6.7, 6.7, 6.45, 5.95, 5.95, 5.45, 5.45, 5.2, 4.95, 4.95, 4.95, 4.95, 4.95, 4.95, 4.7, 4.7, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45, 4.45]}, {"label": "5-year mortgage rate", "values": [5.49, 5.39, 5.85, 6.25, 5.99, 5.89, 5.79, 5.39, 5.39, 5.29, 5.44, 5.19, 5.19, 5.44, 5.34, 5.69, 5.59, 5.39, 5.39, 5.39, 5.19, 5.29, 5.29, 5.29, 5.29, 5.24, 5.24, 5.44, 5.34, 5.24, 5.24, 5.24, 5.24, 5.24, 5.24, 5.24, 5.24, 5.24, 5.14, 5.14, 5.14, 5.14, 5.14, 5.34, 5.34, 5.34, 5.34, 5.34, 5.24, 5.24, 4.99, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.74, 4.74, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.74, 4.74, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.64, 4.84, 4.84, 4.89, 4.99, 4.99, 4.99, 5.14, 5.14, 5.14, 5.14, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.34, 5.19, 5.19, 5.19, 5.19, 5.19, 5.19, 5.19, 5.19, 5.04, 5.04, 4.94, 4.94, 4.94, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.79, 4.99, 5.39, 6.04, 6.14, 6.14, 6.14, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.84, 6.84, 7.04, 7.04, 7.04, 6.89, 6.84, 6.84, 6.84, 6.84, 6.84, 6.79, 6.59, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.49, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.09, 6.19]}]},
+      {"type": "line", "title": "Year-over-year credit growth by month (%)", "labels": ["2010-01", "2010-02", "2010-03", "2010-04", "2010-05", "2010-06", "2010-07", "2010-08", "2010-09", "2010-10", "2010-11", "2010-12", "2011-01", "2011-02", "2011-03", "2011-04", "2011-05", "2011-06", "2011-07", "2011-08", "2011-09", "2011-10", "2011-11", "2011-12", "2012-01", "2012-02", "2012-03", "2012-04", "2012-05", "2012-06", "2012-07", "2012-08", "2012-09", "2012-10", "2012-11", "2012-12", "2013-01", "2013-02", "2013-03", "2013-04", "2013-05", "2013-06", "2013-07", "2013-08", "2013-09", "2013-10", "2013-11", "2013-12", "2014-01", "2014-02", "2014-03", "2014-04", "2014-05", "2014-06", "2014-07", "2014-08", "2014-09", "2014-10", "2014-11", "2014-12", "2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12", "2016-01", "2016-02", "2016-03", "2016-04", "2016-05", "2016-06", "2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12", "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12", "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08", "2018-09", "2018-10", "2018-11", "2018-12", "2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"], "unit": "% growth", "suffix": "%", "noLabels": true, "datasets": [{"label": "Total", "values": [7.7, 7.6, 7.5, 7.3, 7.4, 7.3, 6.9, 6.8, 6.7, 6.2, 6.2, 6.0, 6.5, 6.2, 6.2, 6.2, 6.0, 6.1, 6.3, 6.4, 6.3, 6.2, 6.2, 5.8, 5.2, 5.2, 5.4, 5.3, 5.0, 4.6, 4.3, 4.3, 4.3, 4.3, 4.1, 4.4, 4.3, 4.5, 4.3, 4.2, 4.2, 4.2, 4.6, 4.3, 4.3, 4.1, 4.3, 4.2, 4.4, 4.1, 4.2, 4.2, 4.2, 4.2, 4.1, 4.3, 4.5, 4.7, 4.7, 4.6, 4.8, 4.7, 4.7, 4.8, 5.0, 5.2, 5.3, 5.4, 5.4, 5.4, 5.5, 5.7, 5.7, 5.7, 5.8, 6.0, 5.9, 5.8, 5.8, 5.7, 5.7, 5.6, 5.6, 5.6, 5.6, 5.8, 5.8, 5.8, 5.8, 5.7, 5.8, 5.7, 5.5, 5.4, 5.4, 5.2, 5.1, 5.0, 4.8, 4.6, 4.5, 4.3, 4.2, 4.2, 4.2, 4.1, 4.1, 4.1, 3.9, 3.8, 3.8, 3.8, 3.9, 3.9, 3.8, 3.8, 3.7, 3.8, 3.7, 3.8, 4.0, 4.2, 3.8, 3.4, 2.9, 2.8, 2.9, 3.2, 3.5, 3.7, 4.0, 4.0, 4.1, 3.9, 4.4, 5.4, 6.1, 6.8, 7.1, 7.2, 7.2, 7.2, 7.5, 7.7, 8.0, 8.5, 8.7, 8.6, 8.7, 8.4, 8.2, 8.0, 7.7, 7.4, 6.8, 6.4, 5.9, 5.4, 5.0, 4.5, 4.1, 3.7, 3.6, 3.6, 3.5, 3.5, 3.6, 3.6, 3.7, 3.7, 3.7, 3.7, 3.7, 3.7, 3.8, 3.8, 4.0, 4.1, 4.3, 4.4, 4.4, 4.4, 4.5, 4.5, 4.6, 4.7, 4.5, 4.6, 4.6, 4.6, 4.5, 4.3, 4.4, 4.4, 4.4, 4.3, 4.2, 4.1, 4.2, 4.1]}, {"label": "Mortgages", "values": [7.8, 7.9, 8.0, 7.9, 8.6, 8.9, 8.5, 8.4, 8.3, 8.0, 8.1, 7.9, 8.1, 7.8, 7.9, 7.8, 7.5, 7.3, 7.7, 8.0, 8.0, 8.1, 7.9, 7.3, 7.2, 7.2, 7.3, 7.2, 6.7, 6.1, 5.6, 5.3, 5.3, 5.2, 5.1, 5.5, 5.4, 5.2, 4.9, 4.8, 4.9, 5.0, 5.4, 5.1, 5.0, 4.9, 5.2, 4.9, 4.9, 5.0, 5.0, 4.9, 4.9, 4.9, 4.7, 4.9, 5.1, 5.4, 5.3, 5.3, 5.5, 5.5, 5.5, 5.5, 5.7, 6.1, 6.3, 6.5, 6.6, 6.7, 6.9, 7.2, 7.2, 7.1, 7.2, 7.4, 7.3, 7.4, 7.3, 7.3, 7.4, 7.1, 7.0, 6.9, 6.8, 6.9, 6.9, 6.9, 6.9, 6.7, 6.7, 6.4, 6.1, 6.1, 6.0, 6.0, 5.9, 5.8, 5.6, 5.3, 5.1, 4.9, 4.8, 4.7, 4.7, 4.5, 4.4, 4.4, 4.3, 4.2, 4.3, 4.3, 4.5, 4.5, 4.5, 4.6, 4.6, 4.8, 4.8, 4.8, 5.0, 5.2, 5.3, 5.5, 5.3, 5.3, 5.5, 5.7, 6.2, 6.6, 7.0, 7.2, 7.4, 7.5, 7.8, 8.4, 9.1, 10.0, 10.4, 10.5, 10.4, 10.3, 10.5, 10.6, 10.7, 11.0, 10.9, 10.6, 10.5, 10.0, 9.6, 9.2, 8.9, 8.4, 7.6, 7.1, 6.5, 5.9, 5.5, 5.0, 4.4, 4.0, 3.8, 3.8, 3.7, 3.8, 3.8, 3.8, 3.7, 3.7, 3.7, 3.6, 3.7, 3.7, 3.7, 3.7, 3.8, 3.9, 4.1, 4.2, 4.5, 4.5, 4.6, 4.8, 4.8, 4.9, 4.8, 4.8, 4.8, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4, 4.2, 4.1, 4.0, 4.0, 3.8]}, {"label": "Non-mortgage loans", "values": [7.5, 7.1, 6.6, 6.3, 5.5, 4.5, 4.3, 4.0, 3.9, 3.2, 2.9, 2.7, 3.7, 3.5, 3.3, 3.4, 3.4, 3.9, 3.8, 3.5, 3.2, 2.7, 3.0, 2.9, 1.7, 1.7, 1.9, 1.7, 2.0, 2.0, 1.8, 2.3, 2.5, 2.7, 2.2, 2.2, 2.2, 3.2, 3.1, 3.1, 3.0, 2.8, 3.1, 2.8, 2.8, 2.7, 2.7, 2.9, 3.3, 2.5, 2.7, 2.8, 2.7, 3.0, 3.0, 3.0, 3.2, 3.5, 3.5, 3.4, 3.3, 3.2, 3.2, 3.4, 3.5, 3.5, 3.3, 3.1, 3.0, 2.7, 2.8, 2.7, 2.7, 2.8, 2.9, 3.0, 2.8, 2.7, 2.8, 2.4, 2.2, 2.5, 2.5, 3.0, 3.1, 3.3, 3.6, 3.4, 3.5, 3.5, 3.8, 4.1, 4.2, 4.0, 4.0, 3.6, 3.4, 3.2, 2.9, 2.9, 3.1, 3.2, 3.1, 3.1, 3.3, 3.3, 3.4, 3.3, 3.0, 2.7, 2.6, 2.7, 2.6, 2.4, 2.3, 2.0, 1.7, 1.6, 1.3, 1.4, 1.6, 1.8, 0.6, -1.5, -2.7, -2.8, -2.9, -2.7, -2.7, -2.8, -2.9, -3.5, -3.8, -4.6, -3.8, -2.1, -1.2, -1.2, -1.2, -1.2, -0.9, -0.7, 0.1, 0.4, 1.0, 1.9, 2.7, 3.3, 3.9, 4.1, 4.2, 4.6, 4.5, 4.8, 4.3, 4.4, 4.2, 4.0, 3.5, 3.3, 3.3, 3.0, 3.2, 2.8, 2.7, 2.6, 2.9, 3.1, 3.6, 3.9, 3.8, 4.0, 3.5, 3.8, 4.0, 4.2, 4.5, 4.7, 4.6, 4.9, 4.3, 3.9, 4.4, 3.9, 3.9, 4.0, 3.8, 3.9, 4.1, 3.6, 3.6, 3.3, 3.8, 4.2, 4.2, 4.3, 4.7, 4.7, 4.8, 4.9]}]},
+      {"type": "bar", "title": "Latest growth vs a year earlier, by category (Aug 2026)", "labels": ["Credit cards", "Non-mortgage loans", "Total household credit", "Home equity lines of credit", "Lines of credit", "Mortgage loans", "Personal loans", "Auto loans"], "values": [6.5, 4.9, 4.1, 3.9, 3.9, 3.8, 1.4, 1.0], "unit": "% growth", "suffix": "%", "highlight": 2},
+      {"type": "bar", "orient": "v", "title": "Correlation of credit growth with the prime-rate change, by lag in months", "labels": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"], "values": [0.27, 0.19, 0.12, 0.04, -0.04, -0.11, -0.17, -0.22, -0.27, -0.31, -0.35, -0.39, -0.43, -0.46, -0.48, -0.49, -0.51, -0.52, -0.52, -0.52, -0.51, -0.5, -0.48, -0.45, -0.41], "unit": "correlation", "highlight": 18, "noLabels": true},
+      {"type": "line", "title": "Share of household income going to debt payments, by quarter (%)", "labels": ["2010 Q1", "2010 Q2", "2010 Q3", "2010 Q4", "2011 Q1", "2011 Q2", "2011 Q3", "2011 Q4", "2012 Q1", "2012 Q2", "2012 Q3", "2012 Q4", "2013 Q1", "2013 Q2", "2013 Q3", "2013 Q4", "2014 Q1", "2014 Q2", "2014 Q3", "2014 Q4", "2015 Q1", "2015 Q2", "2015 Q3", "2015 Q4", "2016 Q1", "2016 Q2", "2016 Q3", "2016 Q4", "2017 Q1", "2017 Q2", "2017 Q3", "2017 Q4", "2018 Q1", "2018 Q2", "2018 Q3", "2018 Q4", "2019 Q1", "2019 Q2", "2019 Q3", "2019 Q4", "2020 Q1", "2020 Q2", "2020 Q3", "2020 Q4", "2021 Q1", "2021 Q2", "2021 Q3", "2021 Q4", "2022 Q1", "2022 Q2", "2022 Q3", "2022 Q4", "2023 Q1", "2023 Q2", "2023 Q3", "2023 Q4", "2024 Q1", "2024 Q2", "2024 Q3", "2024 Q4", "2025 Q1", "2025 Q2", "2025 Q3", "2025 Q4", "2026 Q1", "2026 Q2"], "unit": "% of income", "suffix": "%", "noLabels": true, "datasets": [{"label": "Total", "values": [13.8, 14.1, 14.1, 14.0, 14.1, 14.2, 14.1, 14.0, 13.9, 14.0, 14.0, 14.0, 13.8, 13.8, 13.9, 13.8, 13.8, 13.9, 13.9, 14.1, 14.0, 13.9, 13.8, 13.8, 14.2, 14.2, 14.2, 14.1, 14.3, 14.3, 14.2, 14.4, 14.6, 14.8, 15.0, 14.9, 15.1, 15.0, 15.1, 14.9, 14.6, 12.6, 13.5, 13.9, 13.6, 13.7, 13.7, 13.9, 13.8, 14.0, 14.4, 14.6, 15.2, 15.1, 15.1, 15.1, 15.1, 15.1, 14.8, 14.7, 14.7, 14.8, 14.7, 14.7, 14.7, 14.5]}, {"label": "Mortgage", "values": [6.1, 6.2, 6.2, 6.2, 6.2, 6.3, 6.3, 6.2, 6.2, 6.3, 6.3, 6.3, 6.2, 6.3, 6.3, 6.3, 6.4, 6.4, 6.4, 6.4, 6.4, 6.3, 6.4, 6.5, 6.6, 6.7, 6.7, 6.7, 6.8, 6.7, 6.7, 6.8, 6.9, 7.0, 7.1, 7.1, 7.2, 7.2, 7.2, 7.2, 7.1, 6.2, 6.8, 7.0, 6.9, 7.1, 7.1, 7.2, 7.2, 7.3, 7.6, 7.8, 8.2, 8.2, 8.2, 8.2, 8.2, 8.2, 8.0, 7.9, 7.9, 7.9, 7.9, 7.8, 7.8, 7.7]}, {"label": "Non-mortgage", "values": [7.7, 7.9, 7.9, 7.8, 7.8, 7.9, 7.9, 7.8, 7.7, 7.7, 7.7, 7.7, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.7, 7.6, 7.5, 7.4, 7.4, 7.5, 7.5, 7.4, 7.4, 7.5, 7.5, 7.5, 7.6, 7.7, 7.8, 7.9, 7.8, 7.9, 7.8, 7.8, 7.8, 7.5, 6.4, 6.7, 6.9, 6.7, 6.7, 6.6, 6.7, 6.6, 6.7, 6.8, 6.8, 7.0, 6.9, 6.9, 6.9, 6.9, 6.9, 6.8, 6.8, 6.8, 6.9, 6.8, 6.8, 6.9, 6.8]}]}
+    ],
+    model: {
+      measures: [
+        { name: "Credit $B (Latest)", dax: "VAR m = [Credit Latest Month]\nRETURN\n    CALCULATE (\n        [Credit $B],\n        fact_credit[MonthStart] = m\n    )" },
+        { name: "Credit YoY %", dax: "VAR cur = [Credit $B]\nVAR py =\n    CALCULATE (\n        [Credit $B],\n        SAMEPERIODLASTYEAR ( 'Date'[Date] )\n    )\nRETURN\n    IF (\n        ISBLANK ( cur ) || ISBLANK ( py ),\n        BLANK (),\n        DIVIDE ( cur - py, py )\n    )" },
+        { name: "Mortgage Share (Latest)", dax: "DIVIDE (\n    CALCULATE (\n        [Credit $B (Latest)],\n        Dim_Category[Category] = \"Mortgage loans\"\n    ),\n    [Total Credit $B (Latest)]\n)" },
+        { name: "Prime Chg 12m (Lagged)", dax: "VAR k = [Selected Lag]\nRETURN\n    CALCULATE (\n        [Prime Chg 12m],\n        DATEADD ( 'Date'[Date], -k, MONTH )\n    )" },
+        { name: "Strongest Lag", dax: "VAR t =\n    ADDCOLUMNS (\n        ALL ( lag_correlation ),\n        \"a\", ABS ( lag_correlation[correlation] )\n    )\nRETURN\n    MAXX (\n        TOPN ( 1, t, [a], DESC ),\n        lag_correlation[lag_months]\n    )" }
+      ]
+    },
+    story: {
+      dek: "When the Bank of Canada raises interest rates, borrowing is supposed to cool. I used public Bank of Canada and Statistics Canada data from 2010 to 2026 to check how long that takes: how quickly Canadian household borrowing slowed after rates went up, and whether families ended up spending more of their income on debt payments.",
+      chips: ["Star schema", "Date table", "Year-over-year DAX", "Lag selector", "DAX variables", "Reset-filters bookmark", "Custom theme"],
+      meta: [
+        { k: "Data", v: "Bank of Canada Valet API and Statistics Canada tables 36-10-0639, 38-10-0238 and 11-10-0065 (real, market-level)" },
+        { k: "Scope", v: "202 months of rates, 8 credit categories and 66 quarters of debt service" },
+        { k: "Tools", v: "Power BI, DAX, Power Query, Python" }
+      ],
+      findings: [
+        "Household credit grew from $1.5 trillion in January 2010 to $3.3 trillion in August 2026, 2.2 times as large.",
+        "Credit growth peaked at 8.7% in May 2022 and slowed to 3.5% by October 2023, after the prime rate rose from 2.45% to 7.20%.",
+        "Credit growth is lowest about 18 months after a rate rise, with a correlation of -0.52. At 6 months it is only -0.17.",
+        "Debt payments took 15.2% of household income in early 2023, up from 12.6% in the April 2020 quarter, and are 14.5% now."
+      ],
+      chapters: [
+        { n: "01 \u00b7 RATES", ch: 0, title: "Interest rates rose fast in 2022 and 2023, then eased",
+          paras: ["The prime rate went from 2.45% in February 2022 to 7.20% in July 2023, and stayed there for 11 months.",
+                  "It has since eased to 4.45%. The 5-year mortgage rate peaked at 7.04% in October 2023 and is 6.19% now, 1.74 points above prime."],
+          note: "Rates are shown to two decimals because that is how they are published.",
+          tabs: [], src: "Source: Bank of Canada Valet API. Prime and mortgage rates are weekly, so each month shows the last weekly value." },
+        { n: "02 \u00b7 CREDIT", ch: 1, title: "Credit growth slowed from 8.7% to about 4%",
+          paras: ["Total household credit grew 8.7% a year at its May 2022 peak. Growth fell to 3.5% by October 2023 and is 4.1% now.",
+                  "Mortgage growth peaked at 11.0% in February 2022 and is 3.8% now. Non-mortgage loans shrank 4.6% year over year in February 2021, during the pandemic, and first grew faster than mortgages in February 2024 (4.9% now)."],
+          note: "Credit cards and personal loans show year-over-year spikes above 20% in 2011 to 2014 that look like reclassifications, not real borrowing.",
+          tabs: ["Growth by month", "Latest, by category"], src: "Source: Statistics Canada table 36-10-0639, seasonally adjusted." },
+        { n: "03 \u00b7 THE LAG", ch: 2, title: "Credit growth is lowest about 18 months after rates rise",
+          paras: ["I compared credit growth with the change in the prime rate over the previous 12 months, shifted back by 0 to 24 months. The relationship is strongest at 18 months, with a correlation of -0.52.",
+                  "At 6 months it is only -0.17 and at 12 months -0.43. With no delay the correlation is positive (+0.27), which fits a central bank raising rates when borrowing is already strong."],
+          note: "Using the level of the prime rate instead of its 12-month change, the strongest lag is about 8 months, so the exact delay depends on the method.",
+          tabs: [], src: "Correlation across 164 to 188 months, 2010 to 2026; 170 months at the 18-month lag." },
+        { n: "04 \u00b7 DEBT SERVICE", ch: 3, title: "Debt payments took a bigger share of income after rates rose",
+          paras: ["The share of household income going to debt payments rose from 12.6% in the April 2020 quarter to 15.2% in the January 2023 quarter, as rates started to rise.",
+                  "It is 14.5% now. The mortgage part peaked at 8.2% and is 7.7% now; the non-mortgage part is 6.8%."],
+          note: "The quarter labels follow Statistics Canada: 2026 Q2 is the quarter starting April 2026.",
+          tabs: [], src: "Source: Statistics Canada table 11-10-0065, seasonally adjusted at annual rates." }
+      ],
+      recs: [
+        { who: "Head of retail lending", title: "Plan for a delayed response to rate changes", text: "Expect credit growth to react to a rate change over about 18 months, not right away. Review lending targets against rate moves from 12 to 24 months earlier.", measure: "Measure: credit growth vs the prime-rate change 18 months earlier" },
+        { who: "Risk and finance", title: "Watch debt service alongside rates", text: "Debt payments reached 15.2% of income in early 2023 and are 14.5% now. Track the ratio each quarter, for the total and for mortgages.", measure: "Measure: debt service ratio, total and mortgage" },
+        { who: "Analytics team", title: "Add delinquency data to test repayment pressure", text: "This public data has no arrears or default figures, so it cannot say whether higher debt service led to missed payments. Add an arrears series to answer that.", measure: "Next step: join an arrears series" }
+      ],
+      recNote: "These are proposals from public, market-level data. They are not a lending model.",
+      pipeline: [
+        { i: "01 \u00b7 SOURCE", b: "Bank of Canada and Statistics Canada", s: "Rates from the Valet API and three Statistics Canada tables, 2010 to 2026" },
+        { i: "02 \u00b7 PREPARE", b: "Python", s: "Rolled rates up to months and kept 8 credit categories that appear once per month, because lender names repeat across the hierarchy" },
+        { i: "03 \u00b7 CHECK", b: "Reconciliation", s: "Checked the report cards and the lag measures against the Python results; auto loans start in 2016, the only gap" },
+        { i: "04 \u00b7 MODEL", b: "Star schema", s: "Monthly credit and rates, quarterly debt service, 4 helper tables and 51 DAX measures" },
+        { i: "05 \u00b7 REPORT", b: "Power BI", s: "4 pages with a lag selector, continuous time axes and a reset-filters button" }
+      ]
+    },
   },
   {
     id: "collision-risk",

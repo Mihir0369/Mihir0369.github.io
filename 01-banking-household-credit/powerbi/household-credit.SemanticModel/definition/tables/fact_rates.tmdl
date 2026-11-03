@@ -1,0 +1,96 @@
+table fact_rates
+	lineageTag: e344b029-b410-50f8-aec2-da0136b15350
+
+	column month
+		dataType: string
+		isHidden
+		lineageTag: 65792304-6a74-5367-92a9-72d946eb390f
+		summarizeBy: none
+		sourceColumn: month
+
+	column overnight
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: efa68328-75d7-58e5-8b5d-3a69f8b79bf4
+		summarizeBy: none
+		sourceColumn: overnight
+
+	column prime
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: a84d28c6-b0d6-5d22-8cf0-47a76ecd2180
+		summarizeBy: none
+		sourceColumn: prime
+
+	column mortgage_1y
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: ee565131-78a4-5ca8-976f-35b087b768eb
+		summarizeBy: none
+		sourceColumn: mortgage_1y
+
+	column mortgage_3y
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: f0117969-698a-55f6-a7e0-5854cc4854ac
+		summarizeBy: none
+		sourceColumn: mortgage_3y
+
+	column mortgage_5y
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: b7785b8a-7433-5703-a00d-d8231a01e010
+		summarizeBy: none
+		sourceColumn: mortgage_5y
+
+	column overnight_chg_12m
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 8de345cc-6343-556e-b3bf-533584c0f03c
+		summarizeBy: none
+		sourceColumn: overnight_chg_12m
+
+	column prime_chg_12m
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 449d8820-c30f-56d4-83ee-01726027ec1e
+		summarizeBy: none
+		sourceColumn: prime_chg_12m
+
+	column mortgage_5y_chg_12m
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 4e207039-a399-5d82-a837-f0a4d61e09a4
+		summarizeBy: none
+		sourceColumn: mortgage_5y_chg_12m
+
+	column MonthStart
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 6107f77d-3fcc-5e4c-9ce4-70fea0ee27fc
+		summarizeBy: none
+		sourceColumn: MonthStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_rates = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_rates_monthly.csv"), [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"month", type text}, {"overnight", type number}, {"prime", type number}, {"mortgage_1y", type number}, {"mortgage_3y", type number}, {"mortgage_5y", type number}, {"overnight_chg_12m", type number}, {"prime_chg_12m", type number}, {"mortgage_5y_chg_12m", type number}}, "en-US"),
+				    AddDate = Table.AddColumn(Typed, "MonthStart", each Date.FromText([month] & "-01"), type date)
+				in
+				    AddDate
+
+	annotation PBI_ResultType = Table

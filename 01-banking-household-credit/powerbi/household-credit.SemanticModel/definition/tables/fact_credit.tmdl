@@ -1,0 +1,55 @@
+table fact_credit
+	lineageTag: 33ccba08-0fc8-5ced-8a59-2d677bee0592
+
+	column month
+		dataType: string
+		isHidden
+		lineageTag: 65792304-6a74-5367-92a9-72d946eb390f
+		summarizeBy: none
+		sourceColumn: month
+
+	column category
+		dataType: string
+		isHidden
+		lineageTag: 191e1757-cb0c-5738-ac0c-0faa50bcaa67
+		summarizeBy: none
+		sourceColumn: category
+
+	column balance_millions
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 928043ed-7d9a-5b4a-8d0c-33db8cd26486
+		summarizeBy: none
+		sourceColumn: balance_millions
+
+	column yoy_pct
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 887b673e-bd20-59fe-9c87-5ecc6224a293
+		summarizeBy: none
+		sourceColumn: yoy_pct
+
+	column MonthStart
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 6107f77d-3fcc-5e4c-9ce4-70fea0ee27fc
+		summarizeBy: none
+		sourceColumn: MonthStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_credit = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_credit_monthly.csv"), [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"month", type text}, {"category", type text}, {"balance_millions", type number}, {"yoy_pct", type number}}, "en-US"),
+				    AddDate = Table.AddColumn(Typed, "MonthStart", each Date.FromText([month] & "-01"), type date)
+				in
+				    AddDate
+
+	annotation PBI_ResultType = Table

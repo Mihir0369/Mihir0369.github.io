@@ -1,0 +1,36 @@
+table fact_debt
+	lineageTag: 4926518b-210e-5f05-84df-aad6b0362bc2
+
+	column quarter_start
+		dataType: dateTime
+		isHidden
+		lineageTag: c4223f5b-4277-5a2d-abc5-efdee53f7ce4
+		summarizeBy: none
+		sourceColumn: quarter_start
+
+	column debt_measure
+		dataType: string
+		isHidden
+		lineageTag: 8004decb-f659-53f7-8e86-ea1cac31956b
+		summarizeBy: none
+		sourceColumn: debt_measure
+
+	column ratio_pct
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: bd375e76-2843-589b-b400-62ef36231a7f
+		summarizeBy: none
+		sourceColumn: ratio_pct
+
+	partition fact_debt = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_debt_service.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"quarter_start", type date}, {"debt_measure", type text}, {"ratio_pct", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

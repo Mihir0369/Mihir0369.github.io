@@ -1,0 +1,63 @@
+table Date
+	lineageTag: 412079c7-1536-5400-a796-5c3c072d03e8
+	dataCategory: Time
+
+	column Date
+		isKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 274a083c-d4a9-5a63-b909-4f0f1e871005
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 1993b517-fcbb-5e26-bd91-0b5bd3f0caaf
+		summarizeBy: none
+		sourceColumn: [Year]
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: f56b0fab-ae0e-5c39-b10f-8a516f8d8dff
+		summarizeBy: none
+		sourceColumn: [Month Number]
+
+	column Month
+		lineageTag: 46def8ab-8a4b-5c0a-8338-8fbe3bae10f9
+		summarizeBy: none
+		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
+
+	column 'Year Month'
+		lineageTag: dc56fa00-1f53-5f7e-b1f7-b9aeb6660fc3
+		summarizeBy: none
+		sourceColumn: [Year Month]
+
+	column Quarter
+		lineageTag: f9ecf45e-7c00-55c9-840e-5049e9564d62
+		summarizeBy: none
+		sourceColumn: [Quarter]
+		sortByColumn: 'Quarter Number'
+
+	column 'Quarter Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6d29cb66-95fa-5e18-9bbd-ecad564a595f
+		summarizeBy: none
+		sourceColumn: [Quarter Number]
+
+	partition Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 2010, 1, 1 ), DATE ( 2026, 10, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "mmm" ),
+				    "Year Month", FORMAT ( [Date], "yyyy-mm" ),
+				    "Quarter", YEAR ( [Date] ) & " Q" & QUARTER ( [Date] ),
+				    "Quarter Number", YEAR ( [Date] ) * 10 + QUARTER ( [Date] )
+				)

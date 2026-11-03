@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	discourageImplicitMeasures
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["fact_credit","fact_rates","fact_debt","lag_correlation","ModelFolder"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_credit
+ref table fact_rates
+ref table fact_debt
+ref table lag_correlation
+ref table Date
+ref table _Measures
+ref table Dim_Category
+ref table Dim_DebtMeasure
+ref table LagSteps
+
+ref cultureInfo en-US

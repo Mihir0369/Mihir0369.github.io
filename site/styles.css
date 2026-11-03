@@ -389,3 +389,17 @@ header.site nav a.on { background: rgba(255,255,255,.14); border-color: rgba(255
 .s-head .tag::before { content: ""; width: 9px; height: 9px; background: var(--amber); display: inline-block; }
 .s-head h1 { font-size: clamp(32px, 4.4vw, 46px); line-height: 1.12; max-width: 680px; letter-spacing: -.01em; }
 .s-head .dek { font-family: Georgia, "Source Serif Pro", "Times New Roman", serif; color: var(--muted); font-size: 18.5px; line-height: 1.7; max-width: 680px; text-align: left; hyphens: none; }
+
+/* draft case studies share the same layout; single-card header, single-panel method */
+.kpis.one { grid-template-columns: minmax(0, 520px); }
+.build-grid.solo { grid-template-columns: minmax(0, 1fr); }
+.build-grid.solo .panel { height: auto; }
+
+/* home page: same eyebrow, title, intro and section dividers as the case pages */
+.hero .eyebrow { display: inline-flex; align-items: center; gap: 8px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; font-size: 12.5px; }
+.hero .eyebrow::before { content: ""; width: 9px; height: 9px; background: var(--amber); display: inline-block; }
+.hero h1 { font-size: clamp(32px, 4.4vw, 46px); line-height: 1.12; max-width: 720px; letter-spacing: -.01em; }
+.hero h1::after { content: ""; display: block; width: 56px; height: 4px; background: var(--amber); border-radius: 2px; margin-top: 14px; }
+.hero .intro { font-family: Georgia, "Source Serif Pro", "Times New Roman", serif; color: var(--muted); font-size: 18.5px; line-height: 1.7; max-width: 680px; }
+main.wrap:not(.case) > section { padding-block: 36px; border-bottom: 1px solid var(--line); margin-top: 0; }
+main.wrap:not(.case) > section:last-of-type { border-bottom: 0; }

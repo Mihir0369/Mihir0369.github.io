@@ -1,0 +1,193 @@
+table _Measures
+	lineageTag: fe3b9e74-7745-5d14-b4ab-d263f1e4b417
+
+	measure 'Credit $B' = DIVIDE ( SUM ( fact_credit[balance_millions] ), 1000 )
+		formatString: #,0.0
+		lineageTag: e68078d9-2171-5f14-893e-f5370da0feb9
+
+	measure 'Credit Latest Month' = MAX ( fact_credit[MonthStart] )
+		formatString: mmm yyyy
+		lineageTag: 57971170-c3ae-51d6-83cc-8024a5111bd9
+
+	measure 'Credit $B (Latest)' = VAR m = [Credit Latest Month] RETURN CALCULATE ( [Credit $B], fact_credit[MonthStart] = m )
+		formatString: #,0.0
+		lineageTag: 7f60dfc6-b18c-586d-b590-e8cb993daf28
+
+	measure 'Credit $B (Year Ago)' = VAR m = [Credit Latest Month] RETURN CALCULATE ( [Credit $B], REMOVEFILTERS ( 'Date' ), fact_credit[MonthStart] = EDATE ( m, -12 ) )
+		formatString: #,0.0
+		lineageTag: 85c45375-dc5c-5a1d-82e7-15337c2afdd7
+
+	measure 'Credit YoY % (Latest)' = DIVIDE ( [Credit $B (Latest)] - [Credit $B (Year Ago)], [Credit $B (Year Ago)] )
+		formatString: 0.0%
+		lineageTag: 002ce002-b327-5725-8ce7-fbfb285a1363
+
+	measure 'Credit YoY %' = VAR cur = [Credit $B] VAR py = CALCULATE ( [Credit $B], SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) RETURN IF ( ISBLANK ( cur ) || ISBLANK ( py ), BLANK (), DIVIDE ( cur - py, py ) )
+		formatString: 0.0%
+		lineageTag: f57357fa-bfe3-5260-83c5-661c348159c4
+
+	measure 'Total Credit $B (Latest)' = CALCULATE ( [Credit $B (Latest)], Dim_Category[Category] = "Total household credit" )
+		formatString: #,0.0
+		lineageTag: b7547d2c-ef75-549c-a634-4770a3da5094
+
+	measure 'Total Credit $T (Latest)' = DIVIDE ( [Total Credit $B (Latest)], 1000 )
+		formatString: """$""0.0""T"""
+		lineageTag: 2a0220aa-5314-53a9-823c-1b6ca7ead054
+
+	measure 'Total Credit YoY %' = CALCULATE ( [Credit YoY %], Dim_Category[Category] = "Total household credit" )
+		formatString: 0.0%
+		lineageTag: 86a12014-3d76-57ad-9e25-241235267dcf
+
+	measure 'Mortgage Credit YoY %' = CALCULATE ( [Credit YoY %], Dim_Category[Category] = "Mortgage loans" )
+		formatString: 0.0%
+		lineageTag: 965a80a5-9fb0-5a8f-9572-daa5e583307f
+
+	measure 'Non-mortgage Credit YoY %' = CALCULATE ( [Credit YoY %], Dim_Category[Category] = "Non-mortgage loans" )
+		formatString: 0.0%
+		lineageTag: 3b969577-10d0-5733-8eb8-88e8268e9c3d
+
+	measure 'Total Credit YoY % (Latest)' = CALCULATE ( [Credit YoY % (Latest)], Dim_Category[Category] = "Total household credit" )
+		formatString: 0.0%
+		lineageTag: 0a665e6b-b4af-5c8b-8281-68101cfb6b22
+
+	measure 'Non-mortgage YoY % (Latest)' = CALCULATE ( [Credit YoY % (Latest)], Dim_Category[Category] = "Non-mortgage loans" )
+		formatString: 0.0%
+		lineageTag: 86751c62-0fd1-5d62-952b-5ef0beb960dc
+
+	measure 'Mortgage Share (Latest)' = DIVIDE ( CALCULATE ( [Credit $B (Latest)], Dim_Category[Category] = "Mortgage loans" ), [Total Credit $B (Latest)] )
+		formatString: 0.0%
+		lineageTag: b9a119b2-a219-5197-b365-1c0d5438fd04
+
+	measure 'Share of Total %' = DIVIDE ( [Credit $B (Latest)], [Total Credit $B (Latest)] )
+		formatString: 0.0%
+		lineageTag: 18565008-2872-52ee-a6cf-5dd2cb5ed7ec
+
+	measure 'Credit Latest Text' = "As of " & FORMAT ( [Credit Latest Month], "mmm yyyy" )
+		lineageTag: 9b24927d-6357-527e-9605-400cf8b747a0
+
+	measure 'Credit Peak YoY' = CALCULATE ( MAX ( fact_credit[yoy_pct] ), REMOVEFILTERS ( 'Date' ), fact_credit[category] = "Total household credit" ) / 100
+		formatString: 0.0%
+		lineageTag: 0a3b2ba0-1e4f-54b0-81bd-7d9de907232f
+
+	measure 'Credit Peak Month' = CALCULATE ( MINX ( TOPN ( 1, FILTER ( fact_credit, fact_credit[category] = "Total household credit" ), fact_credit[yoy_pct], DESC ), fact_credit[MonthStart] ), REMOVEFILTERS ( 'Date' ) )
+		formatString: mmm yyyy
+		lineageTag: 6e5090ae-4ddb-5c8d-a81a-01448e82b658
+
+	measure 'Credit Peak Text' = "Peak growth was " & FORMAT ( [Credit Peak YoY], "0.0%" ) & " in " & FORMAT ( [Credit Peak Month], "mmm yyyy" )
+		lineageTag: 870b16a9-3378-5330-985d-00ef626e634d
+
+	measure 'Credit Headline' = "Household credit is $" & FORMAT ( [Total Credit $T (Latest)], "0.0" ) & " trillion and growing " & FORMAT ( [Total Credit YoY % (Latest)], "0.0%" ) & " a year, down from a " & FORMAT ( [Credit Peak YoY], "0.0%" ) & " peak."
+		lineageTag: 8347a023-b4c3-5ab2-82b6-fb26e0af8be8
+
+	measure 'Prime Rate' = AVERAGE ( fact_rates[prime] )
+		formatString: 0.00
+		lineageTag: 6bfbc231-e702-546d-b783-56d76a6dd20d
+
+	measure 'Overnight Rate' = AVERAGE ( fact_rates[overnight] )
+		formatString: 0.00
+		lineageTag: 826df42b-e75c-5679-b84d-22712932f7ba
+
+	measure '5Y Mortgage Rate' = AVERAGE ( fact_rates[mortgage_5y] )
+		formatString: 0.00
+		lineageTag: 3a8cab9c-8f6b-5505-b869-29dea5458c4b
+
+	measure 'Rates Latest Month' = MAX ( fact_rates[MonthStart] )
+		formatString: mmm yyyy
+		lineageTag: c9aab56b-4625-5c49-acf4-eb4f5962e022
+
+	measure 'Prime Latest' = VAR m = [Rates Latest Month] RETURN CALCULATE ( [Prime Rate], fact_rates[MonthStart] = m )
+		formatString: 0.00
+		lineageTag: e74a776a-6911-5dae-86b1-8d82cb0bf382
+
+	measure 'Overnight Latest' = VAR m = [Rates Latest Month] RETURN CALCULATE ( [Overnight Rate], fact_rates[MonthStart] = m )
+		formatString: 0.00
+		lineageTag: 24e1c63c-c0c8-50c8-8fde-8e518eb0037f
+
+	measure '5Y Mortgage Latest' = VAR m = [Rates Latest Month] RETURN CALCULATE ( [5Y Mortgage Rate], fact_rates[MonthStart] = m )
+		formatString: 0.00
+		lineageTag: 54a290e4-4eb5-5437-9d2f-ef7f60c763ef
+
+	measure 'Spread Latest' = [5Y Mortgage Latest] - [Prime Latest]
+		formatString: +0.00;-0.00;0.00
+		lineageTag: 8b42459f-b1fe-5c5b-bc5c-7cacb5e75873
+
+	measure 'Rates Latest Text' = "As of " & FORMAT ( [Rates Latest Month], "mmm yyyy" )
+		lineageTag: 478f074c-28ef-53de-8c18-33f1a65c103b
+
+	measure 'Spread Text' = FORMAT ( ABS ( [Spread Latest] ), "0.00" ) & IF ( [Spread Latest] >= 0, " pts above prime", " pts below prime" )
+		lineageTag: 817e819e-8ebd-50a0-8584-bbdbe108df80
+
+	measure 'Prime Peak' = CALCULATE ( MAX ( fact_rates[prime] ), REMOVEFILTERS ( 'Date' ) )
+		formatString: 0.00
+		lineageTag: a06c6764-8316-56b4-a603-08f479f97476
+
+	measure 'Prime Peak Month' = CALCULATE ( MINX ( TOPN ( 1, fact_rates, fact_rates[prime], DESC ), fact_rates[MonthStart] ), REMOVEFILTERS ( 'Date' ) )
+		formatString: mmm yyyy
+		lineageTag: f88ca488-628d-5a59-adaa-768e4a2e6310
+
+	measure 'Prime Peak Text' = "Peak was " & FORMAT ( [Prime Peak], "0.00" ) & "% in " & FORMAT ( [Prime Peak Month], "mmm yyyy" )
+		lineageTag: a06c3f0f-6fff-5737-a40e-a18192d6036d
+
+	measure 'Rates Headline' = "The prime rate is " & FORMAT ( [Prime Latest], "0.00" ) & "%, down from a peak of " & FORMAT ( [Prime Peak], "0.00" ) & "% in " & FORMAT ( [Prime Peak Month], "mmm yyyy" ) & "."
+		lineageTag: 17951380-71d3-5a73-9d94-046dbe8ebae5
+
+	measure 'Debt Service Ratio' = AVERAGE ( fact_debt[ratio_pct] )
+		formatString: "0.0""%"""
+		lineageTag: ef6ef623-466e-5a9d-9285-1a9152b0f6e6
+
+	measure 'DSR Peak' = CALCULATE ( MAX ( fact_debt[ratio_pct] ), REMOVEFILTERS ( 'Date' ), fact_debt[debt_measure] = "Total debt service ratio" )
+		formatString: "0.0""%"""
+		lineageTag: 835a4b95-e4c8-533c-8997-f4687ff024ca
+
+	measure 'DSR Latest' = VAR q = MAX ( fact_debt[quarter_start] ) RETURN CALCULATE ( [Debt Service Ratio], fact_debt[quarter_start] = q, fact_debt[debt_measure] = "Total debt service ratio" )
+		formatString: "0.0""%"""
+		lineageTag: 03d20d9c-b9f5-5242-a2e8-3da59fe6354e
+
+	measure 'DSR Text' = "As of " & FORMAT ( MAX ( fact_debt[quarter_start] ), "mmm yyyy" ) & ". Peak was " & FORMAT ( [DSR Peak], "0.0" ) & "%."
+		lineageTag: efb5ce68-e599-5350-b449-d85c781aa7a4
+
+	measure 'Selected Lag' = SELECTEDVALUE ( LagSteps[Lag Months], 18 )
+		formatString: 0
+		lineageTag: c8335ae3-493d-561f-99f8-04af2e76bb5c
+
+	measure 'Prime Chg 12m' = AVERAGE ( fact_rates[prime_chg_12m] )
+		formatString: +0.00;-0.00;0.00
+		lineageTag: 69276e5b-b57d-502f-9c70-aff959497f78
+
+	measure 'Prime Chg 12m (Lagged)' = VAR k = [Selected Lag] RETURN CALCULATE ( [Prime Chg 12m], DATEADD ( 'Date'[Date], -k, MONTH ) )
+		formatString: +0.00;-0.00;0.00
+		lineageTag: 2020656b-1ec3-55de-b4e3-654657279a2e
+
+	measure Correlation = AVERAGE ( lag_correlation[correlation] )
+		formatString: 0.00
+		lineageTag: cca86f00-3e45-5990-9cbe-a21a65a1dbfb
+
+	measure 'Selected Lag Corr' = VAR k = [Selected Lag] RETURN CALCULATE ( [Correlation], lag_correlation[lag_months] = k )
+		formatString: 0.00
+		lineageTag: f1b0ffd6-4e9e-5d04-a0ac-d82c85782761
+
+	measure 'Strongest Lag' = VAR t = ADDCOLUMNS ( ALL ( lag_correlation ), "a", ABS ( lag_correlation[correlation] ) ) RETURN MAXX ( TOPN ( 1, t, [a], DESC ), lag_correlation[lag_months] )
+		formatString: 0
+		lineageTag: 273fcf98-96f6-5a82-988b-a576e9b9eb2d
+
+	measure 'Strongest Corr' = VAR t = ADDCOLUMNS ( ALL ( lag_correlation ), "a", ABS ( lag_correlation[correlation] ) ) RETURN MAXX ( TOPN ( 1, t, [a], DESC ), lag_correlation[correlation] )
+		formatString: 0.00
+		lineageTag: 349faa8d-7774-51af-8a0f-b35402fc7b4a
+
+	measure 'Strongest Lag Text' = [Strongest Lag] & " months"
+		lineageTag: 6f88a15e-ca5c-5fab-99e6-8052401db8d7
+
+	measure 'Strongest Corr Text' = "Correlation " & FORMAT ( [Strongest Corr], "0.00" ) & ": credit growth slows after rate rises"
+		lineageTag: ece10c74-dde9-5c6a-b7c0-059f47a924e4
+
+	measure 'Selected Lag Text' = [Selected Lag] & " months"
+		lineageTag: 868233e2-c8da-5e66-8ae5-619c8a2aabec
+
+	measure 'Selected Lag Sub' = "Credit growth vs prime rate, " & [Selected Lag] & " months earlier"
+		lineageTag: 721d6546-3f15-5a05-a0ce-8a9a7e21e0c5
+
+	measure 'Lag Headline' = "Credit growth responds most to a rate change after about " & [Strongest Lag] & " months. Use the lag selector to compare other lags."
+		lineageTag: 9325eb35-c3cd-5bad-96c4-84db70331084
+
+	measure 'Data Through Text' = "Credit to " & FORMAT ( CALCULATE ( MAX ( fact_credit[MonthStart] ), REMOVEFILTERS ( 'Date' ) ), "mmm yyyy" ) & "  |  Rates to " & FORMAT ( CALCULATE ( MAX ( fact_rates[MonthStart] ), REMOVEFILTERS ( 'Date' ) ), "mmm yyyy" ) & "  |  Debt service to " & FORMAT ( CALCULATE ( MAX ( fact_debt[quarter_start] ), REMOVEFILTERS ( 'Date' ) ), "mmm yyyy" )
+		lineageTag: 68a92bf0-fa69-5149-ab18-8f55220d6f17
+
