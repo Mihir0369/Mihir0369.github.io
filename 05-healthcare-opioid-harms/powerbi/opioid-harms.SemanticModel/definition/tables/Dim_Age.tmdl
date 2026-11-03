@@ -1,0 +1,32 @@
+table Dim_Age
+	lineageTag: 0bc30200-0797-56e0-beed-91fea4c76874
+
+	column 'Age group'
+		lineageTag: f3ee265c-2fdd-5d1f-8186-97d3d914a2da
+		summarizeBy: none
+		sourceColumn: [Age group]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0a5b8fd-201c-5166-b9ac-ee1a6b29e7a9
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Age = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Age group", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "0 to 19 years", 1 },
+				        { "20 to 29 years", 2 },
+				        { "30 to 39 years", 3 },
+				        { "40 to 49 years", 4 },
+				        { "50 to 59 years", 5 },
+				        { "60 years or more", 6 }
+				    }
+				)

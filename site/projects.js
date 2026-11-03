@@ -43,7 +43,7 @@ window.PROJECTS = [
     id: "household-credit",
     sector: "Banking",
     area: "Retail lending",
-    title: "Do Canadian borrowers feel rate moves, and how fast?",
+    title: "Canadian borrowing slows about 18 months after rates rise: what does that mean for lenders?",
     summary: "Household credit balances set against the policy rate, prime and mortgage rates, to see how long rate changes take to show up in borrowing.",
     provenance: "Real",
     source: "Bank of Canada Valet API; Statistics Canada tables 36-10-0639, 38-10-0238, 11-10-0065",
@@ -77,6 +77,7 @@ window.PROJECTS = [
       "Credit cards and personal loans show jumps in 2011 to 2014 that look like reclassifications, so they are used as latest-month figures only."
     ],
     repo: "01-banking-household-credit",
+    hero: 3,
     shots: [
       { file: "images/hc-1-start.png", caption: "Start here: the question, three findings and how to use the report" },
       { file: "images/hc-2-rates.png", caption: "Rates: policy, prime and 5-year mortgage rates, 2010 to 2026" },
@@ -90,11 +91,31 @@ window.PROJECTS = [
       { label: "Strongest lag", value: "18 months", sub: "Correlation -0.52", icon: "warn" }
     ],
     stats: [
-      { value: "4", label: "report pages", sub: "" },
-      { value: "31", label: "data visuals", sub: "" },
-      { value: "9", label: "tables", sub: "4 data, 4 helper, 1 measures" },
-      { value: "5", label: "relationships", sub: "" },
-      { value: "51", label: "DAX measures", sub: "" }
+      {
+        "value": "4",
+        "label": "report pages",
+        "sub": ""
+      },
+      {
+        "value": "31",
+        "label": "data visuals",
+        "sub": ""
+      },
+      {
+        "value": "9",
+        "label": "tables",
+        "sub": "4 data, 4 helper, 1 measures"
+      },
+      {
+        "value": "5",
+        "label": "relationships",
+        "sub": ""
+      },
+      {
+        "value": "51",
+        "label": "DAX measures",
+        "sub": ""
+      }
     ],
     techniques: ["Star schema", "Date table", "Year-over-year DAX", "Lag selector", "DAX variables", "Reset-filters bookmark", "Custom theme (JSON)", "PBIP + TMDL project"],
     downloads: [
@@ -124,12 +145,18 @@ window.PROJECTS = [
       ]
     },
     story: {
+      bottom: "credit growth is lowest about 18 months after a rate rise, so lenders should plan for a delayed response. The lag depends on the method, and the data cannot show cause.",
+      toc: true,
+      terms: "Policy rate = the Bank of Canada's overnight target. Prime rate = the rate banks charge their best customers. Debt service ratio = the share of household income going to debt payments. Correlation = how closely two series move together, from -1 to +1.",
+      next: ["Add delinquency or arrears data to test whether higher debt service led to missed payments.", "Test the lag with the rate level and other windows, to see how stable 18 months is.", "Refresh the report each quarter when Statistics Canada publishes new debt-service figures."],
       dek: "When the Bank of Canada raises interest rates, borrowing is supposed to cool. I used public Bank of Canada and Statistics Canada data from 2010 to 2026 to check how long that takes: how quickly Canadian household borrowing slowed after rates went up, and whether families ended up spending more of their income on debt payments.",
-      chips: ["Star schema", "Date table", "Year-over-year DAX", "Lag selector", "DAX variables", "Reset-filters bookmark", "Custom theme"],
+      chips: ["Python (pandas)", "SQL (SQLite)", "API data pulls", "Power Query", "Star schema", "DAX time intelligence", "What-if lag selector", "Correlation analysis", "Custom theme", "PBIP + TMDL in Git"],
       meta: [
         { k: "Data", v: "Bank of Canada Valet API and Statistics Canada tables 36-10-0639, 38-10-0238 and 11-10-0065 (real, market-level)" },
         { k: "Scope", v: "202 months of rates, 8 credit categories and 66 quarters of debt service" },
-        { k: "Tools", v: "Power BI, DAX, Power Query, Python" }
+        { k: "Tools", v: "Power BI, DAX, Power Query, Python" },
+        { k: "My role", v: "End to end: pulled the data from two public sources, checked it in Python, built the star-schema model and DAX, designed the four-page report and wrote the findings" },
+        { k: "Source links", links: [{"v": "Bank of Canada Valet API", "href": "https://www.bankofcanada.ca/valet/"}, {"v": "Statistics Canada 36-10-0639", "href": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610063901"}, {"v": "38-10-0238", "href": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3810023801"}, {"v": "11-10-0065", "href": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110006501"}] }
       ],
       findings: [
         "Household credit grew from $1.5 trillion in January 2010 to $3.3 trillion in August 2026, 2.2 times as large.",
@@ -207,7 +234,7 @@ window.PROJECTS = [
     id: "toronto-311",
     sector: "Public sector",
     area: "City operations",
-    title: "What is Toronto calling 311 about, and which requests stay open?",
+    title: "Half of Toronto's parks and forestry requests are still open: what is 311 telling the city?",
     summary: "1.35 million 311 requests from 2023 to 2025: what drives demand, which divisions leave requests unresolved, and a change in request types that breaks year-over-year comparisons.",
     provenance: "Real",
     source: "Open Data Toronto, 311 Service Requests - Customer Initiated (Open Government Licence - Toronto)",
@@ -246,12 +273,18 @@ window.PROJECTS = [
       { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
     ],
     story: {
+      bottom: "one division leaves about half its requests open, and part of the 14.5% rise in demand is renamed request types, not more problems. Without a close date, time to close cannot be measured.",
+      toc: true,
+      terms: "311 = Toronto's city line for non-emergency service requests. Open = status Open or In Progress when the data was taken. Division = the city department handling the request. Taxonomy era = whether a request type name existed before or only after January 2025.",
+      next: ["Add the closed date to the open dataset so time to close can be measured.", "Build a mapping from old to new request types to restore year-over-year comparison.", "Test whether duplicate calls explain the cancellations on dead-wildlife and missed-pickup requests."],
       dek: "When Toronto residents see a problem, such as a missed garbage pickup, a fallen tree or a pothole, they report it to the city by calling 311. I studied 1.35 million of these reports from 2023 to 2025 to find out which kinds of problems the city leaves unresolved, and whether the rise in reports means more problems or just a change in how they are labelled.",
-      chips: ["Star schema", "Date table", "Year-over-year DAX", "DAX variables", "Drill-through", "Tooltip page", "Custom theme"],
+      chips: ["SQL (10 queries)", "Python data repair", "Power Query", "Star schema", "DAX time intelligence", "Drill-through", "Tooltip page", "Dynamic card titles", "Data cleaning (1.35M rows)", "PBIP + TMDL in Git"],
       meta: [
         { k: "Data", v: "City of Toronto Open Data, 311 Service Requests, 2023 to 2025 (real, Open Government Licence)" },
         { k: "Scope", v: "1,351,594 requests, 7 divisions, 829 request types" },
-        { k: "Tools", v: "Power BI, DAX, Power Query, SQL, Python" }
+        { k: "Tools", v: "Power BI, DAX, Power Query, SQL, Python" },
+        { k: "My role", v: "End to end: repaired a broken CSV, checked the data in SQL and Python, built the star-schema model and DAX, designed the four-page report and wrote the findings" },
+        { k: "Source links", links: [{"v": "Open Data Toronto: 311 Service Requests", "href": "https://open.toronto.ca/dataset/311-service-requests-customer-initiated/"}] }
       ],
       findings: [
         "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
@@ -316,11 +349,31 @@ window.PROJECTS = [
       ]
     },
     stats: [
-      { value: "4", label: "report pages", sub: "+ drill-through and tooltip" },
-      { value: "41", label: "data visuals", sub: "cards, charts, slicers, tables" },
-      { value: "6", label: "tables", sub: "1 fact, 4 dimensions, 1 measures" },
-      { value: "4", label: "relationships", sub: "one-to-many, single direction" },
-      { value: "47", label: "DAX measures", sub: "all in one measures table" }
+      {
+        "value": "4",
+        "label": "report pages",
+        "sub": "+ drill-through and tooltip"
+      },
+      {
+        "value": "41",
+        "label": "data visuals",
+        "sub": "cards, charts, slicers, tables"
+      },
+      {
+        "value": "6",
+        "label": "tables",
+        "sub": "1 fact, 4 dimensions, 1 measures"
+      },
+      {
+        "value": "4",
+        "label": "relationships",
+        "sub": "one-to-many, single direction"
+      },
+      {
+        "value": "47",
+        "label": "DAX measures",
+        "sub": "all in one measures table"
+      }
     ],
     techniques: ["Star schema", "Date table", "Year-over-year with SAMEPERIODLASTYEAR", "DAX variables", "Dynamic card subtitles", "Drill-through page", "Report-page tooltip", "Reset-filters bookmark", "Synced slicers", "Page navigation buttons", "Custom theme (JSON)", "PBIP + TMDL project"],
     impactNote: "These are proposals. The data has no before-and-after, so I do not claim a measured effect.",
@@ -339,6 +392,7 @@ window.PROJECTS = [
       "1.5% of requests have an Unknown status and are excluded from the resolved share."
     ],
     repo: "03-government-311",
+    hero: 2,
     shots: [
       { file: "images/01-start.png", caption: "Start here: the question, three live findings and how to use the report" },
       { file: "images/02-overview.png", caption: "Overview: demand by month, key findings and year-over-year change" },
@@ -487,29 +541,171 @@ window.PROJECTS = [
     id: "substance-harms",
     sector: "Healthcare",
     area: "Public health",
-    title: "How have opioid and stimulant harms changed across provinces?",
-    summary: "Hospitalizations, emergency medical service responses and deaths by province over time.",
+    title: "Opioid deaths are down 29%, but ambulance calls are not: what is Canada's data telling us?",
+    summary: "Hospital stays, emergency visits, ambulance calls and deaths across Canada, with a clear view of what each number covers.",
     provenance: "Real",
-    source: "Public Health Agency of Canada, Health Infobase",
+    source: "Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada (Health Infobase)",
     tools: ["Power BI", "DAX", "SQL", "Python"],
-    headline: { value: null, label: "change in hospitalizations from the first to the latest period in the largest province" },
-    question: "Where and in which groups are harms rising or falling, and do hospital, EMS and death trends tell the same story?",
-    data: "Published aggregated counts and rates by province or territory and period. Small counts may be suppressed.",
+    headline: { value: "-29%", label: "opioid deaths in 2025 against the 2023 peak, while EMS responses fell only 8%" },
+    question: "Which harm measures are falling, which are not, and where is the burden greatest, so a public health team knows where to plan?",
+    data: "Published aggregated counts and rates by province or territory, year and quarter, for hospital stays, emergency department visits, EMS responses and deaths. Small counts are suppressed.",
     approach: [
       "Download the open CSV and profile every column before defining any measure.",
-      "Read the user guide to separate counts from rates and to note reporting differences.",
-      "Build a Power BI report: trend, province comparison, hospital vs EMS vs deaths.",
-      "Show suppressed values as suppressed, never as zero."
+      "Rebuild the chart export as three tables and check what each value means.",
+      "Build a Power BI report: four measures side by side, trend, provinces and who.",
+      "Show suppressed and missing values as such, never as zero."
     ],
-    found: [],
-    recommend: [],
+    found: [
+      "Opioid deaths jumped from 3,602 in 2019 to 6,184 in 2020, peaked at 8,083 in 2023 and were 5,704 in 2025, down 29%.",
+      "Against their peaks, hospital stays are down 22% and emergency department visits 29%, but EMS responses are down only 8%, and early 2026 is the highest quarter on record.",
+      "In 2024 the opioid death rate was 35.7 per 100,000 in British Columbia, 24.4 in Alberta, 14.0 in Ontario and 3.4 in Quebec.",
+      "About 72% of opioid deaths in 2024 were men, and 53% were aged 30 to 49."
+    ],
+    recommend: [
+      "Track EMS responses and emergency department visits next to deaths: deaths alone understate the ongoing burden.",
+      "Start with the high-rate places (British Columbia, Yukon, Manitoba, Alberta, Saskatchewan: 22 to 36 per 100,000 in 2024), using the same year for every place.",
+      "Aim outreach at men aged 30 to 49, the largest group."
+    ],
     limits: [
-      "Provinces report differently, so rankings need a comparability note.",
-      "Counts depend on population size: compare published rates, not counts.",
+      "Provinces report differently, so rankings are a prompt for questions, not a verdict.",
+      "Rates are crude, not age-adjusted, and counts depend on population size.",
+      "A Canada total only adds up the places that report: hospital stays leave out Quebec and emergency department visits cover 7 of 13 provinces and territories.",
+      "Some 2025 provincial values look provisional (Ontario deaths fell 38% and Quebec rose 93% in a year), so the report compares provinces on 2024.",
+      "Small counts are suppressed, so age and sex cells in small regions are blank.",
       "No patient-level data, so no conclusions about individuals."
     ],
     repo: "05-healthcare-opioid-harms",
-    chart: null
+    hero: 1,
+    shots: [
+      { file: "images/oh-1-start.png", caption: "Start here: four headline numbers, what the data shows and what I would do" },
+      { file: "images/oh-2-four.png", caption: "Four measures: deaths, hospital stays, ED visits and EMS responses side by side" },
+      { file: "images/oh-3-trend.png", caption: "Trend: quarterly counts for one source and substance, with yearly totals" },
+      { file: "images/oh-4-provinces.png", caption: "Provinces: a tile map of rates, with suppressed and missing values labelled" },
+      { file: "images/oh-5-who.png", caption: "Who: a heat map of counts by age group and year, with the sex split" },
+      { file: "images/oh-6-quality.png", caption: "Data quality: who reports what, and what I did about missing values" }
+    ],
+    kpis: [
+      { label: "Opioid deaths, 2025", value: "5,704", sub: "\u25bc from 8,083 (2023)", icon: "bars" },
+      { label: "Deaths against the peak", value: "-29%", sub: "Hospital stays -22%, ED visits -29%", icon: "check" },
+      { label: "EMS against the peak", value: "-8%", sub: "2026 Q1 is +61% on a year ago", icon: "clock" },
+      { label: "Hospital stays per death", value: "0.88", sub: "It was 1.62 in 2016", icon: "warn" }
+    ],
+    stats: [
+      {
+        "value": "6",
+        "label": "report pages",
+        "sub": ""
+      },
+      {
+        "value": "45",
+        "label": "data visuals",
+        "sub": ""
+      },
+      {
+        "value": "11",
+        "label": "tables",
+        "sub": "3 data, 7 helper, 1 measures"
+      },
+      {
+        "value": "14",
+        "label": "relationships",
+        "sub": ""
+      },
+      {
+        "value": "87",
+        "label": "DAX measures",
+        "sub": ""
+      }
+    ],
+    techniques: ["Star schema", "Date table", "Slicer defaults in DAX", "Tile-grid map", "Heat map by DAX colour", "Suppression handling", "Data-quality page", "PBIP + TMDL project"],
+    downloads: [
+      { label: "Download report (PDF)", file: "downloads/opioid-harms-report.pdf", note: "All six report pages, as exported from Power BI Desktop." },
+      { label: "Download the Power BI project (.zip)", file: "downloads/opioid-harms-powerbi-project.zip", note: "The .pbip project plus the model CSVs. The README inside says how to set the CSV folder." }
+    ],
+    chapters: [
+      { visuals: [{ ref: 0 }] },
+      { visuals: [{ ref: 1 }] },
+      { visuals: [{ ref: 2 }] },
+      { visuals: [{ ref: 3 }] },
+      { visuals: [{ ref: 4 }] }
+    ],
+    charts: [
+      {"type": "bar", "orient": "v", "title": "Opioid deaths in Canada by year", "labels": ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], "values": [2832, 3928, 4262, 3602, 6184, 7617, 7274, 8083, 6669, 5704], "unit": "deaths", "highlight": 7},
+      {"type": "line", "title": "Opioid counts compared with 2019 (2019 = 100)", "labels": ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], "unit": "index", "noLabels": true, "datasets": [{"label": "Deaths", "color": "#1B3A5C", "values": [79.0, 109.0, 118.0, 100.0, 172.0, 211.0, 202.0, 224.0, 185.0, 158.0]}, {"label": "Hospital stays", "color": "#2A7F8E", "values": [102.0, 114.0, 112.0, 100.0, 116.0, 139.0, 121.0, 144.0, 125.0, 113.0]}, {"label": "Emergency department visits", "color": "#C77700", "values": [65.0, 93.0, 100.0, 100.0, 124.0, 179.0, 133.0, 156.0, 135.0, 128.0]}, {"label": "EMS responses", "color": "#8A9BAE", "values": [null, 81.0, 97.0, 100.0, 138.0, 192.0, 166.0, 199.0, 168.0, 184.0]}]},
+      {"type": "bar", "title": "Opioid death rate per 100,000: 2024, and 2025 (provisional)", "labels": ["British Columbia", "Yukon", "Manitoba", "Alberta", "Saskatchewan", "Canada", "Northwest Territories", "Ontario", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island", "Quebec"], "unit": "per 100,000", "datasets": [{"label": "2024", "color": "#1B3A5C", "values": [35.7, 29.4, 25.0, 24.4, 21.8, 16.2, 15.5, 14.0, 10.0, 8.6, 6.2, 4.5, 3.4]}, {"label": "2025 (provisional)", "color": "#8A9BAE", "values": [32.6, 29.0, 15.3, 22.9, 18.7, 13.7, 4.4, 8.7, 9.9, 4.9, 7.0, 7.1, 6.5]}]},
+      {"type": "bar", "orient": "v", "title": "Opioid deaths by age group and sex, 2024", "labels": ["0 to 19 years", "20 to 29 years", "30 to 39 years", "40 to 49 years", "50 to 59 years", "60 years or more"], "unit": "deaths", "datasets": [{"label": "Female", "values": [44, 332, 520, 441, 311, 219], "color": "#2A7F8E"}, {"label": "Male", "values": [54, 649, 1334, 1167, 885, 628], "color": "#1B3A5C"}]},
+      {"type": "bar", "title": "What the 34,890 rows contain", "labels": ["Numbers (5% are real zeros)", "Blank: not available", "Suppressed: small counts"], "values": [62.1, 24.8, 13.1], "unit": "% of rows", "suffix": "%", "highlight": 0}
+    ],
+    model: {
+      measures: [
+        { name: "Count", dax: "VAR scoped = ISFILTERED ( Dim_Region )\nRETURN\n    IF (\n        scoped,\n        SUM ( fact_year[number] ),\n        CALCULATE (\n            SUM ( fact_year[number] ),\n            Dim_Region[Region] = \"Canada\"\n        )\n    )" },
+        { name: "Rate (Focus Year)", dax: "VAR y = [Focus Year]\nVAR s = [Sel Source]\nVAR sub = [Sel Substance]\nRETURN\n    CALCULATE (\n        [Rate per 100k],\n        REMOVEFILTERS ( Date ),\n        fact_year[year] = y,\n        Dim_Source[Source] = s,\n        Dim_Substance[Substance] = sub\n    )" },
+        { name: "Opioid Deaths Peak", dax: "VAR yrs =\n    CALCULATETABLE (\n        VALUES ( fact_year[year] ),\n        REMOVEFILTERS ( Date ),\n        fact_year[partial_period] = 0\n    )\nRETURN\n    MAXX (\n        yrs,\n        CALCULATE (\n            [Count],\n            REMOVEFILTERS ( Date ),\n            Dim_Source[Source] = \"Deaths\",\n            Dim_Substance[Substance] = \"Opioids\"\n        )\n    )" },
+        { name: "Coverage Status", dax: "CALCULATE (\n    IF (\n        COUNTROWS ( fact_year ) = 0,\n        \"Not in file\",\n        SELECTEDVALUE ( fact_year[number_status] )\n    ),\n    REMOVEFILTERS ( Date ),\n    fact_year[year] = 2024,\n    Dim_Substance[Substance] = \"Opioids\"\n)" },
+        { name: "Tile Fill", dax: "VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], \"\" )\nVAR r = [Rate (Focus Year)]\nVAR k = DIVIDE ( r, [Tile Max] )\nRETURN\n    IF (\n        code = \"\",\n        BLANK (),\n        IF (\n            ISBLANK ( r ),\n            \"#E3E3E3\",\n            SWITCH (\n                TRUE (),\n                k < 0.2, \"#E4ECF3\",\n                k < 0.4, \"#A9C3D9\",\n                k < 0.6, \"#5F8FB5\",\n                k < 0.8, \"#2D5F8A\",\n                \"#1B3A5C\"\n            )\n        )\n    )" }
+      ]
+    },
+    story: {
+      dek: "Hospitals, ambulance services and death records all count opioid and stimulant harms, but not in the same way or in the same places. I used the Public Health Agency of Canada's open data, 2016 to early 2026, to see which measures are falling, where the burden is greatest, and what each number really covers.",
+      bottom: "deaths are falling faster than hospital and ambulance activity, so deaths alone understate the burden. Provinces differ several times over, and several Canada totals leave places out.",
+      toc: true,
+      terms: "EMS = ambulance calls (emergency medical services). ED = emergency department. Suppressed = small counts hidden by the agency to protect privacy. Crude rate = cases per 100,000 people, not adjusted for age.",
+      next: ["Age-adjust the provincial rates with population data, so provinces with older or younger populations compare fairly.", "Add treatment and naloxone data to test whether falling deaths come from fewer overdoses or from more of them being survived.", "Re-run the report when the 2025 figures are final, and re-check the Ontario and Quebec changes."],
+      chips: ["Python (pandas)", "SQL (SQLite checks)", "Power Query", "Star schema (3 facts)", "Advanced DAX", "Conditional formatting by DAX", "Heat map and tile map", "Data-quality profiling", "Suppression handling", "PBIP + TMDL in Git"],
+      meta: [
+        { k: "Data", v: "Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada (real, aggregated)" },
+        { k: "Scope", v: "2016 to Q1 2026, yearly and quarterly, four sources, 19 regions" },
+        { k: "Tools", v: "Power BI, DAX, SQL, Python" },
+        { k: "My role", v: "End to end: checked the data in SQL and Python, built the star-schema model and DAX, designed the six-page report and wrote the findings" },
+        { k: "Source link", v: "PHAC Health Infobase, Open Government Licence - Canada (accessed November 2026)", href: "https://health-infobase.canada.ca/substance-related-harms/opioids-stimulants/" }
+      ],
+      findings: [
+        "Opioid deaths jumped from 3,602 in 2019 to 6,184 in 2020, peaked at 8,083 in 2023 and were 5,704 in 2025, down 29%.",
+        "Against their peaks, hospital stays are down 22% and emergency department visits 29%, but EMS responses are down only 8%, and early 2026 is the highest quarter on record.",
+        "In 2024 the opioid death rate was 35.7 per 100,000 in British Columbia, 24.4 in Alberta, 14.0 in Ontario and 3.4 in Quebec.",
+        "About 72% of opioid deaths in 2024 were men, and 53% were aged 30 to 49."
+      ],
+      chapters: [
+        { n: "01 \u00b7 TREND", ch: 0, title: "Opioid deaths jumped in 2020 and have fallen since the 2023 peak",
+          paras: ["Opioid deaths rose from 3,602 in 2019 to 6,184 in 2020, a jump of 72%. They peaked at 8,083 in 2023 and were 5,704 in 2025.",
+                  "The rate per 100,000 went from 9.6 in 2019 to 20.2 in 2023 and 13.7 in 2025. Stimulant deaths followed the same shape: 5,395 in 2023 and 3,634 in 2025."],
+          note: "The 2026 figure covers January to March only, so full years end at 2025.",
+          tabs: [], src: "Source: Public Health Agency of Canada, Health Infobase." },
+        { n: "02 \u00b7 FOUR MEASURES", ch: 1, title: "Deaths have fallen faster than ambulance calls",
+          paras: ["Against their peaks, opioid deaths are 29% lower, hospital stays 22% lower and emergency department visits 29% lower, but EMS responses are only 8% lower.",
+                  "In the first quarter of 2026 deaths were 5% below a year earlier while hospital stays were 14% higher and EMS responses 61% higher. Hospital stays per death fell from 1.62 in 2016 to 0.88 in 2025."],
+          note: "The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.",
+          tabs: [], src: "Each line is shown as a percentage of its own 2019 value: 100 is the 2019 level, 150 is 50% higher and 80 is 20% lower. The sources count different things, so compare direction, not size." },
+        { n: "03 \u00b7 PROVINCES", ch: 2, title: "Death rates differ several times between provinces",
+          paras: ["In 2024 the opioid death rate was 35.7 per 100,000 in British Columbia, 29.4 in Yukon, 25.0 in Manitoba and 24.4 in Alberta, against 14.0 in Ontario and 3.4 in Quebec.",
+                  "The lighter bars are 2025, which looks provisional: Ontario falls from 14.0 to 8.7 and Quebec rises from 3.4 to 6.5 in one year. That looks like reporting timing, so I compare provinces on 2024. The Canada rate (16.2 in 2024) only counts the places that report."],
+          note: "Rates are crude, not age-adjusted, so use them to ask questions, not to rank provinces. The report opens on 2024.",
+          tabs: [], src: "Source: Public Health Agency of Canada. Nunavut has no death rate for 2024 or 2025." },
+        { n: "04 \u00b7 WHO", ch: 3, title: "Three in four deaths are men, and half are aged 30 to 49",
+          paras: ["In 2024, 72% of opioid deaths were men and 53% were aged 30 to 49. Counts roughly doubled in every age group from 2019 to 2021 and are lower in every group than at the 2023 peak.",
+                  "I show 2024 because the age and sex split covers 99% of its deaths, against 91% for 2025. The rest is suppressed because the counts are small."],
+          note: "In smaller regions many age and sex cells are blank, because PHAC hides small counts to protect privacy.",
+          tabs: [], src: "Source: Public Health Agency of Canada, age and sex counts." },
+        { n: "05 \u00b7 DATA QUALITY", ch: 4, title: "A quarter of the file is blank, and Canada does not mean all of Canada",
+          paras: ["The file is a chart export with 34,890 rows and 39 columns, not a table. 62% of values are numbers (5% are real zeros), 25% are blank and 13% are suppressed small counts. I keep the three apart and never show a missing value as zero.",
+                  "A Canada total only adds up the places that report: hospital stays leave out Quebec and emergency department visits cover 7 of 13 provinces and territories. Quarters add up to as much as 1.6% less than the published year, so I never build a year from quarters."],
+          note: "Every headline number was checked against a separate Python calculation.",
+          tabs: [], src: "Checks are in the SQL file in the project folder." }
+      ],
+      recs: [
+        { who: "Public health planner", title: "Track EMS and emergency visits next to deaths", text: "Deaths fell 29% from the peak, but EMS responses only 8%. Deaths alone understate the ongoing burden, so report all four measures together.", measure: "Measure: change from peak, by source" },
+        { who: "Regional health lead", title: "Start with the high-rate places", text: "In 2024 British Columbia, Yukon, Manitoba, Alberta and Saskatchewan had rates of 22 to 36 per 100,000. Compare places on the same year, and ask how each reports.", measure: "Measure: death rate per 100,000, 2024" },
+        { who: "Harm-reduction program lead", title: "Aim outreach at men aged 30 to 49", text: "This group is the largest: 72% of deaths are men and 53% are aged 30 to 49. Test the outreach against local data before spending.", measure: "Measure: share of deaths by age group and sex" }
+      ],
+      recNote: "These are proposals for discussion from public, aggregated data. They are not clinical advice.",
+      pipeline: [
+        { i: "01 \u00b7 SOURCE", b: "Public Health Agency of Canada", s: "Open CSV from Health Infobase under the Open Government Licence, updated September 2026" },
+        { i: "02 \u00b7 PREPARE", b: "Python and SQLite", s: "Turned the chart export into three tables; kept suppressed and blank values apart" },
+        { i: "03 \u00b7 CHECK", b: "SQL checks", s: "Keys unique, Canada equals the places that report, quarters against years, and every headline number against Python" },
+        { i: "04 \u00b7 MODEL", b: "Star schema", s: "Three fact tables, six dimensions, a date table and 87 DAX measures" },
+        { i: "05 \u00b7 REPORT", b: "Power BI", s: "6 pages: indexed lines, tile map, heat map and a coverage grid" }
+      ]
+    }
   }
 ];
 

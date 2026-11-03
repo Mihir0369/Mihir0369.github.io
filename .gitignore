@@ -20,3 +20,6 @@ requests_monthly_agg.csv
 
 # Project 01: raw downloads are re-created by fetch_banking_data.py
 01-banking-household-credit/*.csv
+
+# Project 05: the raw 43 MB export is re-created by fetch_harms.py
+05-healthcare-opioid-harms/harms.csv

@@ -1,0 +1,49 @@
+table Date
+	lineageTag: fd08f619-7b9c-534e-961d-0f7f3df9372c
+	dataCategory: Time
+
+	column Date
+		isKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2c806d1a-a139-5c02-ada0-0de6f48dfcf1
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 17fae5d0-b851-583d-a9d7-b8a7fdbaaa53
+		summarizeBy: none
+		sourceColumn: [Year]
+
+	column 'Year Label'
+		lineageTag: 289a54e7-37c4-5ef2-81e5-05103fbe8e48
+		summarizeBy: none
+		sourceColumn: [Year Label]
+		sortByColumn: 'Year'
+
+	column Quarter
+		lineageTag: 38180fb1-87f3-503d-bf3e-1d8c67711b1e
+		summarizeBy: none
+		sourceColumn: [Quarter]
+		sortByColumn: 'Quarter Number'
+
+	column 'Quarter Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 688e226b-8ef4-572b-8a65-05c9aa462564
+		summarizeBy: none
+		sourceColumn: [Quarter Number]
+
+	partition Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 2016, 1, 1 ), DATE ( 2026, 3, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Year Label", IF ( YEAR ( [Date] ) = 2026, "2026 (Jan to Mar)", FORMAT ( YEAR ( [Date] ), "0" ) ),
+				    "Quarter", YEAR ( [Date] ) & " Q" & QUARTER ( [Date] ),
+				    "Quarter Number", YEAR ( [Date] ) * 10 + QUARTER ( [Date] )
+				)

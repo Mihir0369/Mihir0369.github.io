@@ -1,0 +1,82 @@
+table Dim_Region
+	lineageTag: c03869fd-ac8e-5d45-a4f8-e2de572b5f52
+
+	column Region
+		lineageTag: 67878abb-7474-56b6-94ce-5118a85a7ae7
+		summarizeBy: none
+		sourceColumn: [Region]
+		sortByColumn: 'Sort Order'
+
+	column 'Region Type'
+		lineageTag: 9c2e5533-a23c-565e-81b2-0d194af7f8a4
+		summarizeBy: none
+		sourceColumn: [Region Type]
+
+	column 'Tile Code'
+		lineageTag: efb13e55-45ce-549e-a4b4-654ccc15e8cc
+		summarizeBy: none
+		sourceColumn: [Tile Code]
+
+	column 'Tile Row Label'
+		lineageTag: 998667ee-dc74-5c7b-a337-c11acb53b15e
+		summarizeBy: none
+		sourceColumn: [Tile Row Label]
+		sortByColumn: 'Tile Row'
+
+	column 'Tile Row'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a9aa6406-36d2-557c-9d61-80df52c6c895
+		summarizeBy: none
+		sourceColumn: [Tile Row]
+
+	column 'Tile Col'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8628fe49-61ae-5c24-afc4-0449b5f71962
+		summarizeBy: none
+		sourceColumn: [Tile Col]
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0a5b8fd-201c-5166-b9ac-ee1a6b29e7a9
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Region = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Region", STRING,
+				    "Region Type", STRING,
+				    "Tile Code", STRING,
+				    "Tile Row Label", STRING,
+				    "Tile Row", INTEGER,
+				    "Tile Col", INTEGER,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Canada", "Canada", "", "", 0, 0, 1 },
+				        { "British Columbia", "Province", "BC", "Provinces", 2, 1, 2 },
+				        { "Alberta", "Province", "AB", "Provinces", 2, 2, 3 },
+				        { "Saskatchewan", "Province", "SK", "Provinces", 2, 3, 4 },
+				        { "Manitoba", "Province", "MB", "Provinces", 2, 4, 5 },
+				        { "Ontario", "Province", "ON", "Provinces", 2, 5, 6 },
+				        { "Quebec", "Province", "QC", "Provinces", 2, 6, 7 },
+				        { "New Brunswick", "Province", "NB", "Provinces", 2, 7, 8 },
+				        { "Nova Scotia", "Province", "NS", "Atlantic", 3, 7, 9 },
+				        { "Prince Edward Island", "Province", "PE", "Atlantic", 3, 8, 10 },
+				        { "Newfoundland and Labrador", "Province", "NL", "Provinces", 2, 8, 11 },
+				        { "Yukon", "Territory", "YT", "North", 1, 1, 12 },
+				        { "Northwest Territories", "Territory", "NT", "North", 1, 2, 13 },
+				        { "Nunavut", "Territory", "NU", "North", 1, 3, 14 },
+				        { "Territories", "Territories combined", "", "", 0, 0, 15 },
+				        { "Northern and rural Manitoba", "EMS area", "", "", 0, 0, 16 },
+				        { "Winnipeg, Manitoba", "EMS area", "", "", 0, 0, 17 },
+				        { "Whitehorse, Yukon", "EMS area", "", "", 0, 0, 18 },
+				        { "Yellowknife, Northwest Territories", "EMS area", "", "", 0, 0, 19 }
+				    }
+				)

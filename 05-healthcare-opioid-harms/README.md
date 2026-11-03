@@ -38,3 +38,10 @@ Use published rates for comparing provinces. Counts alone mislead because popula
 - Small counts may be suppressed in the source. Show suppression as "suppressed", never as zero.
 - Do not rank provinces without noting differences in reporting methods.
 - Use neutral, non-stigmatizing language in titles and labels.
+
+## What was built (results)
+- `fetch_harms.py` downloads the PHAC export (34,890 rows, 39 columns) into `harms.db`; `build_model_data.py` turns it into three model tables in `model/` (yearly, quarterly, age and sex) and prints the checks.
+- `sql/analysis.sql` holds the data-quality queries: keys are unique, Canada equals the sum of the places that report, and quarters add up to slightly less than the published year.
+- `build_powerbi.py` generates the Power BI project in `powerbi/` (TMDL model and PBIR report, six pages). `opioid-harms.pdf` is the export.
+
+Data traps found: `value` mixes numbers, "Suppr." (suppressed) and blanks (not available); hospital stays leave out Quebec and emergency department visits cover 7 of 13 provinces and territories in the Canada total; quarters do not add up to the published year; 2026 covers January to March only; some 2025 provincial values look provisional, so provinces are compared on 2024.

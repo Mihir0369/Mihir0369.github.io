@@ -1,0 +1,28 @@
+table Dim_Substance
+	lineageTag: c643be7a-e7d9-5c2a-bcd3-ed13ee3051cd
+
+	column Substance
+		lineageTag: 7e2f9732-a033-5a75-9583-55b976cd439d
+		summarizeBy: none
+		sourceColumn: [Substance]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0a5b8fd-201c-5166-b9ac-ee1a6b29e7a9
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Substance = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Substance", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Opioids", 1 },
+				        { "Stimulants", 2 }
+				    }
+				)

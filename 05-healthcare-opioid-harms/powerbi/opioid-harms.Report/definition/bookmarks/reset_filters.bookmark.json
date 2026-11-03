@@ -1,0 +1,81 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.4.0/schema.json",
+  "name": "reset_filters",
+  "displayName": "Reset filters",
+  "options": {
+    "suppressActiveSection": true,
+    "suppressDisplay": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "trend",
+    "sections": {
+      "trend": {
+        "visualContainers": {
+          "src": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "sub": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          }
+        }
+      },
+      "provinces": {
+        "visualContainers": {
+          "src": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "sub": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "yr": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          }
+        }
+      },
+      "burden": {
+        "visualContainers": {
+          "reg": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          }
+        }
+      },
+      "who": {
+        "visualContainers": {
+          "src": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "sub": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "yr": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          },
+          "reg": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

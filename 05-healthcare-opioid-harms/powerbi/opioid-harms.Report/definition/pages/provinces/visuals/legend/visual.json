@@ -1,0 +1,179 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "legend",
+  "position": {
+    "x": 30,
+    "y": 546,
+    "z": 350,
+    "width": 560,
+    "height": 56,
+    "tabOrder": 350
+  },
+  "visual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Lighter = lower rate    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#E4ECF3"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#A9C3D9"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#5F8FB5"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#2D5F8A"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1B3A5C"
+                    }
+                  },
+                  {
+                    "value": "  darker = higher rate    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#E3E3E3"
+                    }
+                  },
+                  {
+                    "value": "n/a = not reported",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Tiles sit roughly where each province is. Colours compare tiles on this page.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "6.0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "14.0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "8.0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "14.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

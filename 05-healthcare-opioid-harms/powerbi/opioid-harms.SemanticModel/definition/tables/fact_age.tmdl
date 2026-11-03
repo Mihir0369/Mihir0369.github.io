@@ -1,0 +1,91 @@
+table fact_age
+	lineageTag: e2a89992-c9d6-500d-b310-d9e5b892bb0f
+
+	column source
+		dataType: string
+		isHidden
+		lineageTag: 430d0019-3546-57cc-8aea-9a3c93697d47
+		summarizeBy: none
+		sourceColumn: source
+
+	column substance
+		dataType: string
+		isHidden
+		lineageTag: b2b6c241-014a-5b5d-99ac-c1e8fbe08d80
+		summarizeBy: none
+		sourceColumn: substance
+
+	column region
+		dataType: string
+		isHidden
+		lineageTag: 655d7e3e-1c38-5552-beda-792d06cb8622
+		summarizeBy: none
+		sourceColumn: region
+
+	column year
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: 0dff21bd-bbf5-54b0-b9aa-ebf85f97a18e
+		summarizeBy: none
+		sourceColumn: year
+
+	column age_group
+		dataType: string
+		isHidden
+		lineageTag: 53485cb1-b5f8-5fec-8987-5f3650720ca6
+		summarizeBy: none
+		sourceColumn: age_group
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: 581ada79-21fc-5ea1-bd49-2b2730d5d24a
+		summarizeBy: none
+		sourceColumn: sex
+
+	column number
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 65ca17d6-c98d-50e8-bc4a-f0bbdfc7b684
+		summarizeBy: none
+		sourceColumn: number
+
+	column number_status
+		dataType: string
+		isHidden
+		lineageTag: 614919bc-b8f8-5239-a344-a2bbbfafb216
+		summarizeBy: none
+		sourceColumn: number_status
+
+	column partial_period
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: 6bd68c7d-da37-558c-bc81-5ffe411c9f2e
+		summarizeBy: none
+		sourceColumn: partial_period
+
+	column YearStart
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 061131ea-e8dd-5a41-9715-baeca390940b
+		summarizeBy: none
+		sourceColumn: YearStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_age = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_age_sex.csv"), [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"source", type text}, {"substance", type text}, {"region", type text}, {"year", Int64.Type}, {"age_group", type text}, {"sex", type text}, {"number", type number}, {"number_status", type text}, {"partial_period", Int64.Type}}, "en-US"),
+				    AddDate = Table.AddColumn(Typed, "YearStart", each #date([year], 1, 1), type date)
+				in
+				    AddDate
+
+	annotation PBI_ResultType = Table

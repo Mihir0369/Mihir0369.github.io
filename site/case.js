@@ -199,12 +199,20 @@
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));
+    if (S.bottom) { var bl = rich(el("p", { "class": "bottom" }), S.bottom); bl.insertBefore(el("b", { "class": "bl" }, "Bottom line: "), bl.firstChild); h.appendChild(bl); }
     h.appendChild(p.kpis ? cardRow(p.kpis, "kpis", true)
       : cardRow([{ label: p.headline.label, value: p.headline.value == null ? "to fill in" : p.headline.value, sub: "Headline result", icon: "bars" }], "kpis one", true));
     var mr = div("meta-row", h);
     S.meta.forEach(function (m) {
-      var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": ")); sp.appendChild(document.createTextNode(m.v)); mr.appendChild(sp);
+      var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": "));
+      if (m.links) { m.links.forEach(function (l, li) { if (li) sp.appendChild(document.createTextNode(" \u00b7 ")); sp.appendChild(el("a", { href: l.href, target: "_blank", rel: "noopener noreferrer" }, l.v)); }); }
+      else if (m.href) { var ml = el("a", { href: m.href, target: "_blank", rel: "noopener noreferrer" }, m.v); sp.appendChild(ml); } else sp.appendChild(document.createTextNode(m.v));
+      mr.appendChild(sp);
     });
+    if (S.toc && S.chapters) {
+      var jp = div("jump", h); jp.appendChild(el("b", {}, "Jump to: "));
+      S.chapters.forEach(function (c, ci) { jp.appendChild(el("a", { href: "#ch-" + ci }, c.n.replace(" \u00b7 ", " "))); });
+    }
 
     var r = sec("s-pbi");
     var rh = div("pbi-head", r);
@@ -225,13 +233,14 @@
     var fnd = S.findings || p.found || [];
     if (fnd.length) { var ol = el("ol"); fnd.forEach(function (t) { ol.appendChild(rich(el("li"), t)); }); kf.appendChild(ol); }
     else kf.appendChild(slot("Findings to fill in after the analysis: 3 to 5 findings, each with a number and its sample size."));
+    if (S.terms) { var tm = rich(el("p", { "class": "terms" }), S.terms); tm.insertBefore(el("b", { "class": "tl" }, "Terms: "), tm.firstChild); kf.appendChild(tm); }
 
     if (!S.chapters) {
       var an = sec("s-block", "Analysis");
       an.appendChild(slot("Chapters to fill in: each one a claim, two short paragraphs and one chart."));
     }
-    (S.chapters || []).forEach(function (ch) {
-      var cs = sec("s-chapter");
+    (S.chapters || []).forEach(function (ch, ci) {
+      var cs = sec("s-chapter"); cs.id = "ch-" + ci;
       var tx = div("text", cs);
       div("n", tx, ch.n);
       tx.appendChild(el("h2", {}, ch.title));
@@ -272,6 +281,10 @@
       if (x.measure) div("m", d, x.measure);
     });
     if (S.recNote) rc.appendChild(el("p", { "class": "pbi-note" }, S.recNote));
+    if (S.next && S.next.length) {
+      var nx = div("next-steps", rc); nx.appendChild(el("div", { "class": "nlabel" }, "What I would do next"));
+      var nl = el("ol"); S.next.forEach(function (t) { nl.appendChild(rich(el("li"), t)); }); nx.appendChild(nl);
+    }
 
     var mt = sec("s-block", "Data, model and method");
     var pl = div("pipeline", mt);
@@ -439,16 +452,23 @@
   /* ---- Power BI report screenshots */
   function gallery() {
     var gal = el("div", { "class": "shots" });
-    p.shots.forEach(function (s) {
-      var fig = el("figure", { "class": "shot" });
-      var img = el("img", { src: s.file, alt: s.caption, loading: "lazy" });
+    var wrap = null;
+    if (p.hero != null) {
+      wrap = el("div", { "class": "gal-wrap" });
+      gal.className = "shots thumbs";
+    }
+    p.shots.forEach(function (s, si) {
+      var big = wrap && si === p.hero;
+      var fig = el("figure", { "class": "shot" + (big ? " shot-main" : "") });
+      var img = el("img", { src: s.file, alt: s.caption, loading: big ? "eager" : "lazy" });
       img.addEventListener("error", function () { img.replaceWith(slot("Screenshot not added yet: save it as site/" + s.file)); });
       var open = el("a", { href: s.file, target: "_blank", rel: "noopener", title: "Open full size" });
       open.appendChild(img);
       fig.appendChild(open);
-      fig.appendChild(el("figcaption", {}, s.caption + " (click to enlarge)"));
-      gal.appendChild(fig);
+      fig.appendChild(el("figcaption", {}, big ? s.caption + " (click to enlarge)" : s.caption));
+      if (big) wrap.appendChild(fig); else gal.appendChild(fig);
     });
+    if (wrap) { wrap.appendChild(el("p", { "class": "gal-label" }, "All report pages")); wrap.appendChild(gal); return wrap; }
     return gal;
   }
   if (!p.brief && p.shots && p.shots.length) section("The Power BI report", gallery(), "pbi");

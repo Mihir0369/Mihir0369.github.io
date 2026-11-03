@@ -432,3 +432,33 @@ main.wrap:not(.case) > section:last-of-type { border-bottom: 0; }
 @media (max-width: 860px) { .xp-list { grid-column: 1; } }
 
 h1 .hl { color: var(--teal); }
+
+/* project 05 additions: bottom line, jump links, hero screenshot, next steps */
+.s-head .bottom { max-width: 860px; margin: 0 0 20px; padding: 12px 16px; background: var(--warn-soft); border-left: 4px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; font-size: 16px; line-height: 1.55; color: var(--text); }
+.s-head .bottom .bl { color: var(--warn); }
+.meta-row a { color: var(--navy); }
+.jump { margin-top: 12px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.jump a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--line); }
+.jump a:hover { border-bottom-color: var(--amber); }
+.s-chapter { scroll-margin-top: 90px; }
+.shots.thumbs { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.shots.thumbs .shot figcaption { font-size: 12.5px; padding: 8px 10px; }
+.shot.shot-main { margin-bottom: 8px; }
+.shot.shot-main figcaption { font-size: 15px; }
+.gal-label { margin: 18px 0 10px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.pbi-note.terms { white-space: normal !important; max-width: 880px; }
+.next-steps { margin-top: 22px; background: var(--accent-soft); border-radius: var(--radius); padding: 22px 28px 20px; }
+.next-steps .nlabel { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--teal); margin-bottom: 12px; }
+.next-steps ol { margin: 0; padding-left: 22px; color: var(--text); line-height: 1.7; font-size: 16px; }
+.next-steps li { margin-bottom: 6px; padding-left: 4px; }
+
+/* jump links as small boxes, and a full-width terms strip */
+.jump { align-items: center; gap: 8px 10px; margin-top: 16px; }
+.jump b { color: var(--text); margin-right: 2px; }
+.jump a { display: inline-block; padding: 5px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); font-size: 13px; font-weight: 600; letter-spacing: .03em; color: var(--navy); text-decoration: none; transition: border-color .12s, box-shadow .12s; }
+.jump a:hover { border-color: var(--amber); box-shadow: 0 2px 6px rgba(27,58,92,.12); }
+.s-tldr .terms { margin: 22px 0 0; padding: 14px 18px; background: var(--surface); border-left: 4px solid var(--teal); border-radius: 0 var(--radius) var(--radius) 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); max-width: none; box-shadow: 0 1px 2px rgba(27,58,92,.06); }
+.s-tldr .terms .tl { color: var(--teal); }
+
+/* skills row wraps onto two lines instead of scrolling */
+.pbi-foot .chips { flex-wrap: wrap !important; overflow: visible !important; row-gap: 8px; }

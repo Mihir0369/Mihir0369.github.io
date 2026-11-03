@@ -1,0 +1,223 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "tbl",
+  "position": {
+    "x": 650,
+    "y": 325,
+    "z": 400,
+    "width": 610,
+    "height": 430,
+    "tabOrder": 400
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date"
+                    }
+                  },
+                  "Property": "Year Label"
+                }
+              },
+              "queryRef": "Date.Year Label",
+              "nativeQueryRef": "Year Label",
+              "displayName": "Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Deaths (Opioids)"
+                }
+              },
+              "queryRef": "_Measures.Deaths (Opioids)",
+              "nativeQueryRef": "Deaths (Opioids)",
+              "displayName": "Deaths"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Hospital stays (Opioids)"
+                }
+              },
+              "queryRef": "_Measures.Hospital stays (Opioids)",
+              "nativeQueryRef": "Hospital stays (Opioids)",
+              "displayName": "Hospital stays"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ED Visits (Opioids)"
+                }
+              },
+              "queryRef": "_Measures.ED Visits (Opioids)",
+              "nativeQueryRef": "ED Visits (Opioids)",
+              "displayName": "ED visits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "EMS Responses (Opioids)"
+                }
+              },
+              "queryRef": "_Measures.EMS Responses (Opioids)",
+              "nativeQueryRef": "EMS Responses (Opioids)",
+              "displayName": "EMS responses"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Hosp per Death (Year)"
+                }
+              },
+              "queryRef": "_Measures.Hosp per Death (Year)",
+              "nativeQueryRef": "Hosp per Death (Year)",
+              "displayName": "Stays per death"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Opioid counts by year'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ED visits and hospital stays cover only the places that report each year.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table of opioid counts by year and source'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

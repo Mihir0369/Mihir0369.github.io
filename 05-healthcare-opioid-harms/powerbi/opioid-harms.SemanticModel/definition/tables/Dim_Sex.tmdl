@@ -1,0 +1,28 @@
+table Dim_Sex
+	lineageTag: a5d33217-daac-58f7-aba2-c8daa00bbf7e
+
+	column Sex
+		lineageTag: 94e6c812-30dd-5106-9c51-96fb32f2e39f
+		summarizeBy: none
+		sourceColumn: [Sex]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0a5b8fd-201c-5166-b9ac-ee1a6b29e7a9
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Sex = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Sex", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Female", 1 },
+				        { "Male", 2 }
+				    }
+				)

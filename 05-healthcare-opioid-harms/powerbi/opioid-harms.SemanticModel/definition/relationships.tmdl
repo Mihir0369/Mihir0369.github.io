@@ -1,0 +1,55 @@
+relationship year_to_date
+	fromColumn: fact_year.YearStart
+	toColumn: Date.Date
+
+relationship year_to_source
+	fromColumn: fact_year.source
+	toColumn: Dim_Source.Source
+
+relationship year_to_substance
+	fromColumn: fact_year.substance
+	toColumn: Dim_Substance.Substance
+
+relationship year_to_region
+	fromColumn: fact_year.region
+	toColumn: Dim_Region.Region
+
+relationship quarter_to_date
+	fromColumn: fact_quarter.quarter_start
+	toColumn: Date.Date
+
+relationship quarter_to_source
+	fromColumn: fact_quarter.source
+	toColumn: Dim_Source.Source
+
+relationship quarter_to_substance
+	fromColumn: fact_quarter.substance
+	toColumn: Dim_Substance.Substance
+
+relationship quarter_to_region
+	fromColumn: fact_quarter.region
+	toColumn: Dim_Region.Region
+
+relationship age_to_date
+	fromColumn: fact_age.YearStart
+	toColumn: Date.Date
+
+relationship age_to_source
+	fromColumn: fact_age.source
+	toColumn: Dim_Source.Source
+
+relationship age_to_substance
+	fromColumn: fact_age.substance
+	toColumn: Dim_Substance.Substance
+
+relationship age_to_region
+	fromColumn: fact_age.region
+	toColumn: Dim_Region.Region
+
+relationship age_to_agegroup
+	fromColumn: fact_age.age_group
+	toColumn: Dim_Age.'Age group'
+
+relationship age_to_sex
+	fromColumn: fact_age.sex
+	toColumn: Dim_Sex.Sex

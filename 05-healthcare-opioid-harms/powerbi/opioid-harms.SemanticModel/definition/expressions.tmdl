@@ -1,0 +1,4 @@
+expression ModelFolder = "C:\Users\12268\Desktop\Co-op\FInal\Portfolio Projects\05-healthcare-opioid-harms\model" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 4083dea4-916c-5669-b104-7eee64cb19c0
+
+	annotation PBI_ResultType = Text

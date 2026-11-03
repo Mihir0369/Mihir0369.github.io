@@ -1,0 +1,35 @@
+table Dim_HeatYear
+	lineageTag: 489d54db-7c97-576c-a355-e3cddef52408
+
+	column 'Heat Year'
+		lineageTag: 56e2966a-6729-59bd-991e-b726b1cbc0ce
+		summarizeBy: none
+		sourceColumn: [Heat Year]
+		sortByColumn: 'Heat Year Number'
+
+	column 'Heat Year Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fc8fb188-5033-5c6d-9d94-903f3434f30f
+		summarizeBy: none
+		sourceColumn: [Heat Year Number]
+
+	partition Dim_HeatYear = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Heat Year", STRING,
+				    "Heat Year Number", INTEGER,
+				    {
+				        { "2018", 2018 },
+				        { "2019", 2019 },
+				        { "2020", 2020 },
+				        { "2021", 2021 },
+				        { "2022", 2022 },
+				        { "2023", 2023 },
+				        { "2024", 2024 },
+				        { "2025", 2025 },
+				        { "2026 Q1", 2026 }
+				    }
+				)

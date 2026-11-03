@@ -1,0 +1,973 @@
+source,substance,region,year,number,number_status,crude_rate,rate_status,partial_period
+Deaths,Opioids,Alberta,2016,602.0,Reported,14.3,Reported,0
+Deaths,Opioids,Alberta,2017,744.0,Reported,17.6,Reported,0
+Deaths,Opioids,Alberta,2018,805.0,Reported,18.8,Reported,0
+Deaths,Opioids,Alberta,2019,626.0,Reported,14.4,Reported,0
+Deaths,Opioids,Alberta,2020,1192.0,Reported,27.0,Reported,0
+Deaths,Opioids,Alberta,2021,1642.0,Reported,37.1,Reported,0
+Deaths,Opioids,Alberta,2022,1523.0,Reported,33.7,Reported,0
+Deaths,Opioids,Alberta,2023,1867.0,Reported,39.8,Reported,0
+Deaths,Opioids,Alberta,2024,1197.0,Reported,24.4,Reported,0
+Deaths,Opioids,Alberta,2025,1154.0,Reported,22.9,Reported,0
+Deaths,Opioids,Alberta,2026,252.0,Reported,20.0,Reported,1
+Deaths,Opioids,British Columbia,2016,807.0,Reported,16.6,Reported,0
+Deaths,Opioids,British Columbia,2017,1300.0,Reported,26.3,Reported,0
+Deaths,Opioids,British Columbia,2018,1401.0,Reported,27.9,Reported,0
+Deaths,Opioids,British Columbia,2019,903.0,Reported,17.7,Reported,0
+Deaths,Opioids,British Columbia,2020,1563.0,Reported,30.2,Reported,0
+Deaths,Opioids,British Columbia,2021,2033.0,Reported,38.9,Reported,0
+Deaths,Opioids,British Columbia,2022,2112.0,Reported,39.4,Reported,0
+Deaths,Opioids,British Columbia,2023,2293.0,Reported,41.6,Reported,0
+Deaths,Opioids,British Columbia,2024,2025.0,Reported,35.7,Reported,0
+Deaths,Opioids,British Columbia,2025,1855.0,Reported,32.6,Reported,0
+Deaths,Opioids,British Columbia,2026,413.0,Reported,29.0,Reported,1
+Deaths,Opioids,Canada,2016,2832.0,Reported,7.8,Reported,0
+Deaths,Opioids,Canada,2017,3928.0,Reported,10.7,Reported,0
+Deaths,Opioids,Canada,2018,4262.0,Reported,11.5,Reported,0
+Deaths,Opioids,Canada,2019,3602.0,Reported,9.6,Reported,0
+Deaths,Opioids,Canada,2020,6184.0,Reported,16.3,Reported,0
+Deaths,Opioids,Canada,2021,7617.0,Reported,19.9,Reported,0
+Deaths,Opioids,Canada,2022,7274.0,Reported,18.7,Reported,0
+Deaths,Opioids,Canada,2023,8083.0,Reported,20.2,Reported,0
+Deaths,Opioids,Canada,2024,6669.0,Reported,16.2,Reported,0
+Deaths,Opioids,Canada,2025,5704.0,Reported,13.7,Reported,0
+Deaths,Opioids,Canada,2026,1354.0,Reported,13.0,Reported,1
+Deaths,Opioids,Manitoba,2016,88.0,Reported,6.7,Reported,0
+Deaths,Opioids,Manitoba,2017,106.0,Reported,7.9,Reported,0
+Deaths,Opioids,Manitoba,2018,93.0,Reported,6.9,Reported,0
+Deaths,Opioids,Manitoba,2019,62.0,Reported,4.5,Reported,0
+Deaths,Opioids,Manitoba,2020,233.0,Reported,16.9,Reported,0
+Deaths,Opioids,Manitoba,2021,288.0,Reported,20.7,Reported,0
+Deaths,Opioids,Manitoba,2022,292.0,Reported,20.7,Reported,0
+Deaths,Opioids,Manitoba,2023,382.0,Reported,26.3,Reported,0
+Deaths,Opioids,Manitoba,2024,373.0,Reported,25.0,Reported,0
+Deaths,Opioids,Manitoba,2025,231.0,Reported,15.3,Reported,0
+Deaths,Opioids,Manitoba,2026,64.0,Reported,17.0,Reported,1
+Deaths,Opioids,New Brunswick,2016,34.0,Reported,4.5,Reported,0
+Deaths,Opioids,New Brunswick,2017,38.0,Reported,5.0,Reported,0
+Deaths,Opioids,New Brunswick,2018,30.0,Reported,3.9,Reported,0
+Deaths,Opioids,New Brunswick,2019,35.0,Reported,4.5,Reported,0
+Deaths,Opioids,New Brunswick,2020,45.0,Reported,5.7,Reported,0
+Deaths,Opioids,New Brunswick,2021,47.0,Reported,5.9,Reported,0
+Deaths,Opioids,New Brunswick,2022,78.0,Reported,9.6,Reported,0
+Deaths,Opioids,New Brunswick,2023,100.0,Reported,12.0,Reported,0
+Deaths,Opioids,New Brunswick,2024,86.0,Reported,10.0,Reported,0
+Deaths,Opioids,New Brunswick,2025,86.0,Reported,9.9,Reported,0
+Deaths,Opioids,New Brunswick,2026,14.0,Reported,6.4,Reported,1
+Deaths,Opioids,Newfoundland and Labrador,2016,18.0,Reported,3.4,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2017,33.0,Reported,6.2,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2018,23.0,Reported,4.4,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2019,17.0,Reported,3.2,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2020,25.0,Reported,4.7,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2021,25.0,Reported,4.7,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2022,29.0,Reported,5.5,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2023,37.0,Reported,6.9,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2024,47.0,Reported,8.6,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2025,27.0,Reported,4.9,Reported,0
+Deaths,Opioids,Newfoundland and Labrador,2026,6.0,Reported,4.4,Reported,1
+Deaths,Opioids,Northwest Territories,2016,5.0,Reported,11.2,Reported,0
+Deaths,Opioids,Northwest Territories,2017,1.0,Reported,2.2,Reported,0
+Deaths,Opioids,Northwest Territories,2018,2.0,Reported,4.5,Reported,0
+Deaths,Opioids,Northwest Territories,2019,1.0,Reported,2.3,Reported,0
+Deaths,Opioids,Northwest Territories,2020,3.0,Reported,6.7,Reported,0
+Deaths,Opioids,Northwest Territories,2021,4.0,Reported,9.0,Reported,0
+Deaths,Opioids,Northwest Territories,2022,7.0,Reported,15.7,Reported,0
+Deaths,Opioids,Northwest Territories,2023,3.0,Reported,6.7,Reported,0
+Deaths,Opioids,Northwest Territories,2024,7.0,Reported,15.5,Reported,0
+Deaths,Opioids,Northwest Territories,2025,2.0,Reported,4.4,Reported,0
+Deaths,Opioids,Northwest Territories,2026,0.0,Reported,0.0,Reported,1
+Deaths,Opioids,Nova Scotia,2016,53.0,Reported,5.6,Reported,0
+Deaths,Opioids,Nova Scotia,2017,64.0,Reported,6.7,Reported,0
+Deaths,Opioids,Nova Scotia,2018,55.0,Reported,5.7,Reported,0
+Deaths,Opioids,Nova Scotia,2019,56.0,Reported,5.7,Reported,0
+Deaths,Opioids,Nova Scotia,2020,49.0,Reported,5.0,Reported,0
+Deaths,Opioids,Nova Scotia,2021,40.0,Reported,4.0,Reported,0
+Deaths,Opioids,Nova Scotia,2022,62.0,Reported,6.1,Reported,0
+Deaths,Opioids,Nova Scotia,2023,73.0,Reported,6.9,Reported,0
+Deaths,Opioids,Nova Scotia,2024,67.0,Reported,6.2,Reported,0
+Deaths,Opioids,Nova Scotia,2025,77.0,Reported,7.0,Reported,0
+Deaths,Opioids,Nova Scotia,2026,26.0,Reported,9.5,Reported,1
+Deaths,Opioids,Nunavut,2016,0.0,Reported,0.0,Reported,0
+Deaths,Opioids,Nunavut,2017,0.0,Reported,0.0,Reported,0
+Deaths,Opioids,Nunavut,2018,0.0,Reported,0.0,Reported,0
+Deaths,Opioids,Nunavut,2019,,Suppressed,,Suppressed,0
+Deaths,Opioids,Nunavut,2020,,Suppressed,,Suppressed,0
+Deaths,Opioids,Nunavut,2021,,Suppressed,,Suppressed,0
+Deaths,Opioids,Nunavut,2022,,Suppressed,,Suppressed,0
+Deaths,Opioids,Nunavut,2023,0.0,Reported,0.0,Reported,0
+Deaths,Opioids,Nunavut,2024,,Not available,,Not available,0
+Deaths,Opioids,Nunavut,2025,,Not available,,Not available,0
+Deaths,Opioids,Nunavut,2026,,Not available,,Not available,1
+Deaths,Opioids,Ontario,2016,867.0,Reported,6.2,Reported,0
+Deaths,Opioids,Ontario,2017,1265.0,Reported,9.0,Reported,0
+Deaths,Opioids,Ontario,2018,1513.0,Reported,10.6,Reported,0
+Deaths,Opioids,Ontario,2019,1565.0,Reported,10.7,Reported,0
+Deaths,Opioids,Ontario,2020,2484.0,Reported,16.8,Reported,0
+Deaths,Opioids,Ontario,2021,2880.0,Reported,19.4,Reported,0
+Deaths,Opioids,Ontario,2022,2531.0,Reported,16.7,Reported,0
+Deaths,Opioids,Ontario,2023,2645.0,Reported,16.9,Reported,0
+Deaths,Opioids,Ontario,2024,2267.0,Reported,14.0,Reported,0
+Deaths,Opioids,Ontario,2025,1417.0,Reported,8.7,Reported,0
+Deaths,Opioids,Ontario,2026,389.0,Reported,9.6,Reported,1
+Deaths,Opioids,Prince Edward Island,2016,5.0,Reported,3.4,Reported,0
+Deaths,Opioids,Prince Edward Island,2017,5.0,Reported,3.3,Reported,0
+Deaths,Opioids,Prince Edward Island,2018,8.0,Reported,5.3,Reported,0
+Deaths,Opioids,Prince Edward Island,2019,5.0,Reported,3.2,Reported,0
+Deaths,Opioids,Prince Edward Island,2020,8.0,Reported,5.0,Reported,0
+Deaths,Opioids,Prince Edward Island,2021,12.0,Reported,7.4,Reported,0
+Deaths,Opioids,Prince Edward Island,2022,6.0,Reported,3.6,Reported,0
+Deaths,Opioids,Prince Edward Island,2023,7.0,Reported,4.0,Reported,0
+Deaths,Opioids,Prince Edward Island,2024,8.0,Reported,4.5,Reported,0
+Deaths,Opioids,Prince Edward Island,2025,13.0,Reported,7.1,Reported,0
+Deaths,Opioids,Prince Edward Island,2026,,Suppressed,,Suppressed,1
+Deaths,Opioids,Quebec,2016,263.0,Reported,3.2,Reported,0
+Deaths,Opioids,Quebec,2017,280.0,Reported,3.4,Reported,0
+Deaths,Opioids,Quebec,2018,211.0,Reported,2.5,Reported,0
+Deaths,Opioids,Quebec,2019,213.0,Reported,2.5,Reported,0
+Deaths,Opioids,Quebec,2020,322.0,Reported,3.8,Reported,0
+Deaths,Opioids,Quebec,2021,296.0,Reported,3.5,Reported,0
+Deaths,Opioids,Quebec,2022,318.0,Reported,3.7,Reported,0
+Deaths,Opioids,Quebec,2023,310.0,Reported,3.5,Reported,0
+Deaths,Opioids,Quebec,2024,306.0,Reported,3.4,Reported,0
+Deaths,Opioids,Quebec,2025,591.0,Reported,6.5,Reported,0
+Deaths,Opioids,Quebec,2026,158.0,Reported,7.0,Reported,1
+Deaths,Opioids,Saskatchewan,2016,83.0,Reported,7.3,Reported,0
+Deaths,Opioids,Saskatchewan,2017,85.0,Reported,7.4,Reported,0
+Deaths,Opioids,Saskatchewan,2018,116.0,Reported,10.0,Reported,0
+Deaths,Opioids,Saskatchewan,2019,115.0,Reported,9.9,Reported,0
+Deaths,Opioids,Saskatchewan,2020,250.0,Reported,21.4,Reported,0
+Deaths,Opioids,Saskatchewan,2021,327.0,Reported,28.0,Reported,0
+Deaths,Opioids,Saskatchewan,2022,297.0,Reported,25.2,Reported,0
+Deaths,Opioids,Saskatchewan,2023,349.0,Reported,28.8,Reported,0
+Deaths,Opioids,Saskatchewan,2024,272.0,Reported,21.8,Reported,0
+Deaths,Opioids,Saskatchewan,2025,237.0,Reported,18.7,Reported,0
+Deaths,Opioids,Saskatchewan,2026,32.0,Reported,10.1,Reported,1
+Deaths,Opioids,Yukon,2016,7.0,Reported,18.2,Reported,0
+Deaths,Opioids,Yukon,2017,7.0,Reported,17.7,Reported,0
+Deaths,Opioids,Yukon,2018,5.0,Reported,12.4,Reported,0
+Deaths,Opioids,Yukon,2019,4.0,Reported,9.7,Reported,0
+Deaths,Opioids,Yukon,2020,10.0,Reported,23.8,Reported,0
+Deaths,Opioids,Yukon,2021,23.0,Reported,53.5,Reported,0
+Deaths,Opioids,Yukon,2022,19.0,Reported,43.3,Reported,0
+Deaths,Opioids,Yukon,2023,17.0,Reported,37.4,Reported,0
+Deaths,Opioids,Yukon,2024,14.0,Reported,29.4,Reported,0
+Deaths,Opioids,Yukon,2025,14.0,Reported,29.0,Reported,0
+Deaths,Opioids,Yukon,2026,0.0,Reported,0.0,Reported,1
+Deaths,Stimulants,Alberta,2018,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2019,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2020,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2021,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2022,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2023,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2024,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2025,,Not available,,Not available,0
+Deaths,Stimulants,Alberta,2026,,Not available,,Not available,1
+Deaths,Stimulants,British Columbia,2018,1115.0,Reported,22.2,Reported,0
+Deaths,Stimulants,British Columbia,2019,739.0,Reported,14.5,Reported,0
+Deaths,Stimulants,British Columbia,2020,1263.0,Reported,24.4,Reported,0
+Deaths,Stimulants,British Columbia,2021,1614.0,Reported,30.9,Reported,0
+Deaths,Stimulants,British Columbia,2022,1724.0,Reported,32.2,Reported,0
+Deaths,Stimulants,British Columbia,2023,1905.0,Reported,34.5,Reported,0
+Deaths,Stimulants,British Columbia,2024,1822.0,Reported,32.1,Reported,0
+Deaths,Stimulants,British Columbia,2025,1333.0,Reported,23.4,Reported,0
+Deaths,Stimulants,British Columbia,2026,140.0,Reported,9.8,Reported,1
+Deaths,Stimulants,Canada,2018,2374.0,Reported,7.6,Reported,0
+Deaths,Stimulants,Canada,2019,2181.0,Reported,6.6,Reported,0
+Deaths,Stimulants,Canada,2020,3738.0,Reported,11.2,Reported,0
+Deaths,Stimulants,Canada,2021,4611.0,Reported,13.7,Reported,0
+Deaths,Stimulants,Canada,2022,4599.0,Reported,13.4,Reported,0
+Deaths,Stimulants,Canada,2023,5395.0,Reported,15.3,Reported,0
+Deaths,Stimulants,Canada,2024,5144.0,Reported,14.2,Reported,0
+Deaths,Stimulants,Canada,2025,3634.0,Reported,13.3,Reported,0
+Deaths,Stimulants,Canada,2026,644.0,Reported,9.4,Reported,1
+Deaths,Stimulants,Manitoba,2018,,Not available,,Not available,0
+Deaths,Stimulants,Manitoba,2019,81.0,Reported,5.9,Reported,0
+Deaths,Stimulants,Manitoba,2020,239.0,Reported,17.3,Reported,0
+Deaths,Stimulants,Manitoba,2021,295.0,Reported,21.2,Reported,0
+Deaths,Stimulants,Manitoba,2022,318.0,Reported,22.5,Reported,0
+Deaths,Stimulants,Manitoba,2023,412.0,Reported,28.4,Reported,0
+Deaths,Stimulants,Manitoba,2024,454.0,Reported,30.4,Reported,0
+Deaths,Stimulants,Manitoba,2025,306.0,Reported,20.3,Reported,0
+Deaths,Stimulants,Manitoba,2026,74.0,Reported,19.6,Reported,1
+Deaths,Stimulants,New Brunswick,2018,20.0,Reported,2.6,Reported,0
+Deaths,Stimulants,New Brunswick,2019,29.0,Reported,3.7,Reported,0
+Deaths,Stimulants,New Brunswick,2020,38.0,Reported,4.9,Reported,0
+Deaths,Stimulants,New Brunswick,2021,45.0,Reported,5.7,Reported,0
+Deaths,Stimulants,New Brunswick,2022,69.0,Reported,8.5,Reported,0
+Deaths,Stimulants,New Brunswick,2023,78.0,Reported,9.4,Reported,0
+Deaths,Stimulants,New Brunswick,2024,74.0,Reported,8.6,Reported,0
+Deaths,Stimulants,New Brunswick,2025,84.0,Reported,9.7,Reported,0
+Deaths,Stimulants,New Brunswick,2026,12.0,Reported,5.5,Reported,1
+Deaths,Stimulants,Newfoundland and Labrador,2018,19.0,Reported,3.6,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2019,15.0,Reported,2.8,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2020,17.0,Reported,3.2,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2021,16.0,Reported,3.0,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2022,19.0,Reported,3.6,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2023,37.0,Reported,6.9,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2024,51.0,Reported,9.3,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2025,49.0,Reported,8.9,Reported,0
+Deaths,Stimulants,Newfoundland and Labrador,2026,9.0,Reported,6.5,Reported,1
+Deaths,Stimulants,Northwest Territories,2018,,Not available,,Not available,0
+Deaths,Stimulants,Northwest Territories,2019,,Not available,,Not available,0
+Deaths,Stimulants,Northwest Territories,2020,4.0,Reported,9.0,Reported,0
+Deaths,Stimulants,Northwest Territories,2021,3.0,Reported,6.7,Reported,0
+Deaths,Stimulants,Northwest Territories,2022,7.0,Reported,15.7,Reported,0
+Deaths,Stimulants,Northwest Territories,2023,4.0,Reported,9.0,Reported,0
+Deaths,Stimulants,Northwest Territories,2024,10.0,Reported,22.1,Reported,0
+Deaths,Stimulants,Northwest Territories,2025,5.0,Reported,10.9,Reported,0
+Deaths,Stimulants,Northwest Territories,2026,1.0,Reported,8.7,Reported,1
+Deaths,Stimulants,Nova Scotia,2018,25.0,Reported,2.6,Reported,0
+Deaths,Stimulants,Nova Scotia,2019,29.0,Reported,3.0,Reported,0
+Deaths,Stimulants,Nova Scotia,2020,36.0,Reported,3.6,Reported,0
+Deaths,Stimulants,Nova Scotia,2021,36.0,Reported,3.6,Reported,0
+Deaths,Stimulants,Nova Scotia,2022,46.0,Reported,4.5,Reported,0
+Deaths,Stimulants,Nova Scotia,2023,68.0,Reported,6.5,Reported,0
+Deaths,Stimulants,Nova Scotia,2024,64.0,Reported,5.9,Reported,0
+Deaths,Stimulants,Nova Scotia,2025,92.0,Reported,8.4,Reported,0
+Deaths,Stimulants,Nova Scotia,2026,26.0,Reported,9.5,Reported,1
+Deaths,Stimulants,Nunavut,2018,0.0,Reported,0.0,Reported,0
+Deaths,Stimulants,Nunavut,2019,,Suppressed,,Suppressed,0
+Deaths,Stimulants,Nunavut,2020,0.0,Reported,0.0,Reported,0
+Deaths,Stimulants,Nunavut,2021,0.0,Reported,0.0,Reported,0
+Deaths,Stimulants,Nunavut,2022,,Suppressed,,Suppressed,0
+Deaths,Stimulants,Nunavut,2023,0.0,Reported,0.0,Reported,0
+Deaths,Stimulants,Nunavut,2024,,Not available,,Not available,0
+Deaths,Stimulants,Nunavut,2025,,Not available,,Not available,0
+Deaths,Stimulants,Nunavut,2026,,Not available,,Not available,1
+Deaths,Stimulants,Ontario,2018,949.0,Reported,6.6,Reported,0
+Deaths,Stimulants,Ontario,2019,1051.0,Reported,7.2,Reported,0
+Deaths,Stimulants,Ontario,2020,1773.0,Reported,12.0,Reported,0
+Deaths,Stimulants,Ontario,2021,2146.0,Reported,14.5,Reported,0
+Deaths,Stimulants,Ontario,2022,1971.0,Reported,13.0,Reported,0
+Deaths,Stimulants,Ontario,2023,2335.0,Reported,14.9,Reported,0
+Deaths,Stimulants,Ontario,2024,2134.0,Reported,13.2,Reported,0
+Deaths,Stimulants,Ontario,2025,1506.0,Reported,9.3,Reported,0
+Deaths,Stimulants,Ontario,2026,352.0,Reported,8.7,Reported,1
+Deaths,Stimulants,Prince Edward Island,2018,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2019,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2020,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2021,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2022,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2023,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2024,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2025,,Not available,,Not available,0
+Deaths,Stimulants,Prince Edward Island,2026,,Suppressed,,Suppressed,1
+Deaths,Stimulants,Quebec,2018,163.0,Reported,1.9,Reported,0
+Deaths,Stimulants,Quebec,2019,144.0,Reported,1.7,Reported,0
+Deaths,Stimulants,Quebec,2020,196.0,Reported,2.3,Reported,0
+Deaths,Stimulants,Quebec,2021,185.0,Reported,2.2,Reported,0
+Deaths,Stimulants,Quebec,2022,186.0,Reported,2.1,Reported,0
+Deaths,Stimulants,Quebec,2023,217.0,Reported,2.5,Reported,0
+Deaths,Stimulants,Quebec,2024,271.0,Reported,3.0,Reported,0
+Deaths,Stimulants,Quebec,2025,,Not available,,Not available,0
+Deaths,Stimulants,Quebec,2026,,Not available,,Not available,1
+Deaths,Stimulants,Saskatchewan,2018,83.0,Reported,7.2,Reported,0
+Deaths,Stimulants,Saskatchewan,2019,93.0,Reported,8.0,Reported,0
+Deaths,Stimulants,Saskatchewan,2020,172.0,Reported,14.7,Reported,0
+Deaths,Stimulants,Saskatchewan,2021,265.0,Reported,22.7,Reported,0
+Deaths,Stimulants,Saskatchewan,2022,244.0,Reported,20.7,Reported,0
+Deaths,Stimulants,Saskatchewan,2023,323.0,Reported,26.7,Reported,0
+Deaths,Stimulants,Saskatchewan,2024,253.0,Reported,20.3,Reported,0
+Deaths,Stimulants,Saskatchewan,2025,245.0,Reported,19.3,Reported,0
+Deaths,Stimulants,Saskatchewan,2026,30.0,Reported,9.5,Reported,1
+Deaths,Stimulants,Yukon,2018,,Not available,,Not available,0
+Deaths,Stimulants,Yukon,2019,,Not available,,Not available,0
+Deaths,Stimulants,Yukon,2020,,Not available,,Not available,0
+Deaths,Stimulants,Yukon,2021,6.0,Reported,14.0,Reported,0
+Deaths,Stimulants,Yukon,2022,15.0,Reported,34.2,Reported,0
+Deaths,Stimulants,Yukon,2023,16.0,Reported,35.2,Reported,0
+Deaths,Stimulants,Yukon,2024,11.0,Reported,23.1,Reported,0
+Deaths,Stimulants,Yukon,2025,14.0,Reported,29.0,Reported,0
+Deaths,Stimulants,Yukon,2026,0.0,Reported,0.0,Reported,1
+EMS responses,Opioids,Alberta,2017,2643.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2018,4206.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2019,3536.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2020,5188.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2021,8215.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2022,7078.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2023,10205.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2024,6381.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2025,10652.0,Reported,,Not available,0
+EMS responses,Opioids,Alberta,2026,2577.0,Reported,,Not available,1
+EMS responses,Opioids,British Columbia,2017,12817.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2018,13150.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2019,13171.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2020,16702.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2021,23724.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2022,20066.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2023,22036.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2024,20603.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2025,20464.0,Reported,,Not available,0
+EMS responses,Opioids,British Columbia,2026,7646.0,Reported,,Not available,1
+EMS responses,Opioids,Canada,2017,17269.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2018,20771.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2019,21444.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2020,29493.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2021,41275.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2022,35653.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2023,42756.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2024,36131.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2025,39406.0,Reported,,Not available,0
+EMS responses,Opioids,Canada,2026,12535.0,Reported,,Not available,1
+EMS responses,Opioids,New Brunswick,2017,152.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2018,110.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2019,127.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2020,125.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2021,175.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2022,277.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2023,356.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2024,321.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2025,377.0,Reported,,Not available,0
+EMS responses,Opioids,New Brunswick,2026,75.0,Reported,,Not available,1
+EMS responses,Opioids,Newfoundland and Labrador,2017,46.0,Reported,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2018,,Suppressed,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2019,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2020,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2021,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2022,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2023,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2024,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2025,,Not available,,Not available,0
+EMS responses,Opioids,Newfoundland and Labrador,2026,,Not available,,Not available,1
+EMS responses,Opioids,Northern and rural Manitoba,2017,32.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2018,21.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2019,21.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2020,53.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2021,63.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2022,26.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2023,8.0,Reported,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2024,,Not available,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2025,,Not available,,Not available,0
+EMS responses,Opioids,Northern and rural Manitoba,2026,,Not available,,Not available,1
+EMS responses,Opioids,Nova Scotia,2017,,Not available,,Not available,0
+EMS responses,Opioids,Nova Scotia,2018,111.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2019,188.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2020,182.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2021,210.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2022,249.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2023,296.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2024,300.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2025,309.0,Reported,,Not available,0
+EMS responses,Opioids,Nova Scotia,2026,75.0,Reported,,Not available,1
+EMS responses,Opioids,Ontario,2017,,Not available,,Not available,0
+EMS responses,Opioids,Ontario,2018,1804.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2019,2629.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2020,3809.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2021,5008.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2022,4567.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2023,5169.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2024,4766.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2025,3124.0,Reported,,Not available,0
+EMS responses,Opioids,Ontario,2026,932.0,Reported,,Not available,1
+EMS responses,Opioids,Saskatchewan,2017,,Not available,,Not available,0
+EMS responses,Opioids,Saskatchewan,2018,196.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2019,321.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2020,640.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2021,1015.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2022,1196.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2023,1458.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2024,1138.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2025,1707.0,Reported,,Not available,0
+EMS responses,Opioids,Saskatchewan,2026,388.0,Reported,,Not available,1
+EMS responses,Opioids,"Whitehorse, Yukon",2017,59.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2018,78.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2019,48.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2020,104.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2021,133.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2022,136.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2023,118.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2024,81.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2025,81.0,Reported,,Not available,0
+EMS responses,Opioids,"Whitehorse, Yukon",2026,13.0,Reported,,Not available,1
+EMS responses,Opioids,"Winnipeg, Manitoba",2017,1520.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2018,1095.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2019,1403.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2020,2684.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2021,2732.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2022,2058.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2023,3110.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2024,2536.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2025,2692.0,Reported,,Not available,0
+EMS responses,Opioids,"Winnipeg, Manitoba",2026,829.0,Reported,,Not available,1
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2017,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2018,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2019,0.0,Reported,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2020,6.0,Reported,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2021,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2022,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2023,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2024,5.0,Reported,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2025,,Suppressed,,Not available,0
+EMS responses,Opioids,"Yellowknife, Northwest Territories",2026,0.0,Reported,,Not available,1
+Emergency department visits,Opioids,Alberta,2016,3600.0,Reported,85.8,Reported,0
+Emergency department visits,Opioids,Alberta,2017,4524.0,Reported,106.8,Reported,0
+Emergency department visits,Opioids,Alberta,2018,4907.0,Reported,114.3,Reported,0
+Emergency department visits,Opioids,Alberta,2019,3522.0,Reported,80.9,Reported,0
+Emergency department visits,Opioids,Alberta,2020,4441.0,Reported,100.8,Reported,0
+Emergency department visits,Opioids,Alberta,2021,7173.0,Reported,161.9,Reported,0
+Emergency department visits,Opioids,Alberta,2022,5413.0,Reported,119.9,Reported,0
+Emergency department visits,Opioids,Alberta,2023,6985.0,Reported,149.0,Reported,0
+Emergency department visits,Opioids,Alberta,2024,4622.0,Reported,94.2,Reported,0
+Emergency department visits,Opioids,Alberta,2025,6807.0,Reported,135.3,Reported,0
+Emergency department visits,Opioids,Alberta,2026,1623.0,Reported,129.1,Reported,1
+Emergency department visits,Opioids,British Columbia,2016,3750.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2017,4343.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2018,3510.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2019,3455.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2020,4371.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2021,6525.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2022,5007.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2023,5972.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2024,5750.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2025,5124.0,Reported,,Not available,0
+Emergency department visits,Opioids,British Columbia,2026,2020.0,Reported,,Not available,1
+Emergency department visits,Opioids,Canada,2016,11912.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2017,16961.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2018,18210.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2019,18224.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2020,22652.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2021,32592.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2022,24234.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2023,28470.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2024,24604.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2025,23301.0,Reported,,Not available,0
+Emergency department visits,Opioids,Canada,2026,7701.0,Reported,,Not available,1
+Emergency department visits,Opioids,Manitoba,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,Manitoba,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,New Brunswick,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,New Brunswick,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Newfoundland and Labrador,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,Newfoundland and Labrador,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Northwest Territories,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,Northwest Territories,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Nova Scotia,2016,46.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2017,37.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2018,19.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2019,16.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2020,16.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2021,22.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2022,24.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2023,31.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2024,45.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2025,8.0,Reported,,Not available,0
+Emergency department visits,Opioids,Nova Scotia,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Nunavut,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,Nunavut,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Ontario,2016,4255.0,Reported,30.7,Reported,0
+Emergency department visits,Opioids,Ontario,2017,7646.0,Reported,54.3,Reported,0
+Emergency department visits,Opioids,Ontario,2018,9158.0,Reported,63.9,Reported,0
+Emergency department visits,Opioids,Ontario,2019,10536.0,Reported,72.3,Reported,0
+Emergency department visits,Opioids,Ontario,2020,12586.0,Reported,85.3,Reported,0
+Emergency department visits,Opioids,Ontario,2021,17134.0,Reported,115.4,Reported,0
+Emergency department visits,Opioids,Ontario,2022,12211.0,Reported,80.6,Reported,0
+Emergency department visits,Opioids,Ontario,2023,13523.0,Reported,86.5,Reported,0
+Emergency department visits,Opioids,Ontario,2024,12514.0,Reported,77.5,Reported,0
+Emergency department visits,Opioids,Ontario,2025,9296.0,Reported,57.2,Reported,0
+Emergency department visits,Opioids,Ontario,2026,3511.0,Reported,86.4,Reported,1
+Emergency department visits,Opioids,Prince Edward Island,2016,7.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2017,8.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2018,10.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2019,10.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2020,12.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2021,33.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2022,56.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2023,70.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2024,73.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2025,47.0,Reported,,Not available,0
+Emergency department visits,Opioids,Prince Edward Island,2026,16.0,Reported,,Not available,1
+Emergency department visits,Opioids,Quebec,2016,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2017,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2018,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2019,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2020,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2021,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2022,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2023,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2024,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2025,,Not available,,Not available,0
+Emergency department visits,Opioids,Quebec,2026,,Not available,,Not available,1
+Emergency department visits,Opioids,Saskatchewan,2016,238.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2017,361.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2018,559.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2019,648.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2020,1183.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2021,1626.0,Reported,,Not available,0
+Emergency department visits,Opioids,Saskatchewan,2022,1470.0,Reported,124.7,Reported,0
+Emergency department visits,Opioids,Saskatchewan,2023,1828.0,Reported,151.0,Reported,0
+Emergency department visits,Opioids,Saskatchewan,2024,1541.0,Reported,123.5,Reported,0
+Emergency department visits,Opioids,Saskatchewan,2025,1976.0,Reported,156.0,Reported,0
+Emergency department visits,Opioids,Saskatchewan,2026,522.0,Reported,164.8,Reported,1
+Emergency department visits,Opioids,Yukon,2016,16.0,Reported,41.5,Reported,0
+Emergency department visits,Opioids,Yukon,2017,42.0,Reported,106.2,Reported,0
+Emergency department visits,Opioids,Yukon,2018,47.0,Reported,116.3,Reported,0
+Emergency department visits,Opioids,Yukon,2019,37.0,Reported,89.8,Reported,0
+Emergency department visits,Opioids,Yukon,2020,43.0,Reported,102.5,Reported,0
+Emergency department visits,Opioids,Yukon,2021,79.0,Reported,183.9,Reported,0
+Emergency department visits,Opioids,Yukon,2022,53.0,Reported,120.8,Reported,0
+Emergency department visits,Opioids,Yukon,2023,61.0,Reported,134.3,Reported,0
+Emergency department visits,Opioids,Yukon,2024,59.0,Reported,124.0,Reported,0
+Emergency department visits,Opioids,Yukon,2025,43.0,Reported,89.1,Reported,0
+Emergency department visits,Opioids,Yukon,2026,9.0,Reported,74.6,Reported,1
+Emergency department visits,Stimulants,Alberta,2016,2046.0,Reported,48.8,Reported,0
+Emergency department visits,Stimulants,Alberta,2017,2519.0,Reported,59.4,Reported,0
+Emergency department visits,Stimulants,Alberta,2018,2810.0,Reported,65.5,Reported,0
+Emergency department visits,Stimulants,Alberta,2019,2564.0,Reported,58.9,Reported,0
+Emergency department visits,Stimulants,Alberta,2020,2453.0,Reported,55.7,Reported,0
+Emergency department visits,Stimulants,Alberta,2021,2514.0,Reported,56.7,Reported,0
+Emergency department visits,Stimulants,Alberta,2022,1925.0,Reported,42.7,Reported,0
+Emergency department visits,Stimulants,Alberta,2023,1769.0,Reported,37.7,Reported,0
+Emergency department visits,Stimulants,Alberta,2024,1550.0,Reported,31.6,Reported,0
+Emergency department visits,Stimulants,Alberta,2025,1906.0,Reported,37.9,Reported,0
+Emergency department visits,Stimulants,Alberta,2026,455.0,Reported,36.2,Reported,1
+Emergency department visits,Stimulants,British Columbia,2016,333.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2017,341.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2018,314.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2019,294.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2020,273.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2021,269.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2022,233.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2023,207.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2024,252.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2025,258.0,Reported,,Not available,0
+Emergency department visits,Stimulants,British Columbia,2026,52.0,Reported,,Not available,1
+Emergency department visits,Stimulants,Canada,2016,4292.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2017,5861.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2018,6654.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2019,6116.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2020,6068.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2021,6275.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2022,5312.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2023,5444.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2024,5115.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2025,5101.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Canada,2026,1222.0,Reported,,Not available,1
+Emergency department visits,Stimulants,Manitoba,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,Manitoba,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,New Brunswick,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,New Brunswick,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Newfoundland and Labrador,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,Newfoundland and Labrador,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Northwest Territories,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,Northwest Territories,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Nova Scotia,2016,26.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2017,23.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2018,30.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2019,18.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2020,22.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2021,23.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2022,29.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2023,37.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2024,23.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2025,12.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Nova Scotia,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Nunavut,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,Nunavut,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Ontario,2016,1768.0,Reported,12.7,Reported,0
+Emergency department visits,Stimulants,Ontario,2017,2800.0,Reported,19.9,Reported,0
+Emergency department visits,Stimulants,Ontario,2018,3252.0,Reported,22.7,Reported,0
+Emergency department visits,Stimulants,Ontario,2019,3007.0,Reported,20.6,Reported,0
+Emergency department visits,Stimulants,Ontario,2020,3020.0,Reported,20.5,Reported,0
+Emergency department visits,Stimulants,Ontario,2021,3051.0,Reported,20.6,Reported,0
+Emergency department visits,Stimulants,Ontario,2022,2703.0,Reported,17.8,Reported,0
+Emergency department visits,Stimulants,Ontario,2023,2934.0,Reported,18.8,Reported,0
+Emergency department visits,Stimulants,Ontario,2024,2836.0,Reported,17.6,Reported,0
+Emergency department visits,Stimulants,Ontario,2025,2509.0,Reported,15.4,Reported,0
+Emergency department visits,Stimulants,Ontario,2026,623.0,Reported,15.3,Reported,1
+Emergency department visits,Stimulants,Prince Edward Island,2016,,Suppressed,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2017,6.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2018,5.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2019,9.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2020,10.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2021,15.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2022,25.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2023,24.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2024,21.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2025,24.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Prince Edward Island,2026,13.0,Reported,,Not available,1
+Emergency department visits,Stimulants,Quebec,2016,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2017,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2018,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2019,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2020,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2021,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2022,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2023,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2024,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2025,,Not available,,Not available,0
+Emergency department visits,Stimulants,Quebec,2026,,Not available,,Not available,1
+Emergency department visits,Stimulants,Saskatchewan,2016,114.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2017,159.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2018,223.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2019,207.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2020,256.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2021,369.0,Reported,,Not available,0
+Emergency department visits,Stimulants,Saskatchewan,2022,366.0,Reported,31.0,Reported,0
+Emergency department visits,Stimulants,Saskatchewan,2023,453.0,Reported,37.4,Reported,0
+Emergency department visits,Stimulants,Saskatchewan,2024,402.0,Reported,32.2,Reported,0
+Emergency department visits,Stimulants,Saskatchewan,2025,382.0,Reported,30.2,Reported,0
+Emergency department visits,Stimulants,Saskatchewan,2026,79.0,Reported,24.9,Reported,1
+Emergency department visits,Stimulants,Yukon,2016,5.0,Reported,13.0,Reported,0
+Emergency department visits,Stimulants,Yukon,2017,13.0,Reported,32.9,Reported,0
+Emergency department visits,Stimulants,Yukon,2018,20.0,Reported,49.5,Reported,0
+Emergency department visits,Stimulants,Yukon,2019,17.0,Reported,41.3,Reported,0
+Emergency department visits,Stimulants,Yukon,2020,34.0,Reported,81.0,Reported,0
+Emergency department visits,Stimulants,Yukon,2021,34.0,Reported,79.1,Reported,0
+Emergency department visits,Stimulants,Yukon,2022,31.0,Reported,70.7,Reported,0
+Emergency department visits,Stimulants,Yukon,2023,20.0,Reported,44.0,Reported,0
+Emergency department visits,Stimulants,Yukon,2024,31.0,Reported,65.1,Reported,0
+Emergency department visits,Stimulants,Yukon,2025,10.0,Reported,20.7,Reported,0
+Emergency department visits,Stimulants,Yukon,2026,,Suppressed,,Suppressed,1
+Hospital stays,Opioids,Alberta,2016,924.0,Reported,22.0,Reported,0
+Hospital stays,Opioids,Alberta,2017,932.0,Reported,22.0,Reported,0
+Hospital stays,Opioids,Alberta,2018,908.0,Reported,21.2,Reported,0
+Hospital stays,Opioids,Alberta,2019,704.0,Reported,16.2,Reported,0
+Hospital stays,Opioids,Alberta,2020,880.0,Reported,20.0,Reported,0
+Hospital stays,Opioids,Alberta,2021,1137.0,Reported,25.7,Reported,0
+Hospital stays,Opioids,Alberta,2022,886.0,Reported,19.6,Reported,0
+Hospital stays,Opioids,Alberta,2023,1217.0,Reported,26.0,Reported,0
+Hospital stays,Opioids,Alberta,2024,862.0,Reported,17.6,Reported,0
+Hospital stays,Opioids,Alberta,2025,1135.0,Reported,22.6,Reported,0
+Hospital stays,Opioids,Alberta,2026,302.0,Reported,24.0,Reported,1
+Hospital stays,Opioids,British Columbia,2016,1148.0,Reported,23.6,Reported,0
+Hospital stays,Opioids,British Columbia,2017,1388.0,Reported,28.1,Reported,0
+Hospital stays,Opioids,British Columbia,2018,1405.0,Reported,28.0,Reported,0
+Hospital stays,Opioids,British Columbia,2019,1184.0,Reported,23.2,Reported,0
+Hospital stays,Opioids,British Columbia,2020,1575.0,Reported,30.4,Reported,0
+Hospital stays,Opioids,British Columbia,2021,1938.0,Reported,37.1,Reported,0
+Hospital stays,Opioids,British Columbia,2022,1858.0,Reported,34.7,Reported,0
+Hospital stays,Opioids,British Columbia,2023,2277.0,Reported,41.3,Reported,0
+Hospital stays,Opioids,British Columbia,2024,2015.0,Reported,35.5,Reported,0
+Hospital stays,Opioids,British Columbia,2025,1551.0,Reported,27.2,Reported,0
+Hospital stays,Opioids,British Columbia,2026,459.0,Reported,32.2,Reported,1
+Hospital stays,Opioids,Canada,2016,4575.0,Reported,16.4,Reported,0
+Hospital stays,Opioids,Canada,2017,5092.0,Reported,18.0,Reported,0
+Hospital stays,Opioids,Canada,2018,4986.0,Reported,17.4,Reported,0
+Hospital stays,Opioids,Canada,2019,4469.0,Reported,15.3,Reported,0
+Hospital stays,Opioids,Canada,2020,5184.0,Reported,17.6,Reported,0
+Hospital stays,Opioids,Canada,2021,6215.0,Reported,20.9,Reported,0
+Hospital stays,Opioids,Canada,2022,5392.0,Reported,17.8,Reported,0
+Hospital stays,Opioids,Canada,2023,6433.0,Reported,20.6,Reported,0
+Hospital stays,Opioids,Canada,2024,5604.0,Reported,17.4,Reported,0
+Hospital stays,Opioids,Canada,2025,5034.0,Reported,15.4,Reported,0
+Hospital stays,Opioids,Canada,2026,1374.0,Reported,16.9,Reported,1
+Hospital stays,Opioids,Manitoba,2016,117.0,Reported,8.9,Reported,0
+Hospital stays,Opioids,Manitoba,2017,156.0,Reported,11.7,Reported,0
+Hospital stays,Opioids,Manitoba,2018,103.0,Reported,7.6,Reported,0
+Hospital stays,Opioids,Manitoba,2019,83.0,Reported,6.1,Reported,0
+Hospital stays,Opioids,Manitoba,2020,124.0,Reported,9.0,Reported,0
+Hospital stays,Opioids,Manitoba,2021,121.0,Reported,8.7,Reported,0
+Hospital stays,Opioids,Manitoba,2022,118.0,Reported,8.3,Reported,0
+Hospital stays,Opioids,Manitoba,2023,154.0,Reported,10.6,Reported,0
+Hospital stays,Opioids,Manitoba,2024,130.0,Reported,8.7,Reported,0
+Hospital stays,Opioids,Manitoba,2025,109.0,Reported,7.2,Reported,0
+Hospital stays,Opioids,Manitoba,2026,23.0,Reported,6.1,Reported,1
+Hospital stays,Opioids,New Brunswick,2016,128.0,Reported,16.8,Reported,0
+Hospital stays,Opioids,New Brunswick,2017,101.0,Reported,13.2,Reported,0
+Hospital stays,Opioids,New Brunswick,2018,87.0,Reported,11.3,Reported,0
+Hospital stays,Opioids,New Brunswick,2019,101.0,Reported,13.0,Reported,0
+Hospital stays,Opioids,New Brunswick,2020,104.0,Reported,13.3,Reported,0
+Hospital stays,Opioids,New Brunswick,2021,96.0,Reported,12.1,Reported,0
+Hospital stays,Opioids,New Brunswick,2022,117.0,Reported,14.5,Reported,0
+Hospital stays,Opioids,New Brunswick,2023,102.0,Reported,12.3,Reported,0
+Hospital stays,Opioids,New Brunswick,2024,107.0,Reported,12.5,Reported,0
+Hospital stays,Opioids,New Brunswick,2025,117.0,Reported,13.5,Reported,0
+Hospital stays,Opioids,New Brunswick,2026,27.0,Reported,12.4,Reported,1
+Hospital stays,Opioids,Newfoundland and Labrador,2016,55.0,Reported,10.4,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2017,89.0,Reported,16.8,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2018,66.0,Reported,12.5,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2019,52.0,Reported,9.9,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2020,64.0,Reported,12.1,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2021,68.0,Reported,12.9,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2022,57.0,Reported,10.7,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2023,64.0,Reported,11.9,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2024,59.0,Reported,10.8,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2025,65.0,Reported,11.8,Reported,0
+Hospital stays,Opioids,Newfoundland and Labrador,2026,17.0,Reported,12.4,Reported,1
+Hospital stays,Opioids,Nova Scotia,2016,100.0,Reported,10.6,Reported,0
+Hospital stays,Opioids,Nova Scotia,2017,83.0,Reported,8.7,Reported,0
+Hospital stays,Opioids,Nova Scotia,2018,80.0,Reported,8.3,Reported,0
+Hospital stays,Opioids,Nova Scotia,2019,79.0,Reported,8.1,Reported,0
+Hospital stays,Opioids,Nova Scotia,2020,72.0,Reported,7.3,Reported,0
+Hospital stays,Opioids,Nova Scotia,2021,70.0,Reported,7.0,Reported,0
+Hospital stays,Opioids,Nova Scotia,2022,73.0,Reported,7.1,Reported,0
+Hospital stays,Opioids,Nova Scotia,2023,89.0,Reported,8.5,Reported,0
+Hospital stays,Opioids,Nova Scotia,2024,80.0,Reported,7.4,Reported,0
+Hospital stays,Opioids,Nova Scotia,2025,80.0,Reported,7.3,Reported,0
+Hospital stays,Opioids,Nova Scotia,2026,17.0,Reported,6.2,Reported,1
+Hospital stays,Opioids,Ontario,2016,1798.0,Reported,13.0,Reported,0
+Hospital stays,Opioids,Ontario,2017,2063.0,Reported,14.7,Reported,0
+Hospital stays,Opioids,Ontario,2018,2066.0,Reported,14.4,Reported,0
+Hospital stays,Opioids,Ontario,2019,1965.0,Reported,13.5,Reported,0
+Hospital stays,Opioids,Ontario,2020,2018.0,Reported,13.7,Reported,0
+Hospital stays,Opioids,Ontario,2021,2419.0,Reported,16.3,Reported,0
+Hospital stays,Opioids,Ontario,2022,2010.0,Reported,13.3,Reported,0
+Hospital stays,Opioids,Ontario,2023,2200.0,Reported,14.1,Reported,0
+Hospital stays,Opioids,Ontario,2024,2068.0,Reported,12.8,Reported,0
+Hospital stays,Opioids,Ontario,2025,1716.0,Reported,10.6,Reported,0
+Hospital stays,Opioids,Ontario,2026,468.0,Reported,11.5,Reported,1
+Hospital stays,Opioids,Prince Edward Island,2016,20.0,Reported,13.6,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2017,13.0,Reported,8.7,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2018,20.0,Reported,13.1,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2019,24.0,Reported,15.4,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2020,16.0,Reported,10.1,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2021,17.0,Reported,10.5,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2022,15.0,Reported,9.0,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2023,23.0,Reported,13.2,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2024,22.0,Reported,12.2,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2025,21.0,Reported,11.5,Reported,0
+Hospital stays,Opioids,Prince Edward Island,2026,5.0,Reported,10.9,Reported,1
+Hospital stays,Opioids,Quebec,2016,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2017,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2018,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2019,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2020,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2021,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2022,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2023,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2024,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2025,,Not available,,Not available,0
+Hospital stays,Opioids,Quebec,2026,,Not available,,Not available,1
+Hospital stays,Opioids,Saskatchewan,2016,257.0,Reported,22.6,Reported,0
+Hospital stays,Opioids,Saskatchewan,2017,238.0,Reported,20.7,Reported,0
+Hospital stays,Opioids,Saskatchewan,2018,226.0,Reported,19.5,Reported,0
+Hospital stays,Opioids,Saskatchewan,2019,257.0,Reported,22.1,Reported,0
+Hospital stays,Opioids,Saskatchewan,2020,311.0,Reported,26.6,Reported,0
+Hospital stays,Opioids,Saskatchewan,2021,318.0,Reported,27.2,Reported,0
+Hospital stays,Opioids,Saskatchewan,2022,234.0,Reported,19.9,Reported,0
+Hospital stays,Opioids,Saskatchewan,2023,275.0,Reported,22.7,Reported,0
+Hospital stays,Opioids,Saskatchewan,2024,229.0,Reported,18.4,Reported,0
+Hospital stays,Opioids,Saskatchewan,2025,212.0,Reported,16.7,Reported,0
+Hospital stays,Opioids,Saskatchewan,2026,50.0,Reported,15.8,Reported,1
+Hospital stays,Opioids,Territories,2016,28.0,Reported,23.3,Reported,0
+Hospital stays,Opioids,Territories,2017,29.0,Reported,23.8,Reported,0
+Hospital stays,Opioids,Territories,2018,25.0,Reported,20.3,Reported,0
+Hospital stays,Opioids,Territories,2019,20.0,Reported,16.1,Reported,0
+Hospital stays,Opioids,Territories,2020,20.0,Reported,15.9,Reported,0
+Hospital stays,Opioids,Territories,2021,31.0,Reported,24.3,Reported,0
+Hospital stays,Opioids,Territories,2022,24.0,Reported,18.6,Reported,0
+Hospital stays,Opioids,Territories,2023,32.0,Reported,24.4,Reported,0
+Hospital stays,Opioids,Territories,2024,32.0,Reported,23.8,Reported,0
+Hospital stays,Opioids,Territories,2025,28.0,Reported,20.6,Reported,0
+Hospital stays,Opioids,Territories,2026,6.0,Reported,17.6,Reported,1
+Hospital stays,Stimulants,Alberta,2016,367.0,Reported,8.7,Reported,0
+Hospital stays,Stimulants,Alberta,2017,398.0,Reported,9.4,Reported,0
+Hospital stays,Stimulants,Alberta,2018,396.0,Reported,9.2,Reported,0
+Hospital stays,Stimulants,Alberta,2019,318.0,Reported,7.3,Reported,0
+Hospital stays,Stimulants,Alberta,2020,417.0,Reported,9.5,Reported,0
+Hospital stays,Stimulants,Alberta,2021,398.0,Reported,9.0,Reported,0
+Hospital stays,Stimulants,Alberta,2022,301.0,Reported,6.7,Reported,0
+Hospital stays,Stimulants,Alberta,2023,326.0,Reported,7.0,Reported,0
+Hospital stays,Stimulants,Alberta,2024,283.0,Reported,5.8,Reported,0
+Hospital stays,Stimulants,Alberta,2025,384.0,Reported,7.6,Reported,0
+Hospital stays,Stimulants,Alberta,2026,106.0,Reported,8.4,Reported,1
+Hospital stays,Stimulants,British Columbia,2016,476.0,Reported,9.8,Reported,0
+Hospital stays,Stimulants,British Columbia,2017,581.0,Reported,11.8,Reported,0
+Hospital stays,Stimulants,British Columbia,2018,547.0,Reported,10.9,Reported,0
+Hospital stays,Stimulants,British Columbia,2019,521.0,Reported,10.2,Reported,0
+Hospital stays,Stimulants,British Columbia,2020,601.0,Reported,11.6,Reported,0
+Hospital stays,Stimulants,British Columbia,2021,659.0,Reported,12.6,Reported,0
+Hospital stays,Stimulants,British Columbia,2022,669.0,Reported,12.5,Reported,0
+Hospital stays,Stimulants,British Columbia,2023,725.0,Reported,13.1,Reported,0
+Hospital stays,Stimulants,British Columbia,2024,635.0,Reported,11.2,Reported,0
+Hospital stays,Stimulants,British Columbia,2025,505.0,Reported,8.9,Reported,0
+Hospital stays,Stimulants,British Columbia,2026,124.0,Reported,8.7,Reported,1
+Hospital stays,Stimulants,Canada,2016,1872.0,Reported,6.7,Reported,0
+Hospital stays,Stimulants,Canada,2017,2217.0,Reported,7.8,Reported,0
+Hospital stays,Stimulants,Canada,2018,2363.0,Reported,8.2,Reported,0
+Hospital stays,Stimulants,Canada,2019,2166.0,Reported,7.4,Reported,0
+Hospital stays,Stimulants,Canada,2020,2492.0,Reported,8.5,Reported,0
+Hospital stays,Stimulants,Canada,2021,2403.0,Reported,8.1,Reported,0
+Hospital stays,Stimulants,Canada,2022,2128.0,Reported,7.0,Reported,0
+Hospital stays,Stimulants,Canada,2023,2426.0,Reported,7.8,Reported,0
+Hospital stays,Stimulants,Canada,2024,2250.0,Reported,7.0,Reported,0
+Hospital stays,Stimulants,Canada,2025,2037.0,Reported,6.2,Reported,0
+Hospital stays,Stimulants,Canada,2026,494.0,Reported,6.1,Reported,1
+Hospital stays,Stimulants,Manitoba,2016,66.0,Reported,5.0,Reported,0
+Hospital stays,Stimulants,Manitoba,2017,82.0,Reported,6.1,Reported,0
+Hospital stays,Stimulants,Manitoba,2018,64.0,Reported,4.7,Reported,0
+Hospital stays,Stimulants,Manitoba,2019,58.0,Reported,4.2,Reported,0
+Hospital stays,Stimulants,Manitoba,2020,56.0,Reported,4.1,Reported,0
+Hospital stays,Stimulants,Manitoba,2021,53.0,Reported,3.8,Reported,0
+Hospital stays,Stimulants,Manitoba,2022,54.0,Reported,3.8,Reported,0
+Hospital stays,Stimulants,Manitoba,2023,55.0,Reported,3.8,Reported,0
+Hospital stays,Stimulants,Manitoba,2024,60.0,Reported,4.0,Reported,0
+Hospital stays,Stimulants,Manitoba,2025,39.0,Reported,2.6,Reported,0
+Hospital stays,Stimulants,Manitoba,2026,20.0,Reported,5.3,Reported,1
+Hospital stays,Stimulants,New Brunswick,2016,50.0,Reported,6.6,Reported,0
+Hospital stays,Stimulants,New Brunswick,2017,54.0,Reported,7.0,Reported,0
+Hospital stays,Stimulants,New Brunswick,2018,53.0,Reported,6.9,Reported,0
+Hospital stays,Stimulants,New Brunswick,2019,55.0,Reported,7.1,Reported,0
+Hospital stays,Stimulants,New Brunswick,2020,59.0,Reported,7.5,Reported,0
+Hospital stays,Stimulants,New Brunswick,2021,60.0,Reported,7.6,Reported,0
+Hospital stays,Stimulants,New Brunswick,2022,60.0,Reported,7.4,Reported,0
+Hospital stays,Stimulants,New Brunswick,2023,69.0,Reported,8.3,Reported,0
+Hospital stays,Stimulants,New Brunswick,2024,70.0,Reported,8.2,Reported,0
+Hospital stays,Stimulants,New Brunswick,2025,58.0,Reported,6.7,Reported,0
+Hospital stays,Stimulants,New Brunswick,2026,10.0,Reported,4.6,Reported,1
+Hospital stays,Stimulants,Newfoundland and Labrador,2016,28.0,Reported,5.3,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2017,33.0,Reported,6.2,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2018,30.0,Reported,5.7,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2019,36.0,Reported,6.8,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2020,43.0,Reported,8.2,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2021,32.0,Reported,6.1,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2022,37.0,Reported,7.0,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2023,37.0,Reported,6.9,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2024,57.0,Reported,10.4,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2025,56.0,Reported,10.2,Reported,0
+Hospital stays,Stimulants,Newfoundland and Labrador,2026,10.0,Reported,7.3,Reported,1
+Hospital stays,Stimulants,Nova Scotia,2016,32.0,Reported,3.4,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2017,37.0,Reported,3.9,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2018,27.0,Reported,2.8,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2019,32.0,Reported,3.3,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2020,46.0,Reported,4.7,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2021,33.0,Reported,3.3,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2022,36.0,Reported,3.5,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2023,42.0,Reported,4.0,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2024,52.0,Reported,4.8,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2025,49.0,Reported,4.5,Reported,0
+Hospital stays,Stimulants,Nova Scotia,2026,11.0,Reported,4.0,Reported,1
+Hospital stays,Stimulants,Ontario,2016,718.0,Reported,5.2,Reported,0
+Hospital stays,Stimulants,Ontario,2017,905.0,Reported,6.4,Reported,0
+Hospital stays,Stimulants,Ontario,2018,1102.0,Reported,7.7,Reported,0
+Hospital stays,Stimulants,Ontario,2019,971.0,Reported,6.7,Reported,0
+Hospital stays,Stimulants,Ontario,2020,1102.0,Reported,7.5,Reported,0
+Hospital stays,Stimulants,Ontario,2021,995.0,Reported,6.7,Reported,0
+Hospital stays,Stimulants,Ontario,2022,837.0,Reported,5.5,Reported,0
+Hospital stays,Stimulants,Ontario,2023,994.0,Reported,6.4,Reported,0
+Hospital stays,Stimulants,Ontario,2024,942.0,Reported,5.8,Reported,0
+Hospital stays,Stimulants,Ontario,2025,813.0,Reported,5.0,Reported,0
+Hospital stays,Stimulants,Ontario,2026,186.0,Reported,4.6,Reported,1
+Hospital stays,Stimulants,Prince Edward Island,2016,5.0,Reported,3.4,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2017,9.0,Reported,6.0,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2018,6.0,Reported,3.9,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2019,6.0,Reported,3.9,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2020,7.0,Reported,4.4,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2021,,Suppressed,,Suppressed,0
+Hospital stays,Stimulants,Prince Edward Island,2022,,Suppressed,,Suppressed,0
+Hospital stays,Stimulants,Prince Edward Island,2023,7.0,Reported,4.0,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2024,5.0,Reported,2.8,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2025,6.0,Reported,3.3,Reported,0
+Hospital stays,Stimulants,Prince Edward Island,2026,,Suppressed,,Suppressed,1
+Hospital stays,Stimulants,Quebec,2016,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2017,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2018,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2019,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2020,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2021,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2022,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2023,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2024,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2025,,Not available,,Not available,0
+Hospital stays,Stimulants,Quebec,2026,,Not available,,Not available,1
+Hospital stays,Stimulants,Saskatchewan,2016,119.0,Reported,10.5,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2017,106.0,Reported,9.2,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2018,126.0,Reported,10.9,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2019,158.0,Reported,13.6,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2020,141.0,Reported,12.1,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2021,160.0,Reported,13.7,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2022,115.0,Reported,9.8,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2023,148.0,Reported,12.2,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2024,128.0,Reported,10.3,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2025,106.0,Reported,8.4,Reported,0
+Hospital stays,Stimulants,Saskatchewan,2026,21.0,Reported,6.6,Reported,1
+Hospital stays,Stimulants,Territories,2016,11.0,Reported,9.2,Reported,0
+Hospital stays,Stimulants,Territories,2017,12.0,Reported,9.8,Reported,0
+Hospital stays,Stimulants,Territories,2018,12.0,Reported,9.7,Reported,0
+Hospital stays,Stimulants,Territories,2019,11.0,Reported,8.8,Reported,0
+Hospital stays,Stimulants,Territories,2020,20.0,Reported,15.9,Reported,0
+Hospital stays,Stimulants,Territories,2021,13.0,Reported,10.2,Reported,0
+Hospital stays,Stimulants,Territories,2022,19.0,Reported,14.7,Reported,0
+Hospital stays,Stimulants,Territories,2023,23.0,Reported,17.6,Reported,0
+Hospital stays,Stimulants,Territories,2024,18.0,Reported,13.4,Reported,0
+Hospital stays,Stimulants,Territories,2025,21.0,Reported,15.4,Reported,0
+Hospital stays,Stimulants,Territories,2026,6.0,Reported,17.6,Reported,1

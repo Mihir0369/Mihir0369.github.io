@@ -1,0 +1,92 @@
+table fact_year
+	lineageTag: b5bf3636-dd88-5877-be87-0f2455c8ccdd
+
+	column source
+		dataType: string
+		isHidden
+		lineageTag: 430d0019-3546-57cc-8aea-9a3c93697d47
+		summarizeBy: none
+		sourceColumn: source
+
+	column substance
+		dataType: string
+		isHidden
+		lineageTag: b2b6c241-014a-5b5d-99ac-c1e8fbe08d80
+		summarizeBy: none
+		sourceColumn: substance
+
+	column region
+		dataType: string
+		isHidden
+		lineageTag: 655d7e3e-1c38-5552-beda-792d06cb8622
+		summarizeBy: none
+		sourceColumn: region
+
+	column year
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: 0dff21bd-bbf5-54b0-b9aa-ebf85f97a18e
+		summarizeBy: none
+		sourceColumn: year
+
+	column number
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: 65ca17d6-c98d-50e8-bc4a-f0bbdfc7b684
+		summarizeBy: none
+		sourceColumn: number
+
+	column number_status
+		dataType: string
+		isHidden
+		lineageTag: 614919bc-b8f8-5239-a344-a2bbbfafb216
+		summarizeBy: none
+		sourceColumn: number_status
+
+	column crude_rate
+		dataType: double
+		isHidden
+		formatString: General Number
+		lineageTag: cbd1ce45-199c-59ce-819b-03205c11afaf
+		summarizeBy: none
+		sourceColumn: crude_rate
+
+	column rate_status
+		dataType: string
+		isHidden
+		lineageTag: 018a1533-6863-5ed0-86f5-21b079d7c5ea
+		summarizeBy: none
+		sourceColumn: rate_status
+
+	column partial_period
+		dataType: int64
+		isHidden
+		formatString: General Number
+		lineageTag: 6bd68c7d-da37-558c-bc81-5ffe411c9f2e
+		summarizeBy: none
+		sourceColumn: partial_period
+
+	column YearStart
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 061131ea-e8dd-5a41-9715-baeca390940b
+		summarizeBy: none
+		sourceColumn: YearStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_year = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_harms_year.csv"), [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"source", type text}, {"substance", type text}, {"region", type text}, {"year", Int64.Type}, {"number", type number}, {"number_status", type text}, {"crude_rate", type number}, {"rate_status", type text}, {"partial_period", Int64.Type}}, "en-US"),
+				    AddDate = Table.AddColumn(Typed, "YearStart", each #date([year], 1, 1), type date)
+				in
+				    AddDate
+
+	annotation PBI_ResultType = Table

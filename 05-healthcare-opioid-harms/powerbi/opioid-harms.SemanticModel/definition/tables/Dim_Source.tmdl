@@ -1,0 +1,30 @@
+table Dim_Source
+	lineageTag: 2d9e5d9f-6554-582b-954c-8fd975234c31
+
+	column Source
+		lineageTag: 381c50c5-3e66-54dd-8df7-14f21f3c674e
+		summarizeBy: none
+		sourceColumn: [Source]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0a5b8fd-201c-5166-b9ac-ee1a6b29e7a9
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Dim_Source = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Source", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Deaths", 1 },
+				        { "Hospital stays", 2 },
+				        { "Emergency department visits", 3 },
+				        { "EMS responses", 4 }
+				    }
+				)

@@ -1,0 +1,321 @@
+table _Measures
+	lineageTag: 76950b0a-1ffc-5e3f-87a0-9eece5aeea47
+
+	measure Count = VAR scoped = ISFILTERED ( Dim_Region ) RETURN IF ( scoped, SUM ( fact_year[number] ), CALCULATE ( SUM ( fact_year[number] ), Dim_Region[Region] = "Canada" ) )
+		formatString: #,0
+		lineageTag: cc55794b-2236-59cd-9a99-a02fd63ea3e2
+
+	measure 'Rate per 100k' = VAR scoped = ISFILTERED ( Dim_Region ) RETURN IF ( scoped, MAX ( fact_year[crude_rate] ), CALCULATE ( MAX ( fact_year[crude_rate] ), Dim_Region[Region] = "Canada" ) )
+		formatString: 0.0
+		lineageTag: b9f1fa6d-de60-5c10-b26d-870f59bec457
+
+	measure 'Quarter Count' = VAR scoped = ISFILTERED ( Dim_Region ) RETURN IF ( scoped, SUM ( fact_quarter[number] ), CALCULATE ( SUM ( fact_quarter[number] ), Dim_Region[Region] = "Canada" ) )
+		formatString: #,0
+		lineageTag: c5ec271d-b9ff-59a0-87a7-c9b203ad6711
+
+	measure 'Age Sex Count' = VAR scoped = ISFILTERED ( Dim_Region ) RETURN IF ( scoped, SUM ( fact_age[number] ), CALCULATE ( SUM ( fact_age[number] ), Dim_Region[Region] = "Canada" ) )
+		formatString: #,0
+		lineageTag: 413843fe-e178-5d48-baca-85ee22e86944
+
+	measure 'Sel Source' = SELECTEDVALUE ( Dim_Source[Source], "Deaths" )
+		lineageTag: 8e7e7771-a2ea-5f92-be4d-f456001867e8
+
+	measure 'Sel Substance' = SELECTEDVALUE ( Dim_Substance[Substance], "Opioids" )
+		lineageTag: bbd18fb5-cdef-5a6f-9166-a00f20f8f923
+
+	measure 'Latest Full Year' = CALCULATE ( MAX ( fact_year[year] ), REMOVEFILTERS (), fact_year[partial_period] = 0 )
+		formatString: 0
+		lineageTag: a2295a3c-275a-50c5-badf-7ea92736dcd0
+
+	measure 'Default Year' = 2024
+		formatString: 0
+		lineageTag: 310ecb73-3b3b-5a04-b316-b00b65ecf62c
+
+	measure 'Focus Year' = SELECTEDVALUE ( 'Date'[Year], [Default Year] )
+		formatString: 0
+		lineageTag: 0f7544e2-6fe5-5208-bf9c-665c1a91eb51
+
+	measure 'Focus Year Label' = VAR y = [Focus Year] RETURN IF ( y = 2026, "2026 (Jan to Mar)", FORMAT ( y, "0" ) )
+		lineageTag: 52101d81-0f5c-5c41-9e20-06a79b68d7c7
+
+	measure 'Showing Short' = "Showing: " & [Sel Source] & ", " & LOWER ( [Sel Substance] )
+		lineageTag: 1268da0e-d619-5094-848d-22a26ca9fdc0
+
+	measure 'Showing Text' = "Showing: " & [Sel Source] & ", " & LOWER ( [Sel Substance] ) & ", " & [Focus Year Label]
+		lineageTag: 249d72e6-67f6-5598-b721-079bad04d85b
+
+	measure 'Count Sel' = VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Count], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: 61ccb597-d47c-5ae3-b605-22a27efacece
+
+	measure 'Rate Sel' = VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Rate per 100k], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: 0.0
+		lineageTag: 338e34fe-7b63-568b-bac3-ed24dfbad45a
+
+	measure 'Count (Focus Year)' = VAR y = [Focus Year] VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: f05f72b0-04af-5fcb-a776-c684043ab23e
+
+	measure 'Rate (Focus Year)' = VAR y = [Focus Year] VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Rate per 100k], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: 0.0
+		lineageTag: 5f71ef98-469d-5e36-882e-cdae86bf0764
+
+	measure 'Value Status' = VAR y = [Focus Year] VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( IF ( COUNTROWS ( fact_year ) = 0, BLANK (), SELECTEDVALUE ( fact_year[number_status] ) ), REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		lineageTag: cd8c274f-5b26-57bd-be5f-8391e97a13c1
+
+	measure 'Rate Available Text' = VAR s = [Sel Source] RETURN IF ( s = "EMS responses", "PHAC publishes no rate for EMS responses, so this page shows counts only.", "Crude rate per 100,000 population, not age-adjusted." )
+		lineageTag: 6bc21ea4-ddab-5f96-9206-bb993fc27b60
+
+	measure 'Latest Quarter' = CALCULATE ( MAX ( fact_quarter[quarter_start] ), REMOVEFILTERS ( Date ) )
+		formatString: mmm yyyy
+		lineageTag: 4d679de9-ba6a-5afb-b8b6-9e67c1c5cce1
+
+	measure 'Latest Quarter Text' = VAR q = [Latest Quarter] RETURN YEAR ( q ) & " Q" & ROUNDUP ( MONTH ( q ) / 3, 0 )
+		lineageTag: 1645331a-3e7e-59d3-b07f-b0a46e1ae067
+
+	measure 'Quarter Count Sel' = VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Quarter Count], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: baca7db6-0959-50af-bb20-0e029aacefd6
+
+	measure 'Latest Quarter Count' = VAR q = [Latest Quarter] RETURN CALCULATE ( [Quarter Count Sel], REMOVEFILTERS ( Date ), fact_quarter[quarter_start] = q )
+		formatString: #,0
+		lineageTag: 20db6b76-e873-5faa-96a5-cdec12b8bace
+
+	measure 'Prior Year Quarter Count' = VAR q = [Latest Quarter] RETURN CALCULATE ( [Quarter Count Sel], REMOVEFILTERS ( Date ), fact_quarter[quarter_start] = EDATE ( q, -12 ) )
+		formatString: #,0
+		lineageTag: 069ee77e-10f4-5a96-aeca-1f5aa54cc94e
+
+	measure 'Quarter YoY %' = DIVIDE ( [Latest Quarter Count] - [Prior Year Quarter Count], [Prior Year Quarter Count] )
+		formatString: +0%;-0%;0%
+		lineageTag: 9533cd61-d605-5ee4-9d6c-83566098c580
+
+	measure 'Peak Quarter Count' = CALCULATE ( MAXX ( VALUES ( fact_quarter[quarter_start] ), [Quarter Count Sel] ), REMOVEFILTERS ( Date ) )
+		formatString: #,0
+		lineageTag: 8f6b18e0-9438-56c7-a4c6-d322967aa70e
+
+	measure 'Peak Quarter' = VAR t = ADDCOLUMNS ( CALCULATETABLE ( VALUES ( fact_quarter[quarter_start] ), REMOVEFILTERS ( Date ) ), "v", [Quarter Count Sel] ) RETURN MINX ( TOPN ( 1, t, [v], DESC ), fact_quarter[quarter_start] )
+		formatString: mmm yyyy
+		lineageTag: c88c2cd7-23c9-57d8-b30a-5fe3635a21e2
+
+	measure 'Peak Quarter Text' = "Highest quarter was " & FORMAT ( [Peak Quarter], "mmm yyyy" )
+		lineageTag: 251392ef-a4fb-5585-a97d-36cfbf0bbbc7
+
+	measure 'Trend Headline' = [Showing Short] & ". " & [Latest Quarter Text] & " is " & FORMAT ( [Quarter YoY %], "+0%;-0%" ) & " vs a year earlier."
+		lineageTag: d959c444-15d9-5814-a93a-a907723e6d74
+
+	measure 'Latest Full Year Count' = VAR y = [Latest Full Year] RETURN CALCULATE ( [Count Sel], REMOVEFILTERS ( Date ), fact_year[year] = y )
+		formatString: #,0
+		lineageTag: f067e2cf-1e7c-5575-953c-431400804396
+
+	measure 'Latest Full Year Text' = "Full year " & [Latest Full Year]
+		lineageTag: e176b638-ea79-5cec-9838-5b8ad6723ba6
+
+	measure 'Opioid Deaths LFY' = VAR y = [Latest Full Year] RETURN CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 91a1d53a-7e64-5495-9fba-bdf5fe7840a7
+
+	measure 'Opioid Deaths Peak' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) RETURN MAXX ( yrs, CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids" ) )
+		formatString: #,0
+		lineageTag: 90865f1f-b317-5b71-b813-516d5be5383f
+
+	measure 'Opioid Deaths Peak Year' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) VAR t = ADDCOLUMNS ( yrs, "v", CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids" ) ) RETURN MAXX ( TOPN ( 1, t, [v], DESC ), fact_year[year] )
+		formatString: 0
+		lineageTag: 49861689-3d2a-5165-bb84-ed1f9e3e0654
+
+	measure 'Opioid Deaths vs Peak %' = DIVIDE ( [Opioid Deaths LFY] - [Opioid Deaths Peak], [Opioid Deaths Peak] )
+		formatString: +0%;-0%;0%
+		lineageTag: bfb1d6e6-897a-562c-b4f0-6893ae8c901c
+
+	measure 'Opioid Hosp LFY' = VAR y = [Latest Full Year] RETURN CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 413f4e4f-1678-5b54-9c8d-db49365ac906
+
+	measure 'Opioid Hosp Peak' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) RETURN MAXX ( yrs, CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids" ) )
+		formatString: #,0
+		lineageTag: 535f8f7e-481a-56b4-9918-76648a805816
+
+	measure 'Opioid Hosp Peak Year' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) VAR t = ADDCOLUMNS ( yrs, "v", CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids" ) ) RETURN MAXX ( TOPN ( 1, t, [v], DESC ), fact_year[year] )
+		formatString: 0
+		lineageTag: b97b633f-f64f-57b9-9c0a-1cf9866fca06
+
+	measure 'Opioid Hosp vs Peak %' = DIVIDE ( [Opioid Hosp LFY] - [Opioid Hosp Peak], [Opioid Hosp Peak] )
+		formatString: +0%;-0%;0%
+		lineageTag: 261cff09-a2a1-522b-a8d1-774d4f3a445a
+
+	measure 'Opioid ED LFY' = VAR y = [Latest Full Year] RETURN CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 83e61c6d-7556-5df5-ac35-c3dbb925a8f2
+
+	measure 'Opioid ED Peak' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) RETURN MAXX ( yrs, CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids" ) )
+		formatString: #,0
+		lineageTag: b7a2a218-b41c-50cb-8615-e367ee4c2ed0
+
+	measure 'Opioid ED Peak Year' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) VAR t = ADDCOLUMNS ( yrs, "v", CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids" ) ) RETURN MAXX ( TOPN ( 1, t, [v], DESC ), fact_year[year] )
+		formatString: 0
+		lineageTag: 881fed01-a70d-5421-9fe5-229944f62523
+
+	measure 'Opioid ED vs Peak %' = DIVIDE ( [Opioid ED LFY] - [Opioid ED Peak], [Opioid ED Peak] )
+		formatString: +0%;-0%;0%
+		lineageTag: ca9fa612-8493-5ebb-9c8a-1597979b5b6b
+
+	measure 'Opioid EMS LFY' = VAR y = [Latest Full Year] RETURN CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = y, Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: e28cc8bc-7a40-5e36-af57-b5ccd956ce94
+
+	measure 'Opioid EMS Peak' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) RETURN MAXX ( yrs, CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids" ) )
+		formatString: #,0
+		lineageTag: a9135cd8-06eb-5a2e-bf75-a7d9aeed5a88
+
+	measure 'Opioid EMS Peak Year' = VAR yrs = CALCULATETABLE ( VALUES ( fact_year[year] ), REMOVEFILTERS ( Date ), fact_year[partial_period] = 0 ) VAR t = ADDCOLUMNS ( yrs, "v", CALCULATE ( [Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids" ) ) RETURN MAXX ( TOPN ( 1, t, [v], DESC ), fact_year[year] )
+		formatString: 0
+		lineageTag: 5ff35b3e-800c-51e9-a3b4-90c3262b3373
+
+	measure 'Opioid EMS vs Peak %' = DIVIDE ( [Opioid EMS LFY] - [Opioid EMS Peak], [Opioid EMS Peak] )
+		formatString: +0%;-0%;0%
+		lineageTag: 94ab8809-df69-5d6e-9b40-bf765ab76991
+
+	measure 'Deaths Latest Quarter YoY %' = VAR q = [Latest Quarter] VAR cur = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = q ) VAR py = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )
+		formatString: +0%;-0%;0%
+		lineageTag: 371d2fd4-8d75-5e63-a6f8-80d1eba4e131
+
+	measure 'Hosp Latest Quarter YoY %' = VAR q = [Latest Quarter] VAR cur = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = q ) VAR py = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )
+		formatString: +0%;-0%;0%
+		lineageTag: 9564ac62-7aea-5448-88d6-a03ff74426bc
+
+	measure 'ED Latest Quarter YoY %' = VAR q = [Latest Quarter] VAR cur = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = q ) VAR py = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )
+		formatString: +0%;-0%;0%
+		lineageTag: c9acb637-38fb-5cfb-a780-4501a2a82b8c
+
+	measure 'EMS Latest Quarter YoY %' = VAR q = [Latest Quarter] VAR cur = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = q ) VAR py = CALCULATE ( [Quarter Count], REMOVEFILTERS ( Date ), Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids", fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )
+		formatString: +0%;-0%;0%
+		lineageTag: e6c388b3-aedb-54bf-9757-404bafe6a83e
+
+	measure 'Deaths Peak Text' = "Peak was " & FORMAT ( [Opioid Deaths Peak], "#,0" ) & " in " & [Opioid Deaths Peak Year]
+		lineageTag: 1d79c357-d528-5ceb-b92e-dd264bda3a01
+
+	measure 'Deaths LFY Text' = "Full year " & [Latest Full Year] & ". Peak was " & FORMAT ( [Opioid Deaths Peak], "#,0" ) & " in " & [Opioid Deaths Peak Year]
+		lineageTag: 68d730e8-d991-5c72-9024-ef00a5fe18c8
+
+	measure 'Other Peaks Text' = "Hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0%;-0%" ) & ", ED visits " & FORMAT ( [Opioid ED vs Peak %], "+0%;-0%" )
+		lineageTag: 0af61abe-b038-52db-a414-9b7979885adf
+
+	measure 'EMS Peak Text' = "Peak was " & FORMAT ( [Opioid EMS Peak], "#,0" ) & " in " & [Opioid EMS Peak Year]
+		lineageTag: 4b494030-9e45-5272-bfe3-d7e4668780a5
+
+	measure 'Hosp per Death' = DIVIDE ( [Opioid Hosp LFY], [Opioid Deaths LFY] )
+		formatString: 0.00
+		lineageTag: d53c1962-b5e1-5ec8-b6a7-f4b4dbad53fe
+
+	measure 'Hosp per Death 2016' = DIVIDE ( CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = 2016, Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids" ), CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = 2016, Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids" ) )
+		formatString: 0.00
+		lineageTag: 9867409a-f6d4-56c9-8984-93802493432c
+
+	measure 'Hosp per Death Text' = "It was " & FORMAT ( [Hosp per Death 2016], "0.00" ) & " in 2016"
+		lineageTag: d8f4e64b-4fe7-5a34-9428-037ed1f3bca4
+
+	measure 'EMS Quarter Note' = [Latest Quarter Text] & ": " & FORMAT ( [EMS Latest Quarter YoY %], "+0%;-0%" ) & " vs a year ago"
+		lineageTag: 198fd538-4736-58bc-99c7-c58717bdccb1
+
+	measure 'Opioid Count' = CALCULATE ( [Count], Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 7b709c7d-f8ec-5373-9477-23af894ad5bb
+
+	measure 'Deaths (Opioids)' = CALCULATE ( [Count], Dim_Source[Source] = "Deaths", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 7d09f4a1-bedd-551b-b5f9-b1c1a1eb0c35
+
+	measure 'Hospital stays (Opioids)' = CALCULATE ( [Count], Dim_Source[Source] = "Hospital stays", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 1f4dbd15-bc5e-5020-8a52-17d387c7167e
+
+	measure 'ED Visits (Opioids)' = CALCULATE ( [Count], Dim_Source[Source] = "Emergency department visits", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: c2e554bd-1630-5eea-a9e5-93b4fc57685c
+
+	measure 'EMS Responses (Opioids)' = CALCULATE ( [Count], Dim_Source[Source] = "EMS responses", Dim_Substance[Substance] = "Opioids" )
+		formatString: #,0
+		lineageTag: 60ae0c0a-7726-52b5-9f0e-84b0657f3f1b
+
+	measure 'Index 2019' = IF ( MAX ( fact_year[partial_period] ) = 1, BLANK (), DIVIDE ( [Opioid Count], CALCULATE ( [Opioid Count], REMOVEFILTERS ( Date ), fact_year[year] = 2019 ) ) * 100 )
+		formatString: 0
+		lineageTag: e0973f11-e3d9-563d-8792-f1c3137d7043
+
+	measure 'Hosp per Death (Year)' = DIVIDE ( [Hospital stays (Opioids)], [Deaths (Opioids)] )
+		formatString: 0.00
+		lineageTag: fa602e8d-fe88-52c9-afc6-79087d474d77
+
+	measure 'Burden Headline' = "Since the 2023 peak: deaths " & FORMAT ( [Opioid Deaths vs Peak %], "+0%;-0%" ) & ", hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0%;-0%" ) & ", EMS responses " & FORMAT ( [Opioid EMS vs Peak %], "+0%;-0%" ) & "." 
+		lineageTag: cd9ded2b-0b8c-560e-8981-b1844ddc23dd
+
+	measure 'Age Count (Focus Year)' = VAR y = [Focus Year] VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], REMOVEFILTERS ( Date ), fact_age[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: 1935b04c-9e71-52a8-8bb4-650612db3b03
+
+	measure 'Male Share' = DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Sex[Sex] = "Male" ), [Age Count (Focus Year)] )
+		formatString: 0%
+		lineageTag: e935dbd6-3383-5423-a349-df2ad7a7b481
+
+	measure 'Age 30 to 49 Share' = DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Age[Age group] IN { "30 to 39 years", "40 to 49 years" } ), [Age Count (Focus Year)] )
+		formatString: 0%
+		lineageTag: 4f4fa8af-ccd2-5255-9da6-24bbd7255b78
+
+	measure 'Heat Count' = VAR y = SELECTEDVALUE ( Dim_HeatYear[Heat Year Number] ) VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], REMOVEFILTERS ( Date ), fact_age[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: 80f61b4a-8786-5611-a698-4d6091a0213a
+
+	measure 'Tile Max' = CALCULATE ( MAXX ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), [Rate (Focus Year)] ), ALL ( Dim_Region ) )
+		formatString: 0.0
+		lineageTag: c044b2af-bdfb-5143-993a-0b0ea56e9af7
+
+	measure 'Tile Label' = VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] RETURN IF ( code = "", BLANK (), code & IF ( ISBLANK ( r ), "  n/a", "  " & FORMAT ( r, "0.0" ) ) )
+		lineageTag: 7bf0e9ea-84da-51b2-939d-04cc39e32077
+
+	measure 'Tile Fill' = VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] VAR k = DIVIDE ( r, [Tile Max] ) RETURN IF ( code = "", BLANK (), IF ( ISBLANK ( r ), "#E3E3E3", SWITCH ( TRUE (), k < 0.2, "#E4ECF3", k < 0.4, "#A9C3D9", k < 0.6, "#5F8FB5", k < 0.8, "#2D5F8A", "#1B3A5C" ) ) )
+		lineageTag: 4595b91d-77a0-5d02-9d3b-975dd67322db
+
+	measure 'Tile Font' = VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] VAR k = DIVIDE ( r, [Tile Max] ) RETURN IF ( code = "", BLANK (), IF ( ISBLANK ( r ), "#8A8A8A", IF ( k < 0.4, "#1F2D3D", "#FFFFFF" ) ) )
+		lineageTag: 8e8032e1-81bb-5601-a2de-847494d23ca6
+
+	measure 'Tile Extremes' = VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) VAR hi = TOPN ( 1, t, [r], DESC ) VAR lo = TOPN ( 1, t, [r], ASC ) RETURN IF ( COUNTROWS ( t ) = 0, "No rates for this selection.", "Highest: " & MAXX ( hi, Dim_Region[Region] ) & " (" & FORMAT ( MAXX ( hi, [r] ), "0.0" ) & "). Lowest: " & MAXX ( lo, Dim_Region[Region] ) & " (" & FORMAT ( MAXX ( lo, [r] ), "0.0" ) & ")." )
+		lineageTag: f04a4a13-5751-52f9-9752-c77e8d6dff93
+
+	measure 'Canada Rate Text' = VAR c = CALCULATE ( [Rate (Focus Year)], Dim_Region[Region] = "Canada" ) RETURN IF ( ISBLANK ( c ), "Canada: no rate is published for this source.", "Canada: " & FORMAT ( c, "0.0" ) & " per 100,000, counting only the places that report." )
+		lineageTag: 4bbed78e-c659-5963-b88c-685a10289d14
+
+	measure 'Heat Max' = CALCULATE ( MAXX ( CROSSJOIN ( ALL ( Dim_Age[Age group] ), ALL ( Dim_HeatYear[Heat Year] ) ), [Heat Count] ), ALL ( Dim_Age ), ALL ( Dim_HeatYear ) )
+		formatString: #,0
+		lineageTag: 712e5699-e668-5153-b267-cb785a39a9bf
+
+	measure 'Heat Fill' = VAR v = [Heat Count] VAR k = DIVIDE ( v, [Heat Max] ) RETURN IF ( ISBLANK ( v ), BLANK (), SWITCH ( TRUE (), k < 0.1, "#FFF4DC", k < 0.25, "#FBD9A0", k < 0.45, "#F4B860", k < 0.7, "#E08A1E", "#B85C00" ) )
+		lineageTag: 0928804f-01d1-5079-a8c6-c9179c29fcf1
+
+	measure 'Heat Font' = VAR v = [Heat Count] VAR k = DIVIDE ( v, [Heat Max] ) RETURN IF ( ISBLANK ( v ), BLANK (), IF ( k < 0.45, "#1F2D3D", "#FFFFFF" ) )
+		lineageTag: a5a98e04-18f2-5a5c-90fe-b9d9d73b4607
+
+	measure 'Coverage Status' = CALCULATE ( IF ( COUNTROWS ( fact_year ) = 0, "Not in file", SELECTEDVALUE ( fact_year[number_status] ) ), REMOVEFILTERS ( Date ), fact_year[year] = 2024, Dim_Substance[Substance] = "Opioids" )
+		lineageTag: 4f6ae1a3-04e6-5850-ad58-077e59d34fa2
+
+	measure 'Coverage Fill' = SWITCH ( [Coverage Status], "Reported", "#CFE6EA", "Suppressed", "#FBE3B3", "Not available", "#E3E3E3", "#FFFFFF" )
+		lineageTag: e700f052-3c2f-5ffe-abbd-390cdc596fe7
+
+	measure 'Coverage Font' = SWITCH ( [Coverage Status], "Not in file", "#B5B5B5", "Not available", "#6B6B6B", "#1F2D3D" )
+		lineageTag: 4e5c827f-2294-5677-abd8-4bbc3870ccc4
+
+	measure 'Age Count Sel' = VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )
+		formatString: #,0
+		lineageTag: bfaf2906-9480-5e38-a749-83cb879d115a
+
+	measure 'Age Share of Total' = DIVIDE ( [Age Count (Focus Year)], [Count (Focus Year)] )
+		formatString: 0%
+		lineageTag: 9dfa1b36-7ae6-56c7-9f0b-86c75ee868a2
+
+	measure 'Share of Group' = DIVIDE ( [Age Count (Focus Year)], CALCULATE ( [Age Count (Focus Year)], REMOVEFILTERS ( Dim_Age ), REMOVEFILTERS ( Dim_Sex ) ) )
+		formatString: 0%
+		lineageTag: 30bceaf6-c889-55e6-9586-f8ef0b7252a2
+
+	measure 'Who Headline' = [Showing Text] & ". About " & FORMAT ( [Male Share], "0%" ) & " are male and " & FORMAT ( [Age 30 to 49 Share], "0%" ) & " are aged 30 to 49."
+		lineageTag: 665248ba-30f9-57d2-81e5-52e0510148f6
+
+	measure 'Data Through Text' = "Counts to " & [Latest Quarter Text] & "  |  Latest full year " & [Latest Full Year] & "  |  2026 is January to March only"
+		lineageTag: edb8587a-dc92-515f-8d15-981bb59f7a53
+
