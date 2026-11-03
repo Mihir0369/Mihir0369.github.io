@@ -15,7 +15,10 @@
     var n = document.createElement("span"); n.textContent = P.name;
     b.textContent = ""; b.appendChild(m); b.appendChild(n);
   })();
-  document.getElementById("headline").textContent = P.headline;
+  (function () {
+    var h = document.getElementById("headline"); h.textContent = "";
+    P.headline.split("*").forEach(function (t, i) { if (!t) return; if (i % 2) { var e = document.createElement("span"); e.className = "hl"; e.textContent = t; h.appendChild(e); } else h.appendChild(document.createTextNode(t)); });
+  })();
   document.getElementById("intro").textContent = P.intro;
   document.getElementById("email").href = P.email;
   ["linkedin", "nav-linkedin"].forEach(function (id) { var l = document.getElementById(id); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; });

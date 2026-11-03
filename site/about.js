@@ -22,7 +22,7 @@
     P.experience.forEach(function (x) {
       var d = el("div", "xp");
       d.appendChild(el("div", "when", x.when)); d.appendChild(el("h3", null, x.role));
-      d.appendChild(el("div", "org", x.org)); d.appendChild(el("p", null, x.text));
+      d.appendChild(el("div", "org", x.org)); var ul = el("ul", "xp-list"); [].concat(x.text).forEach(function (t) { ul.appendChild(el("li", null, t)); }); d.appendChild(ul);
       left.appendChild(d);
     });
   }

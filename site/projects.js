@@ -3,23 +3,28 @@
 // until you have run the analysis and typed in your own numbers.
 window.PROFILE = {
   name: "Mihir Jasani",
-  headline: "I turn Canadian public data into Power BI reports people can act on.",
-  intro: "Graduate certificate in Business Insights and Analytics, B.Tech in Information Technology. I work in SQL, Power BI, DAX, Excel and Python. Each project below is a short story: the question, the data, what I found, and what I would recommend.",
+  headline: "I build *Power BI reporting* that turns messy data into decisions.",
+  intro: "I'm Mihir Jasani, a data analyst. I write the SQL, clean and reconcile the data, and build the Power BI dashboards that management uses to make decisions, most recently at Elevara Digital. I'm certified in Power BI (PL-300) and Microsoft Fabric (DP-600). My day-to-day work is confidential, so these five case studies use real Canadian public data. Each one is a short story: the question, the data, what I found and what I'd recommend.",
   email: "mailto:mihirjasani369@gmail.com",
   linkedin: "https://www.linkedin.com/in/mihir-jasani/",
   resume: null,
   certs: [
-    { label: "PL-300 Power BI Data Analyst", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/EC785C0EC14FA2EC?sharingId=43D033F7F8EE565A" },
-    { label: "DP-600 Fabric Analytics Engineer", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/51AF5C13B57788B4?sharingId=43D033F7F8EE565A" }
+    { label: "PL-300 Power BI Data Analyst Associate", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/EC785C0EC14FA2EC?sharingId=43D033F7F8EE565A" },
+    { label: "DP-600 Fabric Analytics Engineer Associate", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/51AF5C13B57788B4?sharingId=43D033F7F8EE565A" }
   ],
   tools: "SQL · MySQL · Power BI · DAX · Power Query · Excel · Python · Fabric",
   location: "Toronto, Ontario",
   about: [
     "I am a business intelligence and analytics graduate based in Toronto. I work in SQL, Power BI, DAX, Power Query, Excel and Python, and I like turning a plain question into a report that someone can act on.",
-    "I hold the Microsoft Power BI Data Analyst (PL-300) and Fabric Analytics Engineer (DP-600) certifications, and I build my projects on the same pattern: a clean star-schema model, documented DAX measures, and a short written recommendation."
+    "I hold the Microsoft Power BI Data Analyst Associate (PL-300) and Fabric Analytics Engineer Associate (DP-600) certifications, and I build my projects on the same pattern: a clean star-schema model, documented DAX measures, and a short written recommendation."
   ],
   aboutPortfolio: "This portfolio has five case studies built on public Canadian data: banking, health, transportation, government and city services. Each one lists its source and licence and states what the data cannot tell you. No employer or client data is used anywhere on this site.",
-  experience: [],
+  experience: [
+    {"when": "Oct 2025 - Present", "role": "Data Analyst", "org": "Elevara Digital, Toronto, ON", "text": ["Develop SQL queries using joins, aggregations, and filtering to retrieve and consolidate business data for reporting and analysis and generate data exports.", "Clean, validate, and reconcile reporting datasets to improve data completeness, accuracy, and consistency.", "Collaborate with business stakeholders to understand data requirements, define KPI calculations, and recommend reporting solutions.", "Develop and maintain Power BI dashboards and communicate operational trends and findings to support management decisions."]},
+    {"when": "Apr 2025 - Sep 2025", "role": "Data Analyst Intern", "org": "Impact Zero, Toronto, ON", "text": ["Cleaned and consolidated HubSpot CRM data and developed a Power BI dashboard covering over $400K in pipeline revenue, reducing sales deal tracking time by 50%.", "Created custom reporting metrics and communicated sales pipeline findings to leadership to support business decisions.", "Built a Python and Streamlit application to summarize more than 500 meeting notes and extract action items, improving executive task follow-up by 35%."]},
+    {"when": "Jun 2023 - Aug 2025", "role": "Peer Tutor", "org": "Humber College, Toronto, ON", "text": ["Delivered workshops and personalized support in Excel, Power BI, and statistics, adapting explanations to learners with different levels of technical understanding.", "Explained data modeling, regression analysis, and hypothesis testing in accessible language, helping students apply analytical concepts to coursework."]},
+    {"when": "Dec 2021 - Oct 2022", "role": "Jr Reporting Analyst", "org": "Scalezix Technologies, Ahmedabad, India", "text": ["Developed Power BI data models and dashboards to analyze procurement spend across purchasing channels, improving leadership visibility and identifying potential cost savings of 30%.", "Used Excel Power Query, Pivot Tables, and XLOOKUP to prepare and analyze procurement data, reducing weekly reporting effort by 22 hours.", "Managed recurring weekly reporting deliverables, prioritized deadlines, and presented procurement spend trends and findings to non-technical stakeholders."]}
+  ],
   toolGroups: [
     ["Power BI", "star-schema models, DAX, Power Query, report design, PBIP projects in version control"],
     ["Microsoft Fabric", "lakehouse, notebooks, semantic models"],
@@ -28,8 +33,8 @@ window.PROFILE = {
     ["Delivery", "short written findings, limits stated, recommendations a decision-maker can use"]
   ],
   education: [
-    "Graduate Certificate, Business Insights and Analytics",
-    "B.Tech, Information Technology"
+    "Graduate Certificate, Business Insights and Analytics, Humber Polytechnic",
+    "B.Tech, Information Technology, P.P. Savani University"
   ]
 };
 
