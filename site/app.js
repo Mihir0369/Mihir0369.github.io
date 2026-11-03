@@ -9,16 +9,22 @@
   }
 
   // Profile
-  document.getElementById("brand").textContent = P.name;
+  (function () {
+    var b = document.getElementById("brand"), parts = P.name.split(" ");
+    var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+    var n = document.createElement("span"); n.textContent = P.name;
+    b.textContent = ""; b.appendChild(m); b.appendChild(n);
+  })();
   document.getElementById("headline").textContent = P.headline;
   document.getElementById("intro").textContent = P.intro;
   document.getElementById("email").href = P.email;
-  ["linkedin", "nav-linkedin"].forEach(function (id) { document.getElementById(id).href = P.linkedin; });
-  document.getElementById("resume").href = P.resume;
+  ["linkedin", "nav-linkedin"].forEach(function (id) { var l = document.getElementById(id); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; });
+  var rs = document.getElementById("resume");
+  if (P.resume) rs.href = P.resume; else rs.remove();
   document.getElementById("tools").textContent = P.tools;
   var certs = document.getElementById("certs");
   P.certs.forEach(function (c) {
-    certs.appendChild(c.url ? Object.assign(el("a", { "class": "chip", href: c.url }, c.label)) : el("span", { "class": "chip" }, c.label));
+    certs.appendChild(c.url ? Object.assign(el("a", { "class": "chip", href: c.url, target: "_blank", rel: "noopener" }, c.label)) : el("span", { "class": "chip" }, c.label));
   });
 
   // Headline findings: every project's headline, empty ones shown as placeholders

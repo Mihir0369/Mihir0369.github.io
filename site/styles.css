@@ -302,3 +302,90 @@ pre.code { margin: 0; white-space: pre-wrap; font-family: Consolas, "Courier New
   .s-chapter { grid-template-columns: 1fr; gap: 18px; padding-block: 28px; }
   .s-tldr ol { grid-template-columns: 1fr; }
 }
+
+/* report-style cards (navy top border, label above, large value) */
+.s-head .kpis { margin-top: 0; }
+.pbi-stats { background: transparent; border: 0; border-radius: 0; overflow: visible; gap: 12px; }
+.pbi-stats > .pst { background: var(--surface); border-top: 4px solid var(--navy); border-radius: 0 0 var(--radius) var(--radius); padding: 10px 16px 12px; min-width: 112px; box-shadow: 0 1px 2px rgba(27,58,92,.06); text-align: center; }
+.pbi-stats .pst span { display: block; font-size: 14px; color: var(--text); }
+.pbi-stats .pst b { display: block; font-size: 28px; font-weight: 600; color: var(--navy); line-height: 1.15; margin-top: 2px; }
+
+/* alignment fixes: meta rows, report heading, chips in one row */
+.meta-row { flex-direction: column; gap: 4px; }
+.pbi-head { display: block; }
+.pbi-head > div:first-child { margin-bottom: 14px; }
+.pbi-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.pbi-stats > .pst { min-width: 0; }
+.pbi-foot { display: block; }
+.pbi-foot .chips { flex-wrap: nowrap; gap: 8px; margin: 0; overflow-x: auto; padding-bottom: 2px; }
+.pbi-foot .chip { white-space: nowrap; flex: none; }
+.dls { margin-top: 14px; }
+@media (max-width: 700px) { .pbi-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pbi-foot .chips { flex-wrap: wrap; } }
+
+/* single-line notes, equal chart cards, bottom navigation */
+.pbi-note { max-width: none; }
+@media (min-width: 900px) { .pbi-note { white-space: nowrap; } }
+.s-viz .vt { min-height: 2.6em; }
+.next-nav { display: flex; justify-content: space-between; gap: 24px; margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+.next-nav a { display: block; max-width: 46%; text-decoration: none; color: var(--navy); font-weight: 600; line-height: 1.35; }
+.next-nav a.r { text-align: right; margin-left: auto; }
+.next-nav a span { display: block; font-size: 13.5px; font-weight: 400; color: var(--muted); margin-bottom: 4px; }
+.next-nav a:hover { text-decoration: underline; }
+
+/* aligned title and intro, divider after every section */
+.s-head h1, .s-head .dek { max-width: 900px; }
+.s-head .dek { margin-top: 14px; }
+.s-head, .s-pbi, .s-tldr, .s-block { margin-top: 0; padding-block: 36px; border-bottom: 1px solid var(--line); }
+.s-head { padding-top: 0; }
+.s-block:last-of-type { border-bottom: 0; }
+.next-nav { margin-top: 0; padding-top: 24px; border-top: 1px solid var(--line); }
+.s-head h1 { text-wrap: balance; } .s-head .dek { text-wrap: pretty; }
+
+/* header: divider between title and intro, one shared width, compact KPI cards */
+.s-head h1 { text-wrap: wrap; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.2; max-width: 860px; margin-bottom: 14px; }
+.s-head h1::after { content: ""; display: block; width: 56px; height: 4px; background: var(--amber); border-radius: 2px; margin-top: 14px; }
+.s-head .dek { max-width: 860px; text-align: justify; hyphens: auto; text-wrap: wrap; font-size: 17px; line-height: 1.65; margin: 0 0 24px; }
+.s-head .kpis { gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.s-head .kpi { padding: 10px 14px 12px; border-top-width: 3px; }
+.s-head .kpi-label { font-size: 14px; }
+.s-head .kpi-sub { font-size: 12.5px; margin-top: 0; }
+.s-head .kpi-icon { width: 30px; height: 30px; }
+.s-head .kpi-icon svg { width: 16px; height: 16px; }
+.s-head .kpi-value { font-size: 28px; margin-top: 4px; }
+@media (max-width: 800px) { .s-head .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+
+/* DAX measures on the light code panel */
+.dax-panel, .build-grid .panel { grid-column: 1 / -1; }
+pre.code.dax { white-space: pre; overflow-x: auto; line-height: 1.65; tab-size: 4; font-size: 13.5px; padding: 14px 18px; }
+.dx-name { color: #B4532A; font-weight: 600; }
+.dx-fn { color: var(--navy); font-weight: 700; }
+.dx-kw { color: var(--navy); font-weight: 700; }
+.dx-var { color: var(--teal); font-weight: 600; }
+.dx-str { color: #2E7D5B; }
+
+/* measures and limits side by side */
+.build-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+.dax-panel, .build-grid .panel { grid-column: auto; }
+@media (max-width: 900px) { .build-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* equal-height cards; the measures code scrolls inside its card */
+.build-grid { align-items: stretch; }
+.build-grid .panel { height: 420px; display: flex; flex-direction: column; min-height: 0; }
+.build-grid .panel h3 { flex: none; }
+.build-grid .panel ul { overflow-y: auto; }
+.build-grid pre.code.dax { flex: 1 1 auto; min-height: 0; overflow: auto; margin: 0; }
+@media (max-width: 900px) { .build-grid .panel { height: auto; } .build-grid pre.code.dax { max-height: 420px; } }
+
+/* header stays visible while scrolling */
+header.site { position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 6px rgba(27,58,92,.18); }
+html { scroll-padding-top: 84px; }
+
+/* header monogram, active nav pill; label-style tag; larger narrower title; muted serif intro */
+header.site .brand { display: inline-flex; align-items: center; gap: 10px; }
+header.site .mono { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 6px; background: var(--amber); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .02em; }
+header.site nav a.on { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
+.s-head .tag { background: none; border: 0; padding: 0; border-radius: 0; color: var(--amber); font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; margin: 6px 0 14px; }
+.s-head .tag::before { content: ""; width: 9px; height: 9px; background: var(--amber); display: inline-block; }
+.s-head h1 { font-size: clamp(32px, 4.4vw, 46px); line-height: 1.12; max-width: 680px; letter-spacing: -.01em; }
+.s-head .dek { font-family: Georgia, "Source Serif Pro", "Times New Roman", serif; color: var(--muted); font-size: 18.5px; line-height: 1.7; max-width: 680px; text-align: left; hyphens: none; }

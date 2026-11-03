@@ -2,15 +2,15 @@
 // Any field set to null shows as a dashed "to fill in" placeholder, so nothing looks finished
 // until you have run the analysis and typed in your own numbers.
 window.PROFILE = {
-  name: "Your Name",
+  name: "Mihir Jasani",
   headline: "I turn Canadian public data into Power BI reports people can act on.",
   intro: "Graduate certificate in Business Insights and Analytics, B.Tech in Information Technology. I work in SQL, Power BI, DAX, Excel and Python. Each project below is a short story: the question, the data, what I found, and what I would recommend.",
-  email: "mailto:you@example.com",
-  linkedin: "https://www.linkedin.com/in/your-profile",
-  resume: "resume.pdf",
+  email: "mailto:mihirjasani369@gmail.com",
+  linkedin: "https://www.linkedin.com/in/mihir-jasani/",
+  resume: null,
   certs: [
-    { label: "PL-300 Power BI Data Analyst", url: null },
-    { label: "DP-600 Fabric Analytics Engineer", url: null }
+    { label: "PL-300 Power BI Data Analyst", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/EC785C0EC14FA2EC?sharingId=43D033F7F8EE565A" },
+    { label: "DP-600 Fabric Analytics Engineer", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/51AF5C13B57788B4?sharingId=43D033F7F8EE565A" }
   ],
   tools: "SQL · MySQL · Power BI · DAX · Power Query · Excel · Python · Fabric"
 };
@@ -116,7 +116,8 @@ window.PROJECTS = [
       { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
     ],
     story: {
-      dek: "Toronto publishes every 311 request. I looked at 1.35 million of them from 2023 to 2025 to answer two questions a city manager faces: where do requests stay unresolved, and what is really behind the growth in demand?",
+      dek: "When Toronto residents see a problem, such as a missed garbage pickup, a fallen tree or a pothole, they report it to the city by calling 311. I studied 1.35 million of these reports from 2023 to 2025 to find out which kinds of problems the city leaves unresolved, and whether the rise in reports means more problems or just a change in how they are labelled.",
+      chips: ["Star schema", "Date table", "Year-over-year DAX", "DAX variables", "Drill-through", "Tooltip page", "Custom theme"],
       meta: [
         { k: "Data", v: "City of Toronto Open Data, 311 Service Requests, 2023 to 2025 (real, Open Government Licence)" },
         { k: "Scope", v: "1,351,594 requests, 7 divisions, 829 request types" },
@@ -259,8 +260,8 @@ window.PROJECTS = [
           },
           {
             type: "bar", title: "Parks, forestry and environment: share still open, by request type (2023 to 2025)",
-            labels: ["General Pruning", "Storm Clean Up", "Tree Emergency Clean-Up", "General Tree Maintenance", "Stemming", "Dangerous Private Tree Investigation", "By-Law Contravention Invest", "Residential or Park Tree Removal"],
-            values: [66.2, 29.8, 37.0, 62.0, 68.2, 2.6, 11.7, 73.3], unit: "% still open", suffix: "%"
+            labels: ["Residential or Park Tree Removal", "Stemming", "General Pruning", "General Tree Maintenance", "Tree Emergency Clean-Up", "Storm Clean Up", "By-Law Contravention Invest", "Dangerous Private Tree Investigation"],
+            values: [73.3, 68.2, 66.2, 62.0, 37.0, 29.8, 11.7, 2.6], unit: "% still open", suffix: "%"
           }
         ]
       },
@@ -297,9 +298,11 @@ window.PROJECTS = [
         { name: "Dim_Status", role: "Dimension", short: "4 statuses, fixed order", rows: "4 statuses in a fixed order: Resolved, Open, Cancelled, Unknown" }
       ],
       measures: [
-        { name: "Open %", dax: "DIVIDE ( CALCULATE ( [Requests], requests[status_group] = \"Open\" ), [Requests] )" },
-        { name: "Requests YoY %", dax: "DIVIDE ( [Requests] - [Requests PY], [Requests PY] )" },
-        { name: "Taxonomy Era", dax: "IF ( early > 0 && late > 0, \"In both periods\", IF ( early > 0, \"2023-24 only\", \"2025 only\" ) )" }
+        { name: "Open %", dax: "DIVIDE (\n    [Open],\n    [Requests]\n)" },
+        { name: "Requests PY", dax: "CALCULATE (\n    [Requests],\n    SAMEPERIODLASTYEAR ( 'Date'[Date] )\n)" },
+        { name: "Requests YoY %", dax: "DIVIDE (\n    [Requests] - [Requests PY],\n    [Requests PY]\n)" },
+        { name: "Parks Open %", dax: "CALCULATE (\n    [Open %],\n    Dim_Division[Division] = \"Parks, Forestry & Environment\"\n)" },
+        { name: "Open Type Peak %", dax: "VAR t =\n    FILTER (\n        ADDCOLUMNS (\n            VALUES ( Dim_ServiceType[Service Type] ),\n            \"r\", [Requests],\n            \"p\", [Open %]\n        ),\n        [r] >= 100 && NOT ISBLANK ( [p] )\n    )\nVAR tp =\n    TOPN ( 1, t, [p], DESC )\nRETURN\n    MAXX ( tp, [p] )" }
       ],
       note: "Imported from a 33 MB monthly summary of the full request file, so the report stays fast. Results were reconciled against the SQL: totals, yearly counts, open share by division and the 58.2% renamed-type share all match."
     },

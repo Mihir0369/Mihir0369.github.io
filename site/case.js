@@ -4,7 +4,13 @@
   var p = list.filter(function (x) { return x.id === id; })[0];
   var main = document.getElementById("main");
   var host = main;
-  document.getElementById("brand").textContent = P.name;
+  (function () { var l = document.getElementById("nav-linkedin"); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; })();
+  (function () {
+    var b = document.getElementById("brand"), parts = P.name.split(" ");
+    var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+    var n = document.createElement("span"); n.textContent = P.name;
+    b.textContent = ""; b.appendChild(m); b.appendChild(n);
+  })();
 
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -51,7 +57,23 @@
   var valueLabels = {
     id: "valueLabels",
     afterDatasetsDraw: function (chart, args, opts) {
-      if (!opts || !opts.show) return;
+      if (!opts) return;
+      if (chart.config.type === "doughnut") {
+        var dctx = chart.ctx, vals = chart.data.datasets[0].data;
+        var tot = vals.reduce(function (a, b) { return a + b; }, 0);
+        dctx.save(); dctx.textAlign = "center"; dctx.textBaseline = "middle";
+        chart.getDatasetMeta(0).data.forEach(function (arc, i) {
+          var pos = arc.tooltipPosition();
+          dctx.fillStyle = i === 0 ? "#FFFFFF" : cv("--text", "#1F2D3D");
+          dctx.font = '700 18px "Segoe UI", system-ui, sans-serif';
+          dctx.fillText((100 * vals[i] / tot).toFixed(1) + "%", pos.x, pos.y - 10);
+          dctx.font = '400 13px "Segoe UI", system-ui, sans-serif';
+          dctx.fillText(Number(vals[i]).toLocaleString("en-CA"), pos.x, pos.y + 12);
+        });
+        dctx.restore();
+        return;
+      }
+      if (!opts.show) return;
       var ctx = chart.ctx; ctx.save();
       ctx.fillStyle = cv("--text", "#1F2D3D"); ctx.font = '600 12px "Segoe UI", system-ui, sans-serif';
       var horizontal = chart.options.indexAxis === "y";
@@ -71,7 +93,7 @@
     var type = c.type || "bar";
     var horizontal = type === "bar" && c.orient !== "v";
     var n = c.labels.length;
-    var h = type === "line" ? 300 : type === "doughnut" ? 270 : horizontal ? Math.max(200, n * (c.datasets ? 62 : 38) + 70) : 280;
+    var h = bare ? 400 : type === "line" ? 300 : type === "doughnut" ? 270 : horizontal ? Math.max(200, n * (c.datasets ? 62 : 38) + 70) : 280;
     var holder = el("div", { "class": "chartbox", style: "height:" + h + "px" });
     var canvas = el("canvas", { role: "img", "aria-label": c.title || "chart" });
     holder.appendChild(canvas); box.appendChild(holder); if (!bare) host.appendChild(box);
@@ -81,7 +103,7 @@
     var grid = { color: COL.line };
     if (type === "doughnut") {
       data = { labels: c.labels, datasets: [{ data: c.values, backgroundColor: [COL.amber, COL.light], borderWidth: 0 }] };
-      options = { maintainAspectRatio: false, cutout: "62%", plugins: { legend: { position: "bottom" },
+      options = { maintainAspectRatio: false, cutout: "55%", plugins: { valueLabels: { show: true }, legend: { position: "bottom" },
         tooltip: { callbacks: { label: function (x) { return " " + x.label + ": " + fmt(x.raw) + " (" + (100 * x.raw / c.values.reduce(function (a, b) { return a + b; }, 0)).toFixed(1) + "%)"; } } } } };
     } else {
       var grouped = !!c.datasets;
@@ -127,6 +149,37 @@
   var charts = p.charts || (p.chart ? [p.chart] : []);
 
   /* Story layout: facts, report, findings, chapters, recommendations, method */
+
+  /* bold key numbers (percentages, figures with commas or decimals) and key terms */
+  var TERMS = ["parks, forestry and environment", "Parks, Forestry and Environment", "parks and forestry", "dead-wildlife pick-up", "Dead-wildlife pick-up", "missed recycling pick-up", "general pruning", "tree removal", "Taxonomy Era", "snow types", "closed date", "renamed request types", "Renamed request types", "star schema", "47 DAX measures", "unquoted comma"];
+  var RICH = new RegExp("(" + TERMS.map(function (t) { return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }).join("|") + "|\\d[\\d,]*\\.\\d+%?|\\d{1,3}(?:,\\d{3})+|\\d+(?:\\.\\d+)?%|\\d+(?:\\.\\d+)? pts)", "g");
+  function rich(node, text) {
+    var parts = String(text).split(RICH);
+    parts.forEach(function (s, i) {
+      if (!s) return;
+      if (i % 2 === 1) node.appendChild(el("b", {}, s)); else node.appendChild(document.createTextNode(s));
+    });
+    return node;
+  }
+
+
+  /* DAX colouring on the light code panel: functions and keywords bold navy, variables teal, strings green */
+  var DAX_TOKEN = /("(?:[^"]|"")*")|\b(VAR|RETURN|DESC|ASC|TRUE|FALSE)\b|\b([A-Z][A-Z0-9.]*)(?=\s*\()|\b([A-Za-z_]\w*)\b/g;
+  function dax(host, code) {
+    var vars = {}; code.replace(/\bVAR\s+([A-Za-z_]\w*)/g, function (m, v) { vars[v] = true; });
+    var last = 0, m;
+    function put(txt, cls) { if (!txt) return; if (cls) host.appendChild(el("span", { "class": cls }, txt)); else host.appendChild(document.createTextNode(txt)); }
+    DAX_TOKEN.lastIndex = 0;
+    while ((m = DAX_TOKEN.exec(code))) {
+      put(code.slice(last, m.index));
+      if (m[1]) put(m[1], "dx-str");
+      else if (m[2]) put(m[2], "dx-kw");
+      else if (m[3]) put(m[3], "dx-fn");
+      else put(m[4], vars[m[4]] ? "dx-var" : "");
+      last = DAX_TOKEN.lastIndex;
+    }
+    put(code.slice(last));
+  }
   function renderStory() {
     var S = p.story;
     function div(cls, parent, text) { var d = el("div", cls ? { "class": cls } : {}, text); if (parent) parent.appendChild(d); return d; }
@@ -138,11 +191,7 @@
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));
-    var fr = div("facts", h);
-    p.kpis.forEach(function (k) {
-      var f = div("fact", fr);
-      div("k", f, k.label); div("v", f, k.value); div("s", f, k.sub || "");
-    });
+    h.appendChild(cardRow(p.kpis, "kpis", true));
     var mr = div("meta-row", h);
     S.meta.forEach(function (m) {
       var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": ")); sp.appendChild(document.createTextNode(m.v)); mr.appendChild(sp);
@@ -154,25 +203,25 @@
     rl.appendChild(el("h2", {}, "Power BI report"));
     rl.appendChild(el("p", {}, "Exported from Power BI Desktop. Select a page to view it full size."));
     var ps = div("pbi-stats", rh);
-    p.stats.forEach(function (s) { var d = div("", ps); d.appendChild(el("b", {}, s.value)); d.appendChild(el("span", {}, s.label)); });
+    p.stats.forEach(function (s) { var d = div("pst", ps); d.appendChild(el("span", {}, s.label)); d.appendChild(el("b", {}, s.value)); });
     r.appendChild(gallery());
     var pf = div("pbi-foot", r);
     var chp = div("chips", pf);
-    p.techniques.slice(0, 7).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
+    (S.chips || p.techniques.slice(0, 7)).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
     var dls = div("dls", pf);
     p.downloads.forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn " + (i ? "primary" : "ghost"), href: d.file, download: "" }, d.label)); });
     r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
 
     var kf = sec("s-tldr", "Key findings");
-    var ol = el("ol"); S.findings.forEach(function (t) { ol.appendChild(el("li", {}, t)); }); kf.appendChild(ol);
+    var ol = el("ol"); S.findings.forEach(function (t) { ol.appendChild(rich(el("li"), t)); }); kf.appendChild(ol);
 
     S.chapters.forEach(function (ch) {
       var cs = sec("s-chapter");
       var tx = div("text", cs);
       div("n", tx, ch.n);
       tx.appendChild(el("h2", {}, ch.title));
-      ch.paras.forEach(function (t) { tx.appendChild(el("p", {}, t)); });
-      if (ch.note) tx.appendChild(el("p", { "class": "note" }, ch.note));
+      ch.paras.forEach(function (t) { tx.appendChild(rich(el("p"), t)); });
+      if (ch.note) tx.appendChild(rich(el("p", { "class": "note" }), ch.note));
       var vc = div("s-viz", cs);
       var vis = p.chapters[ch.ch].visuals.map(function (v) { return v.ref != null ? charts[v.ref] : v; });
       var title = div("vt", vc);
@@ -202,7 +251,7 @@
       var d = div("rec", rg);
       div("who", d, x.who);
       d.appendChild(el("h3", {}, x.title));
-      d.appendChild(el("p", {}, x.text));
+      d.appendChild(rich(el("p"), x.text));
       div("m", d, x.measure);
     });
     if (S.recNote) rc.appendChild(el("p", { "class": "pbi-note" }, S.recNote));
@@ -211,22 +260,35 @@
     var pl = div("pipeline", mt);
     S.pipeline.forEach(function (x) {
       var d = div("step", pl);
-      div("i", d, x.i); d.appendChild(el("b", {}, x.b)); d.appendChild(el("span", {}, x.s));
+      div("i", d, x.i); d.appendChild(el("b", {}, x.b)); d.appendChild(rich(el("span"), x.s));
     });
     var bg = div("build-grid", mt);
-    var p1 = div("panel", bg);
+    var p1 = div("panel dax-panel", bg);
     p1.appendChild(el("h3", {}, "Core measures (from the model)"));
-    var pre = el("pre", { "class": "code" });
-    pre.textContent = p.model.measures.map(function (m) { return m.name + " =\n    " + m.dax; }).join("\n\n");
+    var pre = el("pre", { "class": "code dax" });
+    p.model.measures.forEach(function (m, i) {
+      if (i) pre.appendChild(document.createTextNode("\n\n"));
+      pre.appendChild(el("span", { "class": "dx-name" }, m.name + " ="));
+      pre.appendChild(document.createTextNode("\n"));
+      dax(pre, m.dax);
+    });
     p1.appendChild(pre);
     var p2 = div("panel", bg);
     p2.appendChild(el("h3", {}, "Limits of this analysis"));
-    p2.appendChild(ul(p.limits));
+    var lu = el("ul");
+    p.limits.forEach(function (t) { lu.appendChild(rich(el("li"), t)); });
+    p2.appendChild(lu);
 
-    var gh = el("p", { "class": "pbi-note" });
-    gh.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
-    gh.appendChild(el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
-    mt.appendChild(gh);
+    var idx = list.indexOf(p);
+    var prev = list[(idx - 1 + list.length) % list.length], next = list[(idx + 1) % list.length];
+    var nv = el("nav", { "class": "next-nav", "aria-label": "More case studies" });
+    [[prev, "\u2190 Previous", ""], [next, "Next \u2192", " r"]].forEach(function (x) {
+      var a2 = el("a", { href: "case.html?id=" + x[0].id, "class": x[2] ? "r" : "" });
+      a2.appendChild(el("span", {}, x[1]));
+      a2.appendChild(document.createTextNode(x[0].title));
+      nv.appendChild(a2);
+    });
+    main.appendChild(nv);
   }
   if (p.story) { renderStory(); return; }
 
