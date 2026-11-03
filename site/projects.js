@@ -111,6 +111,14 @@ window.PROJECTS = [
       { action: "Publish a mapping table whenever request types are renamed.", owner: "311 data owner", track: "Share of requests under renamed or new types that map back to a prior type: 58.2% of 2025 requests are affected today." },
       { action: "Test whether duplicate or repeat calls drive cancellations on the cancel-heavy types. This is a hypothesis, not a finding.", owner: "311 service operations", track: "Cancelled share: 10.3% overall in 2025, 38.8% for dead-wildlife pick-up." }
     ],
+    stats: [
+      { value: "4", label: "report pages", sub: "+ drill-through and tooltip" },
+      { value: "41", label: "data visuals", sub: "cards, charts, slicers, tables" },
+      { value: "6", label: "tables", sub: "1 fact, 4 dimensions, 1 measures" },
+      { value: "4", label: "relationships", sub: "one-to-many, single direction" },
+      { value: "47", label: "DAX measures", sub: "all in one measures table" }
+    ],
+    techniques: ["Star schema", "Date table", "Year-over-year with SAMEPERIODLASTYEAR", "DAX variables", "Dynamic card subtitles", "Drill-through page", "Report-page tooltip", "Reset-filters bookmark", "Synced slicers", "Page navigation buttons", "Custom theme (JSON)", "PBIP + TMDL project"],
     impactNote: "These are proposals. The data has no before-and-after, so I do not claim a measured effect.",
     pitfalls: [
       { title: "A broken CSV", text: "About 8% of rows had an unquoted comma inside the division name, which shifted every later column. I repaired them in the loader and reconciled row counts against the source files." },

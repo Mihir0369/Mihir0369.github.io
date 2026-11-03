@@ -144,6 +144,27 @@
   }
   main.appendChild(head);
 
+  /* ---- report build facts: stats strip and technique chips */
+  if (p.stats) {
+    var bs = el("section", { "class": "build" });
+    bs.appendChild(el("div", { "class": "viz-title" }, "How the report is built"));
+    var sr = el("div", { "class": "stats" });
+    p.stats.forEach(function (s) {
+      var d = el("div", { "class": "st" });
+      d.appendChild(el("b", {}, s.value));
+      d.appendChild(el("span", {}, s.label));
+      if (s.sub) d.appendChild(el("small", {}, s.sub));
+      sr.appendChild(d);
+    });
+    bs.appendChild(sr);
+    if (p.techniques) {
+      var ch = el("div", { "class": "chips" });
+      p.techniques.forEach(function (t) { ch.appendChild(el("span", { "class": "chip" }, t)); });
+      bs.appendChild(ch);
+    }
+    main.appendChild(bs);
+  }
+
   /* ---- KPI and finding cards, like the report's Overview page */
   if (p.kpis) {
     var kwrap = el("section", { "class": "kpi-block" });
