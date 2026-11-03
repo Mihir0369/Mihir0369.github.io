@@ -3,6 +3,7 @@
   var id = new URLSearchParams(location.search).get("id");
   var p = list.filter(function (x) { return x.id === id; })[0];
   var main = document.getElementById("main");
+  var host = main;
   document.getElementById("brand").textContent = P.name;
 
   function el(tag, attrs, text) {
@@ -15,7 +16,7 @@
   function section(title, content, cls) {
     var s = el("section", cls ? { "class": cls } : {});
     if (title) s.appendChild(el("h2", {}, title));
-    s.appendChild(content); main.appendChild(s); return s;
+    s.appendChild(content); host.appendChild(s); return s;
   }
   function ul(items) { var u = el("ul"); items.forEach(function (t) { u.appendChild(el("li", {}, t)); }); return u; }
   function slot(text) { return el("div", { "class": "slot" }, text); }
@@ -144,6 +145,55 @@
   }
   main.appendChild(head);
 
+  /* ---- concise recruiter view, then the full analysis folded away */
+  var more = null;
+  if (p.brief) {
+    var B = p.brief;
+    host = main;
+    main.appendChild(el("section", { "class": "kpi-block" })).appendChild(cardRow(p.kpis, "kpis", true));
+
+    var kf = el("ol", { "class": "kf" });
+    B.findings.forEach(function (t) { kf.appendChild(el("li", {}, t)); });
+    section("What I found", kf, "tldr");
+
+    var rb = el("div");
+    rb.appendChild(gallery());
+    if (p.downloads) {
+      var dl0 = el("div", { "class": "downloads" });
+      p.downloads.forEach(function (d) {
+        var bx = el("div", { "class": "dl" });
+        bx.appendChild(el("a", { "class": "btn primary", href: d.file, download: "" }, d.label));
+        dl0.appendChild(bx);
+      });
+      rb.appendChild(dl0);
+    }
+    section("The Power BI report", rb, "pbi");
+
+    var sk = el("div", { "class": "skills" });
+    B.skills.forEach(function (s) {
+      var d = el("div", { "class": "skill" });
+      d.appendChild(el("h3", {}, s.skill));
+      d.appendChild(el("p", {}, s.proof));
+      sk.appendChild(d);
+    });
+    section("Skills this project shows", sk);
+
+    var hp = el("div", { "class": "help" });
+    B.help.forEach(function (s) {
+      var d = el("div", { "class": "helpcard" });
+      d.appendChild(el("h3", {}, s.title));
+      d.appendChild(el("p", {}, s.text));
+      hp.appendChild(d);
+    });
+    section("How I can help your team", hp);
+
+    more = el("details", { "class": "more" });
+    more.appendChild(el("summary", {}, "See the full analysis: method, charts, model and limits"));
+    if (/[?&]full=1/.test(location.search)) more.setAttribute("open", "");
+    main.appendChild(more);
+    host = more;
+  }
+
   /* ---- report build facts: stats strip and technique chips */
   if (p.stats) {
     var bs = el("section", { "class": "build" });
@@ -157,7 +207,7 @@
       sr.appendChild(d);
     });
     bs.appendChild(sr);
-    if (p.downloads) {
+    if (p.downloads && !p.brief) {
       var dl = el("div", { "class": "downloads" });
       p.downloads.forEach(function (d) {
         var box = el("div", { "class": "dl" });
@@ -172,11 +222,11 @@
       p.techniques.forEach(function (t) { ch.appendChild(el("span", { "class": "chip" }, t)); });
       bs.appendChild(ch);
     }
-    main.appendChild(bs);
+    host.appendChild(bs);
   }
 
   /* ---- KPI and finding cards, like the report's Overview page */
-  if (p.kpis) {
+  if (p.kpis && !p.brief) {
     var kwrap = el("section", { "class": "kpi-block" });
     kwrap.appendChild(cardRow(p.kpis, "kpis", true));
     if (p.facts) kwrap.appendChild(cardRow(p.facts, "facts", false));
@@ -194,14 +244,14 @@
     var right = add(sp, el("div", { "class": "split-visual" }));
     right.appendChild(el("div", { "class": "viz-title" }, "The data at a glance"));
     right.appendChild(cardRow(p.glance.map(function (g) { return { label: g.label, value: g.value }; }), "glance", false));
-    main.appendChild(sp);
+    host.appendChild(sp);
   } else {
     section("The question", el("p", {}, p.question));
     section("The data", el("p", {}, p.data + " Source: " + p.source + "."));
   }
 
   /* ---- Power BI report screenshots */
-  if (p.shots && p.shots.length) {
+  function gallery() {
     var gal = el("div", { "class": "shots" });
     p.shots.forEach(function (s) {
       var fig = el("figure", { "class": "shot" });
@@ -213,11 +263,14 @@
       fig.appendChild(el("figcaption", {}, s.caption + " (click to enlarge)"));
       gal.appendChild(fig);
     });
-    section("The Power BI report", gal, "pbi");
+    return gal;
   }
+  if (!p.brief && p.shots && p.shots.length) section("The Power BI report", gallery(), "pbi");
 
   /* ---- key findings */
-  if (p.found.length) {
+  if (p.brief) {
+    /* handled above */
+  } else if (p.found.length) {
     var grid = el("ol", { "class": "kf" });
     p.found.forEach(function (t) { grid.appendChild(el("li", {}, t)); });
     section("Key findings", grid, "tldr");
@@ -241,7 +294,7 @@
       var vis = add(box, el("div", { "class": "split-visual" }));
       var specs = ch.visuals || (ch.chart != null ? [{ ref: ch.chart }] : []);
       specs.forEach(function (v) { viz(v.ref != null ? charts[v.ref] : v, vis); });
-      main.appendChild(box);
+      host.appendChild(box);
     });
   } else {
     charts.forEach(function (c) { var h = el("div"); viz(c, h); section(c.title, h); });
@@ -330,7 +383,7 @@
     dims.slice(0, 4).forEach(function (d, i) {
       add(star, el("div", { "class": "sd dim " + pos[i] })).innerHTML = "<b>" + d.name + "</b><small>" + (d.short || d.rows) + "</small>";
     });
-    main.appendChild(ms);
+    host.appendChild(ms);
   }
 
   section("Limits of this analysis", ul(p.limits));
@@ -339,5 +392,6 @@
   repo.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
   repo.appendChild(el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
   repo.appendChild(document.createTextNode("."));
-  section("Reproduce it", repo);
+  host = main;
+  section("Code and method", repo);
 })();

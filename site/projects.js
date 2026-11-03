@@ -115,6 +115,27 @@ window.PROJECTS = [
       { label: "Download report (PDF)", file: "downloads/toronto-311-report.pdf", note: "All four report pages, as exported from Power BI Desktop." },
       { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
     ],
+    brief: {
+      findings: [
+        "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
+        "Demand grew 14.5% in 2025, to 500,269 requests, but part of that is new request types, not more problems.",
+        "58.2% of 2025 requests sit under renamed or new request types, so year-over-year growth by type is not valid.",
+        "Dead-wildlife pick-up is cancelled 38.8% of the time, the highest of any large request type."
+      ],
+      skills: [
+        { skill: "Data modelling", proof: "Star schema with a date table and 47 DAX measures, reconciled to SQL." },
+        { skill: "Data cleaning", proof: "Repaired about 8% of 1.35 million rows broken by an unquoted comma." },
+        { skill: "DAX and time intelligence", proof: "Year-over-year, variables and dynamic card subtitles." },
+        { skill: "Report design", proof: "4 pages with drill-through, a tooltip page, navigation and a custom theme." },
+        { skill: "SQL and Python", proof: "Ten SQL queries and a Python loader behind the report." },
+        { skill: "Analytical judgement", proof: "Refused invalid comparisons and stated the limits of the data." }
+      ],
+      help: [
+        { title: "Find where the problem is", text: "I turned a million rows into one clear answer: which division leaves requests unresolved." },
+        { title: "Make the numbers trustworthy", text: "Every figure is reconciled to the source, and I flag where the data cannot support a conclusion." },
+        { title: "Hand over something you can run", text: "A documented Power BI project, with navigation and findings on every page, that others can open and extend." }
+      ]
+    },
     stats: [
       { value: "4", label: "report pages", sub: "+ drill-through and tooltip" },
       { value: "41", label: "data visuals", sub: "cards, charts, slicers, tables" },
