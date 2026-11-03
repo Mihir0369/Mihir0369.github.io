@@ -403,3 +403,23 @@ header.site nav a.on { background: rgba(255,255,255,.14); border-color: rgba(255
 .hero .intro { font-family: Georgia, "Source Serif Pro", "Times New Roman", serif; color: var(--muted); font-size: 18.5px; line-height: 1.7; max-width: 680px; }
 main.wrap:not(.case) > section { padding-block: 36px; border-bottom: 1px solid var(--line); margin-top: 0; }
 main.wrap:not(.case) > section:last-of-type { border-bottom: 0; }
+
+/* About page */
+.about { padding-top: 28px; }
+.about h1 { margin-top: 6px; }
+.about .lead { max-width: 46em; font-size: 17px; line-height: 1.6; color: var(--text); margin: 0 0 14px; }
+.about h2 { margin-top: 40px; }
+.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 12px; }
+.about h3 { font-size: 17px; color: var(--navy); margin: 26px 0 10px; }
+.about-grid > div > h3:first-child { margin-top: 0; }
+.about ul { margin: 0; padding-left: 18px; color: var(--text); line-height: 1.6; font-size: 15px; }
+.about li { margin-bottom: 6px; }
+.about a { color: var(--navy); }
+.cert { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 10px; }
+.cert > div { flex: 1; font-size: 15px; }
+.cert .org, .xp .org { color: var(--muted); font-size: 14px; }
+.badge { width: 44px; height: 44px; border-radius: var(--radius); background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; }
+.xp { border-top: 1px solid var(--line); padding: 14px 0; max-width: 46em; }
+.xp .when { font-size: 13px; color: var(--muted); }
+.xp h3 { margin: 2px 0; }
+.xp p { margin: 6px 0 0; color: var(--text); }

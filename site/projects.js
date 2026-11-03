@@ -12,7 +12,25 @@ window.PROFILE = {
     { label: "PL-300 Power BI Data Analyst", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/EC785C0EC14FA2EC?sharingId=43D033F7F8EE565A" },
     { label: "DP-600 Fabric Analytics Engineer", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/51AF5C13B57788B4?sharingId=43D033F7F8EE565A" }
   ],
-  tools: "SQL · MySQL · Power BI · DAX · Power Query · Excel · Python · Fabric"
+  tools: "SQL · MySQL · Power BI · DAX · Power Query · Excel · Python · Fabric",
+  location: "Toronto, Ontario",
+  about: [
+    "I am a business intelligence and analytics graduate based in Toronto. I work in SQL, Power BI, DAX, Power Query, Excel and Python, and I like turning a plain question into a report that someone can act on.",
+    "I hold the Microsoft Power BI Data Analyst (PL-300) and Fabric Analytics Engineer (DP-600) certifications, and I build my projects on the same pattern: a clean star-schema model, documented DAX measures, and a short written recommendation."
+  ],
+  aboutPortfolio: "This portfolio has five case studies built on public Canadian data: banking, health, transportation, government and city services. Each one lists its source and licence and states what the data cannot tell you. No employer or client data is used anywhere on this site.",
+  experience: [],
+  toolGroups: [
+    ["Power BI", "star-schema models, DAX, Power Query, report design, PBIP projects in version control"],
+    ["Microsoft Fabric", "lakehouse, notebooks, semantic models"],
+    ["SQL", "SQLite, MySQL; data-quality checks before every model"],
+    ["Python", "repeatable load and clean scripts (pandas)"],
+    ["Delivery", "short written findings, limits stated, recommendations a decision-maker can use"]
+  ],
+  education: [
+    "Graduate Certificate, Business Insights and Analytics",
+    "B.Tech, Information Technology"
+  ]
 };
 
 window.PROJECTS = [
