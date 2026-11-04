@@ -51,7 +51,7 @@ for f in sorted(glob.glob("*.html")):
 
 # required tags, h1, duplicate ids, image alt
 for f, pg in pages.items():
-    if f == "case.html": continue  # redirect stub
+    if f in ("case.html", "404.html"): continue  # redirect stub and noindex error page
     if not pg.title.strip(): err("%s: no <title>" % f)
     for k in ("description", "og:title", "og:description", "og:url"):
         if not pg.metas.get(k): err("%s: missing meta %s" % (f, k))

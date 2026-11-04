@@ -150,7 +150,7 @@
   }
 
   if (!p) { main.appendChild(el("p", {}, "Case study not found.")); return; }
-  document.title = p.title;
+  if (!document.title) document.title = p.title; /* the generated page already carries a short SEO title */
   var charts = p.charts || (p.chart ? [p.chart] : []);
 
   /* Story layout: facts, report, findings, chapters, recommendations, method */
@@ -372,8 +372,9 @@
       sq.appendChild(lk);
     }
 
-    var idx = list.indexOf(p);
-    var prev = list[(idx - 1 + list.length) % list.length], next = list[(idx + 1) % list.length];
+    var done = list.filter(function (x) { return x.found && x.found.length; });
+    var idx = done.indexOf(p);
+    var prev = done[(idx - 1 + done.length) % done.length], next = done[(idx + 1) % done.length];
     var nv = el("nav", { "class": "next-nav", "aria-label": "More case studies" });
     [[prev, "\u2190 Previous", ""], [next, "Next \u2192", " r"]].forEach(function (x) {
       var a2 = el("a", { href: x[0].id + ".html", "class": x[2] ? "r" : "" });

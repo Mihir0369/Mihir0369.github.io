@@ -7,3 +7,8 @@ footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
 
 
 @media (max-width: 590px) { footer.foot .wrap2 { width: min(100% - 36px, 1160px); } }
+
+/* Accessibility: comfortable tap targets and readable verify labels */
+.burger { min-width: 44px; min-height: 44px; }
+.pill.cert { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+.pill.cert small { font-size: 12px; text-decoration: underline; }

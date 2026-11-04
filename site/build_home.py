@@ -187,8 +187,14 @@ page = """<!doctype html>
   <meta property="og:title" content="Mihir Jasani | Data Analyst (Power BI, SQL, Fabric) | Toronto">
   <meta property="og:description" content="Four completed Power BI case studies on Canadian public data, each with SQL checks, documented DAX and stated limits.">
   <meta property="og:url" content="%(base)s">
-  <meta property="og:image" content="%(base)simages/03-outcomes.png">
+  <meta property="og:image" content="%(base)simages/social-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mihir Jasani, data analyst in Toronto: Power BI, SQL and Microsoft Fabric">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="%(base)simages/social-card.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="home.css">
@@ -252,9 +258,17 @@ def case_main(p):
         "".join("<li>%s</li>" % E(f) for f in s.get("findings", p["found"])), cov, "".join("<li>%s</li>" % E(l) for l in p["limits"]))
 
 
+SEO_TITLE = {
+    "toronto-311": "Toronto 311: Which Requests Stay Open?",
+    "household-credit": "Rate Moves and Household Credit Growth",
+    "collision-risk": "When Do Canadian Roads Turn Deadly?",
+    "substance-harms": "Are Opioid Harms Really Falling?",
+}
+
+
 def case_page(p):
     desc = (p["problem"] + ". " + HOME[p["id"]] + ".")[:300]
-    title = p["problem"] + " | Mihir Jasani"
+    title = SEO_TITLE.get(p["id"], p["problem"]) + " | Mihir Jasani"
     url = BASE_URL + href(p)
     img = BASE_URL + first_shot(p)
     return """<!doctype html>
@@ -271,6 +285,8 @@ def case_page(p):
   <meta property="og:url" content="%(url)s">
   <meta property="og:image" content="%(img)s">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="theme.css">
@@ -302,6 +318,19 @@ open("case.html", "w", encoding="utf-8").write("""<!doctype html>
 <script>var m = new URLSearchParams(location.search).get("id"); var ok = %s; location.replace(ok.indexOf(m) > -1 ? m + ".html" : "index.html#work");</script></head>
 <body><p>Redirecting to the <a href="index.html#work">projects</a>.</p></body></html>
 """ % (BASE_URL, json.dumps([p["id"] for p in L])))
+
+open("404.html", "w", encoding="utf-8").write("""<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | Mihir Jasani</title><meta name="robots" content="noindex">
+<link rel="icon" href="%(b)sfavicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="%(b)sstyles.css"><link rel="stylesheet" href="%(b)sbuttons.css"><link rel="stylesheet" href="%(b)shome.css"><link rel="stylesheet" href="%(b)spages.css"></head>
+<body class="home"><main id="content" style="max-width:640px;margin:12vh auto;padding:0 20px;text-align:center">
+<div class="eyebrow2" style="justify-content:center">404</div>
+<h1>That page does not exist.</h1>
+<p>The link may be old or mistyped. These pages are live:</p>
+<p><a class="btn impact" href="%(b)sindex.html">Home</a> <a class="btn" href="%(b)sindex.html#work">Case studies</a></p>
+</main></body></html>
+""" % dict(b=BASE_URL))
 
 urls = [""] + [href(p) for p in L]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'] + ["  <url><loc>%s%s</loc></url>" % (BASE_URL, u) for u in urls] + ["</urlset>"]

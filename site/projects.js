@@ -22,7 +22,7 @@ window.PROFILE = {
   experience: [
     {"when": "Oct 2025 - Present", "role": "Data Analyst", "org": "Elevara Digital, Toronto, ON", "text": ["Develop SQL queries using joins, aggregations, and filtering to retrieve and consolidate business data for reporting and analysis and generate data exports.", "Clean, validate, and reconcile reporting datasets to improve data completeness, accuracy, and consistency.", "Collaborate with business stakeholders to understand data requirements, define KPI calculations, and recommend reporting solutions.", "Develop and maintain Power BI dashboards and communicate operational trends and findings to support management decisions."]},
     {"when": "Apr 2025 - Sep 2025", "role": "Data Analyst Intern", "org": "Impact Zero, Toronto, ON", "text": ["Cleaned and consolidated HubSpot CRM data and developed a Power BI dashboard covering over $400K in pipeline revenue, reducing sales deal tracking time by 50%.", "Created custom reporting metrics and communicated sales pipeline findings to leadership to support business decisions.", "Built a Python and Streamlit application to summarize more than 500 meeting notes and extract action items, improving executive task follow-up by 35%."]},
-    {"when": "Jun 2023 - Aug 2025", "role": "Peer Tutor", "org": "Humber College, Toronto, ON", "text": ["Delivered workshops and personalized support in Excel, Power BI, and statistics, adapting explanations to learners with different levels of technical understanding.", "Explained data modeling, regression analysis, and hypothesis testing in accessible language, helping students apply analytical concepts to coursework."]},
+    {"when": "Jun 2023 - Aug 2025", "role": "Peer Tutor", "org": "Humber Polytechnic, Toronto, ON", "text": ["Delivered workshops and personalized support in Excel, Power BI, and statistics, adapting explanations to learners with different levels of technical understanding.", "Explained data modeling, regression analysis, and hypothesis testing in accessible language, helping students apply analytical concepts to coursework."]},
     {"when": "Dec 2021 - Oct 2022", "role": "Jr Reporting Analyst", "org": "Scalezix Technologies, Ahmedabad, India", "text": ["Developed Power BI data models and dashboards to analyze procurement spend across purchasing channels, improving leadership visibility and identifying potential cost savings of 30%.", "Used Excel Power Query, Pivot Tables, and XLOOKUP to prepare and analyze procurement data, reducing weekly reporting effort by 22 hours.", "Managed recurring weekly reporting deliverables, prioritized deadlines, and presented procurement spend trends and findings to non-technical stakeholders."]}
   ],
   toolGroups: [
@@ -872,7 +872,7 @@ window.PROFILE.experienceStory = [
     ["Created custom reporting metrics and presented pipeline findings to leadership.", "Custom pipeline metrics and a leadership readout.", "Not quantified"],
     ["Built a Python and Streamlit application.", "An app that summarizes 500+ meeting notes and extracts action items.", "Executive task follow-up improved by 35%"]
   ]},
-  { when: "Jun 2023 - Aug 2025", role: "Peer Tutor", org: "Humber College, Toronto, ON", items: [
+  { when: "Jun 2023 - Aug 2025", role: "Peer Tutor", org: "Humber Polytechnic, Toronto, ON", items: [
     ["Delivered workshops and personalized support in Excel, Power BI and statistics.", "Workshops and one-to-one support.", "Not quantified"],
     ["Explained data modelling, regression and hypothesis testing in accessible language.", "Plain-language explanations.", "Not quantified"]
   ]},
@@ -884,7 +884,7 @@ window.PROFILE.experienceStory = [
 ];
 (function () {
   var X = {
-    "household-credit": { problem: "The strongest negative association between rate changes and credit growth appears at an 18-month lag", features: [
+    "household-credit": { problem: "How long do Bank of Canada rate changes take to show up in household credit growth, and what does that mean for lenders?", features: [
       "Rate-lag selector (0 to 24 months) that compares credit growth with an earlier rate change",
       "Policy, prime and mortgage rates side by side with household credit, 2010 to 2026",
       "Year-over-year growth for total credit and each category, with a scorecard",
