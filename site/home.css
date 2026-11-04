@@ -118,6 +118,7 @@ body.home { background: #F7F6F2; }
 .contact2 .eyebrow2:after { display: none; }
 .cbtns { display: flex; gap: 12px; flex-wrap: wrap; }
 .contact2 .btn.line { background: transparent; color: #fff; border-color: #5B7689; }
+.contact2 .btn.line:hover { background: rgba(255,255,255,.14); color: #fff; border-color: #fff; }
 .foot2 { background: #0D2234; color: #93AAB8; padding: 26px 0; font-size: 11px; }
 .home footer { background: #0D2234; color: #93AAB8; border: 0; margin: 0; padding: 26px 0; font-size: 11px; }
 
