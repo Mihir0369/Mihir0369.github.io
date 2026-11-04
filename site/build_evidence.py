@@ -74,7 +74,7 @@ COVERAGE = {
     ],
     "household-credit": [
         ("Source organization", "Bank of Canada (Valet API) and Statistics Canada tables 36-10-0639, 38-10-0238 and 11-10-0065"),
-        ("Covered period", "January 2010 to August 2026 (202 months of rates, 66 quarters of debt service)"),
+        ("Covered period and latest observations", "January 2010 onward. Latest observation by source: household credit August 2026, interest rates October 2026, debt service the quarter starting April 2026 (2026 Q2). The sources are not current to the same date"),
         ("Grain", "Monthly (rates, credit by category) and quarterly (debt service); weekly rates are rolled up to the last weekly value of each month"),
         ("Denominator", "Credit growth is year over year on household credit balances. Debt service is a share of household income"),
         ("Exclusions and gaps", "Auto loans start in 2016. Credit-card and personal-loan growth spikes in 2011 to 2014 look like reclassifications"),

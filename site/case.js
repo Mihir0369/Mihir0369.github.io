@@ -217,6 +217,12 @@
     }
 
     (function () {
+      var ab = div("actions", main);
+      var zip = (p.downloads || []).filter(function (d) { return /\.zip$/.test(d.file); })[0];
+      [["#report", "View report", " impact"], ["#sql", "View SQL", ""], ["#model", "View data model", ""]].forEach(function (x) { ab.appendChild(el("a", { "class": "btn" + x[2], href: x[0] }, x[1])); });
+      if (zip) ab.appendChild(el("a", { "class": "btn", href: zip.file, download: "" }, "Download Power BI project"));
+    })();
+    (function () {
       var s = sec("s-exec", "Executive summary");
       var g = div("exec", s);
       function row(k, v, node) {
@@ -251,6 +257,7 @@
     var pf = div("pbi-foot", r);
     var chp = div("chips", pf);
     (S.chips || (p.techniques || []).slice(0, 7)).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
+    if (p.features && p.features.length) { var fw = div("report-includes", r); fw.appendChild(el("h3", {}, "What the report includes")); fw.appendChild(ul(p.features)); }
     var dls = div("dls", pf);
     (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn" + (i ? "" : " impact"), href: d.file, download: "" }, d.label)); });
     if (p.downloads) r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
@@ -327,7 +334,7 @@
       div("i", d, x.i); if (x.b) d.appendChild(el("b", {}, x.b)); d.appendChild(rich(el("span"), x.s));
     });
     if (EV.model && EV.model[p.id]) {
-      var md = div("model-diagram", mt);
+      var md = div("model-diagram", mt); md.id = "model";
       md.appendChild(el("h3", {}, "Model diagram"));
       md.appendChild(el("img", { src: EV.model[p.id].img, alt: "Star-schema diagram of the " + p.id + " model: " + EV.model[p.id].rels + " relationships, fact tables in the centre and dimensions around them", loading: "lazy" }));
       md.appendChild(el("p", { "class": "pbi-note wrapnote" }, "Drawn from the real relationships.tmdl file. Fact tables are dark, dimensions light."));

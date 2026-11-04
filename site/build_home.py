@@ -8,11 +8,17 @@ import json, os, re, datetime
 
 BASE_URL = BASE
 n_done, n_dev = len(L), len(ALL) - len(L)
+IMPL = {  # business implication per card, taken from the recommendations on each case page
+    "toronto-311": "Audit the open-status records before treating them as a backlog, and publish a closed date and a request-type mapping.",
+    "household-credit": "Test the 18-month lag before setting lending targets around it, and add arrears data to test repayment pressure.",
+    "collision-risk": "Track the fatal share, not only the count. Use night, single-vehicle and uncontrolled-road patterns as a watch list, not as risk per trip.",
+    "substance-harms": "Report deaths, hospital stays, emergency visits and EMS responses together, and state which places each source covers.",
+}
 HOME = {  # one result line per project card (all values already published on the case page)
     "toronto-311": "49.45% of 2025 parks, forestry and environment requests are recorded as open, against 1.37% to 6.60% in every other division",
     "household-credit": "Strongest negative association between rate changes and credit growth at an 18-month lag (correlation -0.52); observational, not causal",
     "collision-risk": "Among recorded fatal and injury collisions, the fatal share was 3.41% overnight against 1.52% by day (2.24x); not a per-trip risk",
-    "substance-harms": "Opioid deaths fell 29.43% and EMS responses 7.84% from the 2023 peak to 2025 (annual Canada totals, as reported)",
+    "substance-harms": "Opioid deaths fell 29.43% and EMS responses 7.84% from the 2023 peak to 2025. These are separately reported Canada totals, and each source covers different places",
 }
 
 
@@ -44,14 +50,14 @@ def card(p):
         '<button class="pv-tab" type="button" role="tab" id="tab-%s-%d" aria-selected="%s" tabindex="%s" aria-controls="pv-%s" data-src="%s" data-cap="%s" aria-label="%s" title="%s"><img src="%s" alt="" width="76" height="48" loading="lazy" decoding="async"></button>'
         % (p["id"], i, "true" if s is first else "false", "0" if s is first else "-1", p["id"], E(img_main(s["file"])), E(s["caption"]), E(s["caption"]), E(s["caption"]), E(img_sm(s["file"])))
         for i, s in enumerate(thumbs))
-    return ('<article class="proj"><div class="copy"><div class="industry">%s &middot; %s</div><h3>%s</h3>'
-            '<div class="result">%s</div><ul class="feat">%s</ul><p class="skills-line"><b>Skills demonstrated:</b> %s</p>'
+    return ('<article class="proj"><div class="copy"><div class="industry">%s &middot; %s</div>'
+            '<dl class="qa"><div><dt>Business question</dt><dd class="q">%s</dd></div><div><dt>Key finding</dt><dd class="result">%s</dd></div>'
+            '<div><dt>Business implication</dt><dd>%s</dd></div><div><dt>Skills demonstrated</dt><dd>%s</dd></div></dl>'
             '<div class="btns"><a class="btn impact" href="%s">Case study &#8599;</a>'
             '<a class="btn" href="https://github.com/Mihir0369/portfolio_website/tree/main/%s" target="_blank" rel="noopener">GitHub &#8599;</a></div></div>'
             '<div class="pv"><div id="pv-%s" role="tabpanel"><a class="pv-link" href="%s" title="Open the full case study"><img class="pv-main" src="%s" width="%d" height="%d" alt="Power BI report page: %s" loading="lazy" decoding="async"></a></div>'
             '<div class="pv-cap" aria-live="polite">%s</div><div class="pv-tabs" role="tablist" aria-label="%s report pages">%s</div></div></article>') % (
-        E(p["sector"]), E(p["area"]), E(p["problem"]), E(HOME[p["id"]]),
-        "".join("<li>%s</li>" % E(f) for f in p["features"][:3]), E(p["skills"]), href(p), p["repo"],
+        E(p["sector"]), E(p["area"]), E(p["problem"]), E(HOME[p["id"]]), E(IMPL[p["id"]]), E(p["skills"]), href(p), p["repo"],
         p["id"], href(p), E(img_main(first["file"])), w, h, E(first["caption"]), E(first["caption"]), E(p["problem"]), tabs)
 
 
@@ -91,8 +97,8 @@ main = """
         <div class="acts">
           <a class="btn impact" href="#work">Explore my Project work &#8599;</a>
           <a class="btn" id="resume" href="downloads/Mihir-Jasani-Resume.pdf" download>Download Resume (PDF)</a>
-          <a class="btn" id="email0" href="#">Email me</a>
-          <a class="btn" id="linkedin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+          <a class="btn" id="email0" href="%(mailto)s">Email me</a>
+          <a class="btn" id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
         </div>
         <div class="proof">%(proof)s</div>
       </div>
@@ -154,12 +160,12 @@ main = """
           <p>Based in Toronto, Ontario. Open to Data Analyst, BI Analyst, Reporting Analyst and related roles in Canada.</p>
         </div>
         <div class="cbtns">
-          <a class="btn impact" id="email" href="#">Email me &#8599;</a>
+          <a class="btn impact" id="email" href="%(mailto)s">Email me &#8599;</a>
           <a class="btn" href="downloads/Mihir-Jasani-Resume.pdf" download>Resume (PDF)</a>
-          <a class="btn" id="linkedin2" href="#" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+          <a class="btn" id="linkedin2" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
         </div>
       </div>
-    </section>""" % dict(photo=PHOTO, proof=proof, impact=impact, inote=E(S["impactNote"]), about=E(S["about"]), traits=traits, stack=stack, certs=certs,
+    </section>""" % dict(mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, inote=E(S["impactNote"]), about=E(S["about"]), traits=traits, stack=stack, certs=certs,
                          exp="".join(xp(x) for x in P["experienceStory"]), projects="".join(card(p) for p in L), nd=n_done, nv=n_dev)
 
 ld = {"@context": "https://schema.org", "@type": "Person", "name": P["name"], "jobTitle": "Data Analyst", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
@@ -220,6 +226,14 @@ def first_shot(p):
     return p["shots"][p["hero"] if p.get("hero") is not None else 0]["file"]
 
 
+def actions(p):
+    z = next((d for d in p.get("downloads", []) if d["file"].endswith(".zip")), None)
+    b = '<a class="btn impact" href="#report">View report</a><a class="btn" href="#sql">View SQL</a><a class="btn" href="#model">View data model</a>'
+    if z:
+        b += '<a class="btn" href="%s" download>Download Power BI project</a>' % E(z["file"])
+    return '<div class="actions">%s</div>' % b
+
+
 def case_main(p):
     s = p["story"]
     rec = (s["recs"][0]["title"] + ". " + s["recs"][0]["text"]) if s.get("recs") else p["recommend"][0]
@@ -230,11 +244,11 @@ def case_main(p):
     cov = "".join('<div class="er"><b>%s</b><span>%s</span></div>' % (E(a), E(b)) for a, b in EV["coverage"][p["id"]])
     return ('<section class="case-head s-head"><div class="crumbs"><a href="index.html#work">Projects</a> / %s</div><span class="tag">%s &middot; %s</span>'
             '<h1>%s</h1><p class="dek">%s</p><p class="bottom"><b class="bl">Bottom line: </b>%s</p></section>'
-            '<section class="s-exec"><h2>Executive summary</h2><div class="exec">%s</div></section>'
+            '%s<section class="s-exec"><h2>Executive summary</h2><div class="exec">%s</div></section>'
             '<section class="s-tldr"><h2>Key findings</h2><ol>%s</ol></section>'
             '<section class="s-block"><h2>Data coverage</h2><div class="coverage">%s</div></section>'
             '<section class="s-block"><h2>Limits of this analysis</h2><ul>%s</ul></section>') % (
-        E(p["sector"]), E(p["sector"]), E(p["area"]), E(p["title"]), E(s["dek"]), E(s["bottom"]), rows,
+        E(p["sector"]), E(p["sector"]), E(p["area"]), E(p["title"]), E(s["dek"]), E(s["bottom"]), actions(p), rows,
         "".join("<li>%s</li>" % E(f) for f in s.get("findings", p["found"])), cov, "".join("<li>%s</li>" % E(l) for l in p["limits"]))
 
 

@@ -103,3 +103,8 @@ body.inner { background: #F7F6F2; -webkit-font-smoothing: antialiased; }
 .pbi-note.wrapnote { white-space: normal !important; max-width: 880px; }
 
 .inner .pbi-note { white-space: normal !important; max-width: 880px; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 4px; }
+.report-includes { margin: 16px 0 6px; }
+.report-includes h3 { font-size: 15px; margin: 0 0 8px; }
+.report-includes ul { margin: 0; padding-left: 20px; font-size: 14.5px; line-height: 1.7; color: #4B5A63; }

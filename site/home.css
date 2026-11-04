@@ -268,3 +268,10 @@ body.home { background: #F7F6F2 radial-gradient(circle at 12% 8%, #F1E3C8 0, tra
 }
 
 .pv-main { aspect-ratio: auto; height: auto; max-height: 640px; object-position: top center; }
+
+/* project card: question, finding, implication, skills */
+.qa { margin: 12px 0 18px; display: grid; gap: 12px; }
+.qa dt { font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; color: #8A5410; margin-bottom: 3px; }
+.qa dd { margin: 0; font-size: 14.5px; line-height: 1.6; color: #4B5A63; }
+.qa dd.q { font-size: clamp(1.15rem, 1.6vw, 1.45rem); line-height: 1.25; font-weight: 800; color: #172C3C; letter-spacing: -.02em; }
+.qa dd.result { border-left: 3px solid var(--gold); background: #F8F6F0; padding: 9px 13px; color: #142C43; font-weight: 700; }

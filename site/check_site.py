@@ -11,7 +11,7 @@ data = json.loads(subprocess.check_output(["node", "-e", "global.window={};requi
 PROJ, PROF = data["PROJECTS"], data["PROFILE"]
 DONE = [p for p in PROJ if p.get("found")]
 BASE = "https://mihir0369.github.io/portfolio_website/"
-JS_ANCHORS = {"report", "coverage", "sql"}  # added by case.js in the browser
+JS_ANCHORS = {"report", "coverage", "sql", "model"}  # added by case.js in the browser
 
 
 class Page(HTMLParser):
@@ -104,6 +104,15 @@ if not os.path.exists(PROF["resume"]): err("resume file missing: %s" % PROF["res
 if PROF["resume"] not in pages["index.html"].links: err("index.html does not link the resume")
 for c in PROF["certs"]:
     if c["url"] not in pages["index.html"].links: err("certification link missing on index.html: %s" % c["label"])
+
+# contact links must be real in the HTML, not filled in by JavaScript
+mail = [u for u in pages["index.html"].links if u == PROF["email"]]
+if len(mail) < 2: err("index.html needs the mailto link in the hero and the contact band (found %d)" % len(mail))
+if sum(1 for u in pages["index.html"].links if u == PROF["linkedin"]) < 2: err("index.html needs the LinkedIn link in the hero and the contact band")
+if any(u == "#" for u in pages["index.html"].links): err("index.html contains a placeholder href=\"#\"")
+for p in DONE:
+    pg = pages.get(p["id"] + ".html")
+    if pg and not {"#report", "#sql", "#model"} <= set(pg.links): err("%s.html: action bar (report, SQL, model) missing" % p["id"])
 
 # external links (optional)
 if "--external" in sys.argv:

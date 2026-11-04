@@ -49,7 +49,7 @@ window.PROJECTS = [
     source: "Bank of Canada Valet API; Statistics Canada tables 36-10-0639, 38-10-0238, 11-10-0065",
     tools: ["Power BI", "Power Query", "DAX", "Python"],
     headline: { value: "18 months", label: "is the lag with the strongest negative association between rate changes and credit growth (correlation -0.52, tested at lags of 0 to 24 months; observational, not causal)" },
-    question: "When the Bank of Canada moves rates, how long before household borrowing and debt-service burden change, and in which credit categories?",
+    question: "At what lag are household borrowing and debt-service burden most associated with earlier Bank of Canada rate changes, and in which credit categories?",
     data: "Daily rates from the Bank of Canada Valet API rolled up to months. Monthly household credit liabilities by category, plus quarterly credit summary and debt-service indicators, from Statistics Canada. Market-level data only: no customer or account records.",
     approach: [
       "Load rates and the three Statistics Canada tables into SQLite with a repeatable script.",
@@ -61,11 +61,11 @@ window.PROJECTS = [
       "Household credit grew from $1.48 trillion in January 2010 to $3.30 trillion in August 2026, 2.22 times as large.",
       "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, in the period when the prime rate rose from 2.45% to 7.20%. Other factors also changed, so this is not shown to be an effect of the rate rises.",
       "Testing lags of 0 to 24 months, the strongest negative correlation between rate changes and credit growth is -0.52, at 18 months. At 6 months it is only -0.17. This is an observational association; it does not show that rate changes caused the slowdown.",
-      "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and are 14.52% now."
+      "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and were 14.52% in the latest quarter (2026 Q2, the quarter starting April 2026)."
     ],
     recommend: [
       "Treat the 18-month lag as a planning assumption to test, not a rule: it is an observational association that depends on the method and the window.",
-      "Track the debt service ratio each quarter next to rates; it was 15.17% in early 2023 and is 14.52% now.",
+      "Track the debt service ratio each quarter next to rates; it was 15.17% in early 2023 and 14.52% in the latest quarter (2026 Q2, starting April 2026).",
       "Add delinquency data to test whether higher debt service led to missed payments; this public data cannot."
     ],
     limits: [
@@ -87,8 +87,8 @@ window.PROJECTS = [
     ],
     kpis: [
       { label: "Household credit", value: "$3.30T", sub: "As of Aug 2026", icon: "bars" },
-      { label: "Credit growth", value: "4.05%", sub: "\u25bc from 8.69% (May 2022)", icon: "clock" },
-      { label: "Prime rate", value: "4.45%", sub: "\u25bc from 7.20% (Jul 2023)", icon: "check" },
+      { label: "Credit growth, Aug 2026", value: "4.05%", sub: "\u25bc from 8.69% (May 2022)", icon: "clock" },
+      { label: "Prime rate, Oct 2026", value: "4.45%", sub: "\u25bc from 7.20% (Jul 2023)", icon: "check" },
       { label: "Strongest lag", value: "18 months", sub: "Correlation -0.52", icon: "warn" }
     ],
     stats: [
@@ -163,17 +163,17 @@ window.PROJECTS = [
         "Household credit grew from $1.48 trillion in January 2010 to $3.30 trillion in August 2026, 2.22 times as large.",
         "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, in the period when the prime rate rose from 2.45% to 7.20%. Other factors also changed.",
         "Across lags of 0 to 24 months, the strongest negative correlation between rate changes and credit growth is -0.52, at 18 months. At 6 months it is only -0.17. It is an observational association, not proof of cause.",
-        "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and are 14.52% now."
+        "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and were 14.52% in the latest quarter (2026 Q2, starting April 2026)."
       ],
       chapters: [
         { n: "01 \u00b7 RATES", ch: 0, title: "Interest rates rose fast in 2022 and 2023, then eased",
           paras: ["The prime rate went from 2.45% in February 2022 to 7.20% in July 2023, and stayed there for 11 months.",
-                  "It has since eased to 4.45%. The 5-year mortgage rate peaked at 7.04% in October 2023 and is 6.19% now, 1.74 points above prime."],
+                  "It has since eased to 4.45% (October 2026, the latest rates observation). The 5-year mortgage rate peaked at 7.04% in October 2023 and was 6.19% in October 2026, 1.74 points above prime."],
           note: "Rates are shown to two decimals because that is how they are published.",
           tabs: [], src: "Source: Bank of Canada Valet API. Prime and mortgage rates are weekly, so each month shows the last weekly value." },
         { n: "02 \u00b7 CREDIT", ch: 1, title: "Credit growth slowed from 8.69% to about 4%",
-          paras: ["Total household credit grew 8.69% a year at its May 2022 peak. Growth fell to 3.48% by October 2023 and is 4.05% now.",
-                  "Mortgage growth peaked at 11.02% in February 2022 and is 3.75% now. Non-mortgage loans shrank 4.59% year over year in February 2021, during the pandemic, and first grew faster than mortgages in February 2024 (4.93% now)."],
+          paras: ["Total household credit grew 8.69% a year at its May 2022 peak. Growth fell to 3.48% by October 2023 and was 4.05% in August 2026, the latest credit observation.",
+                  "Mortgage growth peaked at 11.02% in February 2022 and was 3.75% in August 2026. Non-mortgage loans shrank 4.59% year over year in February 2021, during the pandemic, and first grew faster than mortgages in February 2024 (4.93% in August 2026)."],
           note: "Credit cards and personal loans show year-over-year spikes above 20% in 2011 to 2014 that look like reclassifications, not real borrowing.",
           tabs: ["Growth by month", "Latest, by category"], src: "Source: Statistics Canada table 36-10-0639, seasonally adjusted." },
         { n: "03 \u00b7 THE LAG", ch: 2, title: "The strongest negative association appears at an 18-month lag",
@@ -183,13 +183,13 @@ window.PROJECTS = [
           tabs: [], src: "Correlation across 164 to 188 months, 2010 to 2026; 170 months at the 18-month lag." },
         { n: "04 \u00b7 DEBT SERVICE", ch: 3, title: "Debt payments took a bigger share of income as rates rose",
           paras: ["The share of household income going to debt payments rose from 12.56% in the April 2020 quarter to 15.17% in the January 2023 quarter, as rates started to rise.",
-                  "It is 14.52% now. The mortgage part peaked at 8.23% and is 7.72% now; the non-mortgage part is 6.80%."],
+                  "In the latest quarter (2026 Q2, starting April 2026) it was 14.52%. The mortgage part peaked at 8.23% and was 7.72% in that quarter; the non-mortgage part was 6.80%."],
           note: "The quarter labels follow Statistics Canada: 2026 Q2 is the quarter starting April 2026.",
           tabs: [], src: "Source: Statistics Canada table 11-10-0065, seasonally adjusted at annual rates." }
       ],
       recs: [
         { who: "Head of retail lending", title: "Test the 18-month lag before planning around it", text: "The strongest association appears at 18 months, but it depends on the method and window and is not proof of cause. Compare lending targets with rate moves 12 to 24 months earlier as a hypothesis to test.", measure: "Measure: credit growth vs the prime-rate change 18 months earlier" },
-        { who: "Risk and finance", title: "Watch debt service alongside rates", text: "Debt payments reached 15.17% of income in early 2023 and are 14.52% now. Track the ratio each quarter, for the total and for mortgages.", measure: "Measure: debt service ratio, total and mortgage" },
+        { who: "Risk and finance", title: "Watch debt service alongside rates", text: "Debt payments reached 15.17% of income in early 2023 and were 14.52% in the latest quarter (2026 Q2, starting April 2026). Track the ratio each quarter, for the total and for mortgages.", measure: "Measure: debt service ratio, total and mortgage" },
         { who: "Analytics team", title: "Add delinquency data to test repayment pressure", text: "This public data has no arrears or default figures, so it cannot say whether higher debt service led to missed payments. Add an arrears series to answer that.", measure: "Next step: join an arrears series" }
       ],
       recNote: "These are proposals from public, market-level, observational data. They are not a lending model and do not claim that rate changes caused the change in credit growth.",
@@ -212,7 +212,7 @@ window.PROJECTS = [
     source: "Transport Canada, National Collision Database (2019 and 2020)",
     tools: ["Power BI", "DAX", "SQL", "Python"],
     headline: { value: "2.24×", label: "higher fatal share overnight (3.41%) than by day (1.52%), among recorded fatal and injury collisions. The denominator is recorded collisions, not traffic volume, so this is not a per-trip risk" },
-    question: "When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so a road-safety analytics team knows what to monitor and what to say about safe driving?",
+    question: "When, where and under what conditions do fatal collisions concentrate, and in which groups the fatality proportion is highest among recorded collisions, so a road-safety analytics team knows what to monitor and what to say about safe driving?",
     data: "Person-level rows for police-reported fatal and injury collisions, 2019 and 2020: 185,772 collisions and 463,630 people after cleaning. No property-damage-only collisions and no insurance claims.",
     approach: [
       "Download the open CSVs and check every code against the data dictionary.",
@@ -224,7 +224,7 @@ window.PROJECTS = [
       "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
       "Among recorded fatal and injury collisions, the fatal share was 3.41% overnight (10 pm to 6 am) versus 1.52% during the day, 2.24 times as high. The denominator is recorded collisions with no traffic volumes, so it is not the chance of a fatal crash per trip. The highest hour is 4 am, at 4.89%.",
       "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
-      "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
+      "Among occupants in recorded collisions, 6.98% of those with no safety device used died against 0.43% with one (16.09 times the proportion). This is an unadjusted, observational comparison: records with unknown device use (21.99%) are left out, and it does not show that the device caused the difference. The gap holds in every age band."
     ],
     recommend: [
       "Monitor the fatal share, not only the count: in 2020 collisions fell but fatal ones did not.",
@@ -245,7 +245,7 @@ window.PROJECTS = [
       { file: "images/cr-1-start.png", caption: "Start here: four headline numbers, what the data shows and what I would do" },
       { file: "images/cr-2-when.png", caption: "When: a heat map of fatal share by hour and weekday, with the night hours highlighted" },
       { file: "images/cr-3-compare.png", caption: "Compare: 2020 against 2019, with fatal and injury collisions indexed to 2019" },
-      { file: "images/cr-4-conditions.png", caption: "Conditions: an illustrative scenario (assumed effect, not an observed outcome) that sets how much of the gap between risky and safer roads to close" },
+      { file: "images/cr-4-conditions.png", caption: "Conditions: an illustrative scenario (assumed effect, not an observed outcome) that sets how much of the gap between higher and lower fatal-share roads to close" },
       { file: "images/cr-5-people.png", caption: "People: fatality rates by road user, age, safety device and vehicle, against the average person" },
       { file: "images/cr-6-explore.png", caption: "Explore: a decomposition tree that splits the fatal collisions by any factor" },
       { file: "images/cr-7-quality.png", caption: "Data quality: how I found the collision ID, what is unknown and what was excluded" }
@@ -294,7 +294,7 @@ window.PROJECTS = [
       ]
     },
     story: {
-      dek: "Police report every fatal and injury collision in Canada, and Transport Canada publishes the records. I used the 2019 and 2020 files to see when fatal collisions concentrate, which conditions and people carry the most risk, and what changed when traffic fell in 2020.",
+      dek: "Police report every fatal and injury collision in Canada, and Transport Canada publishes the records. I used the 2019 and 2020 files to see when fatal collisions concentrate, which conditions and people show the highest fatal share or fatality proportion among recorded collisions, and what changed when traffic fell in 2020.",
       bottom: "fatal collisions concentrate at night, in single-vehicle collisions, on curved roads and where nothing controls traffic, and 2020's drop was almost all injury collisions, so the fatal share rose. These are associations in police-reported data, not causes.",
       toc: true,
       terms: "Fatal share = fatal collisions divided by fatal and injury collisions. Fatality rate = deaths among the people in these collisions, not a risk per person on the road. Unknown = left blank by police or not supplied by that jurisdiction. Collision ID = the C_CASE key that links the rows of one collision.",
@@ -311,7 +311,7 @@ window.PROJECTS = [
         "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
         "Among recorded fatal and injury collisions, the fatal share was 3.41% overnight (10 pm to 6 am) versus 1.52% during the day, 2.24 times as high. The denominator is recorded collisions with no traffic volumes, so it is not the chance of a fatal crash per trip. The highest hour is 4 am, at 4.89%.",
         "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
-        "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
+        "Among occupants in recorded collisions, 6.98% of those with no safety device used died against 0.43% with one (16.09 times the proportion). This is an unadjusted, observational comparison: records with unknown device use (21.99%) are left out, and it does not show that the device caused the difference. The gap holds in every age band."
       ],
       chapters: [
         { n: "01 \u00b7 WHEN", ch: 0, title: "The fatal share is 2.24 times as high overnight",
@@ -327,7 +327,7 @@ window.PROJECTS = [
         { n: "03 \u00b7 CONDITIONS", ch: 2, title: "Illustrative scenario: if uncontrolled roads had the fatal share of signalled ones, about 1,744 fewer fatal collisions would be recorded",
           paras: ["Roads with no traffic control carry 2,349 of the 3,225 fatal collisions (72.84%) and are 2.41% fatal, against 0.62% at signals. The report turns that gap into an illustrative what-if scenario: a dropdown sets how much of it to close.",
                   "Under the assumption that all of the gap closes on uncontrolled roads, about 1,744 fewer fatal collisions (54.09%) would be recorded. Giving curved roads the fatal share of straight ones would remove about 459 (14.25%), and giving night the fatal share of midday about 402 (12.46%)."],
-          note: "Illustrative scenario: assumed effect, not an observed outcome. Assumption: the gap between risky and safer roads is caused by the road. Formula: see below. Limits: no traffic volumes, the three levers overlap, and nothing here shows that any safety intervention would work.",
+          note: "Illustrative scenario: assumed effect, not an observed outcome. Assumption: the gap between higher and lower fatal-share roads is caused by the road. Formula: see below. Limits: no traffic volumes, the three levers overlap, and nothing here shows that any safety intervention would work.",
           tabs: [], src: "Scenario formula: fatal collisions removed = fatal collisions on the risky roads x (1 - safer fatal share / risky fatal share) x share of the gap closed. It is arithmetic on an assumption, not a measured result." },
         { n: "04 \u00b7 PEOPLE", ch: 3, title: "Occupants with no safety device used die 16 times as often",
           paras: ["Among drivers and passengers, 6.98% of those with no safety device used die, against 0.43% of those who used one: 16.09 times as often. The gap holds in every age band, at 7.02% to 10.83% for ages 16 and over, against 0.30% to 1.05%.",
@@ -342,7 +342,7 @@ window.PROJECTS = [
       ],
       recs: [
         { who: "Road-safety analytics lead", title: "Monitor the fatal share, not only the count", text: "In 2020 collisions fell 24.38% but fatal ones only 1.29%. A falling count can hide a rising share of serious outcomes.", measure: "Measure: fatal share, by year" },
-        { who: "Road-safety program manager", title: "Put night, single-vehicle, curved and uncontrolled roads on the watch list", text: "The fatal share is 2.24 times as high overnight, and no traffic control carries 72.84% of fatal collisions. They carry far more fatal outcomes than their share of collisions.", measure: "Measure: fatal share by condition, with collisions and fatal counts" },
+        { who: "Road-safety program manager", title: "Put night, single-vehicle, curved and uncontrolled roads on the watch list (a fatal share, not a risk per trip)", text: "The fatal share is 2.24 times as high overnight, and no traffic control carries 72.84% of fatal collisions. They carry a larger share of fatal outcomes than of collisions.", measure: "Measure: fatal share by condition, with collisions and fatal counts" },
         { who: "Road safety communications", title: "Use the safety-device gap in safe-driving messaging", text: "Occupants with no safety device used die at 6.98% against 0.43%. Use it as a message about the recorded pattern, not as proof of cause.", measure: "Measure: fatality rate, no device used against device used" }
       ],
       recNote: "These are proposals for discussion from police-reported public data. They are not claims, pricing or safety advice.",
@@ -360,12 +360,12 @@ window.PROJECTS = [
     sector: "Public sector",
     area: "City operations",
     title: "Half of Toronto's parks and forestry requests are recorded as open: what is 311 telling the city?",
-    summary: "1.35 million 311 requests from 2023 to 2025: what drives demand, which divisions leave requests unresolved, and a change in request types that breaks year-over-year comparisons.",
+    summary: "1.35 million 311 requests from 2023 to 2025: what drives demand, which divisions record the most requests as open at the data snapshot, and a change in request types that breaks year-over-year comparisons.",
     provenance: "Real",
     source: "Open Data Toronto, 311 Service Requests - Customer Initiated (Open Government Licence - Toronto)",
     tools: ["Power BI", "Power Query", "DAX", "SQL", "Python"],
     headline: { value: "49.45%", label: "of 2025 parks, forestry and environment requests are recorded as open, against 1.37% to 6.60% in every other division" },
-    question: "Where does the city leave requests unresolved, and what is behind the growth in 311 demand?",
+    question: "Which requests are recorded as open at the data snapshot, and what is behind the growth in 311 demand?",
     data: "Customer-initiated 311 requests for 2023, 2024 and 2025: 1,351,594 rows with creation time, status, location (postal area or intersection), ward, request type, division and section. There is no close date, so time to close cannot be measured.",
     approach: [
       "Download the three yearly files and repair about 8% of rows where an unquoted comma split the division name into two fields.",
@@ -402,7 +402,7 @@ window.PROJECTS = [
       toc: true,
       terms: "311 = Toronto's city line for non-emergency service requests. Open = status Open or In Progress when the data was taken. Division = the city department handling the request. Taxonomy era = whether a request type name existed before or only after January 2025.",
       next: ["Add the closed date to the open dataset so time to close can be measured.", "Build a mapping from old to new request types to restore year-over-year comparison.", "Test whether duplicate calls explain the cancellations on dead-wildlife and missed-pickup requests."],
-      dek: "When Toronto residents see a problem, such as a missed garbage pickup, a fallen tree or a pothole, they report it to the city by calling 311. I studied 1.35 million of these reports from 2023 to 2025 to find out which kinds of problems the city leaves unresolved, and whether the rise in reports means more problems or just a change in how they are labelled.",
+      dek: "When Toronto residents see a problem, such as a missed garbage pickup, a fallen tree or a pothole, they report it to the city by calling 311. I studied 1.35 million of these reports from 2023 to 2025 to find out which kinds of requests are recorded as open at the data snapshot, and whether the rise in reports means more problems or just a change in how they are labelled.",
       chips: ["SQL (10 queries)", "Python data repair", "Power Query", "Star schema", "DAX time intelligence", "Drill-through", "Data-quality page", "Dynamic card titles", "Data cleaning (1.35M rows)", "PBIP + TMDL in Git"],
       meta: [
         { k: "Data", v: "City of Toronto Open Data, 311 Service Requests, 2023 to 2025 (real, Open Government Licence)" },
@@ -439,7 +439,7 @@ window.PROJECTS = [
           note: "Shown for 2025 request types with at least 5,000 requests.", tabs: [], src: "Source: Open Data Toronto, 311 Service Requests, 2025." }
       ],
       recs: [
-        { who: "Parks, Forestry and Environment lead", title: "Audit the open requests and publish expected waits", text: "Check whether the old open requests are a real backlog or statuses never updated, then set expected waits for pruning and tree removal.", measure: "Measure: open share, 49.45% in 2025" },
+        { who: "Parks, Forestry and Environment lead", title: "Audit the open-status records and publish expected waits", text: "Check whether the old open requests are a real backlog or statuses never updated, then set expected waits for pruning and tree removal.", measure: "Measure: open share, 49.45% in 2025" },
         { who: "311 data team", title: "Publish a closed date and a type-rename mapping", text: "A closed date makes time to close measurable. A mapping table keeps year-over-year comparisons valid when types are renamed.", measure: "Measure: share of requests with a time to close" },
         { who: "311 service operations", title: "Test why some types are cancelled so often", text: "Check whether duplicate or repeat calls drive cancellations on dead-wildlife and missed-pickup requests. This is a hypothesis, not a finding.", measure: "Measure: cancelled share, 10.33% overall" }
       ],
@@ -842,10 +842,10 @@ window.PROJECTS = [
 window.PROFILE.story = {
   about: "I work across data preparation, reporting design, stakeholder communication and analytical problem-solving. My focus is accurate, understandable reporting that helps teams track performance and make decisions with confidence.",
   traits: [
-    ["Starts from the decision", "Every case opens with the question a decision-maker would ask, such as where Toronto 311 leaves requests unresolved."],
+    ["Starts from the decision", "Every case opens with the question a decision-maker would ask, such as which Toronto 311 requests are recorded as open at the data snapshot."],
     ["Careful with the numbers", "In the 311 study, 'open' means open at the data snapshot, not a confirmed backlog. I say so on the page."],
     ["Explains it plainly", "Peer tutor in Excel, Power BI and statistics, and presented procurement spend trends to non-technical stakeholders."],
-    ["Built to be reused", "Each project ships a downloadable Power BI project, SQL and documented DAX: 318 measures across four reports."]
+    ["Validated, not just built", "Every dimension carries an unknown member so no record vanishes from a chart, headline numbers are reconciled to SQL checks, and each DAX measure is documented. Measure counts sit in each case study's technical notes."]
   ],
   impact: [
     ["50%", "Reduction in sales deal-tracking time", "Impact Zero", "Reported result"],
@@ -893,10 +893,10 @@ window.PROFILE.experienceStory = [
     "collision-risk": { problem: "When and where do Canadian roads turn deadly?", features: [
       "Heat map of fatal share by hour and weekday, with night hours highlighted",
       "2020 against 2019, with fatal and injury collisions indexed to 2019",
-      "Illustrative what-if scenario (assumed effect, not an observed outcome): how much of the gap between risky and safer roads to close",
+      "Illustrative what-if scenario (assumed effect, not an observed outcome): how much of the gap between higher and lower fatal-share roads to close",
       "People page: fatality rates by road user, age, safety device and vehicle",
       "Decomposition tree to split fatal collisions by any factor"] },
-    "toronto-311": { problem: "Where does Toronto 311 leave requests unresolved, and can its numbers be compared year to year?", features: [
+    "toronto-311": { problem: "Which Toronto 311 requests are recorded as open at the data snapshot, and can its numbers be compared year to year?", features: [
       "Five report pages plus a drill-through page, with one-click Reset filters",
       "Year-over-year demand by division and request type, with dynamic card subtitles",
       "Open-request rate by division that exposes the 49.45% outlier",
