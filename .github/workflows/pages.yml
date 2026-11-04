@@ -19,6 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Rebuild the site from source and run the quality checks
+        working-directory: site
+        run: |
+          python build_evidence.py
+          python build_home.py
+          python check_site.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

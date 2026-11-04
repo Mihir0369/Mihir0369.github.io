@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 244" role="img" aria-label="Star-schema diagram drawn from the model relationships">
+<rect width="100%" height="100%" fill="#fff"/>
+<line x1="194" y1="147" x2="293" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
+<line x1="194" y1="147" x2="443" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
+<line x1="626" y1="147" x2="293" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
+<line x1="410" y1="147" x2="293" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
+<line x1="410" y1="147" x2="593" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
+<rect x="225" y="40" width="136" height="34" rx="6" fill="#EDF1EF" stroke="#C9D3D0"/>
+<text x="293" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#18344C">Date</text>
+<rect x="375" y="40" width="136" height="34" rx="6" fill="#EDF1EF" stroke="#C9D3D0"/>
+<text x="443" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#18344C">Dim_Category</text>
+<rect x="525" y="40" width="136" height="34" rx="6" fill="#EDF1EF" stroke="#C9D3D0"/>
+<text x="593" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#18344C">Dim_DebtMeasure</text>
+<rect x="126" y="130" width="136" height="34" rx="6" fill="#142C43" stroke="#142C43"/>
+<text x="194" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8A342">fact_credit</text>
+<rect x="342" y="130" width="136" height="34" rx="6" fill="#142C43" stroke="#142C43"/>
+<text x="410" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8A342">fact_debt</text>
+<rect x="558" y="130" width="136" height="34" rx="6" fill="#142C43" stroke="#142C43"/>
+<text x="626" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8A342">fact_rates</text>
+<text x="12" y="238" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#65727B">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: 5 relationships.</text>
+</svg>

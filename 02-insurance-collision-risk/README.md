@@ -1,10 +1,10 @@
 # Project 2: Collision severity and risk factors (Transport Canada National Collision Database)
 
-**Role targeted:** Reporting / BI Analyst at a Canadian P&C insurer (underwriting or claims analytics)
+**Role targeted:** Reporting / BI Analyst in public-safety or transportation analytics (the data is police-reported collisions, not insurance claims)
 **Data:** Transport Canada [National Collision Database](https://open.canada.ca/data/en/dataset/1eb9eba7-71d1-4b30-9fb1-30cbdab7e63a), police-reported fatal and injury collisions for 2019 and 2020 (Open Government Licence - Canada). The [data dictionary](https://open.canada.ca/data/dataset/1eb9eba7-71d1-4b30-9fb1-30cbdab7e63a/resource/21eb7966-38da-4814-a80e-521bce6c4c27/download/data_dictionary.pdf) was used to check every code label.
 
 ## Business question
-When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so an insurer's analytics team knows what to monitor and what to say about safe driving?
+When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so a road-safety analytics team knows what to monitor and what to say about safe driving?
 
 ## What this data is and is not
 - Police-reported **fatal and injury** collisions only. No property-damage-only collisions.
@@ -47,7 +47,7 @@ Star schema. `fact_collision` (one row per collision) and `fact_person` (one row
 1. **Start here:** the question, four headline numbers, what the data shows and what to do about it.
 2. **When:** fatal share by hour and weekday (conditionally formatted heat map) and by hour (night bars highlighted).
 3. **Compare:** 2020 against 2019 with time intelligence, fatal against injury indexed to 2019, and a breakdown of where the decline came from.
-4. **Conditions:** a what-if scenario. A parameter sets how much of the gap between risky and safer roads to close, and the page shows the fatal collisions that could be avoided.
+4. **Conditions:** an illustrative what-if scenario (assumed effect, not an observed outcome). A parameter sets how much of the gap between risky and safer roads is assumed to close, and the page shows the fatal collisions that would be recorded as fewer under that assumption.
 5. **People:** fatality rate by road user, age, safety device and vehicle, relative to the average person.
 6. **Explore:** a decomposition tree to split fatal collisions by any factor.
 7. **Data quality:** unknown rates by field, what was excluded, and plain-language terms.

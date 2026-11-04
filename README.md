@@ -7,24 +7,24 @@ Four finished case studies and one in development, all built on Canadian public 
 | # | Sector | Case study | Status | Power BI report |
 |---|--------|-----------|--------|-----------------|
 | 1 | Banking | [Household credit and lending rates](01-banking-household-credit) | Finished | 5 pages, 60 measures |
-| 2 | Insurance | [Collision severity and risk factors](02-insurance-collision-risk) | Finished | 7 pages, 102 measures |
+| 2 | Transportation safety | [Collision severity and risk factors](02-insurance-collision-risk) | Finished | 7 pages, 102 measures |
 | 3 | Government | [Toronto 311 service requests](03-government-311) | Finished | 5 pages (plus a drill-through page), 61 measures |
 | 4 | IT consulting | [Federal contracts on a Fabric lakehouse](04-consulting-fabric-procurement) | In development | Report not built yet |
 | 5 | Healthcare | [Opioid and stimulant harms](05-healthcare-opioid-harms) | Finished | 6 pages, 95 measures |
 
 ## Headline findings
 
-- **Household credit:** credit growth slowed about 18 months after rate rises. Total household credit is $3.30 trillion (August 2026), 2.22 times its January 2010 level. Associations in market-level data, not causes.
-- **Collision risk:** 185,772 fatal and injury collisions (2019 and 2020). Night collisions (10 pm to 6 am) are fatal 3.41% of the time against 1.52% by day, 2.24 times as likely. The fatal share rose in 2020 because injury collisions fell almost 25% while fatal ones barely moved.
+- **Household credit:** across lags of 0 to 24 months, the strongest negative association between rate changes and credit growth appears at 18 months (correlation -0.52). It is observational, not causal. Total household credit is $3.30 trillion (August 2026), 2.22 times its January 2010 level. Market-level data only.
+- **Collision risk:** 185,772 fatal and injury collisions (2019 and 2020). Among recorded fatal and injury collisions, the fatal share was 3.41% overnight (10 pm to 6 am) against 1.52% by day (2.24x). The denominator is recorded collisions with no traffic volumes, so it is not a per-trip risk. The fatal share rose in 2020 because injury collisions fell almost 25% while fatal ones barely moved.
 - **Toronto 311:** 500,269 requests in 2025, up 14.47%. 49.45% of parks, forestry and environment requests are recorded as open, against 1.37% to 6.60% in every other division. 58.17% of 2025 requests sit under request types renamed or introduced in January 2025, so growth by type is not comparable across the break.
-- **Opioid and stimulant harms:** opioid deaths were 5,704 in 2025, down 29.43% from the 2023 peak of 8,083, while ambulance (EMS) responses fell only 7.84%.
+- **Opioid and stimulant harms:** opioid deaths declined faster than EMS responses in the reported data: from the 2023 peak to 2025, deaths fell 29.43% (8,083 to 5,704) and EMS responses 7.84% (42,756 to 39,406). Annual Canada totals as reported; the places that report differ by source.
 
 Exact figures, method and limits are on each case page.
 
 ## What each dataset can and cannot support
 
 - **Banking:** market-level data only. No customer or account data, so no default modelling.
-- **Insurance:** police-reported fatal and injury collisions only. Not claims data, no property-damage-only collisions, so no loss ratios or pricing. Fatal share is not exposure-based road risk.
+- **Transportation safety:** police-reported fatal and injury collisions only. Not claims data, no property-damage-only collisions, so no loss ratios or pricing. Fatal share is not exposure-based road risk.
 - **Government (311):** there is no close date, so "open" means open at the data snapshot, not a confirmed backlog, and time to close cannot be measured.
 - **Healthcare:** published, aggregated counts by province and period. No patient-level data, and some values are suppressed.
 - **Procurement:** disclosed federal contracts over $10,000, published up to several months after award.
@@ -59,10 +59,13 @@ This folder is the Git repository root.
 
 ## The website
 
-- `index.html` is the homepage. Its featured case, project cards and About list are written into the HTML by `site/build_home.py`, so search engines and text-only readers see them without JavaScript. Run `python build_home.py` from `site/` after editing `projects.js`.
-- `projects.js` holds all case-study content. `case.js` renders each case page; `about.js` renders the About page.
-- Report pages on the case pages open in a viewer with previous and next arrows.
-- `robots.txt` and `sitemap.xml` are included, along with structured data on the homepage.
+One scrolling homepage (hero, impact, projects, about, skills, experience, contact) and one crawlable page per finished project (`toronto-311.html`, `household-credit.html`, `collision-risk.html`, `substance-harms.html`), each with its own title, description, canonical URL and social preview.
+
+- `projects.js` holds the profile and case-study content. `build_evidence.py` reads the real project files and writes `evidence.js` (SQL excerpts, data-coverage blocks, DAX notes) and a star-schema diagram per project from each `relationships.tmdl`.
+- `build_home.py` writes `index.html` and the four project pages as plain HTML, so search engines and text-only readers see the content without JavaScript. `case.js` then adds the charts, report viewer and DAX panel in the browser. `case.html?id=...` redirects to the project page.
+- `check_site.py` checks links, assets, anchors, meta tags, headings, image alt text, project pages, sitemap and downloads (`--external` also tests outside links). GitHub Actions rebuilds the site and runs it before every deploy.
+- Rebuild after editing content: `python build_evidence.py && python build_home.py && python check_site.py` from `site/` (needs Node and Pillow).
+- Report pages open in a viewer with previous and next arrows. Screenshots are also stored as WebP for fast loading; the original PNGs stay for detailed review.
 
 Run it locally with `python -m http.server` from `site/`.
 

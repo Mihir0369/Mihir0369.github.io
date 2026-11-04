@@ -77,3 +77,29 @@ body.inner { background: #F7F6F2; -webkit-font-smoothing: antialiased; }
 
 /* one font for the case-page intro (was serif) */
 .inner .s-head .dek, .inner .hero .intro { font-family: inherit; font-size: 17px; line-height: 1.75; }
+
+/* executive summary, coverage, SQL, model diagram */
+.exec, .coverage { display: grid; gap: 0; background: #fff; border: 1px solid #E2E4DE; border-radius: 12px; overflow: hidden; }
+.exec .er, .coverage .er { display: grid; grid-template-columns: 210px 1fr; gap: 18px; padding: 13px 20px; border-top: 1px solid #ECEEE9; font-size: 14px; line-height: 1.65; }
+.exec .er:first-child, .coverage .er:first-child { border-top: 0; }
+.exec .er b, .coverage .er b { color: #B07931; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; }
+.sqlq { margin: 18px 0 8px; }
+.sqlq h3 { font-size: 16px; margin: 0 0 4px; }
+.sqlq p { font-size: 14px; color: #4B5A63; margin: 0 0 8px; }
+.model-diagram { margin-bottom: 22px; }
+.model-diagram img { width: 100%; max-width: 980px; border: 1px solid #E2E4DE; border-radius: 10px; background: #fff; display: block; }
+.dx-com { color: #73828C; font-style: italic; }
+@media (max-width: 700px) { .exec .er, .coverage .er { grid-template-columns: 1fr; gap: 2px; } }
+
+.inner .eyebrow, .inner .s-head .tag, .exec .er b, .coverage .er b { color: #8A5410; }
+
+.dx-com { display: block; white-space: normal; max-width: 62ch; }
+.inner .build-grid .panel { min-width: 0; }
+
+.exec .er, .coverage .er { grid-template-columns: 210px minmax(0, 1fr); }
+.exec .er span, .coverage .er span { overflow-wrap: anywhere; min-width: 0; }
+@media (max-width: 700px) { .exec .er, .coverage .er { grid-template-columns: minmax(0, 1fr); } }
+
+.pbi-note.wrapnote { white-space: normal !important; max-width: 880px; }
+
+.inner .pbi-note { white-space: normal !important; max-width: 880px; }

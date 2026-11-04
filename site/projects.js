@@ -43,28 +43,28 @@ window.PROJECTS = [
     id: "household-credit",
     sector: "Banking",
     area: "Retail lending",
-    title: "Canadian borrowing slows about 18 months after rates rise: what does that mean for lenders?",
+    title: "The strongest negative association between rate changes and credit growth appears at an 18-month lag: what does that mean for lenders?",
     summary: "Household credit balances set against the policy rate, prime and mortgage rates, to see how long rate changes take to show up in borrowing.",
     provenance: "Real",
     source: "Bank of Canada Valet API; Statistics Canada tables 36-10-0639, 38-10-0238, 11-10-0065",
     tools: ["Power BI", "Power Query", "DAX", "Python"],
-    headline: { value: "18 months", label: "after a rate rise before credit growth is lowest (correlation -0.52)" },
+    headline: { value: "18 months", label: "is the lag with the strongest negative association between rate changes and credit growth (correlation -0.52, tested at lags of 0 to 24 months; observational, not causal)" },
     question: "When the Bank of Canada moves rates, how long before household borrowing and debt-service burden change, and in which credit categories?",
     data: "Daily rates from the Bank of Canada Valet API rolled up to months. Monthly household credit liabilities by category, plus quarterly credit summary and debt-service indicators, from Statistics Canada. Market-level data only: no customer or account records.",
     approach: [
       "Load rates and the three Statistics Canada tables into SQLite with a repeatable script.",
       "Build a month-level model in Power BI: one date table, rates, credit, debt service.",
-      "Compare YoY credit growth with rate changes at lags of 0 to 24 months, with a lag slicer.",
+      "Compare YoY credit growth with rate changes at lags of 0 to 24 months, with a lag slicer, and report the correlation at each lag.",
       "Document every DAX measure and its definition."
     ],
     found: [
       "Household credit grew from $1.48 trillion in January 2010 to $3.30 trillion in August 2026, 2.22 times as large.",
-      "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, after the prime rate rose from 2.45% to 7.20%.",
-      "Credit growth is lowest about 18 months after a rate rise, with a correlation of -0.52. At 6 months it is only -0.17.",
+      "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, in the period when the prime rate rose from 2.45% to 7.20%. Other factors also changed, so this is not shown to be an effect of the rate rises.",
+      "Testing lags of 0 to 24 months, the strongest negative correlation between rate changes and credit growth is -0.52, at 18 months. At 6 months it is only -0.17. This is an observational association; it does not show that rate changes caused the slowdown.",
       "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and are 14.52% now."
     ],
     recommend: [
-      "Plan for a delayed response: expect credit growth to react to a rate change over about 1.5 years, not right away.",
+      "Treat the 18-month lag as a planning assumption to test, not a rule: it is an observational association that depends on the method and the window.",
       "Track the debt service ratio each quarter next to rates; it was 15.17% in early 2023 and is 14.52% now.",
       "Add delinquency data to test whether higher debt service led to missed payments; this public data cannot."
     ],
@@ -146,11 +146,11 @@ window.PROJECTS = [
       ]
     },
     story: {
-      bottom: "credit growth is lowest about 18 months after a rate rise, so lenders should plan for a delayed response. The lag depends on the method, and the data cannot show cause.",
+      bottom: "the strongest negative association between rate changes and credit growth appears at an 18-month lag, across lags of 0 to 24 months. It is observational: it depends on the method and window, and the data cannot show cause, so lenders should test it before planning around it.",
       toc: true,
       terms: "Policy rate = the Bank of Canada's overnight target. Prime rate = the rate banks charge their best customers. Debt service ratio = the share of household income going to debt payments. Correlation = how closely two series move together, from -1 to +1.",
       next: ["Add delinquency or arrears data to test whether higher debt service led to missed payments.", "Test the lag with the rate level and other windows, to see how stable 18 months is.", "Refresh the report each quarter when Statistics Canada publishes new debt-service figures."],
-      dek: "When the Bank of Canada raises interest rates, borrowing is supposed to cool. I used public Bank of Canada and Statistics Canada data from 2010 to 2026 to check how long that takes: how quickly Canadian household borrowing slowed after rates went up, and whether families ended up spending more of their income on debt payments.",
+      dek: "When the Bank of Canada raises interest rates, borrowing is supposed to cool. I used public Bank of Canada and Statistics Canada data from 2010 to 2026 to look at the lag at which credit growth is most associated with earlier rate changes (tested from 0 to 24 months), and whether families ended up spending more of their income on debt payments. The data is observational, so it shows association, not cause.",
       chips: ["Python (pandas)", "SQL (SQLite)", "API data pulls", "Power Query", "Star schema", "DAX time intelligence", "What-if lag selector", "Correlation analysis", "Custom theme", "PBIP + TMDL in Git"],
       meta: [
         { k: "Data", v: "Bank of Canada Valet API and Statistics Canada tables 36-10-0639, 38-10-0238 and 11-10-0065 (real, market-level)" },
@@ -161,8 +161,8 @@ window.PROJECTS = [
       ],
       findings: [
         "Household credit grew from $1.48 trillion in January 2010 to $3.30 trillion in August 2026, 2.22 times as large.",
-        "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, after the prime rate rose from 2.45% to 7.20%.",
-        "Credit growth is lowest about 18 months after a rate rise, with a correlation of -0.52. At 6 months it is only -0.17.",
+        "Credit growth peaked at 8.69% in May 2022 and slowed to 3.48% by October 2023, in the period when the prime rate rose from 2.45% to 7.20%. Other factors also changed.",
+        "Across lags of 0 to 24 months, the strongest negative correlation between rate changes and credit growth is -0.52, at 18 months. At 6 months it is only -0.17. It is an observational association, not proof of cause.",
         "Debt payments took 15.17% of household income in early 2023, up from 12.56% in the April 2020 quarter, and are 14.52% now."
       ],
       chapters: [
@@ -176,23 +176,23 @@ window.PROJECTS = [
                   "Mortgage growth peaked at 11.02% in February 2022 and is 3.75% now. Non-mortgage loans shrank 4.59% year over year in February 2021, during the pandemic, and first grew faster than mortgages in February 2024 (4.93% now)."],
           note: "Credit cards and personal loans show year-over-year spikes above 20% in 2011 to 2014 that look like reclassifications, not real borrowing.",
           tabs: ["Growth by month", "Latest, by category"], src: "Source: Statistics Canada table 36-10-0639, seasonally adjusted." },
-        { n: "03 \u00b7 THE LAG", ch: 2, title: "Credit growth is lowest about 18 months after rates rise",
-          paras: ["I compared credit growth with the change in the prime rate over the previous 12 months, shifted back by 0 to 24 months. The relationship is strongest at 18 months, with a correlation of -0.52.",
+        { n: "03 \u00b7 THE LAG", ch: 2, title: "The strongest negative association appears at an 18-month lag",
+          paras: ["I compared credit growth with the change in the prime rate over the previous 12 months, shifted back by 0 to 24 months. The negative association is strongest at 18 months, with a correlation of -0.52, across the lags tested.",
                   "At 6 months it is only -0.17 and at 12 months -0.43. With no delay the correlation is positive (+0.27), which fits a central bank raising rates when borrowing is already strong."],
-          note: "Using the level of the prime rate instead of its 12-month change, the strongest lag is about 8 months, so the exact delay depends on the method.",
+          note: "Using the level of the prime rate instead of its 12-month change, the strongest lag is about 8 months, so the exact lag depends on the method. Both are observational associations in monthly market data, and neither shows that rate changes caused the change in credit growth.",
           tabs: [], src: "Correlation across 164 to 188 months, 2010 to 2026; 170 months at the 18-month lag." },
-        { n: "04 \u00b7 DEBT SERVICE", ch: 3, title: "Debt payments took a bigger share of income after rates rose",
+        { n: "04 \u00b7 DEBT SERVICE", ch: 3, title: "Debt payments took a bigger share of income as rates rose",
           paras: ["The share of household income going to debt payments rose from 12.56% in the April 2020 quarter to 15.17% in the January 2023 quarter, as rates started to rise.",
                   "It is 14.52% now. The mortgage part peaked at 8.23% and is 7.72% now; the non-mortgage part is 6.80%."],
           note: "The quarter labels follow Statistics Canada: 2026 Q2 is the quarter starting April 2026.",
           tabs: [], src: "Source: Statistics Canada table 11-10-0065, seasonally adjusted at annual rates." }
       ],
       recs: [
-        { who: "Head of retail lending", title: "Plan for a delayed response to rate changes", text: "Expect credit growth to react to a rate change over about 18 months, not right away. Review lending targets against rate moves from 12 to 24 months earlier.", measure: "Measure: credit growth vs the prime-rate change 18 months earlier" },
+        { who: "Head of retail lending", title: "Test the 18-month lag before planning around it", text: "The strongest association appears at 18 months, but it depends on the method and window and is not proof of cause. Compare lending targets with rate moves 12 to 24 months earlier as a hypothesis to test.", measure: "Measure: credit growth vs the prime-rate change 18 months earlier" },
         { who: "Risk and finance", title: "Watch debt service alongside rates", text: "Debt payments reached 15.17% of income in early 2023 and are 14.52% now. Track the ratio each quarter, for the total and for mortgages.", measure: "Measure: debt service ratio, total and mortgage" },
         { who: "Analytics team", title: "Add delinquency data to test repayment pressure", text: "This public data has no arrears or default figures, so it cannot say whether higher debt service led to missed payments. Add an arrears series to answer that.", measure: "Next step: join an arrears series" }
       ],
-      recNote: "These are proposals from public, market-level data. They are not a lending model.",
+      recNote: "These are proposals from public, market-level, observational data. They are not a lending model and do not claim that rate changes caused the change in credit growth.",
       pipeline: [
         { i: "01 \u00b7 SOURCE", b: "Bank of Canada and Statistics Canada", s: "Rates from the Valet API and three Statistics Canada tables, 2010 to 2026" },
         { i: "02 \u00b7 PREPARE", b: "Python", s: "Rolled rates up to months and kept 8 credit categories that appear once per month, because lender names repeat across the hierarchy" },
@@ -204,15 +204,15 @@ window.PROJECTS = [
   },
   {
     id: "collision-risk",
-    sector: "Insurance",
-    area: "Underwriting and claims analytics",
-    title: "Fatal collisions are more than twice as likely at night: when and where do Canadian roads turn deadly?",
+    sector: "Transportation safety",
+    area: "Public safety analytics",
+    title: "Among recorded fatal and injury collisions, 3.41% were fatal overnight against 1.52% by day: when and where do Canadian roads turn deadly?",
     summary: "185,772 police-reported fatal and injury collisions across Canada, broken down by hour, road conditions, people and the change from 2019 to 2020.",
     provenance: "Real",
     source: "Transport Canada, National Collision Database (2019 and 2020)",
     tools: ["Power BI", "DAX", "SQL", "Python"],
-    headline: { value: "2.24×", label: "as likely to be fatal at night (3.41%) as by day (1.52%)" },
-    question: "When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so an insurer's analytics team knows what to monitor and what to say about safe driving?",
+    headline: { value: "2.24×", label: "higher fatal share overnight (3.41%) than by day (1.52%), among recorded fatal and injury collisions. The denominator is recorded collisions, not traffic volume, so this is not a per-trip risk" },
+    question: "When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so a road-safety analytics team knows what to monitor and what to say about safe driving?",
     data: "Person-level rows for police-reported fatal and injury collisions, 2019 and 2020: 185,772 collisions and 463,630 people after cleaning. No property-damage-only collisions and no insurance claims.",
     approach: [
       "Download the open CSVs and check every code against the data dictionary.",
@@ -222,20 +222,20 @@ window.PROJECTS = [
     ],
     found: [
       "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
-      "Night collisions (10 pm to 6 am) are 3.41% fatal against 1.52% by day, 2.24 times as likely. The riskiest hour is 4 am, at 4.89%.",
+      "Among recorded fatal and injury collisions, the fatal share was 3.41% overnight (10 pm to 6 am) versus 1.52% during the day, 2.24 times as high. The denominator is recorded collisions with no traffic volumes, so it is not the chance of a fatal crash per trip. The highest hour is 4 am, at 4.89%.",
       "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
       "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
     ],
     recommend: [
       "Monitor the fatal share, not only the count: in 2020 collisions fell but fatal ones did not.",
-      "Put night driving, single-vehicle collisions, curved roads and roads with no traffic control on the risk watch list: they carry far more fatal outcomes than their share of collisions.",
+      "Put night driving, single-vehicle collisions, curved roads and roads with no traffic control on the watch list: they carry a larger share of fatal outcomes than of collisions.",
       "Use the safety-device gap in safe-driving messaging. These are proposals from police-reported data, not claims or pricing advice."
     ],
     limits: [
       "Not claims data: it supports no loss ratio, premium or pricing statement.",
       "Police-reported fatal and injury collisions only, so shares are of serious collisions.",
       "No traffic volumes or kilometres driven, so nothing here is a risk per trip.",
-      "Unadjusted associations, not causes. The what-if assumes the road causes the gap.",
+      "Unadjusted associations, not causes. The what-if is an illustrative scenario: it assumes the road causes the gap, so it shows an assumed effect, not an observed outcome.",
       "2020 was a pandemic year, so it is not a typical comparison.",
       "Safety-device use is as recorded by police, and 21.99% of records are unknown."
     ],
@@ -245,7 +245,7 @@ window.PROJECTS = [
       { file: "images/cr-1-start.png", caption: "Start here: four headline numbers, what the data shows and what I would do" },
       { file: "images/cr-2-when.png", caption: "When: a heat map of fatal share by hour and weekday, with the night hours highlighted" },
       { file: "images/cr-3-compare.png", caption: "Compare: 2020 against 2019, with fatal and injury collisions indexed to 2019" },
-      { file: "images/cr-4-conditions.png", caption: "Conditions: a what-if scenario that sets how much of the gap between risky and safer roads to close" },
+      { file: "images/cr-4-conditions.png", caption: "Conditions: an illustrative scenario (assumed effect, not an observed outcome) that sets how much of the gap between risky and safer roads to close" },
       { file: "images/cr-5-people.png", caption: "People: fatality rates by road user, age, safety device and vehicle, against the average person" },
       { file: "images/cr-6-explore.png", caption: "Explore: a decomposition tree that splits the fatal collisions by any factor" },
       { file: "images/cr-7-quality.png", caption: "Data quality: how I found the collision ID, what is unknown and what was excluded" }
@@ -309,13 +309,13 @@ window.PROJECTS = [
       ],
       findings: [
         "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
-        "Night collisions (10 pm to 6 am) are 3.41% fatal against 1.52% by day, 2.24 times as likely. The riskiest hour is 4 am, at 4.89%.",
+        "Among recorded fatal and injury collisions, the fatal share was 3.41% overnight (10 pm to 6 am) versus 1.52% during the day, 2.24 times as high. The denominator is recorded collisions with no traffic volumes, so it is not the chance of a fatal crash per trip. The highest hour is 4 am, at 4.89%.",
         "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
         "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
       ],
       chapters: [
-        { n: "01 \u00b7 WHEN", ch: 0, title: "Fatal collisions are 2.24 times as likely at night",
-          paras: ["Between 10 pm and 6 am, 3.41% of collisions are fatal, against 1.52% from 6 am to 10 pm. The fatal share peaks at 4 am, at 4.89%, against the 1.74% average.",
+        { n: "01 \u00b7 WHEN", ch: 0, title: "The fatal share is 2.24 times as high overnight",
+          paras: ["Among recorded fatal and injury collisions, 3.41% between 10 pm and 6 am were fatal, against 1.52% from 6 am to 10 pm. The fatal share peaks at 4 am, at 4.89%, against the 1.74% average.",
                   "The pattern holds on every day of the week: the darkest cells in the heat map run from midnight to 5 am from Monday to Sunday."],
           note: "Night has few collisions (about 1,400 at 4 am against 16,000 at 4 pm), so single cells move more. Cells under 100 collisions are blank.",
           tabs: [], src: "Source: Transport Canada, National Collision Database, 2019 and 2020." },
@@ -324,11 +324,11 @@ window.PROJECTS = [
                   "Injury collisions account for 99.92% of the 25,792 fewer collisions. April 2020 was the lowest month, 52.10% below April 2019, while fatal collisions stayed between 83% and 116% of their 2019 level all year."],
           note: "2020 was a pandemic year, so this is a change in the mix of recorded collisions, not proof that driving became riskier.",
           tabs: ["Collisions by month", "Fatal against injury"], src: "Source: Transport Canada. In the second view each line is 2020 as a percentage of the same month of 2019 (100 = no change). Monthly fatal counts are small (about 70 to 200), so single months move more." },
-        { n: "03 \u00b7 CONDITIONS", ch: 2, title: "If uncontrolled roads matched signalled ones, about 1,744 fewer deaths",
-          paras: ["Roads with no traffic control carry 2,349 of the 3,225 fatal collisions (72.84%) and are 2.41% fatal, against 0.62% at signals. The report turns that gap into a what-if: a dropdown sets how much of it to close.",
-                  "Closing all of it on uncontrolled roads would avoid about 1,744 fatal collisions (54.09%). Treating curved roads like straight ones would avoid about 459 (14.25%), and making night as safe as midday about 402 (12.46%)."],
-          note: "A scenario, not a forecast: it assumes the gap is caused by the road, uses no traffic volumes, and the three levers overlap.",
-          tabs: [], src: "Avoided = fatal collisions on the risky roads x (1 - safer share / risky share) x share of the gap closed." },
+        { n: "03 \u00b7 CONDITIONS", ch: 2, title: "Illustrative scenario: if uncontrolled roads had the fatal share of signalled ones, about 1,744 fewer fatal collisions would be recorded",
+          paras: ["Roads with no traffic control carry 2,349 of the 3,225 fatal collisions (72.84%) and are 2.41% fatal, against 0.62% at signals. The report turns that gap into an illustrative what-if scenario: a dropdown sets how much of it to close.",
+                  "Under the assumption that all of the gap closes on uncontrolled roads, about 1,744 fewer fatal collisions (54.09%) would be recorded. Giving curved roads the fatal share of straight ones would remove about 459 (14.25%), and giving night the fatal share of midday about 402 (12.46%)."],
+          note: "Illustrative scenario: assumed effect, not an observed outcome. Assumption: the gap between risky and safer roads is caused by the road. Formula: see below. Limits: no traffic volumes, the three levers overlap, and nothing here shows that any safety intervention would work.",
+          tabs: [], src: "Scenario formula: fatal collisions removed = fatal collisions on the risky roads x (1 - safer fatal share / risky fatal share) x share of the gap closed. It is arithmetic on an assumption, not a measured result." },
         { n: "04 \u00b7 PEOPLE", ch: 3, title: "Occupants with no safety device used die 16 times as often",
           paras: ["Among drivers and passengers, 6.98% of those with no safety device used die, against 0.43% of those who used one: 16.09 times as often. The gap holds in every age band, at 7.02% to 10.83% for ages 16 and over, against 0.30% to 1.05%.",
                   "Against the average person, motorcyclists die at 4.91 times the rate and pedestrians at 3.77 times, while drivers, the largest group, are at 0.76 times. People aged 65 and over are at 2.11 times."],
@@ -341,9 +341,9 @@ window.PROJECTS = [
           tabs: [], src: "Checks are in the SQL file in the project folder." }
       ],
       recs: [
-        { who: "Claims and underwriting analytics lead", title: "Monitor the fatal share, not only the count", text: "In 2020 collisions fell 24.38% but fatal ones only 1.29%. A falling count can hide a rising share of serious outcomes.", measure: "Measure: fatal share, by year" },
-        { who: "Risk and portfolio manager", title: "Put night, single-vehicle, curved and uncontrolled roads on the watch list", text: "Night is 2.24 times as likely to be fatal, and no traffic control carries 72.84% of fatal collisions. They carry far more fatal outcomes than their share of collisions.", measure: "Measure: fatal share by condition, with collisions and fatal counts" },
-        { who: "Road safety communications", title: "Use the safety-device gap in safe-driving messaging", text: "Occupants with no safety device used die at 6.98% against 0.43%. Use it as a message, not as a claim or pricing input.", measure: "Measure: fatality rate, no device used against device used" }
+        { who: "Road-safety analytics lead", title: "Monitor the fatal share, not only the count", text: "In 2020 collisions fell 24.38% but fatal ones only 1.29%. A falling count can hide a rising share of serious outcomes.", measure: "Measure: fatal share, by year" },
+        { who: "Road-safety program manager", title: "Put night, single-vehicle, curved and uncontrolled roads on the watch list", text: "The fatal share is 2.24 times as high overnight, and no traffic control carries 72.84% of fatal collisions. They carry far more fatal outcomes than their share of collisions.", measure: "Measure: fatal share by condition, with collisions and fatal counts" },
+        { who: "Road safety communications", title: "Use the safety-device gap in safe-driving messaging", text: "Occupants with no safety device used die at 6.98% against 0.43%. Use it as a message about the recorded pattern, not as proof of cause.", measure: "Measure: fatality rate, no device used against device used" }
       ],
       recNote: "These are proposals for discussion from police-reported public data. They are not claims, pricing or safety advice.",
       pipeline: [
@@ -351,7 +351,7 @@ window.PROJECTS = [
         { i: "02 \u00b7 PREPARE", b: "Python and SQLite", s: "Found the real collision ID, cast mixed code formats, kept unknown codes as unknown and removed 7,416 dummy rows" },
         { i: "03 \u00b7 CHECK", b: "SQL checks", s: "Unique collision ID, every person has a collision, every severity is fatal or injury, and every headline number against SQL" },
         { i: "04 \u00b7 MODEL", b: "Star schema", s: "Two fact tables, 15 dimensions with unknown members, a date table and 102 DAX measures" },
-        { i: "05 \u00b7 REPORT", b: "Power BI", s: "7 pages: heat map, time intelligence, a what-if scenario, a decomposition tree and a data-quality page" }
+        { i: "05 \u00b7 REPORT", b: "Power BI", s: "7 pages: heat map, time intelligence, an illustrative what-if scenario, a decomposition tree and a data-quality page" }
       ]
     }
   },
@@ -667,12 +667,12 @@ window.PROJECTS = [
     id: "substance-harms",
     sector: "Healthcare",
     area: "Public health",
-    title: "Opioid deaths are down 29.43%, but ambulance calls are not: what is Canada's data telling us?",
+    title: "Opioid deaths declined faster than EMS responses in the reported data: what is Canada's data telling us?",
     summary: "Hospital stays, emergency visits, ambulance calls and deaths across Canada, with a clear view of what each number covers.",
     provenance: "Real",
     source: "Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada (Health Infobase)",
     tools: ["Power BI", "DAX", "SQL", "Python"],
-    headline: { value: "-29.43%", label: "opioid deaths in 2025 against the 2023 peak, while EMS responses fell only 7.84%" },
+    headline: { value: "-29.43%", label: "opioid deaths, 2025 against the 2023 peak (8,083 to 5,704), while EMS responses fell 7.84% over the same years (42,756 to 39,406). Annual Canada totals as reported; the places that report differ by source" },
     question: "Which harm measures are falling, which are not, and where is the burden greatest, so a public health team knows where to plan?",
     data: "Published aggregated counts and rates by province or territory, year and quarter, for hospital stays, emergency department visits, EMS responses and deaths. Small counts are suppressed.",
     approach: [
@@ -683,7 +683,7 @@ window.PROJECTS = [
     ],
     found: [
       "Opioid deaths jumped from 3,602 in 2019 to 6,184 in 2020, peaked at 8,083 in 2023 and were 5,704 in 2025, down 29.43%.",
-      "Against their peaks, hospital stays are down 21.75% and emergency department visits 28.51%, but EMS responses are down only 7.84%, and early 2026 is the highest quarter on record.",
+      "Comparing 2025 with the 2023 peak in annual Canada totals, hospital stays are down 21.75%, emergency department visits 28.51% and EMS responses 7.84% (42,756 to 39,406). Deaths fell faster than EMS responses. Coverage differs by source, and 2026 is a partial year.",
       "In 2024 the opioid death rate was 35.7 per 100,000 in British Columbia, 24.4 in Alberta, 14.0 in Ontario and 3.4 in Quebec.",
       "About 71.64% of opioid deaths in 2024 were men, and 52.58% were aged 30 to 49."
     ],
@@ -712,8 +712,8 @@ window.PROJECTS = [
     ],
     kpis: [
       { label: "Opioid deaths, 2025", value: "5,704", sub: "\u25bc from 8,083 (2023)", icon: "bars" },
-      { label: "Deaths against the peak", value: "-29.43%", sub: "Hospital stays -21.75%, ED visits -28.51%", icon: "check" },
-      { label: "EMS against the peak", value: "-7.84%", sub: "2026 Q1 is +60.93% on a year ago", icon: "clock" },
+      { label: "Deaths, 2025 against 2023", value: "-29.43%", sub: "Hospital stays -21.75%, ED visits -28.51%", icon: "check" },
+      { label: "EMS, 2025 against 2023", value: "-7.84%", sub: "2026 Q1 is +60.93% on a year ago (partial year)", icon: "clock" },
       { label: "Hospital stays per death", value: "0.88", sub: "Sources differ in coverage; read the trend only", icon: "warn" }
     ],
     stats: [
@@ -773,7 +773,7 @@ window.PROJECTS = [
     },
     story: {
       dek: "Hospitals, ambulance services and death records all count opioid and stimulant harms, but not in the same way or in the same places. I used the Public Health Agency of Canada's open data, 2016 to early 2026, to see which measures are falling, where the burden is greatest, and what each number really covers.",
-      bottom: "deaths are falling faster than hospital and ambulance activity, so deaths alone understate the burden. Provinces differ several times over, and several Canada totals leave places out.",
+      bottom: "in the reported annual Canada totals (2023 peak to 2025), deaths fell faster than hospital, emergency and ambulance activity, so deaths alone may understate the burden. Provinces differ several times over, and several Canada totals leave places out.",
       toc: true,
       terms: "EMS = ambulance calls (emergency medical services). ED = emergency department. Suppressed = small counts hidden by the agency to protect privacy. Crude rate = cases per 100,000 people, not adjusted for age.",
       next: ["Age-adjust the provincial rates with population data, so provinces with older or younger populations compare fairly.", "Add treatment and naloxone data to test whether falling deaths come from fewer overdoses or from more of them being survived.", "Re-run the report when the 2025 figures are final, and re-check the Ontario and Quebec changes."],
@@ -787,7 +787,7 @@ window.PROJECTS = [
       ],
       findings: [
         "Opioid deaths jumped from 3,602 in 2019 to 6,184 in 2020, peaked at 8,083 in 2023 and were 5,704 in 2025, down 29.43%.",
-        "Against their peaks, hospital stays are down 21.75% and emergency department visits 28.51%, but EMS responses are down only 7.84%, and early 2026 is the highest quarter on record.",
+        "Comparing 2025 with the 2023 peak in annual Canada totals, hospital stays are down 21.75%, emergency department visits 28.51% and EMS responses 7.84% (42,756 to 39,406). Deaths fell faster than EMS responses. Coverage differs by source, and 2026 is a partial year.",
         "In 2024 the opioid death rate was 35.7 per 100,000 in British Columbia, 24.4 in Alberta, 14.0 in Ontario and 3.4 in Quebec.",
         "About 71.64% of opioid deaths in 2024 were men, and 52.58% were aged 30 to 49."
       ],
@@ -819,7 +819,7 @@ window.PROJECTS = [
           tabs: [], src: "Checks are in the SQL file in the project folder." }
       ],
       recs: [
-        { who: "Public health planner", title: "Track EMS and emergency visits next to deaths", text: "Deaths fell 29.43% from the peak, but EMS responses only 7.84%. Deaths alone understate the ongoing burden, so report all four measures together.", measure: "Measure: change from peak, by source" },
+        { who: "Public health planner", title: "Track EMS and emergency visits next to deaths", text: "From 2023 to 2025, deaths fell 29.43% but EMS responses only 7.84% (annual Canada totals). Deaths alone may understate the ongoing burden, so report all four measures together, noting which places each source covers.", measure: "Measure: change from peak, by source" },
         { who: "Regional health lead", title: "Start with the high-rate places", text: "In 2024 British Columbia, Yukon, Manitoba, Alberta and Saskatchewan had rates of 22 to 36 per 100,000. Compare places on the same year, and ask how each reports.", measure: "Measure: death rate per 100,000, 2024" },
         { who: "Harm-reduction program lead", title: "Aim outreach at men aged 30 to 49", text: "This group is the largest: 71.64% of deaths are men and 52.58% are aged 30 to 49. Test the outreach against local data before spending.", measure: "Measure: share of deaths by age group and sex" }
       ],
@@ -848,11 +848,12 @@ window.PROFILE.story = {
     ["Built to be reused", "Each project ships a downloadable Power BI project, SQL and documented DAX: 318 measures across four reports."]
   ],
   impact: [
-    ["50%", "Reduction in sales deal-tracking time", "Impact Zero"],
-    ["$400K+", "Sales pipeline covered by one Power BI dashboard", "Impact Zero"],
-    ["30%", "Potential procurement cost savings identified", "Scalezix"],
-    ["22 hrs", "Weekly reporting effort removed", "Scalezix"]
-  ]
+    ["50%", "Reduction in sales deal-tracking time", "Impact Zero", "Reported result"],
+    ["$400K+", "Sales pipeline covered by one Power BI dashboard", "Impact Zero", "Pipeline value tracked, not revenue won"],
+    ["30%", "Potential procurement cost savings identified", "Scalezix", "Potential savings, not realized"],
+    ["22 hrs", "Weekly reporting effort removed", "Scalezix", "Reported result, per week"]
+  ],
+  impactNote: "Figures are as reported on my resume. Pipeline coverage is the value of deals the dashboard tracked, not revenue won, and procurement savings are potential savings identified in spend data, not savings realized.",
 };
 window.PROFILE.stack = [
   ["Reporting and modelling", ["Power BI", "DAX", "Power Query", "Star-schema models", "PBIP / TMDL"]],
@@ -861,29 +862,29 @@ window.PROFILE.stack = [
 ];
 window.PROFILE.experienceStory = [
   { when: "Oct 2025 - Present", role: "Data Analyst", org: "Elevara Digital, Toronto, ON", items: [
-    ["Write SQL (joins, aggregations, filters) to pull and consolidate business data and produce data exports.", "Reporting and analysis start from one consolidated, reliable set of data."],
-    ["Clean, validate and reconcile reporting datasets.", "More complete, accurate and consistent data behind every report."],
-    ["Work with stakeholders to define data requirements and KPI calculations.", "Agreed KPI definitions and reporting solutions the business can use."],
-    ["Build and maintain Power BI dashboards.", "Management sees operational trends and findings to support decisions."]
+    ["Write SQL using joins, aggregations and filters.", "Consolidated business datasets and data exports for reporting and analysis.", "Not quantified"],
+    ["Clean, validate and reconcile reporting datasets.", "Reconciled datasets that feed management reporting.", "Not quantified"],
+    ["Work with business stakeholders to define data requirements and KPI calculations.", "Defined KPI calculations and recommended reporting solutions.", "Not quantified"],
+    ["Develop and maintain Power BI dashboards.", "Power BI dashboards that show operational trends to management.", "Findings communicated to management to support decisions"]
   ]},
   { when: "Apr 2025 - Sep 2025", role: "Data Analyst Intern", org: "Impact Zero, Toronto, ON", items: [
-    ["Cleaned and consolidated HubSpot CRM data and built a Power BI dashboard.", "Covered over $400K in pipeline revenue and cut sales deal-tracking time by 50%."],
-    ["Created custom reporting metrics and presented pipeline findings to leadership.", "Leadership had clear numbers to support business decisions."],
-    ["Built a Python and Streamlit app to summarize 500+ meeting notes and extract action items.", "Improved executive task follow-up by 35%."]
+    ["Cleaned and consolidated HubSpot CRM data.", "A Power BI sales-pipeline dashboard.", "Covers over $400K in pipeline revenue; sales deal-tracking time reduced by 50%"],
+    ["Created custom reporting metrics and presented pipeline findings to leadership.", "Custom pipeline metrics and a leadership readout.", "Not quantified"],
+    ["Built a Python and Streamlit application.", "An app that summarizes 500+ meeting notes and extracts action items.", "Executive task follow-up improved by 35%"]
   ]},
   { when: "Jun 2023 - Aug 2025", role: "Peer Tutor", org: "Humber College, Toronto, ON", items: [
-    ["Ran workshops and one-to-one support in Excel, Power BI and statistics.", "Learners with different technical levels could follow and apply the material."],
-    ["Explained data modelling, regression and hypothesis testing in plain language.", "Students applied analytical concepts to their coursework."]
+    ["Delivered workshops and personalized support in Excel, Power BI and statistics.", "Workshops and one-to-one support.", "Not quantified"],
+    ["Explained data modelling, regression and hypothesis testing in accessible language.", "Plain-language explanations.", "Not quantified"]
   ]},
   { when: "Dec 2021 - Oct 2022", role: "Jr Reporting Analyst", org: "Scalezix Technologies, Ahmedabad, India", items: [
-    ["Built Power BI models and dashboards to analyze procurement spend across purchasing channels.", "Gave leadership visibility and identified potential cost savings of 30%."],
-    ["Prepared procurement data with Excel Power Query, Pivot Tables and XLOOKUP.", "Reduced weekly reporting effort by 22 hours."],
-    ["Managed recurring weekly reporting and presented spend trends to non-technical stakeholders.", "Deadlines met and findings understood by the people who had to act on them."]
+    ["Developed Power BI data models and dashboards to analyze procurement spend across purchasing channels.", "Procurement spend dashboards for leadership.", "Potential cost savings of 30% identified (potential, not realized)"],
+    ["Used Excel Power Query, Pivot Tables and XLOOKUP to prepare procurement data.", "Weekly procurement analysis.", "Weekly reporting effort reduced by 22 hours"],
+    ["Managed recurring weekly reporting and presented spend trends to non-technical stakeholders.", "Weekly reports and spend-trend presentations.", "Not quantified"]
   ]}
 ];
 (function () {
   var X = {
-    "household-credit": { problem: "How long do interest-rate rises take to slow household borrowing?", features: [
+    "household-credit": { problem: "The strongest negative association between rate changes and credit growth appears at an 18-month lag", features: [
       "Rate-lag selector (0 to 24 months) that compares credit growth with an earlier rate change",
       "Policy, prime and mortgage rates side by side with household credit, 2010 to 2026",
       "Year-over-year growth for total credit and each category, with a scorecard",
@@ -892,7 +893,7 @@ window.PROFILE.experienceStory = [
     "collision-risk": { problem: "When and where do Canadian roads turn deadly?", features: [
       "Heat map of fatal share by hour and weekday, with night hours highlighted",
       "2020 against 2019, with fatal and injury collisions indexed to 2019",
-      "What-if scenario: how much of the gap between risky and safer roads to close",
+      "Illustrative what-if scenario (assumed effect, not an observed outcome): how much of the gap between risky and safer roads to close",
       "People page: fatality rates by road user, age, safety device and vehicle",
       "Decomposition tree to split fatal collisions by any factor"] },
     "toronto-311": { problem: "Where does Toronto 311 leave requests unresolved, and can its numbers be compared year to year?", features: [
@@ -909,4 +910,9 @@ window.PROFILE.experienceStory = [
       "Data-quality page: who reports what, and how missing values are handled"] }
   };
   window.PROJECTS.forEach(function (p) { if (X[p.id]) { p.problem = X[p.id].problem; p.features = X[p.id].features; } });
+})();
+
+(function () {
+  var SK = {"toronto-311": "KPI reconciliation, DAX year-over-year, SQL data checks, drill-through design", "household-credit": "Multi-source modelling, lag and correlation analysis, DAX time intelligence, careful non-causal wording", "collision-risk": "SQL validation (11 queries), star schema with unknown members, scenario modelling, decomposition analysis", "substance-harms": "Suppressed and missing data, cross-source comparison with stated coverage, heat and tile maps, data-quality reporting"};
+  window.PROJECTS.forEach(function (q) { if (SK[q.id]) q.skills = SK[q.id]; });
 })();
