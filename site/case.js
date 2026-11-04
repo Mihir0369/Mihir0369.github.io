@@ -450,6 +450,34 @@
   }
 
   /* ---- Power BI report screenshots */
+  var viewer = null, viewerIdx = 0;
+  function openViewer(i) {
+    if (!viewer) {
+      viewer = el("div", { "class": "viewer", role: "dialog", "aria-modal": "true", "aria-label": "Report page viewer" });
+      var box = el("div", { "class": "viewer-box" });
+      var close = el("button", { "class": "viewer-close", type: "button", "aria-label": "Close" }, "×");
+      var prev = el("button", { "class": "viewer-nav prev", type: "button", "aria-label": "Previous page" }, "‹");
+      var next = el("button", { "class": "viewer-nav next", type: "button", "aria-label": "Next page" }, "›");
+      var im = el("img", { "class": "viewer-img", alt: "" });
+      var cap = el("div", { "class": "viewer-cap" });
+      box.appendChild(close); box.appendChild(prev); box.appendChild(im); box.appendChild(next); box.appendChild(cap);
+      viewer.appendChild(box); document.body.appendChild(viewer);
+      function hide() { viewer.classList.remove("open"); document.body.style.overflow = ""; }
+      function go(d) { viewerIdx = (viewerIdx + d + p.shots.length) % p.shots.length; show(); }
+      function show() { var s = p.shots[viewerIdx]; im.src = s.file; im.alt = s.caption; cap.textContent = (viewerIdx + 1) + " of " + p.shots.length + " · " + s.caption; }
+      viewer._show = show;
+      close.addEventListener("click", hide);
+      prev.addEventListener("click", function () { go(-1); });
+      next.addEventListener("click", function () { go(1); });
+      viewer.addEventListener("click", function (e) { if (e.target === viewer || e.target === box) hide(); });
+      document.addEventListener("keydown", function (e) {
+        if (!viewer.classList.contains("open")) return;
+        if (e.key === "Escape") hide(); else if (e.key === "ArrowLeft") go(-1); else if (e.key === "ArrowRight") go(1);
+      });
+    }
+    viewerIdx = i; viewer._show();
+    viewer.classList.add("open"); document.body.style.overflow = "hidden";
+  }
   function gallery() {
     var gal = el("div", { "class": "shots" });
     var wrap = null;
@@ -462,7 +490,8 @@
       var fig = el("figure", { "class": "shot" + (big ? " shot-main" : "") });
       var img = el("img", { src: s.file, alt: s.caption, loading: big ? "eager" : "lazy" });
       img.addEventListener("error", function () { img.replaceWith(slot("Screenshot not added yet: save it as site/" + s.file)); });
-      var open = el("a", { href: s.file, target: "_blank", rel: "noopener", title: "Open full size" });
+      var open = el("a", { href: s.file, target: "_blank", rel: "noopener", title: "Click to view this report page" });
+      open.addEventListener("click", function (e) { e.preventDefault(); openViewer(si); });
       open.appendChild(img);
       fig.appendChild(open);
       fig.appendChild(el("figcaption", {}, big ? s.caption + " (click to enlarge)" : s.caption));
