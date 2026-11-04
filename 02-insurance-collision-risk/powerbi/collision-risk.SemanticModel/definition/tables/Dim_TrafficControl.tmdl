@@ -1,0 +1,29 @@
+table Dim_TrafficControl
+	lineageTag: 1dd40a38-a2b6-546c-bffa-82b52e76d36e
+
+	column 'Traffic Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f8c54428-9ce6-5153-8fc1-65620311ba9a
+		summarizeBy: none
+		sourceColumn: Traffic Key
+
+	column 'Traffic Control'
+		dataType: string
+		lineageTag: 21fe96ae-4627-5681-85a6-8445be2a5908
+		summarizeBy: none
+		sourceColumn: Traffic Control
+
+	partition Dim_TrafficControl = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_traffic.csv"), [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"traffic_key", Int64.Type}, {"traffic_control", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"traffic_key", "Traffic Key"}, {"traffic_control", "Traffic Control"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

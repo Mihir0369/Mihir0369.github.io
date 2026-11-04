@@ -1,0 +1,40 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	discourageImplicitMeasures
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["fact_collision","fact_person","ModelFolder"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_collision
+ref table fact_person
+ref table Date
+ref table Dim_Hour
+ref table Dim_Weekday
+ref table Dim_Severity
+ref table Dim_Weather
+ref table Dim_RoadSurface
+ref table Dim_RoadAlignment
+ref table Dim_RoadLayout
+ref table Dim_TrafficControl
+ref table Dim_CollisionType
+ref table Dim_RoadUser
+ref table Dim_Safety
+ref table Dim_AgeBand
+ref table Dim_Sex
+ref table Dim_Vehicle
+ref table Dim_PersonSeverity
+ref table 'Time Comparison'
+ref table DQ_Field
+ref table Scenario
+ref table Uptake
+ref table _Measures
+
+ref cultureInfo en-US

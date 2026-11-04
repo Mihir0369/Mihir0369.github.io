@@ -1,0 +1,67 @@
+relationship collision_to_date
+	fromColumn: fact_collision.month_start
+	toColumn: Date.Date
+
+relationship collision_to_weekday
+	fromColumn: fact_collision.weekday_key
+	toColumn: Dim_Weekday.'Weekday Key'
+
+relationship collision_to_hour
+	fromColumn: fact_collision.hour_key
+	toColumn: Dim_Hour.'Hour Key'
+
+relationship collision_to_severity
+	fromColumn: fact_collision.severity_key
+	toColumn: Dim_Severity.'Severity Key'
+
+relationship collision_to_weather
+	fromColumn: fact_collision.weather_key
+	toColumn: Dim_Weather.'Weather Key'
+
+relationship collision_to_surface
+	fromColumn: fact_collision.surface_key
+	toColumn: Dim_RoadSurface.'Surface Key'
+
+relationship collision_to_alignment
+	fromColumn: fact_collision.alignment_key
+	toColumn: Dim_RoadAlignment.'Alignment Key'
+
+relationship collision_to_layout
+	fromColumn: fact_collision.layout_key
+	toColumn: Dim_RoadLayout.'Layout Key'
+
+relationship collision_to_traffic
+	fromColumn: fact_collision.traffic_key
+	toColumn: Dim_TrafficControl.'Traffic Key'
+
+relationship collision_to_type
+	fromColumn: fact_collision.type_key
+	toColumn: Dim_CollisionType.'Type Key'
+
+relationship person_to_collision
+	fromColumn: fact_person.collision_id
+	toColumn: fact_collision.collision_id
+
+relationship person_to_age
+	fromColumn: fact_person.age_key
+	toColumn: Dim_AgeBand.'Age Key'
+
+relationship person_to_user
+	fromColumn: fact_person.user_key
+	toColumn: Dim_RoadUser.'User Key'
+
+relationship person_to_safety
+	fromColumn: fact_person.safety_key
+	toColumn: Dim_Safety.'Safety Key'
+
+relationship person_to_sex
+	fromColumn: fact_person.sex_key
+	toColumn: Dim_Sex.'Sex Key'
+
+relationship person_to_vehicle
+	fromColumn: fact_person.vehicle_key
+	toColumn: Dim_Vehicle.'Vehicle Key'
+
+relationship person_to_severity
+	fromColumn: fact_person.person_severity_key
+	toColumn: Dim_PersonSeverity.'Person Severity Key'

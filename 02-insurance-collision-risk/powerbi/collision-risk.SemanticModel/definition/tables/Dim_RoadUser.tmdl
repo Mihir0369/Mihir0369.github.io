@@ -1,0 +1,29 @@
+table Dim_RoadUser
+	lineageTag: 5dbccb91-4de6-5e2e-9f5b-7e509bb581e5
+
+	column 'User Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cd849576-6f81-5d5d-bace-2189b12badfb
+		summarizeBy: none
+		sourceColumn: User Key
+
+	column 'Road User'
+		dataType: string
+		lineageTag: 7763abbd-3820-559e-aeac-b4cb313ae272
+		summarizeBy: none
+		sourceColumn: Road User
+
+	partition Dim_RoadUser = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_road_user.csv"), [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"user_key", Int64.Type}, {"road_user", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"user_key", "User Key"}, {"road_user", "Road User"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

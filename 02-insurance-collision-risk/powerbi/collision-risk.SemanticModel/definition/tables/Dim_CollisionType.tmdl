@@ -1,0 +1,44 @@
+table Dim_CollisionType
+	lineageTag: bb174001-dc9a-5c61-83f2-0bad3d36a2e1
+
+	column 'Type Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 51382d35-25fb-5190-927f-7f34486399b7
+		summarizeBy: none
+		sourceColumn: Type Key
+
+	column 'Collision Type'
+		dataType: string
+		lineageTag: 4b4debe0-fcff-5f27-b905-da897ec761d5
+		summarizeBy: none
+		sourceColumn: Collision Type
+
+	column 'Collision Group'
+		dataType: string
+		lineageTag: 6702c1c8-b1c7-549d-95c5-0a7bef45de16
+		summarizeBy: none
+		sourceColumn: Collision Group
+
+	hierarchy 'Collision Hierarchy'
+		lineageTag: ffbcdb61-06d9-5a4f-9f89-5b6224d17c13
+		level 'Collision Group'
+			lineageTag: df3d0f9e-9c0e-5e56-8edb-9b8cc7d0ac91
+			column: 'Collision Group'
+		level 'Collision Type'
+			lineageTag: 8eb74389-1a47-5e73-bcc7-2638515b1897
+			column: 'Collision Type'
+
+	partition Dim_CollisionType = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_collision_type.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"type_key", Int64.Type}, {"collision_type", type text}, {"collision_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"type_key", "Type Key"}, {"collision_type", "Collision Type"}, {"collision_group", "Collision Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

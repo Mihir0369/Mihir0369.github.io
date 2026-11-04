@@ -1,0 +1,53 @@
+table Date
+	lineageTag: c10cacbb-e946-555f-868c-076311933a1c
+	dataCategory: Time
+
+	column Date
+		isKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f852b809-eb27-59ae-9202-ce00549c7ae7
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ee738fbc-3963-5de2-823b-692325979a36
+		summarizeBy: none
+		sourceColumn: [Year]
+
+	column 'Year Label'
+		lineageTag: 19d98b32-d809-5288-a2c7-a5c1fe6733fe
+		summarizeBy: none
+		sourceColumn: [Year Label]
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: d731abbc-7ac9-5fa8-affa-6d37e6c412fb
+		summarizeBy: none
+		sourceColumn: [Month Number]
+
+	column Month
+		lineageTag: 4f975f78-899d-5816-9c88-2b46493838f9
+		summarizeBy: none
+		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
+
+	column 'Year Month'
+		lineageTag: 1f107646-a08e-5cfb-a854-61c4b16f42a7
+		summarizeBy: none
+		sourceColumn: [Year Month]
+
+	partition Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 2019, 1, 1 ), DATE ( 2020, 12, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Year Label", FORMAT ( YEAR ( [Date] ), "0" ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "mmm" ),
+				    "Year Month", FORMAT ( [Date], "yyyy-mm" )
+				)

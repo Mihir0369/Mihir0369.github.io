@@ -1,0 +1,4 @@
+expression ModelFolder = "C:\Users\12268\Desktop\Co-op\FInal\Portfolio Projects\02-insurance-collision-risk\model" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: c0f8fa49-b70c-5020-8174-9398064d7b5e
+
+	annotation PBI_ResultType = Text

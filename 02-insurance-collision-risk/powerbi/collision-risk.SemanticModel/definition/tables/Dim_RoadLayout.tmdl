@@ -1,0 +1,44 @@
+table Dim_RoadLayout
+	lineageTag: a209ccd8-646e-5140-a56b-ef28354bf16c
+
+	column 'Layout Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 760f5e1f-140b-5a33-a496-f4084f7c98fb
+		summarizeBy: none
+		sourceColumn: Layout Key
+
+	column 'Road Layout'
+		dataType: string
+		lineageTag: 276bd770-75b7-505e-8a3a-162828d4e80a
+		summarizeBy: none
+		sourceColumn: Road Layout
+
+	column 'Layout Group'
+		dataType: string
+		lineageTag: 5cfe7338-b4da-5689-a750-77a2eca2c5ae
+		summarizeBy: none
+		sourceColumn: Layout Group
+
+	hierarchy 'Layout Hierarchy'
+		lineageTag: e39a28f2-f649-592d-b2a0-4eceb5965976
+		level 'Layout Group'
+			lineageTag: acf72deb-2622-54ae-94d4-e4433adfa60a
+			column: 'Layout Group'
+		level 'Road Layout'
+			lineageTag: 38029505-14e5-5cf0-8405-1f0b37380cbc
+			column: 'Road Layout'
+
+	partition Dim_RoadLayout = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_layout.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"layout_key", Int64.Type}, {"road_layout", type text}, {"layout_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"layout_key", "Layout Key"}, {"road_layout", "Road Layout"}, {"layout_group", "Layout Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

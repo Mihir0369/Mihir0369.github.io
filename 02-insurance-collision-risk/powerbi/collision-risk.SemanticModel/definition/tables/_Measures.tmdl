@@ -1,0 +1,366 @@
+table _Measures
+	lineageTag: 655ae02f-67a7-59ab-94d7-95ea4d1a82c2
+
+	measure Collisions = COUNTROWS ( fact_collision )
+		formatString: #,0
+		lineageTag: 1f5f41f7-4b1e-5bbb-b921-c6d3f4d56a1e
+
+	measure 'Fatal Collisions' = CALCULATE ( [Collisions], Dim_Severity[Severity] = "Fatal" )
+		formatString: #,0
+		lineageTag: d20b4dcb-664f-574e-86ba-d7cfba0c0a36
+
+	measure 'Injury Collisions' = CALCULATE ( [Collisions], Dim_Severity[Severity] = "Injury" )
+		formatString: #,0
+		lineageTag: 5fa3032b-a3b0-507d-9354-502eeb7fee0f
+
+	measure 'Fatal Share' = DIVIDE ( [Fatal Collisions], [Collisions] )
+		formatString: 0.00%
+		lineageTag: 67e3b305-b8ba-5701-acca-896998fffd84
+
+	measure 'Overall Fatal Share' = CALCULATE ( [Fatal Share], REMOVEFILTERS () )
+		formatString: 0.00%
+		lineageTag: 5f6ef472-ed9b-5c28-8bb6-3543111b11aa
+
+	measure 'Share vs Average' = DIVIDE ( [Fatal Share], [Overall Fatal Share] )
+		formatString: "0.00""×"""
+		lineageTag: 38097876-ec2b-52b4-806b-93b6226ab4ad
+
+	measure 'People Killed' = SUM ( fact_collision[killed] )
+		formatString: #,0
+		lineageTag: 2cef3ad9-2379-5fb4-86cf-772e13903bb4
+
+	measure 'People Injured' = SUM ( fact_collision[injured] )
+		formatString: #,0
+		lineageTag: 171481c6-1095-5aff-a521-20c852f5ffbe
+
+	measure 'People Involved' = COUNTROWS ( fact_person )
+		formatString: #,0
+		lineageTag: b660ffc1-3b2c-5164-8704-3ad8b9eecbd4
+
+	measure 'Collisions Sub' = FORMAT ( [Fatal Collisions], "#,0" ) & " fatal, " & FORMAT ( [Injury Collisions], "#,0" ) & " injury"
+		lineageTag: 7236fcaf-f6ef-5ea1-8c85-d158ba5a31ed
+
+	measure 'Fatal Sub' = "All-collision average is " & FORMAT ( [Overall Fatal Share], "0.00%" )
+		lineageTag: ea9c7e73-a24a-5d79-aa3b-46c30b1dfca9
+
+	measure 'Heat Share' = IF ( SELECTEDVALUE ( Dim_Hour[Hour Key], 0 ) = 0, BLANK (), IF ( [Collisions] >= 100, [Fatal Share], BLANK () ) )
+		formatString: 0.00%
+		lineageTag: a3de24c1-3944-5b68-bdef-7c664448d9e6
+
+	measure 'Heat Index' = DIVIDE ( [Heat Share], [Overall Fatal Share] )
+		formatString: 0.00
+		lineageTag: 7cdaaab6-134a-56f7-b01b-61b5cb61649f
+
+	measure 'Heat Fill' = VAR k = [Heat Index] RETURN IF ( ISBLANK ( k ), BLANK (), SWITCH ( TRUE (), k < 0.75, "#FFF4DC", k < 1.5, "#FBD9A0", k < 2.5, "#F4B860", k < 4, "#E08A1E", "#B85C00" ) )
+		lineageTag: 7279a4d5-e9f6-5eb6-af48-e17633dffc4c
+
+	measure 'Heat Font' = VAR k = [Heat Index] RETURN IF ( ISBLANK ( k ), BLANK (), IF ( k < 2.5, "#1F2D3D", "#FFFFFF" ) )
+		lineageTag: c521a4d7-e3d3-560a-af6c-3047bd84f02c
+
+	measure 'Riskiest Hour Key' = VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Hour[Hour Key] ), Dim_Hour[Hour Key] > 0 && [Collisions] >= 500 ), "s", [Fatal Share] ), NOT ISBLANK ( [s] ) ) RETURN CALCULATE ( MAXX ( TOPN ( 1, t, [s], DESC ), Dim_Hour[Hour Key] ), REMOVEFILTERS ( Dim_Hour ) )
+		formatString: 0
+		lineageTag: deb3af76-0c29-5161-a69a-22fc1d6a54b5
+
+	measure 'Riskiest Hour Share' = VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Hour[Hour Key] ), Dim_Hour[Hour Key] > 0 && [Collisions] >= 500 ), "s", [Fatal Share] ), NOT ISBLANK ( [s] ) ) RETURN CALCULATE ( MAXX ( TOPN ( 1, t, [s], DESC ), [s] ), REMOVEFILTERS ( Dim_Hour ) )
+		formatString: 0.00%
+		lineageTag: f9820e9b-d522-581b-8ee5-ed487d145a34
+
+	measure 'Riskiest Hour Label' = VAR k = [Riskiest Hour Key] RETURN LOOKUPVALUE ( Dim_Hour[Hour Label], Dim_Hour[Hour Key], k )
+		lineageTag: 1ca4025f-855d-511c-91fb-e8d1815ef7b1
+
+	measure 'Riskiest Hour Text' = "At " & [Riskiest Hour Label] & ". Average is " & FORMAT ( [Overall Fatal Share], "0.00%" )
+		lineageTag: 4b0e69fd-c265-57d6-bb6b-3c099405f5fe
+
+	measure 'Night Fatal Share' = CALCULATE ( [Fatal Share], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" )
+		formatString: 0.00%
+		lineageTag: 6c06df7a-e0f2-5eed-a3af-9128f4742131
+
+	measure 'Day Fatal Share' = CALCULATE ( [Fatal Share], NOT ( Dim_Hour[Day Part] IN { "Night (10 pm to 6 am)", "Unknown or not reported" } ) )
+		formatString: 0.00%
+		lineageTag: b2d8934c-6ba5-5c05-ba41-6a0dfa5e40a2
+
+	measure 'Night Collision Share' = DIVIDE ( CALCULATE ( [Collisions], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" ), CALCULATE ( [Collisions], Dim_Hour[Hour Key] <> 0 ) )
+		formatString: 0.00%
+		lineageTag: 116373a6-9a0c-56f7-a44a-aca0682a465a
+
+	measure 'Night Fatal Collision Share' = DIVIDE ( CALCULATE ( [Fatal Collisions], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" ), CALCULATE ( [Fatal Collisions], Dim_Hour[Hour Key] <> 0 ) )
+		formatString: 0.00%
+		lineageTag: 8d3e1dc0-4fbc-5777-9add-76ff33ab22db
+
+	measure 'Night Sub' = "Day (6 am to 10 pm) is " & FORMAT ( [Day Fatal Share], "0.00%" )
+		lineageTag: 5bf1b7da-20a2-5cad-aae2-4ad29ca7cc3b
+
+	measure 'Night Share Sub' = "From " & FORMAT ( [Night Collision Share], "0.00%" ) & " of all collisions"
+		lineageTag: 53ce2d91-9ab6-579b-9b04-42261751f185
+
+	measure 'When Headline' = "Fatal collisions peak between midnight and 5 am: " & FORMAT ( [Night Fatal Share], "0.00%" ) & " at night against " & FORMAT ( [Day Fatal Share], "0.00%" ) & " by day."
+		lineageTag: 71a31d75-5932-5d02-82fc-249bce10d9a4
+
+	measure 'Night Times Day' = DIVIDE ( [Night Fatal Share], [Day Fatal Share] )
+		formatString: "0.00""×"""
+		lineageTag: 40add850-2185-557f-96c6-30c0530cde65
+
+	measure 'Day Sub' = "6 am to 10 pm, " & FORMAT ( CALCULATE ( [Collisions], NOT ( Dim_Hour[Day Part] IN { "Night (10 pm to 6 am)", "Unknown or not reported" } ) ), "#,0" ) & " collisions"
+		lineageTag: 801f6ecf-2076-593b-b243-2c940b5e6264
+
+	measure 'Night Times Sub' = "Night is " & FORMAT ( [Night Times Day], "0.00" ) & " times as likely to be fatal"
+		lineageTag: bef1c19b-511a-54d5-831d-83ad5bcb6edb
+
+	measure 'Hour Bar Color' = IF ( SELECTEDVALUE ( Dim_Hour[Day Part] ) = "Night (10 pm to 6 am)", "#C77700", "#7A93AB" )
+		lineageTag: 28423202-cebe-5d5b-95b4-0eb0ac478520
+
+	measure 'Collisions Dated' = IF ( ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), [Collisions] )
+		formatString: #,0
+		lineageTag: 023e8560-2a6b-5572-ab03-25f2c1af1d69
+
+	measure 'Fatal Share Dated' = IF ( ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), [Fatal Share] )
+		formatString: 0.00%
+		lineageTag: e2881dc9-2aa4-56c3-91cc-68f687691f0b
+
+	measure 'Collisions PY' = CALCULATE ( [Collisions], SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
+		formatString: #,0
+		lineageTag: d116f817-8d4d-5252-9208-4b9e8411103d
+
+	measure 'Collisions YoY Change' = IF ( ISBLANK ( [Collisions PY] ), BLANK (), [Collisions] - [Collisions PY] )
+		formatString: +#,0;-#,0;0
+		lineageTag: fb325161-fe79-5cdf-bcb1-02372907a71a
+
+	measure 'Collisions YoY %' = IF ( ISBLANK ( [Collisions PY] ), BLANK (), DIVIDE ( [Collisions] - [Collisions PY], [Collisions PY] ) )
+		formatString: +0.00%;-0.00%;0.00%
+		lineageTag: 7aadb817-3343-5090-b782-dc7fde0eb901
+
+	measure 'Collisions 2019' = CALCULATE ( [Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2019 )
+		formatString: #,0
+		lineageTag: a607c6bc-af2f-5439-adbb-23aefa9d88de
+
+	measure 'Collisions 2020' = CALCULATE ( [Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2020 )
+		formatString: #,0
+		lineageTag: 2da8486c-2e3f-597c-bafe-c457a8919b9f
+
+	measure 'Fatal 2019' = CALCULATE ( [Fatal Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2019 )
+		formatString: #,0
+		lineageTag: b1c08082-f30d-5649-97de-2886bc6c9865
+
+	measure 'Fatal 2020' = CALCULATE ( [Fatal Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2020 )
+		formatString: #,0
+		lineageTag: 06523f60-46db-5e64-8196-03eb91c2b9b5
+
+	measure 'Collisions Change' = DIVIDE ( [Collisions 2020] - [Collisions 2019], [Collisions 2019] )
+		formatString: +0.00%;-0.00%;0.00%
+		lineageTag: 152c2161-5fad-5a06-b06e-b3401f90ada4
+
+	measure 'Fatal Change' = DIVIDE ( [Fatal 2020] - [Fatal 2019], [Fatal 2019] )
+		formatString: +0.00%;-0.00%;0.00%
+		lineageTag: e971e43b-1d60-5232-b312-ed89a4274e8c
+
+	measure 'Fatal Share 2019' = CALCULATE ( [Fatal Share], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2019 )
+		formatString: 0.00%
+		lineageTag: 17f3281d-484d-57af-9d5f-63674338f58f
+
+	measure 'Fatal Share 2020' = CALCULATE ( [Fatal Share], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2020 )
+		formatString: 0.00%
+		lineageTag: 42234dd1-54a8-5d85-9f89-89d1c283feb4
+
+	measure 'Fatal Index' = VAR py = CALCULATE ( [Fatal Collisions], SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) RETURN IF ( ISBLANK ( py ) || ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), DIVIDE ( [Fatal Collisions], py ) * 100 )
+		formatString: 0
+		lineageTag: f3a47058-dce1-5855-a227-5e4df63a12a9
+
+	measure 'Injury Index' = VAR py = CALCULATE ( [Injury Collisions], SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) RETURN IF ( ISBLANK ( py ) || ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), DIVIDE ( [Injury Collisions], py ) * 100 )
+		formatString: 0
+		lineageTag: e02a6f02-6e48-5ef0-bb8a-6a7e93dd7dbb
+
+	measure 'Coll Change Sub' = FORMAT ( [Collisions 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Collisions 2020], "#,0" ) & " in 2020"
+		lineageTag: 351278b2-abce-50b5-9b06-99d173d12a48
+
+	measure 'Fatal Change Sub' = FORMAT ( [Fatal 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Fatal 2020], "#,0" ) & " in 2020"
+		lineageTag: 02e43d1d-8347-5f9e-a901-962ade7fcb97
+
+	measure 'Fatal Share 2020 Sub' = "Up " & FORMAT ( ( [Fatal Share 2020] - [Fatal Share 2019] ) * 100, "0.00" ) & " percentage points from " & FORMAT ( [Fatal Share 2019], "0.00%" ) & " in 2019"
+		lineageTag: e7a577cd-d513-5979-a72a-bd0641f41754
+
+	measure 'Injury 2019' = CALCULATE ( [Injury Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2019 )
+		formatString: #,0
+		lineageTag: 1cc2ed6c-2677-5dd6-b01f-e6e26e46322d
+
+	measure 'Injury 2020' = CALCULATE ( [Injury Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2020 )
+		formatString: #,0
+		lineageTag: f5c5898b-a898-5c98-b286-28904e813908
+
+	measure 'Injury Change' = DIVIDE ( [Injury 2020] - [Injury 2019], [Injury 2019] )
+		formatString: +0.00%;-0.00%;0.00%
+		lineageTag: 393b1ae7-6ba0-57f9-84ff-35e1cf4bc79b
+
+	measure 'Collisions Diff' = [Collisions 2020] - [Collisions 2019]
+		formatString: +#,0;-#,0;0
+		lineageTag: a7b370fe-399d-5587-82e3-02c362736c28
+
+	measure 'Injury Share Of Decline' = DIVIDE ( [Injury 2019] - [Injury 2020], [Collisions 2019] - [Collisions 2020] )
+		formatString: 0.00%
+		lineageTag: aaaab963-9f97-59d0-b115-55e901ed8d5e
+
+	measure 'Decline Sub' = "Injury collisions account for " & FORMAT ( [Injury Share Of Decline], "0.00%" ) & " of the " & FORMAT ( [Collisions 2019] - [Collisions 2020], "#,0" ) & " fewer collisions"
+		lineageTag: 5f79440c-9426-548d-8e2b-51579abd4c3a
+
+	measure 'Injury Diff' = [Injury 2020] - [Injury 2019]
+		formatString: +#,0;-#,0;0
+		lineageTag: 8fcc70ae-cd42-59a5-a378-da14b798df17
+
+	measure 'Fatal Diff' = [Fatal 2020] - [Fatal 2019]
+		formatString: +#,0;-#,0;0
+		lineageTag: a3c0f608-5854-5b1e-9dad-980e3344a998
+
+	measure 'Injury Decline Sub' = FORMAT ( [Injury Share Of Decline], "0.00%" ) & " of the total decrease"
+		lineageTag: 930ef4a7-eeef-59bd-96ba-13de09edd5a8
+
+	measure 'Fatal Decline Sub' = FORMAT ( DIVIDE ( [Fatal 2019] - [Fatal 2020], [Collisions 2019] - [Collisions 2020] ), "0.00%" ) & " of the total decrease"
+		lineageTag: f438f7ca-6749-59c0-9d77-7a6f561be2a8
+
+	measure 'Sev Color' = IF ( SELECTEDVALUE ( Dim_Severity[Severity] ) = "Fatal", "#C77700", "#1B3A5C" )
+		lineageTag: c4acc979-80bb-5d42-bcbf-d29515ed807d
+
+	measure 'Level 100' = IF ( ISBLANK ( [Injury Index] ), BLANK (), 100 )
+		formatString: 0
+		lineageTag: 6c6fd595-76fd-584a-afa8-0daa46559a2b
+
+	measure 'Pandemic Text' = "All collisions " & FORMAT ( [Collisions Change], "+0.00%;-0.00%" )
+		lineageTag: 41bc8672-5884-5682-9638-20868d5b1f6b
+
+	measure 'Pandemic Headline' = "Recorded collisions fell " & FORMAT ( ABS ( [Collisions Change] ), "0.00%" ) & " in 2020: injury collisions fell " & FORMAT ( ABS ( [Injury Change] ), "0.00%" ) & " and fatal collisions only " & FORMAT ( ABS ( [Fatal Change] ), "0.00%" ) & "."
+		lineageTag: 2e3ca557-b134-5155-9017-b604d53eddb3
+
+	measure 'Uptake Value' = SELECTEDVALUE ( Uptake[Uptake], 0.25 )
+		formatString: 0%
+		lineageTag: 2d42becc-9f6a-52b7-a468-89bb7d431c59
+
+	measure 'Scn Collisions' = VAR k = SELECTEDVALUE ( Scenario[Key] ) RETURN SWITCH ( k, 1, CALCULATE ( [Collisions], Dim_TrafficControl[Traffic Control] = "No control" ), 2, CALCULATE ( [Collisions], Dim_RoadAlignment[Alignment Group] = "Curved" ), 3, CALCULATE ( [Collisions], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" ) )
+		formatString: #,0
+		lineageTag: 33df3fed-81e3-5fc9-8539-390a94ecdc98
+
+	measure 'Scn Fatal Now' = VAR k = SELECTEDVALUE ( Scenario[Key] ) RETURN SWITCH ( k, 1, CALCULATE ( [Fatal Collisions], Dim_TrafficControl[Traffic Control] = "No control" ), 2, CALCULATE ( [Fatal Collisions], Dim_RoadAlignment[Alignment Group] = "Curved" ), 3, CALCULATE ( [Fatal Collisions], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" ) )
+		formatString: #,0
+		lineageTag: 17b4f417-beef-52cb-8440-94a06737dee6
+
+	measure 'Scn Rate Now' = VAR k = SELECTEDVALUE ( Scenario[Key] ) RETURN SWITCH ( k, 1, CALCULATE ( [Fatal Share], Dim_TrafficControl[Traffic Control] = "No control" ), 2, CALCULATE ( [Fatal Share], Dim_RoadAlignment[Alignment Group] = "Curved" ), 3, CALCULATE ( [Fatal Share], Dim_Hour[Day Part] = "Night (10 pm to 6 am)" ) )
+		formatString: 0.00%
+		lineageTag: 4e3737ee-80d3-5d5d-a35f-73aad1077810
+
+	measure 'Scn Rate Safer' = VAR k = SELECTEDVALUE ( Scenario[Key] ) RETURN SWITCH ( k, 1, CALCULATE ( [Fatal Share], Dim_TrafficControl[Traffic Control] = "Signals" ), 2, CALCULATE ( [Fatal Share], Dim_RoadAlignment[Alignment Group] = "Straight" ), 3, CALCULATE ( [Fatal Share], Dim_Hour[Day Part] = "Midday (10 am to 4 pm)" ) )
+		formatString: 0.00%
+		lineageTag: dfdca8d3-b265-5838-9cc9-9fd3a51be374
+
+	measure 'Scn Avoided' = [Scn Fatal Now] * ( 1 - DIVIDE ( [Scn Rate Safer], [Scn Rate Now] ) ) * [Uptake Value]
+		formatString: #,0
+		lineageTag: 33129920-bd10-5bc5-b64a-c23e37c3571a
+
+	measure 'Scn Share' = DIVIDE ( [Scn Avoided], [Fatal Collisions] )
+		formatString: 0.00%
+		lineageTag: bc39d620-814e-5bbb-abe6-4ad70b1beae4
+
+	measure 'Top Lever Avoided' = MAXX ( VALUES ( Scenario[Key] ), [Scn Avoided] )
+		formatString: #,0
+		lineageTag: 4493eba6-188e-51a7-9dcc-5869ffbffe58
+
+	measure 'Top Lever Name' = MAXX ( TOPN ( 1, VALUES ( Scenario[Intervention] ), [Scn Avoided], DESC ), Scenario[Intervention] )
+		lineageTag: 10934d99-7975-53a4-96ec-7f0cc72ced9f
+
+	measure 'Top Lever Share' = DIVIDE ( [Top Lever Avoided], [Fatal Collisions] )
+		formatString: 0.00%
+		lineageTag: 0d0eb87f-ba1b-5075-a7a9-680a8867226d
+
+	measure 'Top Lever Sub' = "Lever: " & [Top Lever Name]
+		lineageTag: 4a543494-d45f-5b5d-8a74-1d6a939ae70d
+
+	measure 'Top Share Sub' = "of all " & FORMAT ( [Fatal Collisions], "#,0" ) & " fatal collisions in the period"
+		lineageTag: f8c0cbc3-f00c-56f9-bde2-ef96eb5849b3
+
+	measure 'Uptake Sub' = "Share of the gap closed. Change it with the dropdown."
+		lineageTag: b6e8a2ad-afff-575f-ae5d-65ce43fdbf42
+
+	measure 'Scenario Headline' = "Closing " & FORMAT ( [Uptake Value], "0%" ) & " of the gap: " & LOWER ( [Top Lever Name] ) & " could avoid about " & FORMAT ( [Top Lever Avoided], "#,0" ) & " fatal collisions (" & FORMAT ( [Top Lever Share], "0.00%" ) & ")."
+		lineageTag: 909da9fd-bfc3-5724-9b2c-95f75674abfa
+
+	measure 'Head-on Share of Fatal' = DIVIDE ( CALCULATE ( [Fatal Collisions], Dim_CollisionType[Collision Type] = "Head-on" ), [Fatal Collisions] )
+		formatString: 0.00%
+		lineageTag: f2c106f2-fe7a-59bd-9a80-e4e06915a65b
+
+	measure 'Single Vehicle Share of Fatal' = DIVIDE ( CALCULATE ( [Fatal Collisions], Dim_CollisionType[Collision Group] = "Single vehicle" ), [Fatal Collisions] )
+		formatString: 0.00%
+		lineageTag: a6b9b714-d2f9-577a-b847-d5940f106424
+
+	measure 'People Avg Rate' = CALCULATE ( [Person Fatality Rate], REMOVEFILTERS ( Dim_RoadUser ), REMOVEFILTERS ( Dim_AgeBand ), REMOVEFILTERS ( Dim_Safety ), REMOVEFILTERS ( Dim_Vehicle ), REMOVEFILTERS ( Dim_Sex ) )
+		formatString: 0.00%
+		lineageTag: 149265b1-06c4-5a3c-9ed3-5325d185c2f9
+
+	measure 'Times Avg' = DIVIDE ( [Person Fatality Rate], [People Avg Rate] )
+		formatString: "0.00""×"""
+		lineageTag: de4bb6e8-9808-51fb-95d1-6b27f68da74f
+
+	measure 'Times Avg Color' = VAR x = [Times Avg] RETURN IF ( ISBLANK ( x ), BLANK (), IF ( x >= 1.5 && [People Involved] >= 5000, "#C77700", "#8A9BAE" ) )
+		lineageTag: 8977cc52-9200-59b8-9ce0-fcce22309a53
+
+	measure 'Occ Times Avg' = DIVIDE ( [Occupant Fatality Rate], [Restrained Rate] )
+		formatString: "0.00""×"""
+		lineageTag: ae9a46e5-af89-56ad-a508-5a15b0aed770
+
+	measure 'Occ Times Color' = VAR x = [Occ Times Avg] RETURN IF ( ISBLANK ( x ), BLANK (), IF ( x >= 1.5, "#C77700", "#8A9BAE" ) )
+		lineageTag: 025b8778-6cf8-5c0f-9fd6-b6bfb7bc1f5c
+
+	measure 'Person Deaths' = CALCULATE ( COUNTROWS ( fact_person ), Dim_PersonSeverity[Person Severity] = "Fatality" )
+		formatString: #,0
+		lineageTag: ede414fb-eca3-5d5c-a4e8-30934ec77930
+
+	measure 'Person Fatality Rate' = DIVIDE ( [Person Deaths], [People Involved] )
+		formatString: 0.00%
+		lineageTag: 7846f2a2-f7a9-52b2-8a1e-4f39acef2976
+
+	measure 'Occupant Fatality Rate' = CALCULATE ( [Person Fatality Rate], Dim_RoadUser[Road User] IN { "Driver", "Passenger" } )
+		formatString: 0.00%
+		lineageTag: 5786e983-ecb1-5084-877a-3fc7f2f76680
+
+	measure 'Unrestrained Rate' = CALCULATE ( [Person Fatality Rate], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "No safety device used" )
+		formatString: 0.00%
+		lineageTag: 3b1dd489-f698-5be4-8908-b5ea31864a16
+
+	measure 'Restrained Rate' = CALCULATE ( [Person Fatality Rate], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "Safety device used" )
+		formatString: 0.00%
+		lineageTag: 8ba9ae26-8d4b-5955-be52-a563fd3f1932
+
+	measure 'Unrestrained Multiple' = DIVIDE ( [Unrestrained Rate], [Restrained Rate] )
+		formatString: "0.00""×"""
+		lineageTag: af513548-77dc-542a-8c58-3b3eb618b2f4
+
+	measure 'Unrestrained People' = CALCULATE ( [People Involved], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "No safety device used" )
+		formatString: #,0
+		lineageTag: 0b901435-0a7d-5f01-b50b-3cfd9a2ade20
+
+	measure 'Unrestrained Sub' = "Occupants, no safety device used: " & FORMAT ( [Unrestrained People], "#,0" ) & " people, " & FORMAT ( [Unrestrained Deaths], "#,0" ) & " deaths"
+		lineageTag: 3c68da76-985e-502c-b7ae-000dbabca450
+
+	measure 'Unrestrained Deaths' = CALCULATE ( [Person Deaths], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "No safety device used" )
+		formatString: #,0
+		lineageTag: 147ea49a-9353-5170-b5e2-5f04cfeb5569
+
+	measure 'Restrained People' = CALCULATE ( [People Involved], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "Safety device used" )
+		formatString: #,0
+		lineageTag: d3576cc8-8060-548b-a29e-a074b72f0692
+
+	measure 'Restrained Deaths' = CALCULATE ( [Person Deaths], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "Safety device used" )
+		formatString: #,0
+		lineageTag: 718cee32-0962-52bc-8223-11eb7b12d894
+
+	measure 'Restrained Sub' = "Occupants, safety device used: " & FORMAT ( [Restrained People], "#,0" ) & " people, " & FORMAT ( [Restrained Deaths], "#,0" ) & " deaths"
+		lineageTag: 471b187c-1557-5d75-b986-b0b855eb463c
+
+	measure 'Multiple Sub' = "Observed ratio, not adjusted for other factors"
+		lineageTag: 145a844b-45ba-5604-96a9-8e9b4d93b36a
+
+	measure 'People Headline' = "Occupants with no safety device used die " & FORMAT ( [Unrestrained Multiple], "0.00" ) & " times as often, and motorcyclists and pedestrians are the most exposed."
+		lineageTag: 926cba1a-8b9f-57fa-90ea-51a6548c5a6b
+
+	measure 'Unknown Share (Field)' = SWITCH ( SELECTEDVALUE ( DQ_Field[Field] ), "Collision type", DIVIDE ( CALCULATE ( [Collisions], Dim_CollisionType[Type Key] = 0 ), [Collisions] ), "Traffic control", DIVIDE ( CALCULATE ( [Collisions], Dim_TrafficControl[Traffic Key] = 0 ), [Collisions] ), "Road alignment", DIVIDE ( CALCULATE ( [Collisions], Dim_RoadAlignment[Alignment Key] = 0 ), [Collisions] ), "Road surface", DIVIDE ( CALCULATE ( [Collisions], Dim_RoadSurface[Surface Key] = 0 ), [Collisions] ), "Weather", DIVIDE ( CALCULATE ( [Collisions], Dim_Weather[Weather Key] = 0 ), [Collisions] ), "Time of day", DIVIDE ( CALCULATE ( [Collisions], Dim_Hour[Hour Key] = 0 ), [Collisions] ), "Safety device", DIVIDE ( CALCULATE ( [People Involved], Dim_Safety[Safety Key] = 0 ), [People Involved] ), "Age band", DIVIDE ( CALCULATE ( [People Involved], Dim_AgeBand[Age Key] = 0 ), [People Involved] ) )
+		formatString: 0.00%
+		lineageTag: 8ea397c2-cdab-586e-b6aa-9bd74c088757
+
+	measure 'Data Through Text' = "Collisions from Jan 2019 to Dec 2020  |  Police-reported fatal and injury collisions only"
+		lineageTag: 93419934-ac8e-58cc-ba59-488724cdb05f
+

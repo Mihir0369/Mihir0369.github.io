@@ -1,0 +1,34 @@
+table DQ_Field
+	lineageTag: a6f86906-3eff-5dd8-98bf-f03757b258f7
+
+	column Field
+		lineageTag: b5cd9526-ae6c-5c2a-930c-5ab2d5127891
+		summarizeBy: none
+		sourceColumn: [Field]
+		sortByColumn: 'Sort Order'
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fa0e7476-3f7f-56e8-b9cc-d8c65e5cdd19
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition DQ_Field = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Field", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Collision type", 1 },
+				        { "Traffic control", 2 },
+				        { "Road alignment", 3 },
+				        { "Road surface", 4 },
+				        { "Weather", 5 },
+				        { "Time of day", 6 },
+				        { "Safety device", 7 },
+				        { "Age band", 8 }
+				    }
+				)

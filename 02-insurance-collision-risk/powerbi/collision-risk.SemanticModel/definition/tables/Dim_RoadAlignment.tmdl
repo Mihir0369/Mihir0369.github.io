@@ -1,0 +1,44 @@
+table Dim_RoadAlignment
+	lineageTag: fa945bbe-a703-5c07-ae79-ba16be3f94ec
+
+	column 'Alignment Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3ac30ae8-fa99-589d-94df-001c6d69c501
+		summarizeBy: none
+		sourceColumn: Alignment Key
+
+	column 'Road Alignment'
+		dataType: string
+		lineageTag: cf7b84b9-5217-5201-833e-95b3f32e9e4d
+		summarizeBy: none
+		sourceColumn: Road Alignment
+
+	column 'Alignment Group'
+		dataType: string
+		lineageTag: fdf1591a-58ed-59ae-80fc-aa3f4baf8ad1
+		summarizeBy: none
+		sourceColumn: Alignment Group
+
+	hierarchy 'Alignment Hierarchy'
+		lineageTag: 787b9532-6070-5dab-80c4-f497af36183c
+		level 'Alignment Group'
+			lineageTag: e72bc290-28c1-5d3e-8597-678cfaa1517f
+			column: 'Alignment Group'
+		level 'Road Alignment'
+			lineageTag: 938c833a-e2e4-5237-a487-a84f5820e707
+			column: 'Road Alignment'
+
+	partition Dim_RoadAlignment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_alignment.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"alignment_key", Int64.Type}, {"road_alignment", type text}, {"alignment_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"alignment_key", "Alignment Key"}, {"road_alignment", "Road Alignment"}, {"alignment_group", "Alignment Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

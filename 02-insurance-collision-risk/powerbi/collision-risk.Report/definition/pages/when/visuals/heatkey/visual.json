@@ -1,0 +1,182 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "heatkey",
+  "position": {
+    "x": 30,
+    "y": 890,
+    "z": 350,
+    "width": 760,
+    "height": 38,
+    "tabOrder": 350
+  },
+  "visual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Times the overall average:   ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#FFF4DC"
+                    }
+                  },
+                  {
+                    "value": "under 0.75    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#FBD9A0"
+                    }
+                  },
+                  {
+                    "value": "0.75 to 1.5    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#F4B860"
+                    }
+                  },
+                  {
+                    "value": "1.5 to 2.5    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#E08A1E"
+                    }
+                  },
+                  {
+                    "value": "2.5 to 4    ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  },
+                  {
+                    "value": "\u25a0 ",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#B85C00"
+                    }
+                  },
+                  {
+                    "value": "over 4",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "6.0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "8.0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "4.0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "8.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

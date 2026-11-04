@@ -1,0 +1,68 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "CollisionRiskPortfolio.json",
+      "type": "RegisteredResources",
+      "reportVersionAtImport": {
+        "visual": "1.8.0",
+        "report": "2.0.0",
+        "page": "1.3.0"
+      }
+    }
+  },
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "CollisionRiskPortfolio.json",
+          "path": "CollisionRiskPortfolio.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "canvas_compare.png",
+          "path": "canvas_compare.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_conditions.png",
+          "path": "canvas_conditions.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_explore.png",
+          "path": "canvas_explore.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_people.png",
+          "path": "canvas_people.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_quality.png",
+          "path": "canvas_quality.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_start.png",
+          "path": "canvas_start.png",
+          "type": "Image"
+        },
+        {
+          "name": "canvas_when.png",
+          "path": "canvas_when.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ]
+}

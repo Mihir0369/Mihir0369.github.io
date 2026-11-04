@@ -1,0 +1,44 @@
+table Dim_Vehicle
+	lineageTag: e339e12d-420d-5596-8b23-f639fb8da2ee
+
+	column 'Vehicle Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e581da6f-84ff-59e9-a354-8cfb7043ae10
+		summarizeBy: none
+		sourceColumn: Vehicle Key
+
+	column 'Vehicle Type'
+		dataType: string
+		lineageTag: fcd306ad-38ed-5a4b-8b1f-14eaffe9e906
+		summarizeBy: none
+		sourceColumn: Vehicle Type
+
+	column 'Vehicle Group'
+		dataType: string
+		lineageTag: 1363a6fd-a598-58e5-aada-4bde0fbf06b4
+		summarizeBy: none
+		sourceColumn: Vehicle Group
+
+	hierarchy 'Vehicle Hierarchy'
+		lineageTag: 1da060c7-a2cb-573d-a1df-11907c54c36f
+		level 'Vehicle Group'
+			lineageTag: afd73834-6d39-5bd3-9a23-e23c92bbedc3
+			column: 'Vehicle Group'
+		level 'Vehicle Type'
+			lineageTag: aab1cf5c-0fd5-5f23-9d97-6e7415adfa60
+			column: 'Vehicle Type'
+
+	partition Dim_Vehicle = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_vehicle.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"vehicle_key", Int64.Type}, {"vehicle_type", type text}, {"vehicle_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"vehicle_key", "Vehicle Key"}, {"vehicle_type", "Vehicle Type"}, {"vehicle_group", "Vehicle Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

@@ -26,8 +26,8 @@
   }
   function ul(items) { var u = el("ul"); items.forEach(function (t) { u.appendChild(el("li", {}, t)); }); return u; }
   function slot(text) { return el("div", { "class": "slot" }, text); }
-  function fmt(v, suffix) {
-    if (suffix) return (Math.round(v * 10) / 10).toFixed(1) + suffix;
+  function fmt(v, suffix, dec) {
+    if (suffix) return Number(v).toFixed(dec == null ? 1 : dec) + suffix;
     return Number(v).toLocaleString("en-CA");
   }
   function wrap(label, n) {
@@ -79,7 +79,7 @@
       var horizontal = chart.options.indexAxis === "y";
       chart.getDatasetMeta(0).data.forEach(function (bar, i) {
         var v = chart.data.datasets[0].data[i];
-        var t = fmt(v, opts.suffix);
+        var t = fmt(v, opts.suffix, opts.decimals);
         if (horizontal) { ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(t, bar.x + 6, bar.y); }
         else { ctx.textAlign = "center"; ctx.textBaseline = "bottom"; ctx.fillText(t, bar.x, bar.y - 5); }
       });
@@ -117,16 +117,16 @@
           })
         : [{ data: c.values, borderWidth: type === "line" ? 3 : 0, tension: 0.25, pointRadius: type === "line" ? 2 : 0,
              borderColor: COL.navy,
-             backgroundColor: c.highlight != null ? c.values.map(function (v, i) { return i === c.highlight ? COL.amber : COL.grey; }) : COL.navy }];
+             backgroundColor: c.highlight != null ? c.values.map(function (v, i) { return (Array.isArray(c.highlight) ? c.highlight.indexOf(i) >= 0 : i === c.highlight) ? COL.amber : COL.grey; }) : COL.navy }];
       var valAxis = { beginAtZero: true, grid: grid, title: { display: !!c.unit, text: c.unit || "" },
-        ticks: { maxTicksLimit: 8, callback: function (v) { return c.suffix ? v + c.suffix : Number(v).toLocaleString("en-CA"); } } };
+        ticks: { maxTicksLimit: 8, callback: function (v) { return c.suffix ? (c.decimals != null && c.decimals > 0 ? Number(v).toFixed(c.decimals) : v) + c.suffix : Number(v).toLocaleString("en-CA"); } } };
       var catAxis = { grid: { display: false }, ticks: { autoSkip: type === "line", maxTicksLimit: type === "line" ? 12 : undefined,
         callback: function (v) { var l = this.getLabelForValue(v); return horizontal ? wrap(l, 26) : l; } } };
       data = { labels: c.labels, datasets: datasets };
       options = { maintainAspectRatio: false, indexAxis: horizontal ? "y" : "x",
         layout: { padding: { right: horizontal && !grouped ? 48 : 8, top: !horizontal && type === "bar" ? 18 : 0 } },
-        plugins: { legend: { display: grouped, position: "bottom" }, valueLabels: { show: type === "bar" && !grouped && !c.noLabels, suffix: c.suffix },
-          tooltip: { callbacks: { label: function (x) { return " " + (x.dataset.label ? x.dataset.label + ": " : "") + fmt(x.raw, c.suffix); } } } },
+        plugins: { legend: { display: grouped, position: "bottom" }, valueLabels: { show: type === "bar" && !grouped && !c.noLabels, suffix: c.suffix, decimals: c.decimals },
+          tooltip: { callbacks: { label: function (x) { return " " + (x.dataset.label ? x.dataset.label + ": " : "") + fmt(x.raw, c.suffix, c.decimals); } } } },
         scales: horizontal ? { x: valAxis, y: catAxis } : { x: catAxis, y: valAxis } };
     }
     new Chart(canvas, { type: type, data: data, options: options, plugins: [valueLabels] });
@@ -156,7 +156,7 @@
   /* Story layout: facts, report, findings, chapters, recommendations, method */
 
   /* bold key numbers (percentages, figures with commas or decimals) and key terms */
-  var TERMS = ["parks, forestry and environment", "Parks, Forestry and Environment", "parks and forestry", "dead-wildlife pick-up", "Dead-wildlife pick-up", "missed recycling pick-up", "general pruning", "tree removal", "Taxonomy Era", "snow types", "closed date", "renamed request types", "Renamed request types", "star schema", "47 DAX measures", "unquoted comma"];
+  var TERMS = ["fatal share", "injury collisions", "no traffic control", "No traffic control", "curved roads", "single-vehicle", "safety device", "collision ID", "C_CASE", "what-if", "parks, forestry and environment", "Parks, Forestry and Environment", "parks and forestry", "dead-wildlife pick-up", "Dead-wildlife pick-up", "missed recycling pick-up", "general pruning", "tree removal", "Taxonomy Era", "snow types", "closed date", "renamed request types", "Renamed request types", "star schema", "47 DAX measures", "unquoted comma"];
   var RICH = new RegExp("(" + TERMS.map(function (t) { return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }).join("|") + "|\\d[\\d,]*\\.\\d+%?|\\d{1,3}(?:,\\d{3})+|\\d+(?:\\.\\d+)?%|\\d+(?:\\.\\d+)? pts)", "g");
   function rich(node, text) {
     var parts = String(text).split(RICH);

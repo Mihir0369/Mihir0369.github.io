@@ -1,0 +1,14 @@
+table Uptake
+	lineageTag: 0b3e4a72-bfd3-5258-8a27-0c6be9d45eea
+
+	column Uptake
+		dataType: double
+		formatString: 0%
+		lineageTag: bf3d7e38-1e8a-5b4b-8d0d-515849677760
+		summarizeBy: none
+		sourceColumn: [Uptake]
+
+	partition Uptake = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS ( GENERATESERIES ( 0, 1, 0.1 ), "Uptake", ROUND ( [Value], 1 ) )

@@ -1,0 +1,257 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "tree",
+  "position": {
+    "x": 20,
+    "y": 200,
+    "z": 300,
+    "width": 1240,
+    "height": 550,
+    "tabOrder": 300
+  },
+  "visual": {
+    "visualType": "decompositionTreeVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Analyze": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Fatal Collisions"
+                }
+              },
+              "queryRef": "_Measures.Fatal Collisions",
+              "nativeQueryRef": "Fatal Collisions",
+              "displayName": "Fatal collisions"
+            }
+          ]
+        },
+        "ExplainBy": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Hour"
+                    }
+                  },
+                  "Property": "Day Part"
+                }
+              },
+              "queryRef": "Dim_Hour.Day Part",
+              "nativeQueryRef": "Day Part",
+              "displayName": "Time of day"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_CollisionType"
+                    }
+                  },
+                  "Property": "Collision Group"
+                }
+              },
+              "queryRef": "Dim_CollisionType.Collision Group",
+              "nativeQueryRef": "Collision Group",
+              "displayName": "Collision group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_TrafficControl"
+                    }
+                  },
+                  "Property": "Traffic Control"
+                }
+              },
+              "queryRef": "Dim_TrafficControl.Traffic Control",
+              "nativeQueryRef": "Traffic Control",
+              "displayName": "Traffic control"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_RoadSurface"
+                    }
+                  },
+                  "Property": "Surface Group"
+                }
+              },
+              "queryRef": "Dim_RoadSurface.Surface Group",
+              "nativeQueryRef": "Surface Group",
+              "displayName": "Road surface"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_RoadAlignment"
+                    }
+                  },
+                  "Property": "Alignment Group"
+                }
+              },
+              "queryRef": "Dim_RoadAlignment.Alignment Group",
+              "nativeQueryRef": "Alignment Group",
+              "displayName": "Road alignment"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Weather"
+                    }
+                  },
+                  "Property": "Weather Group"
+                }
+              },
+              "queryRef": "Dim_Weather.Weather Group",
+              "nativeQueryRef": "Weather Group",
+              "displayName": "Weather"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_RoadLayout"
+                    }
+                  },
+                  "Property": "Layout Group"
+                }
+              },
+              "queryRef": "Dim_RoadLayout.Layout Group",
+              "nativeQueryRef": "Layout Group",
+              "displayName": "Road layout"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Weekday"
+                    }
+                  },
+                  "Property": "Week Part"
+                }
+              },
+              "queryRef": "Dim_Weekday.Week Part",
+              "nativeQueryRef": "Week Part",
+              "displayName": "Weekday or weekend"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fatal collisions, split by the factors you choose'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Starts with all 3,225 fatal collisions.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Decomposition tree of fatal collisions'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

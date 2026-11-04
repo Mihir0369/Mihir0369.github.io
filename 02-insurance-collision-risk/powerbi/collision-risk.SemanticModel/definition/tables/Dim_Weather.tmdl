@@ -1,0 +1,44 @@
+table Dim_Weather
+	lineageTag: 923949d2-3914-5e1a-bcad-cabc7c3124e1
+
+	column 'Weather Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1a3ed1fb-1da1-58fd-8bea-cffa17b04701
+		summarizeBy: none
+		sourceColumn: Weather Key
+
+	column Weather
+		dataType: string
+		lineageTag: 0230c079-188c-5b72-a63b-bee665c79dec
+		summarizeBy: none
+		sourceColumn: Weather
+
+	column 'Weather Group'
+		dataType: string
+		lineageTag: 5ca9d7bf-782e-52aa-8402-362f06c9eb8b
+		summarizeBy: none
+		sourceColumn: Weather Group
+
+	hierarchy 'Weather Hierarchy'
+		lineageTag: 187808f7-0683-5027-87bc-9c4f62a9f2c5
+		level 'Weather Group'
+			lineageTag: d8b69ca9-759c-50cb-b3f9-2f9449e559c7
+			column: 'Weather Group'
+		level Weather
+			lineageTag: f8f58a05-00ab-573d-aa61-ff2516c0dc30
+			column: Weather
+
+	partition Dim_Weather = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_weather.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"weather_key", Int64.Type}, {"weather", type text}, {"weather_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"weather_key", "Weather Key"}, {"weather", "Weather"}, {"weather_group", "Weather Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,141 @@
+table fact_collision
+	lineageTag: 00d92ea4-3a15-51b8-a3bd-352a02ebeb71
+
+	column collision_id
+		dataType: string
+		isHidden
+		lineageTag: d35b7708-f8da-5c32-bcb4-24186237cda8
+		summarizeBy: none
+		sourceColumn: collision_id
+
+	column year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 36304984-8dc2-50a2-82d9-6a1a5b070c1c
+		summarizeBy: none
+		sourceColumn: year
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: ead5bfb7-bdde-5464-9d9b-f447b9ddaa0f
+		summarizeBy: none
+		sourceColumn: month_start
+
+	column weekday_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 80b6d68e-02df-56bb-b3bf-18283fa16571
+		summarizeBy: none
+		sourceColumn: weekday_key
+
+	column hour_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f9762c94-14b7-5c8d-bb3d-9015192d82e6
+		summarizeBy: none
+		sourceColumn: hour_key
+
+	column severity_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0b368c63-7a51-5c3b-9d1c-6c90e4509c7b
+		summarizeBy: none
+		sourceColumn: severity_key
+
+	column weather_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 27424fb7-aa4f-5991-bad8-7f91f8ed7f98
+		summarizeBy: none
+		sourceColumn: weather_key
+
+	column surface_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 57ac1819-84b4-5655-a48b-6a34fe55ff7b
+		summarizeBy: none
+		sourceColumn: surface_key
+
+	column alignment_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4d30122c-8b08-5f9f-9b12-5321221d3f73
+		summarizeBy: none
+		sourceColumn: alignment_key
+
+	column layout_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e9fb7a2b-be38-5d7e-93ff-1869d22264be
+		summarizeBy: none
+		sourceColumn: layout_key
+
+	column traffic_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2a4b3215-2df1-5ed0-b08e-55dde718ca08
+		summarizeBy: none
+		sourceColumn: traffic_key
+
+	column type_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f53c0cf-cbbc-5cdc-89ca-945036398698
+		summarizeBy: none
+		sourceColumn: type_key
+
+	column vehicles
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 52ff866d-201e-5f14-9b0e-05d1d20ece17
+		summarizeBy: none
+		sourceColumn: vehicles
+
+	column people
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eeca9a60-9af9-5f71-9c85-24044e310ccb
+		summarizeBy: none
+		sourceColumn: people
+
+	column killed
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d472f06f-6b5d-575b-809e-e2dfa9d8cc7f
+		summarizeBy: none
+		sourceColumn: killed
+
+	column injured
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8163265c-8938-5b1c-860f-1a4316640d59
+		summarizeBy: none
+		sourceColumn: injured
+
+	partition fact_collision = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_collision.csv"), [Delimiter = ",", Columns = 16, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"collision_id", type text}, {"year", Int64.Type}, {"month_start", type date}, {"weekday_key", Int64.Type}, {"hour_key", Int64.Type}, {"severity_key", Int64.Type}, {"weather_key", Int64.Type}, {"surface_key", Int64.Type}, {"alignment_key", Int64.Type}, {"layout_key", Int64.Type}, {"traffic_key", Int64.Type}, {"type_key", Int64.Type}, {"vehicles", Int64.Type}, {"people", Int64.Type}, {"killed", Int64.Type}, {"injured", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

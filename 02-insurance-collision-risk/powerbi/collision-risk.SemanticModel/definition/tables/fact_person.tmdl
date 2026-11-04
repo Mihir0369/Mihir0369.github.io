@@ -1,0 +1,77 @@
+table fact_person
+	lineageTag: 0bd4ba1f-ca57-5553-926e-889fd95ea04a
+
+	column collision_id
+		dataType: string
+		isHidden
+		lineageTag: d35b7708-f8da-5c32-bcb4-24186237cda8
+		summarizeBy: none
+		sourceColumn: collision_id
+
+	column age
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 96c57744-9412-5850-8e4c-2d01efbf3319
+		summarizeBy: none
+		sourceColumn: age
+
+	column age_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d9661fca-2e65-51a6-bbb8-1f4635cdd604
+		summarizeBy: none
+		sourceColumn: age_key
+
+	column user_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 85744419-b7b9-5fcf-a101-ee5b2753969f
+		summarizeBy: none
+		sourceColumn: user_key
+
+	column safety_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ad6ad65b-2149-5621-b24f-26d33181a001
+		summarizeBy: none
+		sourceColumn: safety_key
+
+	column sex_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 12ebe3f2-430b-54a7-abf6-c4c5add92760
+		summarizeBy: none
+		sourceColumn: sex_key
+
+	column vehicle_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 399d21d4-49aa-5212-ab62-7134350cc96b
+		summarizeBy: none
+		sourceColumn: vehicle_key
+
+	column person_severity_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1a78847e-6609-589e-aa94-88d967fcc5cf
+		summarizeBy: none
+		sourceColumn: person_severity_key
+
+	partition fact_person = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\fact_person.csv"), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"collision_id", type text}, {"age", Int64.Type}, {"age_key", Int64.Type}, {"user_key", Int64.Type}, {"safety_key", Int64.Type}, {"sex_key", Int64.Type}, {"vehicle_key", Int64.Type}, {"person_severity_key", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

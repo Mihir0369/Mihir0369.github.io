@@ -1,0 +1,44 @@
+table Dim_Safety
+	lineageTag: 041cada5-f8a2-5454-81b8-fc3d8c3fb716
+
+	column 'Safety Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f15faa53-2a0b-5880-8948-31bedeee6bd4
+		summarizeBy: none
+		sourceColumn: Safety Key
+
+	column 'Safety Device'
+		dataType: string
+		lineageTag: 229beb50-cfbb-5130-8b2d-6edb6f04da04
+		summarizeBy: none
+		sourceColumn: Safety Device
+
+	column Protection
+		dataType: string
+		lineageTag: 444eae3b-1439-5cc2-867c-102ae3fc42d8
+		summarizeBy: none
+		sourceColumn: Protection
+
+	hierarchy 'Protection Hierarchy'
+		lineageTag: b2b7f691-77df-59d3-8638-fd7a2c7f10d6
+		level Protection
+			lineageTag: 128dcb0e-d145-5619-b050-d6861e6a5c43
+			column: Protection
+		level 'Safety Device'
+			lineageTag: 75a379e0-3a7d-5d75-9002-fc9d0c87f932
+			column: 'Safety Device'
+
+	partition Dim_Safety = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_safety.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"safety_key", Int64.Type}, {"safety_device", type text}, {"protection", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"safety_key", "Safety Key"}, {"safety_device", "Safety Device"}, {"protection", "Protection"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

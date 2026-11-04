@@ -1,0 +1,45 @@
+table Dim_Hour
+	lineageTag: f1215009-01d6-5339-b91d-be1b39d15fae
+
+	column 'Hour Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ef47b010-c963-59f4-809c-692d8c901442
+		summarizeBy: none
+		sourceColumn: Hour Key
+
+	column 'Hour Label'
+		dataType: string
+		lineageTag: ee26f372-b0ac-54aa-b773-b3b833130fad
+		summarizeBy: none
+		sourceColumn: Hour Label
+		sortByColumn: 'Hour Key'
+
+	column 'Day Part'
+		dataType: string
+		lineageTag: b41251cb-f597-55dc-b68a-35bc8610c1f2
+		summarizeBy: none
+		sourceColumn: Day Part
+
+	hierarchy 'Hour Hierarchy'
+		lineageTag: e698f7d2-ddbc-56e5-94a1-34e588ea4bed
+		level 'Day Part'
+			lineageTag: 9100b2ce-5c49-5cf4-811c-fe192864916f
+			column: 'Day Part'
+		level 'Hour Label'
+			lineageTag: e2c89416-4af0-5edb-bd9f-9b174970b4c4
+			column: 'Hour Label'
+
+	partition Dim_Hour = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_hour.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"hour_key", Int64.Type}, {"hour_label", type text}, {"day_part", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"hour_key", "Hour Key"}, {"hour_label", "Hour Label"}, {"day_part", "Day Part"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,29 @@
+table Dim_Sex
+	lineageTag: 8f359f13-18ea-585e-8b8e-d2eb83e26e2d
+
+	column 'Sex Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5b00c5cc-ec57-5df0-aa28-1d40c15f8920
+		summarizeBy: none
+		sourceColumn: Sex Key
+
+	column Sex
+		dataType: string
+		lineageTag: 0a3352d1-abc7-5acd-8e74-4cdb25d34d57
+		summarizeBy: none
+		sourceColumn: Sex
+
+	partition Dim_Sex = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_sex.csv"), [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"sex_key", Int64.Type}, {"sex", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"sex_key", "Sex Key"}, {"sex", "Sex"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

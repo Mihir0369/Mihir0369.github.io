@@ -54,7 +54,7 @@ window.PROJECTS = [
     approach: [
       "Load rates and the three Statistics Canada tables into SQLite with a repeatable script.",
       "Build a month-level model in Power BI: one date table, rates, credit, debt service.",
-      "Compare YoY credit growth with rate changes at lags of 0 to 12 months, with a lag slicer.",
+      "Compare YoY credit growth with rate changes at lags of 0 to 24 months, with a lag slicer.",
       "Document every DAX measure and its definition."
     ],
     found: [
@@ -205,41 +205,165 @@ window.PROJECTS = [
     id: "collision-risk",
     sector: "Insurance",
     area: "Underwriting and claims analytics",
-    title: "When and where do Canadian roads turn deadly?",
-    summary: "National police-reported fatal and injury collisions, broken down by hour, weather, road surface, driver age and vehicle age.",
+    title: "Fatal collisions are more than twice as likely at night: when and where do Canadian roads turn deadly?",
+    summary: "185,772 police-reported fatal and injury collisions across Canada, broken down by hour, road conditions, people and the change from 2019 to 2020.",
     provenance: "Real",
-    source: "Transport Canada National Collision Database (2019 and 2020)",
+    source: "Transport Canada, National Collision Database (2019 and 2020)",
     tools: ["Power BI", "DAX", "SQL", "Python"],
-    headline: { value: null, label: "share of collisions that are fatal in the riskiest hour, versus the all-hours average" },
-    question: "Which conditions and people are linked to the most severe outcomes, so a claims or underwriting team knows where to look first?",
-    data: "Person-level rows for fatal and injury collisions reported by police, 2019 and 2020. No property-damage-only collisions and no insurance claims.",
+    headline: { value: "2.24×", label: "as likely to be fatal at night (3.41%) as by day (1.52%)" },
+    question: "When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so an insurer's analytics team knows what to monitor and what to say about safe driving?",
+    data: "Person-level rows for police-reported fatal and injury collisions, 2019 and 2020: 185,772 collisions and 463,630 people after cleaning. No property-damage-only collisions and no insurance claims.",
     approach: [
-      "Validate columns against the data dictionary and map code values to labels.",
-      "Derive a collision ID from row order and check it against the declared vehicle count.",
-      "Build collision and person tables, then a Power BI report on time, conditions, and people and vehicles.",
-      "Compare 2019 with 2020 and explain the change with its caveats."
+      "Download the open CSVs and check every code against the data dictionary.",
+      "Find the real collision ID and drop dummy rows before counting anything.",
+      "Build a star schema with an unknown member in every dimension, then a seven-page Power BI report.",
+      "Compare 2019 with 2020, and test the safety-device finding within age bands before stating it."
     ],
-    found: [],
-    recommend: [],
+    found: [
+      "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
+      "Night collisions (10 pm to 6 am) are 3.41% fatal against 1.52% by day, 2.24 times as likely. The riskiest hour is 4 am, at 4.89%.",
+      "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
+      "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
+    ],
+    recommend: [
+      "Monitor the fatal share, not only the count: in 2020 collisions fell but fatal ones did not.",
+      "Put night driving, single-vehicle collisions, curved roads and roads with no traffic control on the risk watch list: they carry far more fatal outcomes than their share of collisions.",
+      "Use the safety-device gap in safe-driving messaging. These are proposals from police-reported data, not claims or pricing advice."
+    ],
     limits: [
-      "This is not claims data: it supports no loss ratio or pricing statement.",
-      "Only fatal and injury collisions are included, so shares are shares of serious collisions.",
-      "The collision ID is derived from row order, an assumption I check but cannot confirm.",
-      "2020 was a pandemic year with unusual traffic."
+      "Not claims data: it supports no loss ratio, premium or pricing statement.",
+      "Police-reported fatal and injury collisions only, so shares are of serious collisions.",
+      "No traffic volumes or kilometres driven, so nothing here is a risk per trip.",
+      "Unadjusted associations, not causes. The what-if assumes the road causes the gap.",
+      "2020 was a pandemic year, so it is not a typical comparison.",
+      "Safety-device use is as recorded by police, and 21.99% of records are unknown."
     ],
     repo: "02-insurance-collision-risk",
-    chart: null
+    hero: 1,
+    shots: [
+      { file: "images/cr-1-start.png", caption: "Start here: four headline numbers, what the data shows and what I would do" },
+      { file: "images/cr-2-when.png", caption: "When: a heat map of fatal share by hour and weekday, with the night hours highlighted" },
+      { file: "images/cr-3-compare.png", caption: "Compare: 2020 against 2019, with fatal and injury collisions indexed to 2019" },
+      { file: "images/cr-4-conditions.png", caption: "Conditions: a what-if scenario that sets how much of the gap between risky and safer roads to close" },
+      { file: "images/cr-5-people.png", caption: "People: fatality rates by road user, age, safety device and vehicle, against the average person" },
+      { file: "images/cr-6-explore.png", caption: "Explore: a decomposition tree that splits the fatal collisions by any factor" },
+      { file: "images/cr-7-quality.png", caption: "Data quality: how I found the collision ID, what is unknown and what was excluded" }
+    ],
+    kpis: [
+      { label: "Collisions, 2019 and 2020", value: "185,772", sub: "3,225 fatal, 182,547 injury", icon: "bars" },
+      { label: "Fatal share overall", value: "1.74%", sub: "Night 3.41%, day 1.52%", icon: "check" },
+      { label: "Fatal share in 2020", value: "2.00%", sub: "\u25b2 from 1.53% in 2019", icon: "clock" },
+      { label: "Safety device gap", value: "16.09×", sub: "6.98% with none used against 0.43%", icon: "warn" }
+    ],
+    stats: [
+      { value: "7", label: "report pages", sub: "" },
+      { value: "46", label: "data visuals", sub: "" },
+      { value: "23", label: "tables", sub: "2 data, 20 helper, 1 measures" },
+      { value: "17", label: "relationships", sub: "" },
+      { value: "99", label: "DAX measures", sub: "" }
+    ],
+    techniques: ["Star schema with unknown members", "Date table", "Time intelligence", "Calculation group", "What-if parameter", "Heat map by DAX colour", "Decomposition tree", "Data-quality page", "PBIP + TMDL project"],
+    downloads: [
+      { label: "Download report (PDF)", file: "downloads/collision-risk-report.pdf", note: "All seven report pages, as exported from Power BI Desktop." },
+      { label: "Download the Power BI project (.zip)", file: "downloads/collision-risk-powerbi-project.zip", note: "The .pbip project plus the model CSVs (about 25 MB). The README inside says how to set the CSV folder." }
+    ],
+    chapters: [
+      { visuals: [{ ref: 0 }] },
+      { visuals: [{ ref: 1 }, { ref: 2 }] },
+      { visuals: [{ ref: 3 }] },
+      { visuals: [{ ref: 4 }] },
+      { visuals: [{ ref: 5 }] }
+    ],
+    charts: [
+      {"type": "bar", "orient": "v", "title": "Share of collisions that are fatal, by hour of day (amber = 10 pm to 6 am)", "labels": ["12a", "1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12p", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p"], "values": [3.81, 3.93, 4.4, 4.05, 4.89, 3.24, 2.09, 1.43, 1.0, 1.62, 1.6, 1.41, 1.37, 1.62, 1.42, 1.37, 1.33, 1.42, 1.6, 1.64, 2.18, 2.28, 2.3, 3.2], "unit": "% fatal", "suffix": "%", "decimals": 2, "highlight": [0, 1, 2, 3, 4, 5, 22, 23], "noLabels": true},
+      {"type": "bar", "orient": "v", "title": "Collisions by month, 2019 and 2020", "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "unit": "collisions", "noLabels": true, "datasets": [{"label": "2019", "color": "#1B3A5C", "values": [9713, 8327, 7480, 6787, 8037, 9328, 9596, 9371, 9122, 9614, 9370, 9036]}, {"label": "2020", "color": "#2A7F8E", "values": [8519, 7525, 5121, 3251, 5095, 6788, 7652, 7918, 7580, 7270, 6948, 6322]}]},
+      {"type": "line", "title": "2020 as a percentage of the same month of 2019 (100 = no change)", "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "unit": "index", "noLabels": true, "datasets": [{"label": "Injury collisions", "color": "#1B3A5C", "values": [88, 90, 68, 47, 63, 72, 79, 84, 83, 75, 74, 70]}, {"label": "Fatal collisions", "color": "#C77700", "values": [97, 107, 84, 88, 101, 101, 99, 108, 116, 100, 90, 83]}, {"label": "2019 level", "color": "#8A9BAE", "values": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]}]},
+      {"type": "bar", "title": "Fatal collisions avoided if the gap were fully closed (2019 and 2020 together)", "labels": ["Add traffic control where there is none", "Treat curved roads like straight ones", "Make night as safe as midday"], "values": [1744, 459, 402], "unit": "fatal collisions avoided", "highlight": 0},
+      {"type": "bar", "title": "Occupants: share who die, by safety device", "labels": ["No safety device used", "No safety device equipped", "Safety device used", "Other safety device"], "values": [6.98, 0.52, 0.43, 0.35], "unit": "% who die", "suffix": "%", "decimals": 2, "highlight": 0},
+      {"type": "bar", "title": "Share of records with an unknown value, by field", "labels": ["Safety device", "Collision type", "Traffic control", "Age band", "Road alignment", "Road surface", "Weather", "Time of day"], "values": [21.99, 8.95, 7.25, 5.56, 5.22, 4.63, 1.71, 0.96], "unit": "% unknown", "suffix": "%", "decimals": 2, "highlight": 0}
+    ],
+    model: {
+      measures: [
+        { name: "Fatal Share", dax: "DIVIDE (\n    [Fatal Collisions],\n    [Collisions]\n)" },
+        { name: "Night Fatal Share", dax: "CALCULATE (\n    [Fatal Share],\n    Dim_Hour[Day Part] = \"Night (10 pm to 6 am)\"\n)" },
+        { name: "Heat Share", dax: "IF (\n    SELECTEDVALUE ( Dim_Hour[Hour Key], 0 ) = 0,\n    BLANK (),\n    IF (\n        [Collisions] >= 100,\n        [Fatal Share],\n        BLANK ()\n    )\n)" },
+        { name: "Fatal Index", dax: "VAR py =\n    CALCULATE (\n        [Fatal Collisions],\n        SAMEPERIODLASTYEAR ( 'Date'[Date] )\n    )\nRETURN\n    IF (\n        ISBLANK ( py ) || ISBLANK ( MAX ( 'Date'[Date] ) ),\n        BLANK (),\n        DIVIDE ( [Fatal Collisions], py ) * 100\n    )" },
+        { name: "Scn Avoided", dax: "[Scn Fatal Now]\n    * ( 1 - DIVIDE ( [Scn Rate Safer], [Scn Rate Now] ) )\n    * [Uptake Value]" },
+        { name: "Times Avg", dax: "DIVIDE (\n    [Person Fatality Rate],\n    [People Avg Rate]\n)" }
+      ]
+    },
+    story: {
+      dek: "Police report every fatal and injury collision in Canada, and Transport Canada publishes the records. I used the 2019 and 2020 files to see when fatal collisions concentrate, which conditions and people carry the most risk, and what changed when traffic fell in 2020.",
+      bottom: "fatal collisions concentrate at night, in single-vehicle collisions, on curved roads and where nothing controls traffic, and 2020's drop was almost all injury collisions, so the fatal share rose. These are associations in police-reported data, not causes.",
+      toc: true,
+      terms: "Fatal share = fatal collisions divided by fatal and injury collisions. Fatality rate = deaths among the people in these collisions, not a risk per person on the road. Unknown = left blank by police or not supplied by that jurisdiction. Collision ID = the C_CASE key that links the rows of one collision.",
+      next: ["Add traffic volume or kilometres driven, to turn collision counts into a risk per trip.", "Add the 2021 file and provinces, to test whether the 2020 pattern holds.", "Adjust the safety-device comparison for age, vehicle and collision type with a regression, instead of checking it band by band."],
+      chips: ["SQL (11 queries)", "Python", "Power BI", "DAX", "Power Query", "Star schema", "Time intelligence", "Calculation group", "What-if parameter", "Decomposition tree", "PBIP + TMDL in Git"],
+      meta: [
+        { k: "Data", v: "Transport Canada, National Collision Database, 2019 and 2020 (real, Open Government Licence)" },
+        { k: "Scope", v: "185,772 collisions, 330,576 vehicles and 463,630 people" },
+        { k: "Tools", v: "Power BI, DAX, Power Query, SQL, Python" },
+        { k: "My role", v: "End to end: found the hidden collision ID, checked the data in SQL and Python, built the star-schema model and DAX, designed the seven-page report and wrote the findings" },
+        { k: "Source link", v: "Transport Canada National Collision Database (accessed November 2026)", href: "https://open.canada.ca/data/en/dataset/1eb9eba7-71d1-4b30-9fb1-30cbdab7e63a" }
+      ],
+      findings: [
+        "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%. Injury collisions account for 99.92% of the decline.",
+        "Night collisions (10 pm to 6 am) are 3.41% fatal against 1.52% by day, 2.24 times as likely. The riskiest hour is 4 am, at 4.89%.",
+        "Curved roads (3.63%), night (3.41%) and single-vehicle collisions (2.73%) have the highest fatal shares. No traffic control carries 2,349 of the 3,225 fatal collisions (72.84%).",
+        "Occupants with no safety device used die at 6.98% against 0.43% with one, 16.09 times as often, and the gap holds in every age band."
+      ],
+      chapters: [
+        { n: "01 \u00b7 WHEN", ch: 0, title: "Fatal collisions are 2.24 times as likely at night",
+          paras: ["Between 10 pm and 6 am, 3.41% of collisions are fatal, against 1.52% from 6 am to 10 pm. The fatal share peaks at 4 am, at 4.89%, against the 1.74% average.",
+                  "The pattern holds on every day of the week: the darkest cells in the heat map run from midnight to 5 am from Monday to Sunday."],
+          note: "Night has few collisions (about 1,400 at 4 am against 16,000 at 4 pm), so single cells move more. Cells under 100 collisions are blank.",
+          tabs: [], src: "Source: Transport Canada, National Collision Database, 2019 and 2020." },
+        { n: "02 \u00b7 COMPARE", ch: 1, title: "The 2020 drop was almost entirely injury collisions",
+          paras: ["Collisions fell from 105,782 in 2019 to 79,990 in 2020, down 24.38%. Fatal collisions fell only from 1,623 to 1,602, down 1.29%, so the fatal share rose from 1.53% to 2.00%.",
+                  "Injury collisions account for 99.92% of the 25,792 fewer collisions. April 2020 was the lowest month, 52.10% below April 2019, while fatal collisions stayed between 83% and 116% of their 2019 level all year."],
+          note: "2020 was a pandemic year, so this is a change in the mix of recorded collisions, not proof that driving became riskier.",
+          tabs: ["Collisions by month", "Fatal against injury"], src: "Source: Transport Canada. In the second view each line is 2020 as a percentage of the same month of 2019 (100 = no change). Monthly fatal counts are small (about 70 to 200), so single months move more." },
+        { n: "03 \u00b7 CONDITIONS", ch: 2, title: "If uncontrolled roads matched signalled ones, about 1,744 fewer deaths",
+          paras: ["Roads with no traffic control carry 2,349 of the 3,225 fatal collisions (72.84%) and are 2.41% fatal, against 0.62% at signals. The report turns that gap into a what-if: a dropdown sets how much of it to close.",
+                  "Closing all of it on uncontrolled roads would avoid about 1,744 fatal collisions (54.09%). Treating curved roads like straight ones would avoid about 459 (14.25%), and making night as safe as midday about 402 (12.46%)."],
+          note: "A scenario, not a forecast: it assumes the gap is caused by the road, uses no traffic volumes, and the three levers overlap.",
+          tabs: [], src: "Avoided = fatal collisions on the risky roads x (1 - safer share / risky share) x share of the gap closed." },
+        { n: "04 \u00b7 PEOPLE", ch: 3, title: "Occupants with no safety device used die 16 times as often",
+          paras: ["Among drivers and passengers, 6.98% of those with no safety device used die, against 0.43% of those who used one: 16.09 times as often. The gap holds in every age band, at 7.02% to 10.83% for ages 16 and over, against 0.30% to 1.05%.",
+                  "Against the average person, motorcyclists die at 4.91 times the rate and pedestrians at 3.77 times, while drivers, the largest group, are at 0.76 times. People aged 65 and over are at 2.11 times."],
+          note: "These are unadjusted comparisons in police-reported data. The 6.98% rests on 7,939 occupants (554 deaths), with a 95% interval of 6.44% to 7.56%.",
+          tabs: [], src: "Source: Transport Canada, National Collision Database. Unknown safety-device records (16%) are left out." },
+        { n: "05 \u00b7 DATA QUALITY", ch: 4, title: "The file has a hidden collision ID, and some fields are mostly unknown",
+          paras: ["The data dictionary lists no collision ID. My first version derived one from row order and found 185,359 collisions. The file holds a key, C_CASE, that the dictionary does not mention: it gives 185,772 collisions, severity, hour, weather and road surface never change inside a case, and every fatal collision has a death.",
+                  "I also removed 7,416 dummy rows (a parked car gets a dummy person, a pedestrian a dummy vehicle). Every dimension has an unknown member, so no record disappears from a chart. Safety device is the most often unknown field, at 21.99%."],
+          note: "Two collisions have no recorded month, so they leave the monthly charts. Full-year numbers include them.",
+          tabs: [], src: "Checks are in the SQL file in the project folder." }
+      ],
+      recs: [
+        { who: "Claims and underwriting analytics lead", title: "Monitor the fatal share, not only the count", text: "In 2020 collisions fell 24.38% but fatal ones only 1.29%. A falling count can hide a rising share of serious outcomes.", measure: "Measure: fatal share, by year" },
+        { who: "Risk and portfolio manager", title: "Put night, single-vehicle, curved and uncontrolled roads on the watch list", text: "Night is 2.24 times as likely to be fatal, and no traffic control carries 72.84% of fatal collisions. They carry far more fatal outcomes than their share of collisions.", measure: "Measure: fatal share by condition, with collisions and fatal counts" },
+        { who: "Road safety communications", title: "Use the safety-device gap in safe-driving messaging", text: "Occupants with no safety device used die at 6.98% against 0.43%. Use it as a message, not as a claim or pricing input.", measure: "Measure: fatality rate, no device used against device used" }
+      ],
+      recNote: "These are proposals for discussion from police-reported public data. They are not claims, pricing or safety advice.",
+      pipeline: [
+        { i: "01 \u00b7 SOURCE", b: "Transport Canada", s: "Open CSVs for 2019 and 2020 under the Open Government Licence; every code checked against the data dictionary" },
+        { i: "02 \u00b7 PREPARE", b: "Python and SQLite", s: "Found the real collision ID, cast mixed code formats, kept unknown codes as unknown and removed 7,416 dummy rows" },
+        { i: "03 \u00b7 CHECK", b: "SQL checks", s: "Unique collision ID, every person has a collision, every severity is fatal or injury, and every headline number against SQL" },
+        { i: "04 \u00b7 MODEL", b: "Star schema", s: "Two fact tables, 15 dimensions with unknown members, a date table and 99 DAX measures" },
+        { i: "05 \u00b7 REPORT", b: "Power BI", s: "7 pages: heat map, time intelligence, a what-if scenario, a decomposition tree and a data-quality page" }
+      ]
+    }
   },
   {
     id: "toronto-311",
     sector: "Public sector",
     area: "City operations",
-    title: "Half of Toronto's parks and forestry requests are still open: what is 311 telling the city?",
+    title: "Half of Toronto's parks and forestry requests are recorded as open: what is 311 telling the city?",
     summary: "1.35 million 311 requests from 2023 to 2025: what drives demand, which divisions leave requests unresolved, and a change in request types that breaks year-over-year comparisons.",
     provenance: "Real",
     source: "Open Data Toronto, 311 Service Requests - Customer Initiated (Open Government Licence - Toronto)",
     tools: ["Power BI", "Power Query", "DAX", "SQL", "Python"],
-    headline: { value: "49.4%", label: "of 2025 parks, forestry and environment requests are still open, against 1.4% to 6.6% in every other division" },
+    headline: { value: "49.4%", label: "of 2025 parks, forestry and environment requests are recorded as open, against 1.4% to 6.6% in every other division" },
     question: "Where does the city leave requests unresolved, and what is behind the growth in 311 demand?",
     data: "Customer-initiated 311 requests for 2023, 2024 and 2025: 1,351,594 rows with creation time, status, location (postal area or intersection), ward, request type, division and section. There is no close date, so time to close cannot be measured.",
     approach: [
@@ -250,7 +374,7 @@ window.PROJECTS = [
     ],
     found: [
       "Requests grew from 414,282 in 2023 to 437,043 in 2024 and 500,269 in 2025, up 14.5% in 2025.",
-      "Parks, forestry and environment is the outlier: 49.4% of its 2025 requests are still open (18,597 of 37,611), and so are 44.7% of its 2023 requests (12,637 of 28,298). Every other division is between 1.4% and 6.6% open. General pruning is 66% open and tree removal 73%.",
+      "Parks, forestry and environment is the outlier: 49.4% of its 2025 requests are recorded as open (18,597 of 37,611), and so are 44.7% of its 2023 requests (12,637 of 28,298). Every other division is between 1.4% and 6.6% open. General pruning is 66% open and tree removal 73%.",
       "The request-type list changed in January 2025: 255 type names appear only in 2025 and cover 58.2% of that year's requests (for example, bin lid repairs were renamed). Growth by type cannot be compared across that boundary.",
       "Between 2023 and 2024, the fastest-growing named types were litter and illegal dumping cleanup (+46.8%) and bin lid repair or replacement (+36.6%).",
       "10.3% of 2025 requests were cancelled, but dead-wildlife pick-up was cancelled 38.8% of the time (6,026 of 15,513) and missed recycling pick-up 28.6%.",
@@ -273,7 +397,7 @@ window.PROJECTS = [
       { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
     ],
     story: {
-      bottom: "one division leaves about half its requests open, and part of the 14.5% rise in demand is renamed request types, not more problems. Without a close date, time to close cannot be measured.",
+      bottom: "one division leaves about half its requests open, and request type names changed in 2025, so the 14.5% rise in demand cannot be split into more problems and new labels. The extract has no close date, so open means open at extraction, not a confirmed backlog, and time to close cannot be measured.",
       toc: true,
       terms: "311 = Toronto's city line for non-emergency service requests. Open = status Open or In Progress when the data was taken. Division = the city department handling the request. Taxonomy era = whether a request type name existed before or only after January 2025.",
       next: ["Add the closed date to the open dataset so time to close can be measured.", "Build a mapping from old to new request types to restore year-over-year comparison.", "Test whether duplicate calls explain the cancellations on dead-wildlife and missed-pickup requests."],
@@ -287,15 +411,15 @@ window.PROJECTS = [
         { k: "Source links", links: [{"v": "Open Data Toronto: 311 Service Requests", "href": "https://open.toronto.ca/dataset/311-service-requests-customer-initiated/"}] }
       ],
       findings: [
-        "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
-        "Demand grew 14.5% in 2025, to 500,269 requests, but part of that is new request types, not more problems.",
+        "Half of parks and forestry requests are recorded as open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
+        "Demand grew 14.5% in 2025, to 500,269 requests, but request type names changed that year, so growth by type is not comparable.",
         "58.2% of 2025 requests sit under renamed or new request types, so year-over-year growth by type is not valid.",
         "Dead-wildlife pick-up is cancelled 38.8% of the time, the highest of any large request type."
       ],
       chapters: [
-        { n: "01 \u00b7 DEMAND", ch: 0, title: "Demand rose 14.5%, but not all of it is new demand",
+        { n: "01 \u00b7 DEMAND", ch: 0, title: "Demand rose 14.5%, but type names changed in 2025",
           paras: ["Requests went from 414,282 in 2023 to 437,043 in 2024 and 500,269 in 2025.",
-                  "February 2025 alone had 53,707 requests, against 24,871 a year earlier, and 19,876 of them were snow types that only exist from January 2025. The true rise is smaller than the headline suggests."],
+                  "February 2025 alone had 53,707 requests, against 24,871 a year earlier, and 19,876 of them were snow types that only exist from January 2025. Type labels changed, so growth by type is not comparable across the boundary."],
           note: "With this data I cannot separate more demand from better capture.",
           tabs: ["By month", "By year"], src: "Source: Open Data Toronto, 311 Service Requests, 2023 to 2025." },
         { n: "02 \u00b7 WHERE IT STALLS", ch: 1, title: "One division leaves half its requests open",
@@ -329,8 +453,8 @@ window.PROJECTS = [
     },
     brief: {
       findings: [
-        "Half of parks and forestry requests are still open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
-        "Demand grew 14.5% in 2025, to 500,269 requests, but part of that is new request types, not more problems.",
+        "Half of parks and forestry requests are recorded as open: 49.4% in 2025, against 1.4% to 6.6% in every other division.",
+        "Demand grew 14.5% in 2025, to 500,269 requests, but request type names changed that year, so growth by type is not comparable.",
         "58.2% of 2025 requests sit under renamed or new request types, so year-over-year growth by type is not valid.",
         "Dead-wildlife pick-up is cancelled 38.8% of the time, the highest of any large request type."
       ],
@@ -396,14 +520,14 @@ window.PROJECTS = [
     shots: [
       { file: "images/01-start.png", caption: "Start here: the question, three live findings and how to use the report" },
       { file: "images/02-overview.png", caption: "Overview: demand by month, key findings and year-over-year change" },
-      { file: "images/03-outcomes.png", caption: "Outcomes: share of requests still open by division, with drill-through to request types" },
+      { file: "images/03-outcomes.png", caption: "Outcomes: share of requests recorded as open by division, with drill-through to request types" },
       { file: "images/04-types.png", caption: "Request types: top types, taxonomy-era filter and the naming-change warning" }
     ],
     kpis: [
       { label: "Requests in 2025", value: "500,269", sub: "\u25b2 14.5% vs 2024", icon: "bars" },
       { label: "Resolved", value: "80.5%", sub: "of 2025 requests", icon: "check" },
-      { label: "Still open", value: "7.8%", sub: "of 2025 requests", icon: "clock" },
-      { label: "Parks & forestry still open", value: "49.4%", sub: "\u25b2 45.1 pts vs other divisions", icon: "warn" }
+      { label: "Recorded as open", value: "7.8%", sub: "of 2025 requests", icon: "clock" },
+      { label: "Parks & forestry recorded as open", value: "49.4%", sub: "\u25b2 45.1 pts vs other divisions", icon: "warn" }
     ],
     facts: [
       { label: "Busiest month in 2025", value: "Feb 2025", sub: "53,707 requests, lifted by new snow request types" },
@@ -427,25 +551,25 @@ window.PROJECTS = [
         ]
       },
       {
-        title: "Half of parks and forestry requests are still open",
+        title: "Half of parks and forestry requests are recorded as open",
         text: "49.4% of 2025 requests in parks, forestry and environment are open, and so are 44.7% of its 2023 requests, so these are old requests and not only recent ones. Every other division is between 1.4% and 6.6%. Within the division, general pruning is 66.2% open and tree removal 73.3%. The data cannot say whether this is a backlog or statuses nobody updated.",
         stat: { value: "49.4%", label: "of 2025 parks, forestry and environment requests are open" },
         visuals: [
           { ref: 0 },
           {
-            type: "bar", grouped: true, title: "Share still open, by division and year",
+            type: "bar", grouped: true, title: "Share recorded as open, by division and year",
             labels: ["Parks, Forestry & Environment", "Transportation Services", "Toronto Water", "Municipal Licensing & Standards", "Solid Waste Management", "311"],
             datasets: [
               { label: "2023", values: [44.7, 14.3, 12.2, 5.5, 1.2, 9.4] },
               { label: "2024", values: [51.5, 9.3, 7.1, 8.1, 1.2, 2.9] },
               { label: "2025", values: [49.4, 6.6, 5.7, 5.6, 1.7, 1.4] }
             ],
-            unit: "% still open", suffix: "%"
+            unit: "% recorded as open", suffix: "%"
           },
           {
-            type: "bar", title: "Parks, forestry and environment: share still open, by request type (2023 to 2025)",
+            type: "bar", title: "Parks, forestry and environment: share recorded as open, by request type (2023 to 2025)",
             labels: ["Residential or Park Tree Removal", "Stemming", "General Pruning", "General Tree Maintenance", "Tree Emergency Clean-Up", "Storm Clean Up", "By-Law Contravention Invest", "Dangerous Private Tree Investigation"],
-            values: [73.3, 68.2, 66.2, 62.0, 37.0, 29.8, 11.7, 2.6], unit: "% still open", suffix: "%"
+            values: [73.3, 68.2, 66.2, 62.0, 37.0, 29.8, 11.7, 2.6], unit: "% recorded as open", suffix: "%"
           }
         ]
       },
@@ -493,10 +617,10 @@ window.PROJECTS = [
     charts: [
       {
         type: "bar",
-        title: "Share of 2025 requests still open, by division",
+        title: "Share of 2025 requests recorded as open, by division",
         labels: ["Parks, Forestry & Environment", "Transportation Services", "Toronto Water", "Municipal Licensing & Standards", "Solid Waste Management", "311"],
         values: [49.4, 6.6, 5.7, 5.6, 1.7, 1.4],
-        unit: "% still open",
+        unit: "% recorded as open",
         suffix: "%",
         highlight: 0
       },
@@ -588,7 +712,7 @@ window.PROJECTS = [
       { label: "Opioid deaths, 2025", value: "5,704", sub: "\u25bc from 8,083 (2023)", icon: "bars" },
       { label: "Deaths against the peak", value: "-29%", sub: "Hospital stays -22%, ED visits -29%", icon: "check" },
       { label: "EMS against the peak", value: "-8%", sub: "2026 Q1 is +61% on a year ago", icon: "clock" },
-      { label: "Hospital stays per death", value: "0.88", sub: "It was 1.62 in 2016", icon: "warn" }
+      { label: "Hospital stays per death", value: "0.88", sub: "Sources differ in coverage; read the trend only", icon: "warn" }
     ],
     stats: [
       {
@@ -673,7 +797,7 @@ window.PROJECTS = [
           tabs: [], src: "Source: Public Health Agency of Canada, Health Infobase." },
         { n: "02 \u00b7 FOUR MEASURES", ch: 1, title: "Deaths have fallen faster than ambulance calls",
           paras: ["Against their peaks, opioid deaths are 29% lower, hospital stays 22% lower and emergency department visits 29% lower, but EMS responses are only 8% lower.",
-                  "In the first quarter of 2026 deaths were 5% below a year earlier while hospital stays were 14% higher and EMS responses 61% higher. Hospital stays per death fell from 1.62 in 2016 to 0.88 in 2025."],
+                  "In the first quarter of 2026 deaths were 5% below a year earlier while hospital stays were 14% higher and EMS responses 61% higher. Hospital stays per death fell from 1.62 in 2016 to 0.88 in 2025, but hospital and death counts come from sources with different coverage, so read the ratio as a trend, not an exact rate."],
           note: "The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.",
           tabs: [], src: "Each line is shown as a percentage of its own 2019 value: 100 is the 2019 level, 150 is 50% higher and 80 is 20% lower. The sources count different things, so compare direction, not size." },
         { n: "03 \u00b7 PROVINCES", ch: 2, title: "Death rates differ several times between provinces",

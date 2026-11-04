@@ -1,0 +1,36 @@
+table Dim_Weekday
+	lineageTag: 173932ab-da68-5395-83ba-47e4c6af0d6b
+
+	column 'Weekday Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c79ea63b-20fc-5598-9daf-e609e641ab7f
+		summarizeBy: none
+		sourceColumn: Weekday Key
+
+	column Weekday
+		dataType: string
+		lineageTag: d093c3a2-2fd6-539b-bdf1-94e60974e269
+		summarizeBy: none
+		sourceColumn: Weekday
+		sortByColumn: 'Weekday Key'
+
+	column 'Week Part'
+		dataType: string
+		lineageTag: 842af715-0afc-5750-82bb-a22826fe19bd
+		summarizeBy: none
+		sourceColumn: Week Part
+
+	partition Dim_Weekday = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_weekday.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"weekday_key", Int64.Type}, {"weekday", type text}, {"week_part", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"weekday_key", "Weekday Key"}, {"weekday", "Weekday"}, {"week_part", "Week Part"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

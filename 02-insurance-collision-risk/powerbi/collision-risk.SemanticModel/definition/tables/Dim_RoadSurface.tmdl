@@ -1,0 +1,44 @@
+table Dim_RoadSurface
+	lineageTag: cb957612-3a45-59d6-b8ce-45e3971d3f47
+
+	column 'Surface Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 70ee1c87-1e51-5a09-b1fc-945337777e09
+		summarizeBy: none
+		sourceColumn: Surface Key
+
+	column 'Road Surface'
+		dataType: string
+		lineageTag: e731eaff-5daa-59d9-8d50-4d427223a9c8
+		summarizeBy: none
+		sourceColumn: Road Surface
+
+	column 'Surface Group'
+		dataType: string
+		lineageTag: 1acafa2b-0598-598f-a753-576ced1334fd
+		summarizeBy: none
+		sourceColumn: Surface Group
+
+	hierarchy 'Surface Hierarchy'
+		lineageTag: 32f20f1a-34ee-5737-97cb-55866f3d8cc0
+		level 'Surface Group'
+			lineageTag: e1dfae01-5593-50ed-a753-8f9d8dccb794
+			column: 'Surface Group'
+		level 'Road Surface'
+			lineageTag: 37d6af9e-474a-5659-8416-8f6b451bd9c6
+			column: 'Road Surface'
+
+	partition Dim_RoadSurface = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_surface.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"surface_key", Int64.Type}, {"road_surface", type text}, {"surface_group", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"surface_key", "Surface Key"}, {"road_surface", "Road Surface"}, {"surface_group", "Surface Group"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table

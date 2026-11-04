@@ -1,0 +1,35 @@
+table 'Time Comparison'
+	lineageTag: 468c46c0-02d5-5faa-ad2b-95712616469c
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE ()
+			ordinal: 0
+
+		calculationItem 'Prior year' = CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
+			ordinal: 1
+
+		calculationItem 'Change vs prior year' = IF ( ISBLANK ( CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) ), BLANK (), SELECTEDMEASURE () - CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) )
+			ordinal: 2
+
+		calculationItem '% change' = IF ( ISBLANK ( CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) ), BLANK (), DIVIDE ( SELECTEDMEASURE () - CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) ), CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) ) )
+			ordinal: 3
+			formatStringDefinition = "+0.00%;-0.00%;0.00%"
+
+	column 'Time Comparison'
+		dataType: string
+		lineageTag: 2a2db433-6ce4-5fed-a05a-17ec4df2d10c
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 3d90d108-9e3d-5dc3-a15a-6a13a1605422
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+	partition 'Time Comparison' = calculationGroup
+		mode: import

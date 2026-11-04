@@ -1,0 +1,28 @@
+table Scenario
+	lineageTag: 29079d30-0966-595c-b5f7-40fac4e74087
+
+	column Intervention
+		lineageTag: f44a46b0-cbff-54f0-affc-7116dcac516e
+		summarizeBy: none
+		sourceColumn: [Intervention]
+
+	column Key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a1b7e5e8-0273-5683-b9af-1e55903f449d
+		summarizeBy: none
+		sourceColumn: [Key]
+
+	partition Scenario = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Intervention", STRING,
+				    "Key", INTEGER,
+				    {
+				        { "Add traffic control", 1 },
+				        { "Treat curved roads", 2 },
+				        { "Night as safe as midday", 3 }
+				    }
+				)

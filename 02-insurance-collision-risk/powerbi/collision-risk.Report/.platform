@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "collision-risk"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "62c7bb6f-5bdf-564b-b824-a42ecf6936d8"
+  }
+}

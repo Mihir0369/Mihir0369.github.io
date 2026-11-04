@@ -1,0 +1,29 @@
+table Dim_PersonSeverity
+	lineageTag: 07eea2d8-bcf8-54c9-8da0-9e1c435f9839
+
+	column 'Person Severity Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ea1ffc87-0c67-521b-9744-ffd4ac85b987
+		summarizeBy: none
+		sourceColumn: Person Severity Key
+
+	column 'Person Severity'
+		dataType: string
+		lineageTag: df0d130d-e949-557e-b7cb-c25513c0a804
+		summarizeBy: none
+		sourceColumn: Person Severity
+
+	partition Dim_PersonSeverity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ModelFolder & "\dim_person_severity.csv"), [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"person_severity_key", Int64.Type}, {"person_severity", type text}}, "en-US"),
+				    Renamed = Table.RenameColumns(Typed, {{"person_severity_key", "Person Severity Key"}, {"person_severity", "Person Severity"}})
+				in
+				    Renamed
+
+	annotation PBI_ResultType = Table
