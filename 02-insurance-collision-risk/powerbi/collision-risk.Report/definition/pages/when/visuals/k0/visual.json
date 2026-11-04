@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact2",
+  "name": "k0",
   "position": {
-    "x": 860,
+    "x": 20,
     "y": 200,
-    "z": 202,
-    "width": 400,
+    "z": 300,
+    "width": 295,
     "height": 110,
-    "tabOrder": 202
+    "tabOrder": 300
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Fatal Share 2020"
+                  "Property": "Night Fatal Share"
                 }
               },
-              "queryRef": "_Measures.Fatal Share 2020",
-              "nativeQueryRef": "Fatal Share 2020"
+              "queryRef": "_Measures.Night Fatal Share",
+              "nativeQueryRef": "Night Fatal Share"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatal share in 2020'"
+                  "Value": "'Fatal share at night'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Fatal Share 2020 Sub"
+                  "Property": "Night Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatal share in 2020'"
+                  "Value": "'Card: Fatal share at night'"
                 }
               }
             }

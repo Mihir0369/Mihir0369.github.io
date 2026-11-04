@@ -169,13 +169,22 @@ table _Measures
 		formatString: 0
 		lineageTag: e02a6f02-6e48-5ef0-bb8a-6a7e93dd7dbb
 
+	measure 'Injury Change Sub' = FORMAT ( [Injury 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Injury 2020], "#,0" ) & " in 2020"
+		lineageTag: abdd0bb9-9871-5a7e-93dd-814f5939fd03
+
+	measure 'Overall Share Sub' = "Overall fatal share is " & FORMAT ( [Overall Fatal Share], "0.00%" )
+		lineageTag: 5f786f5b-256f-5346-b5c0-8fdf0ca1e4c3
+
+	measure 'Avg Rate Sub' = FORMAT ( [Person Deaths], "#,0" ) & " deaths, " & FORMAT ( [People Involved], "#,0" ) & " people"
+		lineageTag: b54f8051-0319-5e62-a95a-61e1fe1ffa6e
+
 	measure 'Coll Change Sub' = FORMAT ( [Collisions 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Collisions 2020], "#,0" ) & " in 2020"
 		lineageTag: 351278b2-abce-50b5-9b06-99d173d12a48
 
 	measure 'Fatal Change Sub' = FORMAT ( [Fatal 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Fatal 2020], "#,0" ) & " in 2020"
 		lineageTag: 02e43d1d-8347-5f9e-a901-962ade7fcb97
 
-	measure 'Fatal Share 2020 Sub' = "Up " & FORMAT ( ( [Fatal Share 2020] - [Fatal Share 2019] ) * 100, "0.00" ) & " percentage points from " & FORMAT ( [Fatal Share 2019], "0.00%" ) & " in 2019"
+	measure 'Fatal Share 2020 Sub' = "Up " & FORMAT ( ( [Fatal Share 2020] - [Fatal Share 2019] ) * 100, "0.00" ) & " pts from " & FORMAT ( [Fatal Share 2019], "0.00%" ) & " in 2019"
 		lineageTag: e7a577cd-d513-5979-a72a-bd0641f41754
 
 	measure 'Injury 2019' = CALCULATE ( [Injury Collisions], REMOVEFILTERS ( 'Date' ), fact_collision[year] = 2019 )
@@ -273,7 +282,7 @@ table _Measures
 	measure 'Top Share Sub' = "of all " & FORMAT ( [Fatal Collisions], "#,0" ) & " fatal collisions in the period"
 		lineageTag: f8c0cbc3-f00c-56f9-bde2-ef96eb5849b3
 
-	measure 'Uptake Sub' = "Share of the gap closed. Change it with the dropdown."
+	measure 'Uptake Sub' = "Set it with the dropdown below"
 		lineageTag: b6e8a2ad-afff-575f-ae5d-65ce43fdbf42
 
 	measure 'Scenario Headline' = "Closing " & FORMAT ( [Uptake Value], "0%" ) & " of the gap: " & LOWER ( [Top Lever Name] ) & " could avoid about " & FORMAT ( [Top Lever Avoided], "#,0" ) & " fatal collisions (" & FORMAT ( [Top Lever Share], "0.00%" ) & ")."
@@ -333,7 +342,7 @@ table _Measures
 		formatString: #,0
 		lineageTag: 0b901435-0a7d-5f01-b50b-3cfd9a2ade20
 
-	measure 'Unrestrained Sub' = "Occupants, no safety device used: " & FORMAT ( [Unrestrained People], "#,0" ) & " people, " & FORMAT ( [Unrestrained Deaths], "#,0" ) & " deaths"
+	measure 'Unrestrained Sub' = FORMAT ( [Unrestrained People], "#,0" ) & " occupants, " & FORMAT ( [Unrestrained Deaths], "#,0" ) & " deaths"
 		lineageTag: 3c68da76-985e-502c-b7ae-000dbabca450
 
 	measure 'Unrestrained Deaths' = CALCULATE ( [Person Deaths], Dim_RoadUser[Road User] IN { "Driver", "Passenger" }, Dim_Safety[Safety Device] = "No safety device used" )
@@ -348,10 +357,10 @@ table _Measures
 		formatString: #,0
 		lineageTag: 718cee32-0962-52bc-8223-11eb7b12d894
 
-	measure 'Restrained Sub' = "Occupants, safety device used: " & FORMAT ( [Restrained People], "#,0" ) & " people, " & FORMAT ( [Restrained Deaths], "#,0" ) & " deaths"
+	measure 'Restrained Sub' = FORMAT ( [Restrained People], "#,0" ) & " occupants, " & FORMAT ( [Restrained Deaths], "#,0" ) & " deaths"
 		lineageTag: 471b187c-1557-5d75-b986-b0b855eb463c
 
-	measure 'Multiple Sub' = "Observed ratio, not adjusted for other factors"
+	measure 'Multiple Sub' = "Not adjusted for other factors"
 		lineageTag: 145a844b-45ba-5604-96a9-8e9b4d93b36a
 
 	measure 'People Headline' = "Occupants with no safety device used die " & FORMAT ( [Unrestrained Multiple], "0.00" ) & " times as often, and motorcyclists and pedestrians are the most exposed."

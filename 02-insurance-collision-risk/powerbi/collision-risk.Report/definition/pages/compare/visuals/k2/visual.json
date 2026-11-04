@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact0",
+  "name": "k2",
   "position": {
-    "x": 20,
+    "x": 650,
     "y": 200,
-    "z": 200,
-    "width": 400,
+    "z": 302,
+    "width": 295,
     "height": 110,
-    "tabOrder": 200
+    "tabOrder": 302
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Top Lever Avoided"
+                  "Property": "Fatal Change"
                 }
               },
-              "queryRef": "_Measures.Top Lever Avoided",
-              "nativeQueryRef": "Top Lever Avoided"
+              "queryRef": "_Measures.Fatal Change",
+              "nativeQueryRef": "Fatal Change"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Biggest single lever: fatal collisions avoided'"
+                  "Value": "'Fatal collisions, 2020 vs 2019'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Top Lever Sub"
+                  "Property": "Fatal Change Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Biggest single lever: fatal collisions avoided'"
+                  "Value": "'Card: Fatal collisions, 2020 vs 2019'"
                 }
               }
             }

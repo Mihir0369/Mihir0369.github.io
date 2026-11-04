@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact2",
+  "name": "k2",
   "position": {
-    "x": 860,
+    "x": 650,
     "y": 200,
-    "z": 202,
-    "width": 400,
+    "z": 302,
+    "width": 295,
     "height": 110,
-    "tabOrder": 202
+    "tabOrder": 302
   },
   "visual": {
     "visualType": "card",

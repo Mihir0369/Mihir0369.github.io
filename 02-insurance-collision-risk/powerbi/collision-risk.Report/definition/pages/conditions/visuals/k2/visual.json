@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact1",
+  "name": "k2",
   "position": {
-    "x": 440,
+    "x": 650,
     "y": 200,
-    "z": 201,
-    "width": 400,
+    "z": 302,
+    "width": 295,
     "height": 110,
-    "tabOrder": 201
+    "tabOrder": 302
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Restrained Rate"
+                  "Property": "Uptake Value"
                 }
               },
-              "queryRef": "_Measures.Restrained Rate",
-              "nativeQueryRef": "Restrained Rate"
+              "queryRef": "_Measures.Uptake Value",
+              "nativeQueryRef": "Uptake Value"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatality rate: safety device used'"
+                  "Value": "'Share of the gap closed'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Restrained Sub"
+                  "Property": "Uptake Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatality rate: safety device used'"
+                  "Value": "'Card: Share of the gap closed'"
                 }
               }
             }

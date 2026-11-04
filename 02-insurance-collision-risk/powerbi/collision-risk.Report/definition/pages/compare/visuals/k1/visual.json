@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact0",
+  "name": "k1",
   "position": {
-    "x": 20,
+    "x": 335,
     "y": 200,
-    "z": 200,
-    "width": 400,
+    "z": 301,
+    "width": 295,
     "height": 110,
-    "tabOrder": 200
+    "tabOrder": 301
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Night Fatal Share"
+                  "Property": "Injury Change"
                 }
               },
-              "queryRef": "_Measures.Night Fatal Share",
-              "nativeQueryRef": "Night Fatal Share"
+              "queryRef": "_Measures.Injury Change",
+              "nativeQueryRef": "Injury Change"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatal share at night (10 pm to 6 am)'"
+                  "Value": "'Injury collisions, 2020 vs 2019'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Night Sub"
+                  "Property": "Injury Change Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatal share at night (10 pm to 6 am)'"
+                  "Value": "'Card: Injury collisions, 2020 vs 2019'"
                 }
               }
             }

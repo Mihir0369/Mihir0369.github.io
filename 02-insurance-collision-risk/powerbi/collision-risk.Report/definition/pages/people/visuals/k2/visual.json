@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact1",
+  "name": "k2",
   "position": {
-    "x": 440,
+    "x": 650,
     "y": 200,
-    "z": 201,
-    "width": 400,
+    "z": 302,
+    "width": 295,
     "height": 110,
-    "tabOrder": 201
+    "tabOrder": 302
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Fatal Change"
+                  "Property": "Unrestrained Multiple"
                 }
               },
-              "queryRef": "_Measures.Fatal Change",
-              "nativeQueryRef": "Fatal Change"
+              "queryRef": "_Measures.Unrestrained Multiple",
+              "nativeQueryRef": "Unrestrained Multiple"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatal collisions, 2020 against 2019'"
+                  "Value": "'How much higher'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Fatal Change Sub"
+                  "Property": "Multiple Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatal collisions, 2020 against 2019'"
+                  "Value": "'Card: How much higher'"
                 }
               }
             }

@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatal collisions, 2020 against 2019'"
+                  "Value": "'Fatal collisions, 2020 vs 2019'"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatal collisions, 2020 against 2019'"
+                  "Value": "'Card: Fatal collisions, 2020 vs 2019'"
                 }
               }
             }

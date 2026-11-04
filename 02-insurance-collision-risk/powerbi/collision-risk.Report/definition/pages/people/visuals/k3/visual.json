@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact1",
+  "name": "k3",
   "position": {
-    "x": 440,
+    "x": 965,
     "y": 200,
-    "z": 201,
-    "width": 400,
+    "z": 303,
+    "width": 295,
     "height": 110,
-    "tabOrder": 201
+    "tabOrder": 303
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Day Fatal Share"
+                  "Property": "People Avg Rate"
                 }
               },
-              "queryRef": "_Measures.Day Fatal Share",
-              "nativeQueryRef": "Day Fatal Share"
+              "queryRef": "_Measures.People Avg Rate",
+              "nativeQueryRef": "People Avg Rate"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatal share by day (6 am to 10 pm)'"
+                  "Value": "'Average fatality rate'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Day Sub"
+                  "Property": "Avg Rate Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatal share by day (6 am to 10 pm)'"
+                  "Value": "'Card: Average fatality rate'"
                 }
               }
             }

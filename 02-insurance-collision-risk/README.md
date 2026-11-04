@@ -41,7 +41,7 @@ These are unadjusted associations in police-reported data, not causal effects.
 - **Two collisions have no month,** so they drop out of month-level views; the full-year cards and tables include them and the footnotes say so.
 
 ## Data model
-Star schema. `fact_collision` (one row per collision) and `fact_person` (one row per person) with 15 dimensions. Every dimension has an "unknown" member (key 0), so no row disappears from a chart as (Blank). A `Date` table, a `Time Comparison` calculation group (current, prior year, change, % change), a `Scenario` table and an `Uptake` what-if table support the report. 99 DAX measures live in a `_Measures` table.
+Star schema. `fact_collision` (one row per collision) and `fact_person` (one row per person) with 15 dimensions. Every dimension has an "unknown" member (key 0), so no row disappears from a chart as (Blank). A `Date` table, a `Time Comparison` calculation group (current, prior year, change, % change), a `Scenario` table and an `Uptake` what-if table support the report. 102 DAX measures live in a `_Measures` table.
 
 ## Report pages
 1. **Start here:** the question, four headline numbers, what the data shows and what to do about it.

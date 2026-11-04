@@ -377,9 +377,12 @@ MEASURES = [
     ("Fatal Share 2020", yr("[Fatal Share]", 2020), "0.00%"),
     ("Fatal Index", "VAR py = CALCULATE ( [Fatal Collisions], SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) RETURN IF ( ISBLANK ( py ) || ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), DIVIDE ( [Fatal Collisions], py ) * 100 )", "0"),
     ("Injury Index", "VAR py = CALCULATE ( [Injury Collisions], SAMEPERIODLASTYEAR ( 'Date'[Date] ) ) RETURN IF ( ISBLANK ( py ) || ISBLANK ( MAX ( 'Date'[Date] ) ), BLANK (), DIVIDE ( [Injury Collisions], py ) * 100 )", "0"),
+    ("Injury Change Sub", 'FORMAT ( [Injury 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Injury 2020], "#,0" ) & " in 2020"', None),
+    ("Overall Share Sub", '"Overall fatal share is " & FORMAT ( [Overall Fatal Share], "0.00%" )', None),
+    ("Avg Rate Sub", 'FORMAT ( [Person Deaths], "#,0" ) & " deaths, " & FORMAT ( [People Involved], "#,0" ) & " people"', None),
     ("Coll Change Sub", 'FORMAT ( [Collisions 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Collisions 2020], "#,0" ) & " in 2020"', None),
     ("Fatal Change Sub", 'FORMAT ( [Fatal 2019], "#,0" ) & " in 2019 to " & FORMAT ( [Fatal 2020], "#,0" ) & " in 2020"', None),
-    ("Fatal Share 2020 Sub", '"Up " & FORMAT ( ( [Fatal Share 2020] - [Fatal Share 2019] ) * 100, "0.00" ) & " percentage points from " & FORMAT ( [Fatal Share 2019], "0.00%" ) & " in 2019"', None),
+    ("Fatal Share 2020 Sub", '"Up " & FORMAT ( ( [Fatal Share 2020] - [Fatal Share 2019] ) * 100, "0.00" ) & " pts from " & FORMAT ( [Fatal Share 2019], "0.00%" ) & " in 2019"', None),
     ("Injury 2019", yr("[Injury Collisions]", 2019), "#,0"),
     ("Injury 2020", yr("[Injury Collisions]", 2020), "#,0"),
     ("Injury Change", "DIVIDE ( [Injury 2020] - [Injury 2019], [Injury 2019] )", "+0.00%;-0.00%;0.00%"),
@@ -407,7 +410,7 @@ MEASURES = [
     ("Top Lever Share", "DIVIDE ( [Top Lever Avoided], [Fatal Collisions] )", "0.00%"),
     ("Top Lever Sub", '"Lever: " & [Top Lever Name]', None),
     ("Top Share Sub", '"of all " & FORMAT ( [Fatal Collisions], "#,0" ) & " fatal collisions in the period"', None),
-    ("Uptake Sub", '"Share of the gap closed. Change it with the dropdown."', None),
+    ("Uptake Sub", '"Set it with the dropdown below"', None),
     ("Scenario Headline", '"Closing " & FORMAT ( [Uptake Value], "0%" ) & " of the gap: " & LOWER ( [Top Lever Name] ) & " could avoid about " & FORMAT ( [Top Lever Avoided], "#,0" ) & " fatal collisions (" & FORMAT ( [Top Lever Share], "0.00%" ) & ")."', None),
     ("Head-on Share of Fatal", 'DIVIDE ( CALCULATE ( [Fatal Collisions], Dim_CollisionType[Collision Type] = "Head-on" ), [Fatal Collisions] )', "0.00%"),
     ("Single Vehicle Share of Fatal", 'DIVIDE ( CALCULATE ( [Fatal Collisions], Dim_CollisionType[Collision Group] = "Single vehicle" ), [Fatal Collisions] )', "0.00%"),
@@ -424,12 +427,12 @@ MEASURES = [
     ("Restrained Rate", "CALCULATE ( [Person Fatality Rate], %s, %s )" % (OCC, RESTRAINED), "0.00%"),
     ("Unrestrained Multiple", "DIVIDE ( [Unrestrained Rate], [Restrained Rate] )", '0.00"×"'),
     ("Unrestrained People", "CALCULATE ( [People Involved], %s, %s )" % (OCC, UNRESTRAINED), "#,0"),
-    ("Unrestrained Sub", '"Occupants, no safety device used: " & FORMAT ( [Unrestrained People], "#,0" ) & " people, " & FORMAT ( [Unrestrained Deaths], "#,0" ) & " deaths"', None),
+    ("Unrestrained Sub", 'FORMAT ( [Unrestrained People], "#,0" ) & " occupants, " & FORMAT ( [Unrestrained Deaths], "#,0" ) & " deaths"', None),
     ("Unrestrained Deaths", "CALCULATE ( [Person Deaths], %s, %s )" % (OCC, UNRESTRAINED), "#,0"),
     ("Restrained People", "CALCULATE ( [People Involved], %s, %s )" % (OCC, RESTRAINED), "#,0"),
     ("Restrained Deaths", "CALCULATE ( [Person Deaths], %s, %s )" % (OCC, RESTRAINED), "#,0"),
-    ("Restrained Sub", '"Occupants, safety device used: " & FORMAT ( [Restrained People], "#,0" ) & " people, " & FORMAT ( [Restrained Deaths], "#,0" ) & " deaths"', None),
-    ("Multiple Sub", '"Observed ratio, not adjusted for other factors"', None),
+    ("Restrained Sub", 'FORMAT ( [Restrained People], "#,0" ) & " occupants, " & FORMAT ( [Restrained Deaths], "#,0" ) & " deaths"', None),
+    ("Multiple Sub", '"Not adjusted for other factors"', None),
     ("People Headline", '"Occupants with no safety device used die " & FORMAT ( [Unrestrained Multiple], "0.00" ) & " times as often, and motorcyclists and pedestrians are the most exposed."', None),
     # data quality
     ("Unknown Share (Field)", 'SWITCH ( SELECTEDVALUE ( DQ_Field[Field] ), "Collision type", DIVIDE ( CALCULATE ( [Collisions], Dim_CollisionType[Type Key] = 0 ), [Collisions] ), '
@@ -694,6 +697,12 @@ def facts4(y, items, z0=300):
     return [card("k%d" % i, X4[i], y, 295, 110, m, lab, z0 + i, sub=sub, p=(10, 18, 6, 18)) for i, (m, lab, sub) in enumerate(items)]
 
 
+def cards4(y, items, z0=300):
+    """Four number cards with icons: (label, measure, subtitle measure)."""
+    X4 = [20, 335, 650, 965]
+    return [card("k%d" % i, X4[i], y, 295, 110, mm, lab, z0 + i, sub="=" + sm, p=(10, 18, 6, 18)) for i, (lab, mm, sm) in enumerate(items)]
+
+
 def frow4(y): return [("card", x, y, 295, 110) for x in (20, 335, 650, 965)]
 
 
@@ -704,11 +713,11 @@ def topbar(headline_measure, yr_slicer=True):
     return out
 
 
-bg("canvas_start.png", ST_H, [("tint", 20, 120, 1100, 64)] + frow4(200) + [("panel", 20, 335, 610, 170), ("panel", 650, 335, 610, 170), ("panel", 20, 525, 610, 150), ("panel", 650, 525, 610, 150), ("warn", 20, 695, 1240, 50)])
-bg("canvas_when.png", WH_H, band() + frow(200) + [("panel", 20, 330, 780, 600), ("panel", 820, 330, 440, 600), ("panel", 20, 950, 400, 150), ("panel", 440, 950, 400, 150), ("panel", 860, 950, 400, 150), ("warn", 20, 1120, 1240, 50)])
-bg("canvas_compare.png", CP_H, [("tint", 20, 120, 1100, 64)] + frow(200) + [("panel", 20, 330, 610, 340), ("panel", 650, 330, 610, 340), ("panel", 20, 690, 610, 230), ("card", 40, 750, 275, 150), ("card", 335, 750, 275, 150), ("panel", 650, 690, 610, 230), ("panel", 20, 940, 400, 150), ("panel", 440, 940, 400, 150), ("panel", 860, 940, 400, 150), ("warn", 20, 1110, 1240, 50)])
-bg("canvas_conditions.png", CO_H, band() + frow(200) + [("panel", 20, 330, 1240, 82), ("panel", 20, 422, 610, 338), ("panel", 650, 420, 610, 340), ("panel", 20, 780, 400, 150), ("panel", 440, 780, 400, 150), ("panel", 860, 780, 400, 150), ("warn", 20, 950, 1240, 50)])
-bg("canvas_people.png", PE_H, band() + frow(200) + [("panel", 20, 330, 610, 310), ("panel", 650, 330, 610, 310), ("panel", 20, 660, 610, 310), ("panel", 650, 660, 610, 310), ("panel", 20, 990, 400, 150), ("panel", 440, 990, 400, 150), ("panel", 860, 990, 400, 150), ("warn", 20, 1160, 1240, 50)])
+bg("canvas_start.png", ST_H, [("tint", 20, 120, 1100, 64)] + krow(200, 110) + [("panel", 20, 335, 610, 170), ("panel", 650, 335, 610, 170), ("panel", 20, 525, 610, 150), ("panel", 650, 525, 610, 150), ("warn", 20, 695, 1240, 50)])
+bg("canvas_when.png", WH_H, band() + krow(200, 110) + [("panel", 20, 330, 780, 600), ("panel", 820, 330, 440, 600), ("panel", 20, 950, 400, 150), ("panel", 440, 950, 400, 150), ("panel", 860, 950, 400, 150), ("warn", 20, 1120, 1240, 50)])
+bg("canvas_compare.png", CP_H, [("tint", 20, 120, 1100, 64)] + krow(200, 110) + [("panel", 20, 330, 610, 340), ("panel", 650, 330, 610, 340), ("panel", 20, 690, 610, 230), ("card", 40, 750, 275, 150), ("card", 335, 750, 275, 150), ("panel", 650, 690, 610, 230), ("panel", 20, 940, 400, 150), ("panel", 440, 940, 400, 150), ("panel", 860, 940, 400, 150), ("warn", 20, 1110, 1240, 50)])
+bg("canvas_conditions.png", CO_H, band() + krow(200, 110) + [("panel", 20, 330, 1240, 82), ("panel", 20, 422, 610, 338), ("panel", 650, 420, 610, 340), ("panel", 20, 780, 400, 150), ("panel", 440, 780, 400, 150), ("panel", 860, 780, 400, 150), ("warn", 20, 950, 1240, 50)])
+bg("canvas_people.png", PE_H, band() + krow(200, 110) + [("panel", 20, 330, 610, 310), ("panel", 650, 330, 610, 310), ("panel", 20, 660, 610, 310), ("panel", 650, 660, 610, 310), ("panel", 20, 990, 400, 150), ("panel", 440, 990, 400, 150), ("panel", 860, 990, 400, 150), ("warn", 20, 1160, 1240, 50)])
 bg("canvas_explore.png", EX_H, [("tint", 20, 120, 1100, 64), ("panel", 20, 200, 1240, 550), ("warn", 20, 770, 1240, 50)])
 bg("canvas_quality.png", QU_H, [("panel", 20, 130, 610, 350), ("panel", 20, 495, 610, 250), ("panel", 650, 130, 610, 350), ("panel", 650, 495, 610, 250)])
 
@@ -719,8 +728,8 @@ st = header("When and where do Canadian roads turn deadly?", "Start here: four h
 st += [textbox("q", 20, 120, 1100, 64, [[run("The question:  ", 10, INK, True),
             run("When, where and under what conditions do fatal collisions concentrate, and who is most at risk, so an insurer's analytics team knows what to monitor and what to say about safe driving?", 10, INK2)]], 100, p=(12, 18, 8, 18))]
 st += [reset_button(1140, 132, 120, 40, 150)]
-st += facts4(200, [("Collisions", "Collisions, 2019 and 2020", "=Collisions Sub"), ("Fatal Share", "Share that are fatal", "=Fatal Sub"),
-                   ("Riskiest Hour Share", "Riskiest hour for a fatal outcome", "=Riskiest Hour Text"), ("Fatal Change", "Fatal collisions, 2020 against 2019", "=Pandemic Text")])
+st += cards4(200, [("Collisions, 2019 and 2020", "Collisions", "Collisions Sub"), ("Share that are fatal", "Fatal Share", "Fatal Sub"),
+                  ("Riskiest hour for a fatal outcome", "Riskiest Hour Share", "Riskiest Hour Text"), ("Fatal collisions, 2020 vs 2019", "Fatal Change", "Pandemic Text")])
 st += [block("finds", 20, 335, 610, 170, "What the data shows", [
            "Collisions fell 24.38% in 2020, but fatal collisions only 1.29%, so the fatal share rose from 1.53% to 2.00%.",
            "At night (10 pm to 6 am) 3.41% of collisions are fatal against 1.52% by day. The riskiest hour is 4 am, at 4.89%.",
@@ -744,8 +753,8 @@ pages["start"] = dict(name="Start here", H=ST_H, img="canvas_start.png", visuals
 # ---- When
 wn = header("Fatal collisions peak between midnight and 5 am", "The fatal share of collisions by hour and weekday, with 2019 against 2020 by month.")
 wn += topbar("When Headline")
-wn += facts(200, [("Fatal share at night (10 pm to 6 am)", "Night Fatal Share", "Night Sub", False), ("Fatal share by day (6 am to 10 pm)", "Day Fatal Share", "Day Sub", False),
-                  ("Night against day", "Night Times Day", "Night Times Sub", False)])
+wn += cards4(200, [("Fatal share at night", "Night Fatal Share", "Night Sub"), ("Fatal share by day", "Day Fatal Share", "Day Sub"),
+                   ("Night against day", "Night Times Day", "Night Times Sub"), ("Riskiest single hour", "Riskiest Hour Share", "Riskiest Hour Text")])
 wn += [chart("heat", 20, 330, 780, 555, "pivotTable", {"Rows": [C("Dim_Hour", "Hour Label", "Hour")], "Columns": [C("Dim_Weekday", "Weekday")], "Values": [M("Heat Share", "Fatal share")]}, 300,
              "Fatal share by hour and weekday", "Darker means a higher fatal share. Cells with under 100 collisions are blank.",
              "Matrix heat map of the fatal share by hour and weekday",
@@ -771,8 +780,8 @@ pages["when"] = dict(name="When", H=WH_H, img="canvas_when.png", visuals=wn)
 # ---- Compare (time intelligence and a calculation group)
 cp = header("2020 collision decline was driven almost entirely by injury collisions", "2020 against 2019: the overall change, the monthly pattern, fatal against injury, and where the decline came from.")
 cp += [reset_button(1140, 132, 120, 40, 150), card("headline", 20, 120, 1100, 64, "Pandemic Headline", None, 200, font=(10, NAVY), p=(10, 18, 8, 18))]
-cp += facts(200, [("Collisions, 2020 against 2019", "Collisions Change", "Coll Change Sub", False), ("Fatal collisions, 2020 against 2019", "Fatal Change", "Fatal Change Sub", False),
-                  ("Fatal share in 2020", "Fatal Share 2020", "Fatal Share 2020 Sub", False)])
+cp += cards4(200, [("Collisions, 2020 vs 2019", "Collisions Change", "Coll Change Sub"), ("Injury collisions, 2020 vs 2019", "Injury Change", "Injury Change Sub"),
+                   ("Fatal collisions, 2020 vs 2019", "Fatal Change", "Fatal Change Sub"), ("Fatal share in 2020", "Fatal Share 2020", "Fatal Share 2020 Sub")])
 cp += [chart("months", 20, 330, 610, 340, "clusteredColumnChart", {"Category": [C("Date", "Month", "Month")], "Y": [M("Collisions Dated", "Collisions")], "Series": [C("Date", "Year Label", "Year")]}, 300,
              "Collisions by month, 2019 against 2020", "Each month has two bars. The gap in spring is the drop.", "Clustered column chart of collisions by month for 2019 and 2020",
              objects={"legend": [{"properties": {"show": boolean(True), "position": s("Bottom")}}], "labels": [{"properties": {"show": boolean(False)}}],
@@ -803,8 +812,8 @@ pages["compare"] = dict(name="Compare", H=CP_H, img="canvas_compare.png", visual
 # ---- Conditions (what-if scenario)
 cd = header("What if risky roads were made as safe as safe ones?", "A what-if scenario: choose how much of the gap to close and see how many fatal collisions that could avoid.")
 cd += topbar("Scenario Headline")
-cd += facts(200, [("Biggest single lever: fatal collisions avoided", "Top Lever Avoided", "Top Lever Sub", False), ("Share of all fatal collisions", "Top Lever Share", "Top Share Sub", False),
-                  ("Share of the gap closed", "Uptake Value", "Uptake Sub", False)])
+cd += cards4(200, [("Fatal collisions avoided", "Top Lever Avoided", "Top Lever Sub"), ("Share of all fatal collisions", "Top Lever Share", "Top Share Sub"),
+                   ("Share of the gap closed", "Uptake Value", "Uptake Sub"), ("Fatal collisions in the period", "Fatal Collisions", "Overall Share Sub")])
 sl = slicer("uptake", 30, 334, 340, 74, "Uptake", "Uptake", "Share of the gap closed (none = 25%)", 400)
 sl["visual"]["objects"]["header"][0]["properties"]["fontSize"] = num(10)
 sl["visual"]["objects"]["items"] = [{"properties": {"fontSize": num(11)}}]
@@ -832,8 +841,8 @@ pages["conditions"] = dict(name="Conditions", H=CO_H, img="canvas_conditions.png
 # ---- People
 pe = header("Fatality rates vary sharply by road user, safety-device use and age", "Among people in reported fatal and injury collisions, motorcyclists, pedestrians and occupants with no safety device used show the highest fatality rates.")
 pe += topbar("People Headline")
-pe += facts(200, [("Fatality rate: no safety device used", "Unrestrained Rate", "Unrestrained Sub", False), ("Fatality rate: safety device used", "Restrained Rate", "Restrained Sub", False),
-                  ("How much higher", "Unrestrained Multiple", "Multiple Sub", False)])
+pe += cards4(200, [("Fatality rate: no device used", "Unrestrained Rate", "Unrestrained Sub"), ("Fatality rate: device used", "Restrained Rate", "Restrained Sub"),
+                   ("How much higher", "Unrestrained Multiple", "Multiple Sub"), ("Average fatality rate", "People Avg Rate", "Avg Rate Sub")])
 
 
 def nf(n, ent, prop):

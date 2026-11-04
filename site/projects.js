@@ -257,10 +257,10 @@ window.PROJECTS = [
     ],
     stats: [
       { value: "7", label: "report pages", sub: "" },
-      { value: "46", label: "data visuals", sub: "" },
+      { value: "50", label: "data visuals", sub: "" },
       { value: "23", label: "tables", sub: "2 data, 20 helper, 1 measures" },
       { value: "17", label: "relationships", sub: "" },
-      { value: "99", label: "DAX measures", sub: "" }
+      { value: "102", label: "DAX measures", sub: "" }
     ],
     techniques: ["Star schema with unknown members", "Date table", "Time intelligence", "Calculation group", "What-if parameter", "Heat map by DAX colour", "Decomposition tree", "Data-quality page", "PBIP + TMDL project"],
     downloads: [
@@ -349,7 +349,7 @@ window.PROJECTS = [
         { i: "01 \u00b7 SOURCE", b: "Transport Canada", s: "Open CSVs for 2019 and 2020 under the Open Government Licence; every code checked against the data dictionary" },
         { i: "02 \u00b7 PREPARE", b: "Python and SQLite", s: "Found the real collision ID, cast mixed code formats, kept unknown codes as unknown and removed 7,416 dummy rows" },
         { i: "03 \u00b7 CHECK", b: "SQL checks", s: "Unique collision ID, every person has a collision, every severity is fatal or injury, and every headline number against SQL" },
-        { i: "04 \u00b7 MODEL", b: "Star schema", s: "Two fact tables, 15 dimensions with unknown members, a date table and 99 DAX measures" },
+        { i: "04 \u00b7 MODEL", b: "Star schema", s: "Two fact tables, 15 dimensions with unknown members, a date table and 102 DAX measures" },
         { i: "05 \u00b7 REPORT", b: "Power BI", s: "7 pages: heat map, time intelligence, a what-if scenario, a decomposition tree and a data-quality page" }
       ]
     }

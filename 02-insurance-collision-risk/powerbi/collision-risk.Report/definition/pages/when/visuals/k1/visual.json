@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "fact0",
+  "name": "k1",
   "position": {
-    "x": 20,
+    "x": 335,
     "y": 200,
-    "z": 200,
-    "width": 400,
+    "z": 301,
+    "width": 295,
     "height": 110,
-    "tabOrder": 200
+    "tabOrder": 301
   },
   "visual": {
     "visualType": "card",
@@ -24,11 +24,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Unrestrained Rate"
+                  "Property": "Day Fatal Share"
                 }
               },
-              "queryRef": "_Measures.Unrestrained Rate",
-              "nativeQueryRef": "Unrestrained Rate"
+              "queryRef": "_Measures.Day Fatal Share",
+              "nativeQueryRef": "Day Fatal Share"
             }
           ]
         }
@@ -102,7 +102,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fatality rate: no safety device used'"
+                  "Value": "'Fatal share by day'"
                 }
               }
             }
@@ -127,7 +127,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Unrestrained Sub"
+                  "Property": "Day Sub"
                 }
               }
             }
@@ -140,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Fatality rate: no safety device used'"
+                  "Value": "'Card: Fatal share by day'"
                 }
               }
             }
