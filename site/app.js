@@ -27,12 +27,14 @@
   Array.prototype.forEach.call(document.querySelectorAll("#menu a"), function (a) { a.addEventListener("click", function () { document.getElementById("menu").classList.remove("open"); }); });
 
   // pills: certifications and tools
+  // The featured case, cards, pills and About list are also written into index.html by build_home.py,
+  // so they show without JavaScript. Only fill a block here if it is still empty.
+  function empty(id) { return !document.getElementById(id).children.length && !document.getElementById(id).textContent.trim(); }
   var pills = document.getElementById("pills");
-  P.certs.forEach(function (c) {
-    var a = el("a", { "class": "pill cert", href: c.url || "#", target: "_blank", rel: "noopener" }, "✓ Microsoft " + c.label.split(" ")[0]);
-    pills.appendChild(a);
-  });
-  ["Power BI · DAX", "SQL · Python", "Microsoft Fabric"].forEach(function (t) { pills.appendChild(el("span", { "class": "pill" }, t)); });
+  if (empty("pills")) {
+    P.certs.forEach(function (c) { pills.appendChild(el("a", { "class": "pill cert", href: c.url || "#", target: "_blank", rel: "noopener" }, "✓ Microsoft " + c.label.split(" ")[0])); });
+    ["Power BI · DAX", "SQL · Python", "Microsoft Fabric"].forEach(function (x) { pills.appendChild(el("span", { "class": "pill" }, x)); });
+  }
 
   // featured: Toronto 311 if present, else the first project
   var feat = list.filter(function (p) { return p.id === "toronto-311"; })[0] || list[0];
@@ -41,6 +43,7 @@
   var shell = document.getElementById("shell"), img = document.getElementById("shell-img");
   shell.href = href(feat); img.src = shot(feat); img.alt = "Power BI report: " + feat.title;
 
+  if (empty("feature")) {
   var f = document.getElementById("feature");
   var copy = el("div", { "class": "copy" });
   copy.appendChild(el("div", { "class": "industry" }, "Featured case study · " + feat.sector));
@@ -61,8 +64,10 @@
   var fi = el("img", { src: shot(feat), alt: "Power BI report page: " + feat.title, loading: "lazy" });
   art.appendChild(fi);
   f.appendChild(copy); f.appendChild(art);
+  }
 
   // other case studies
+  if (empty("grid")) {
   var grid = document.getElementById("grid");
   rest.forEach(function (p, i) {
     var a = el("a", { "class": "pcard", href: href(p) });
@@ -79,9 +84,11 @@
     c.appendChild(el("span", { "class": "tlink" }, "Explore case study ↗"));
     a.appendChild(c); grid.appendChild(a);
   });
-  document.getElementById("count").textContent = "Showing " + list.length + " finished case studies · more in progress";
+  }
+  if (empty("count")) document.getElementById("count").textContent = "Showing " + list.length + " finished case studies · " + (window.PROJECTS.length - list.length) + " in development";
 
   // about list
+  if (empty("alist")) {
   var al = document.getElementById("alist");
   [["Data & reporting experience", "Elevara Digital · Impact Zero · Scalezix Technologies"],
    ["Microsoft Certified: Power BI Data Analyst Associate", "PL-300 certification"],
@@ -89,4 +96,5 @@
    ["Graduate Certificate, Business Insights and Analytics", "Humber Polytechnic, Toronto"]].forEach(function (r) {
     var d = el("div", { "class": "aitem" }); d.appendChild(el("b", {}, r[0])); d.appendChild(el("span", {}, r[1])); al.appendChild(d);
   });
+  }
 })();
