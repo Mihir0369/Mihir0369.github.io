@@ -74,3 +74,11 @@ body.inner { background: #F7F6F2; -webkit-font-smoothing: antialiased; }
 .viewer-nav { position: absolute; top: 45%; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: #142C43; font-size: 28px; line-height: 1; cursor: pointer; padding: 0 0 4px; z-index: 2; }
 .viewer-nav.prev { left: 10px; } .viewer-nav.next { right: 10px; }
 .viewer-nav:hover, .viewer-close:hover { background: #E8A342; }
+
+/* viewer: one fixed-size stage so every report page sits in the same frame */
+.viewer-box { width: min(1240px, 100%); }
+.viewer-stage { width: 100%; height: calc(100vh - 120px); display: flex; align-items: center; justify-content: center; background: #0C2236; border-radius: 10px; padding: 14px 64px; box-sizing: border-box; }
+.viewer-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.viewer-nav { top: calc(50% - 40px); }
+.viewer-nav.prev { left: 12px; } .viewer-nav.next { right: 12px; }
+@media (max-width: 700px) { .viewer-stage { padding: 8px 8px; } .viewer-nav { top: auto; bottom: 62px; } }

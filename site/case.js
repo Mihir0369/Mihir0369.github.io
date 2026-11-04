@@ -458,9 +458,9 @@
       var close = el("button", { "class": "viewer-close", type: "button", "aria-label": "Close" }, "×");
       var prev = el("button", { "class": "viewer-nav prev", type: "button", "aria-label": "Previous page" }, "‹");
       var next = el("button", { "class": "viewer-nav next", type: "button", "aria-label": "Next page" }, "›");
-      var im = el("img", { "class": "viewer-img", alt: "" });
+      var im = el("img", { "class": "viewer-img", alt: "" }); var stage = el("div", { "class": "viewer-stage" }); stage.appendChild(im);
       var cap = el("div", { "class": "viewer-cap" });
-      box.appendChild(close); box.appendChild(prev); box.appendChild(im); box.appendChild(next); box.appendChild(cap);
+      box.appendChild(close); box.appendChild(prev); box.appendChild(stage); box.appendChild(next); box.appendChild(cap);
       viewer.appendChild(box); document.body.appendChild(viewer);
       function hide() { viewer.classList.remove("open"); document.body.style.overflow = ""; }
       function go(d) { viewerIdx = (viewerIdx + d + p.shots.length) % p.shots.length; show(); }
