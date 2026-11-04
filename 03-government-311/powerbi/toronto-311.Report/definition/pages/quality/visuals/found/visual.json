@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "found",
+  "position": {
+    "x": 760,
+    "y": 130,
+    "z": 500,
+    "width": 500,
+    "height": 300,
+    "tabOrder": 500
+  },
+  "visual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "What I found in the file and what I did",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  The extract has 1,351,594 requests. About 8% of the raw rows were broken by an unquoted comma in a text field, so I repaired them before counting.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  There is no close date. Open means status Open or In Progress when the data was taken, not a confirmed backlog, and time to close cannot be measured.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Type names changed in January 2025: 255 names appear only in 2025 and cover 58.17% of that year's requests. Growth by type is not comparable across the boundary.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Statuses are grouped into Resolved, Cancelled, Open and Unknown. The model counts 254 renamed types, not 255, because two spellings differ only by case.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Checks: totals, yearly counts and open share by division match the SQL queries.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "16.0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10.0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

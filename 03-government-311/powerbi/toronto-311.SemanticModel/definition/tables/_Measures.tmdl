@@ -2,59 +2,59 @@ table _Measures
 	lineageTag: 2292796b-d912-4b4d-9441-0c283ddc275b
 
 	measure Requests = SUM ( requests[requests] )
-		formatString: #,0.0
+		formatString: #,0
 		lineageTag: 2d5a4993-fc67-498b-a9af-d621cca60306
 
 	measure Resolved = CALCULATE ( [Requests], requests[status_group] = "Resolved" )
-		formatString: #,0.0
+		formatString: #,0
 		lineageTag: 82669073-a39d-4659-8c3a-ed9f6ee9adcd
 
 	measure Cancelled = CALCULATE ( [Requests], requests[status_group] = "Cancelled" )
-		formatString: #,0.0
+		formatString: #,0
 		lineageTag: 54a25adc-eff5-436f-a08a-b65bad0e1196
 
 	measure Open = CALCULATE ( [Requests], requests[status_group] = "Open" )
-		formatString: #,0.0
+		formatString: #,0
 		lineageTag: 6c325090-d40c-4c6d-8bd8-4c44d4941fb8
 
 	measure 'Resolved %' = DIVIDE ( [Resolved], [Requests] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 1b80ad55-cdea-4eb9-9a70-585271568fe2
 
 	measure 'Cancelled %' = DIVIDE ( [Cancelled], [Requests] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 0db40e6e-ddfd-429d-8101-b06a0890cda5
 
 	measure 'Open %' = DIVIDE ( [Open], [Requests] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 7f75da8a-48d2-43db-a59c-105f7f7abd55
 
 	measure 'Requests PY' = CALCULATE ( [Requests], SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
-		formatString: #,0.0
+		formatString: #,0
 		lineageTag: 8e1fef19-9ccf-4d06-99b1-3ba87f0dadc2
 
 	measure 'Requests YoY %' = DIVIDE ( [Requests] - [Requests PY], [Requests PY] )
-		formatString: +0.0%;-0.0%;0.0%
+		formatString: +0.00%;-0.00%;0.00%
 		lineageTag: 1484e969-7872-472a-8d18-5f66c9fc1620
 
 	measure 'Selected Year Label' = IF ( HASONEVALUE ( 'Date'[Year] ), SELECTEDVALUE ( 'Date'[Year] ), "2023 to 2025" )
 		lineageTag: e5f7a758-ce46-44d5-a257-ea1957e07433
 
-	measure 'Requests vs PY' = IF ( NOT HASONEVALUE ( 'Date'[Year] ), "Pick one year", IF ( ISBLANK ( [Requests PY] ), "First year of data", IF ( [Requests YoY %] >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( [Requests YoY %] ), "0.0%" ) & " vs " & ( SELECTEDVALUE ( 'Date'[Year] ) - 1 ) ) )
+	measure 'Requests vs PY' = IF ( NOT HASONEVALUE ( 'Date'[Year] ), "Pick one year", IF ( ISBLANK ( [Requests PY] ), "First year of data", IF ( [Requests YoY %] >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( [Requests YoY %] ), "0.00%" ) & " vs " & ( SELECTEDVALUE ( 'Date'[Year] ) - 1 ) ) )
 		lineageTag: 7df9e8ee-c840-4849-bdd3-e6f7d75b1b85
 
 	measure 'Parks Open %' = CALCULATE ( [Open %], Dim_Division[Division] = "Parks, Forestry & Environment" )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 5ac6288e-b50c-43c3-9eec-bb7e1d9c861c
 
 	measure 'Other Divisions Open %' = CALCULATE ( [Open %], Dim_Division[Division] <> "Parks, Forestry & Environment" )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: c5d6038b-09ff-4f66-84c2-c2a9641ea201
 
-	measure 'Parks Open vs Rest' = IF ( ISBLANK ( [Parks Open %] ), "No parks requests", "▲ " & FORMAT ( ( [Parks Open %] - [Other Divisions Open %] ) * 100, "0.0" ) & " pts vs rest" )
+	measure 'Parks Open vs Rest' = IF ( ISBLANK ( [Parks Open %] ), "No parks requests", "▲ " & FORMAT ( ( [Parks Open %] - [Other Divisions Open %] ) * 100, "0.00" ) & " pts vs rest" )
 		lineageTag: 53396fbd-5fae-4bef-a3fc-cb73030525a0
 
-	measure Headline = IF ( HASONEVALUE ( 'Date'[Year] ), IF ( ISBLANK ( [Requests YoY %] ), "In " & SELECTEDVALUE ( 'Date'[Year] ) & ", " & FORMAT ( [Requests], "#,0.0" ) & " requests; " & FORMAT ( [Open %], "0.0%" ) & " are still open.", "In " & SELECTEDVALUE ( 'Date'[Year] ) & ", requests " & IF ( [Requests YoY %] >= 0, "rose ", "fell " ) & FORMAT ( ABS ( [Requests YoY %] ), "0.0%" ) & " to " & FORMAT ( [Requests], "#,0.0" ) & "; " & FORMAT ( [Open %], "0.0%" ) & " are still open." ), "2023 to 2025: " & FORMAT ( [Requests], "#,0.0" ) & " requests; " & FORMAT ( [Open %], "0.0%" ) & " are still open." )
+	measure Headline = IF ( HASONEVALUE ( 'Date'[Year] ), IF ( ISBLANK ( [Requests YoY %] ), "In " & SELECTEDVALUE ( 'Date'[Year] ) & ", " & FORMAT ( [Requests], "#,0" ) & " requests; " & FORMAT ( [Open %], "0.00%" ) & " are recorded as open.", "In " & SELECTEDVALUE ( 'Date'[Year] ) & ", requests " & IF ( [Requests YoY %] >= 0, "rose ", "fell " ) & FORMAT ( ABS ( [Requests YoY %] ), "0.00%" ) & " to " & FORMAT ( [Requests], "#,0" ) & "; " & FORMAT ( [Open %], "0.00%" ) & " are recorded as open." ), "2023 to 2025: " & FORMAT ( [Requests], "#,0" ) & " requests; " & FORMAT ( [Open %], "0.00%" ) & " are recorded as open." )
 		lineageTag: ca6d1e23-f368-40fb-bf5e-3b61bbf61309
 
 	measure 'Data Through' = "Data through " & FORMAT ( CALCULATE ( MAX ( requests[MonthStart] ), REMOVEFILTERS ( 'Date' ) ), "mmm yyyy" )
@@ -68,21 +68,21 @@ table _Measures
 		lineageTag: f17194a3-5628-4ab8-80b9-3dfa89d4bd1c
 
 	measure 'Start Growth %' = VAR ly = [Latest Year] RETURN CALCULATE ( [Requests YoY %], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly )
-		formatString: +0.0%;-0.0%;0.0%
+		formatString: +0.00%;-0.00%;0.00%
 		lineageTag: df21381e-8be7-490a-800e-57e387041fbe
 
-	measure 'Start Growth Text' = VAR ly = [Latest Year] VAR cur = CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ) VAR prev = CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly - 1 ) RETURN ly & ": " & FORMAT ( cur, "#,0.0" ) & " requests vs " & FORMAT ( prev, "#,0.0" ) & " in " & ( ly - 1 )
+	measure 'Start Growth Text' = VAR ly = [Latest Year] VAR cur = CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ) VAR prev = CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly - 1 ) RETURN ly & ": " & FORMAT ( cur, "#,0" ) & " requests vs " & FORMAT ( prev, "#,0" ) & " in " & ( ly - 1 )
 		lineageTag: 331119a6-3ed6-48cb-818a-94e81ae981dc
 
 	measure 'Start Parks Open %' = VAR ly = [Latest Year] RETURN CALCULATE ( [Parks Open %], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: f1aa888a-7317-48e2-86cd-e1ef06d6a225
 
-	measure 'Start Parks Text' = VAR ly = [Latest Year] VAR t = ADDCOLUMNS ( FILTER ( VALUES ( Dim_Division[Division] ), Dim_Division[Division] <> "Parks, Forestry & Environment" ), "o", CALCULATE ( [Open %], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ) ) VAR t2 = FILTER ( t, NOT ISBLANK ( [o] ) ) RETURN ly & ": other divisions range from " & FORMAT ( MINX ( t2, [o] ), "0.0%" ) & " to " & FORMAT ( MAXX ( t2, [o] ), "0.0%" )
+	measure 'Start Parks Text' = VAR ly = [Latest Year] VAR t = ADDCOLUMNS ( FILTER ( VALUES ( Dim_Division[Division] ), Dim_Division[Division] <> "Parks, Forestry & Environment" ), "o", CALCULATE ( [Open %], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ) ) VAR t2 = FILTER ( t, NOT ISBLANK ( [o] ) ) RETURN ly & ": other divisions range from " & FORMAT ( MINX ( t2, [o] ), "0.00%" ) & " to " & FORMAT ( MAXX ( t2, [o] ), "0.00%" )
 		lineageTag: 3b62b150-3174-453e-9d26-7f14be144b81
 
 	measure 'Start Renamed %' = VAR ly = [Latest Year] RETURN CALCULATE ( DIVIDE ( CALCULATE ( [Requests], Dim_ServiceType[Taxonomy Era] = "2025 only" ), [Requests] ), REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: b54b0e48-7141-4567-b544-95a99aa44f62
 
 	measure 'Start Renamed Text' = [Latest Year] & " requests under type names new since January 2025"
@@ -91,57 +91,57 @@ table _Measures
 	measure 'Peak Month' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) VAR ym = MAXX ( tp, 'Date'[Year Month] ) RETURN IF ( ISBLANK ( ym ), BLANK (), FORMAT ( DATE ( VALUE ( LEFT ( ym, 4 ) ), VALUE ( RIGHT ( ym, 2 ) ), 1 ), "mmm yyyy" ) )
 		lineageTag: 75c1cae3-44c9-4b59-b390-d7b3d303534a
 
-	measure 'Peak Month Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests"
+	measure 'Peak Month Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests"
 		lineageTag: 2cda7a65-3bc7-46aa-aaed-245596ce91c3
 
 	measure 'Quiet Month' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], ASC ) VAR ym = MAXX ( tp, 'Date'[Year Month] ) RETURN IF ( ISBLANK ( ym ), BLANK (), FORMAT ( DATE ( VALUE ( LEFT ( ym, 4 ) ), VALUE ( RIGHT ( ym, 2 ) ), 1 ), "mmm yyyy" ) )
 		lineageTag: bf90d7e5-4fb4-43ff-98e0-6d200720035b
 
-	measure 'Quiet Month Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], ASC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests"
+	measure 'Quiet Month Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[Year Month] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], ASC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests"
 		lineageTag: dd88e315-1eed-4a4c-9354-bbfc6f4e25dc
 
 	measure 'Parks Share Of Open' = DIVIDE ( CALCULATE ( [Open], Dim_Division[Division] = "Parks, Forestry & Environment" ), [Open] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 1b179fbc-3134-4d5c-8fd4-d1d85597faf8
 
-	measure 'Parks Share Text' = "of all open requests, from " & FORMAT ( DIVIDE ( CALCULATE ( [Requests], Dim_Division[Division] = "Parks, Forestry & Environment" ), [Requests] ), "0.0%" ) & " of requests"
+	measure 'Parks Share Text' = "of all open requests, from " & FORMAT ( DIVIDE ( CALCULATE ( [Requests], Dim_Division[Division] = "Parks, Forestry & Environment" ), [Requests] ), "0.00%" ) & " of requests"
 		lineageTag: 01b5da35-5e8f-47b6-bc35-7aa2f4f644fc
 
 	measure 'Top Open %' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN MAXX ( tp, [o] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: e157ae4b-b29d-4945-af43-74cf404b578a
 
-	measure 'Top Open Div' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN MAXX ( tp, Dim_Division[Division] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests)"
+	measure 'Top Open Div' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN MAXX ( tp, Dim_Division[Division] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests)"
 		lineageTag: 7427ce5d-4054-4b37-9270-8491db9096a7
 
 	measure 'Low Open %' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], ASC ) RETURN MAXX ( tp, [o] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 429ed44c-a4c4-4446-82da-957240ad92e2
 
-	measure 'Low Open Div' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], ASC ) RETURN MAXX ( tp, Dim_Division[Division] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests)"
+	measure 'Low Open Div' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], ASC ) RETURN MAXX ( tp, Dim_Division[Division] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests)"
 		lineageTag: 9d15b108-3bed-4b81-b500-598c151f91e1
 
 	measure 'Largest Division' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN MAXX ( tp, Dim_Division[Division] )
 		lineageTag: 669ba932-d61b-4c1e-ab0c-9d47451431f2
 
-	measure 'Largest Division Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests, " & FORMAT ( MAXX ( tp, [o] ), "0.0%" ) & " still open"
+	measure 'Largest Division Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests, " & FORMAT ( MAXX ( tp, [o] ), "0.00%" ) & " recorded as open"
 		lineageTag: 407913fe-8a3d-4119-9147-021f2dbf50c7
 
 	measure 'Top Type' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] )
 		lineageTag: e96f3595-5deb-41c3-bc25-8d06917a5fd0
 
-	measure 'Top Type Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests, " & FORMAT ( DIVIDE ( MAXX ( tp, [r] ), [Requests] ), "0.0%" ) & " of the selection"
+	measure 'Top Type Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests] ), NOT ISBLANK ( [r] ) ) VAR tp = TOPN ( 1, t, [r], DESC ) RETURN FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests, " & FORMAT ( DIVIDE ( MAXX ( tp, [r] ), [Requests] ), "0.00%" ) & " of the selection"
 		lineageTag: 63b7ade5-8a87-4f07-b9b7-7045d5930356
 
 	measure 'Cancel Peak %' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "c", [Cancelled %] ), [r] >= 1000 && NOT ISBLANK ( [c] ) ) VAR tp = TOPN ( 1, t, [c], DESC ) RETURN MAXX ( tp, [c] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 1dd9170f-ddd3-4b62-8708-6d587ae5f3d3
 
-	measure 'Cancel Peak Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "c", [Cancelled %] ), [r] >= 1000 && NOT ISBLANK ( [c] ) ) VAR tp = TOPN ( 1, t, [c], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests)"
+	measure 'Cancel Peak Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "c", [Cancelled %] ), [r] >= 1000 && NOT ISBLANK ( [c] ) ) VAR tp = TOPN ( 1, t, [c], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests)"
 		lineageTag: 13f68112-4374-462b-b7cd-79ba4dab59b5
 
 	measure 'Types In Both %' = VAR n = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ), Dim_ServiceType[Taxonomy Era] = "In both periods" ) VAR tot = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ) ) RETURN DIVIDE ( n, tot )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 423f1c6f-0724-4b7f-9569-24d2d2a6165a
 
 	measure 'Types In Both Text' = VAR n = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ), Dim_ServiceType[Taxonomy Era] = "In both periods" ) VAR tot = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ) ) RETURN n & " of " & tot & " type names appear in both 2023-24 and 2025"
@@ -150,18 +150,54 @@ table _Measures
 	measure 'Top Open Type' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "o", [Open], "r", [Requests] ), NOT ISBLANK ( [o] ) && [o] > 0 ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] )
 		lineageTag: f1839ebe-b2a2-4e01-a4ea-b7be7d934031
 
-	measure 'Top Open Type Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "o", [Open], "r", [Requests] ), NOT ISBLANK ( [o] ) && [o] > 0 ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN FORMAT ( MAXX ( tp, [o] ), "#,0.0" ) & " open requests, " & FORMAT ( DIVIDE ( MAXX ( tp, [o] ), [Open] ), "0.0%" ) & " of all open"
+	measure 'Top Open Type Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "o", [Open], "r", [Requests] ), NOT ISBLANK ( [o] ) && [o] > 0 ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN FORMAT ( MAXX ( tp, [o] ), "#,0" ) & " open requests, " & FORMAT ( DIVIDE ( MAXX ( tp, [o] ), [Open] ), "0.00%" ) & " of all open"
 		lineageTag: 02fa0726-ce11-4cd3-a8e9-59ccb760364c
 
 	measure 'Open Type Peak %' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "p", [Open %] ), [r] >= 100 && NOT ISBLANK ( [p] ) ) VAR tp = TOPN ( 1, t, [p], DESC ) RETURN MAXX ( tp, [p] )
-		formatString: 0.0%
+		formatString: 0.00%
 		lineageTag: 8f971b40-c38f-4334-a9f2-c37cc002cca1
 
-	measure 'Open Type Peak Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "p", [Open %] ), [r] >= 100 && NOT ISBLANK ( [p] ) ) VAR tp = TOPN ( 1, t, [p], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0.0" ) & " requests)"
+	measure 'Open Type Peak Text' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_ServiceType[Service Type] ), "r", [Requests], "p", [Open %] ), [r] >= 100 && NOT ISBLANK ( [p] ) ) VAR tp = TOPN ( 1, t, [p], DESC ) RETURN MAXX ( tp, Dim_ServiceType[Service Type] ) & " (" & FORMAT ( MAXX ( tp, [r] ), "#,0" ) & " requests)"
 		lineageTag: 822cca14-785a-4d30-8a9b-73d0c0175e32
 
-	measure 'Open Total Text' = "of " & FORMAT ( [Requests], "#,0.0" ) & " requests selected"
+	measure 'Open Total Text' = "of " & FORMAT ( [Requests], "#,0" ) & " requests selected"
 		lineageTag: cbbde45f-5523-47a0-8c91-07b7a4eb2cb1
+
+	measure 'Start Total Requests' = CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ) )
+		formatString: #,0
+		lineageTag: 9ddcc508-6163-5f08-99fa-a49df2554057
+
+	measure 'Start Total Text' = VAR ly = [Latest Year] RETURN FORMAT ( CALCULATE ( [Requests], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ), "#,0" ) & " in " & ly
+		lineageTag: 6ecd3408-e485-5a8a-bf1c-6095c172a0ad
+
+	measure 'Of Year Sub' = "of " & [Selected Year Label] & " requests"
+		lineageTag: 30fa87a1-d6d8-5b09-9003-3483bdd2b76d
+
+	measure 'Types In Both Short' = VAR n = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ), Dim_ServiceType[Taxonomy Era] = "In both periods" ) VAR tot = CALCULATE ( COUNTROWS ( Dim_ServiceType ), ALL ( Dim_ServiceType ) ) RETURN n & " of " & tot & " type names"
+		lineageTag: 4099700d-f19a-5ca2-acc0-9a00116cbfc7
+
+	measure 'Cancel Types Sub' = "Types with 1,000 or more requests"
+		lineageTag: eeb5215f-cd7a-544b-8b13-2c0ddce19958
+
+	measure 'Era Types' = DISTINCTCOUNT ( Dim_ServiceType[Service Type] )
+		formatString: #,0
+		lineageTag: e433707f-dafd-5bf4-b258-6a9084b5af77
+
+	measure 'Era Share' = DIVIDE ( [Requests], CALCULATE ( [Requests], REMOVEFILTERS ( Dim_ServiceType ) ) )
+		formatString: 0.00%
+		lineageTag: d70bf96d-25b3-5dfd-ae20-96daace340aa
+
+	measure 'Types Headline' = "Pick one taxonomy era to compare type counts fairly. Names changed in January 2025."
+		lineageTag: 0057a873-8a4f-5245-8c49-1c05a50cb317
+
+	measure 'Top Open Div Name' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], DESC ) RETURN MAXX ( tp, Dim_Division[Division] )
+		lineageTag: e106c2c1-230b-528e-babe-1b9b8b96b970
+
+	measure 'Low Open Div Name' = VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Dim_Division[Division] ), "o", [Open %], "r", [Requests] ), NOT ISBLANK ( [o] ) ) VAR tp = TOPN ( 1, t, [o], ASC ) RETURN MAXX ( tp, Dim_Division[Division] )
+		lineageTag: 2f76e033-148f-546a-99e7-4816228bd1dd
+
+	measure 'Outcomes Headline' = [Selected Year Label] & ": " & [Top Open Div Name] & " has the highest share recorded as open, " & FORMAT ( [Top Open %], "0.00%" ) & " (lowest " & FORMAT ( [Low Open %], "0.00%" ) & ")."
+		lineageTag: 6940762f-393e-5865-9d03-335aad29bfed
 
 	column Dummy
 		isHidden
@@ -171,4 +207,13 @@ table _Measures
 	partition _Measures = calculated
 		mode: import
 		source = ROW ( "Dummy", BLANK () )
+
+	measure 'Start Parks Sub' = VAR ly = [Latest Year] VAR t = ADDCOLUMNS ( FILTER ( VALUES ( Dim_Division[Division] ), Dim_Division[Division] <> "Parks, Forestry & Environment" ), "o", CALCULATE ( [Open %], REMOVEFILTERS ( 'Date' ), 'Date'[Year] = ly ) ) VAR t2 = FILTER ( t, NOT ISBLANK ( [o] ) ) RETURN "Others: " & FORMAT ( MINX ( t2, [o] ), "0.00%" ) & " to " & FORMAT ( MAXX ( t2, [o] ), "0.00%" )
+		lineageTag: af1f59a8-8c40-5208-a7a0-82d9f0bdc189
+
+	measure 'Start Renamed Sub' = "of " & [Latest Year] & " requests"
+		lineageTag: 38f72a1b-a9a7-5a74-bc80-930d5795604f
+
+	measure 'Types Headline Short' = "Pick one era to compare type counts."
+		lineageTag: de36f7fb-6dbe-5f2a-b9dc-b09139de3ca6
 

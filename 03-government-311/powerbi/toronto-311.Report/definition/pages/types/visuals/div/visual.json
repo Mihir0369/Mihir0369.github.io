@@ -5,12 +5,13 @@
     "x": 530,
     "y": 120,
     "z": 102,
-    "height": 64,
     "width": 300,
+    "height": 64,
     "tabOrder": 102
   },
   "visual": {
     "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "Dim_Division.Division",
-              "nativeQueryRef": "Division",
-              "active": true
+              "nativeQueryRef": "Division"
             }
           ]
         }
@@ -63,53 +63,6 @@
                 "Literal": {
                   "Value": "'Division'"
                 }
-              }
-            }
-          }
-        }
-      ],
-      "general": [
-        {
-          "properties": {
-            "filter": {
-              "filter": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "d",
-                    "Entity": "Dim_Division",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "d"
-                                }
-                              },
-                              "Property": "Division"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Parks, Forestry & Environment'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
               }
             }
           }
@@ -216,7 +169,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

@@ -3,10 +3,10 @@
   "name": "k3",
   "position": {
     "x": 965,
-    "y": 190,
+    "y": 200,
     "z": 303,
     "width": 295,
-    "height": 125,
+    "height": 110,
     "tabOrder": 303
   },
   "visual": {
@@ -87,7 +87,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hospital stays per opioid death'"
+                  "Value": "'Hospital stays per death'"
                 }
               }
             }
@@ -125,7 +125,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Hospital stays per opioid death'"
+                  "Value": "'Card: Hospital stays per death'"
                 }
               }
             }

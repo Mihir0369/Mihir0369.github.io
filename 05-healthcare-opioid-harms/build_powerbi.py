@@ -223,7 +223,7 @@ def peak_set(prefix, src, label):
         (prefix + " LFY", "VAR y = [Latest Full Year] RETURN CALCULATE ( [Count], %s, %s )" % (FY, flt), "#,0"),
         (prefix + " Peak", "VAR yrs = %s RETURN MAXX ( yrs, CALCULATE ( [Count], REMOVEFILTERS ( Date ), %s ) )" % (yrs, flt), "#,0"),
         (prefix + " Peak Year", "VAR yrs = %s VAR t = ADDCOLUMNS ( yrs, \"v\", CALCULATE ( [Count], REMOVEFILTERS ( Date ), %s ) ) RETURN MAXX ( TOPN ( 1, t, [v], DESC ), fact_year[year] )" % (yrs, flt), "0"),
-        (prefix + " vs Peak %", "DIVIDE ( [%s LFY] - [%s Peak], [%s Peak] )" % (prefix, prefix, prefix), "+0%;-0%;0%"),
+        (prefix + " vs Peak %", "DIVIDE ( [%s LFY] - [%s Peak], [%s Peak] )" % (prefix, prefix, prefix), "+0.00%;-0.00%;0.00%"),
     ]
 
 
@@ -231,7 +231,7 @@ def qyoy(prefix, src):
     q = 'REMOVEFILTERS ( Date ), Dim_Source[Source] = "%s", Dim_Substance[Substance] = "Opioids"' % src
     return [(prefix + " Latest Quarter YoY %",
              "VAR q = [Latest Quarter] VAR cur = CALCULATE ( [Quarter Count], %s, fact_quarter[quarter_start] = q ) "
-             "VAR py = CALCULATE ( [Quarter Count], %s, fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )" % (q, q), "+0%;-0%;0%")]
+             "VAR py = CALCULATE ( [Quarter Count], %s, fact_quarter[quarter_start] = EDATE ( q, -12 ) ) RETURN DIVIDE ( cur - py, py )" % (q, q), "+0.00%;-0.00%;0.00%")]
 
 
 def by_src(src):
@@ -265,11 +265,11 @@ MEASURES = [
     ("Quarter Count Sel", "VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Quarter Count], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )", "#,0"),
     ("Latest Quarter Count", "VAR q = [Latest Quarter] RETURN CALCULATE ( [Quarter Count Sel], REMOVEFILTERS ( Date ), fact_quarter[quarter_start] = q )", "#,0"),
     ("Prior Year Quarter Count", "VAR q = [Latest Quarter] RETURN CALCULATE ( [Quarter Count Sel], REMOVEFILTERS ( Date ), fact_quarter[quarter_start] = EDATE ( q, -12 ) )", "#,0"),
-    ("Quarter YoY %", "DIVIDE ( [Latest Quarter Count] - [Prior Year Quarter Count], [Prior Year Quarter Count] )", "+0%;-0%;0%"),
+    ("Quarter YoY %", "DIVIDE ( [Latest Quarter Count] - [Prior Year Quarter Count], [Prior Year Quarter Count] )", "+0.00%;-0.00%;0.00%"),
     ("Peak Quarter Count", "CALCULATE ( MAXX ( VALUES ( fact_quarter[quarter_start] ), [Quarter Count Sel] ), REMOVEFILTERS ( Date ) )", "#,0"),
     ("Peak Quarter", "VAR t = ADDCOLUMNS ( CALCULATETABLE ( VALUES ( fact_quarter[quarter_start] ), REMOVEFILTERS ( Date ) ), \"v\", [Quarter Count Sel] ) RETURN MINX ( TOPN ( 1, t, [v], DESC ), fact_quarter[quarter_start] )", "mmm yyyy"),
     ("Peak Quarter Text", '"Highest quarter was " & FORMAT ( [Peak Quarter], "mmm yyyy" )', None),
-    ("Trend Headline", '[Showing Short] & ". " & [Latest Quarter Text] & " is " & FORMAT ( [Quarter YoY %], "+0%;-0%" ) & " vs a year earlier."', None),
+    ("Trend Headline", '[Showing Short] & ". " & [Latest Quarter Text] & " is " & FORMAT ( [Quarter YoY %], "+0.00%;-0.00%" ) & " vs a year earlier."', None),
     ("Latest Full Year Count", "VAR y = [Latest Full Year] RETURN CALCULATE ( [Count Sel], REMOVEFILTERS ( Date ), fact_year[year] = y )", "#,0"),
     ("Latest Full Year Text", '"Full year " & [Latest Full Year]', None),
 ]
@@ -281,12 +281,12 @@ MEASURES += qyoy("Deaths", "Deaths") + qyoy("Hosp", "Hospital stays") + qyoy("ED
 MEASURES += [
     ("Deaths Peak Text", '"Peak was " & FORMAT ( [Opioid Deaths Peak], "#,0" ) & " in " & [Opioid Deaths Peak Year]', None),
     ("Deaths LFY Text", '"Full year " & [Latest Full Year] & ". Peak was " & FORMAT ( [Opioid Deaths Peak], "#,0" ) & " in " & [Opioid Deaths Peak Year]', None),
-    ("Other Peaks Text", '"Hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0%;-0%" ) & ", ED visits " & FORMAT ( [Opioid ED vs Peak %], "+0%;-0%" )', None),
+    ("Other Peaks Text", '"Hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0.00%;-0.00%" ) & ", ED visits " & FORMAT ( [Opioid ED vs Peak %], "+0.00%;-0.00%" )', None),
     ("EMS Peak Text", '"Peak was " & FORMAT ( [Opioid EMS Peak], "#,0" ) & " in " & [Opioid EMS Peak Year]', None),
     ("Hosp per Death", "DIVIDE ( [Opioid Hosp LFY], [Opioid Deaths LFY] )", "0.00"),
     ("Hosp per Death 2016", 'DIVIDE ( CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = 2016, ' + by_src("Hospital stays") + ' ), CALCULATE ( [Count], REMOVEFILTERS ( Date ), fact_year[year] = 2016, ' + by_src("Deaths") + ' ) )', "0.00"),
     ("Hosp per Death Text", '"It was " & FORMAT ( [Hosp per Death 2016], "0.00" ) & " in 2016"', None),
-    ("EMS Quarter Note", '[Latest Quarter Text] & ": " & FORMAT ( [EMS Latest Quarter YoY %], "+0%;-0%" ) & " vs a year ago"', None),
+    ("EMS Quarter Note", '[Latest Quarter Text] & ": " & FORMAT ( [EMS Latest Quarter YoY %], "+0.00%;-0.00%" ) & " vs a year ago"', None),
     # four measures side by side (opioids)
     ("Opioid Count", 'CALCULATE ( [Count], Dim_Substance[Substance] = "Opioids" )', "#,0"),
     ("Deaths (Opioids)", "CALCULATE ( [Count], %s )" % by_src("Deaths"), "#,0"),
@@ -295,17 +295,25 @@ MEASURES += [
     ("EMS Responses (Opioids)", "CALCULATE ( [Count], %s )" % by_src("EMS responses"), "#,0"),
     ("Index 2019", "IF ( MAX ( fact_year[partial_period] ) = 1, BLANK (), DIVIDE ( [Opioid Count], CALCULATE ( [Opioid Count], REMOVEFILTERS ( Date ), fact_year[year] = 2019 ) ) * 100 )", "0"),
     ("Hosp per Death (Year)", "DIVIDE ( [Hospital stays (Opioids)], [Deaths (Opioids)] )", "0.00"),
-    ("Burden Headline", '"Since the 2023 peak: deaths " & FORMAT ( [Opioid Deaths vs Peak %], "+0%;-0%" ) & ", hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0%;-0%" ) & ", EMS responses " & FORMAT ( [Opioid EMS vs Peak %], "+0%;-0%" ) & "." ', None),
+    ("Burden Headline", '"Since the 2023 peak: deaths " & FORMAT ( [Opioid Deaths vs Peak %], "+0.00%;-0.00%" ) & ", hospital stays " & FORMAT ( [Opioid Hosp vs Peak %], "+0.00%;-0.00%" ) & ", EMS responses " & FORMAT ( [Opioid EMS vs Peak %], "+0.00%;-0.00%" ) & "." ', None),
     # who
     ("Age Count (Focus Year)", "VAR y = [Focus Year] VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], REMOVEFILTERS ( Date ), fact_age[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )", "#,0"),
-    ("Male Share", 'DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Sex[Sex] = "Male" ), [Age Count (Focus Year)] )', "0%"),
-    ("Age 30 to 49 Share", 'DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Age[Age group] IN { "30 to 39 years", "40 to 49 years" } ), [Age Count (Focus Year)] )', "0%"),
+    ("Male Share", 'DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Sex[Sex] = "Male" ), [Age Count (Focus Year)] )', "0.00%"),
+    ("Age 30 to 49 Share", 'DIVIDE ( CALCULATE ( [Age Count (Focus Year)], Dim_Age[Age group] IN { "30 to 39 years", "40 to 49 years" } ), [Age Count (Focus Year)] )', "0.00%"),
     ("Heat Count", "VAR y = SELECTEDVALUE ( Dim_HeatYear[Heat Year Number] ) VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], REMOVEFILTERS ( Date ), fact_age[year] = y, Dim_Source[Source] = s, Dim_Substance[Substance] = sub )", "#,0"),
     ("Tile Max", "CALCULATE ( MAXX ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), [Rate (Focus Year)] ), ALL ( Dim_Region ) )", "0.0"),
     ("Tile Label", 'VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] RETURN IF ( code = "", BLANK (), code & IF ( ISBLANK ( r ), "  n/a", "  " & FORMAT ( r, "0.0" ) ) )', None),
     ("Tile Fill", 'VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] VAR k = DIVIDE ( r, [Tile Max] ) RETURN IF ( code = "", BLANK (), IF ( ISBLANK ( r ), "#E3E3E3", SWITCH ( TRUE (), k < 0.2, "#E4ECF3", k < 0.4, "#A9C3D9", k < 0.6, "#5F8FB5", k < 0.8, "#2D5F8A", "#1B3A5C" ) ) )', None),
     ("Tile Font", 'VAR code = SELECTEDVALUE ( Dim_Region[Tile Code], "" ) VAR r = [Rate (Focus Year)] VAR k = DIVIDE ( r, [Tile Max] ) RETURN IF ( code = "", BLANK (), IF ( ISBLANK ( r ), "#8A8A8A", IF ( k < 0.4, "#1F2D3D", "#FFFFFF" ) ) )', None),
     ("Tile Extremes", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) VAR hi = TOPN ( 1, t, [r], DESC ) VAR lo = TOPN ( 1, t, [r], ASC ) RETURN IF ( COUNTROWS ( t ) = 0, "No rates for this selection.", "Highest: " & MAXX ( hi, Dim_Region[Region] ) & " (" & FORMAT ( MAXX ( hi, [r] ), "0.0" ) & "). Lowest: " & MAXX ( lo, Dim_Region[Region] ) & " (" & FORMAT ( MAXX ( lo, [r] ), "0.0" ) & ")." )', None),
+    ("Canada Rate", 'CALCULATE ( [Rate (Focus Year)], Dim_Region[Region] = "Canada" )', "0.0"),
+    ("Canada Rate Sub", '"Only the places that report"', None),
+    ("Highest Rate", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) RETURN IF ( COUNTROWS ( t ) = 0, BLANK (), MAXX ( t, [r] ) )', "0.0"),
+    ("Highest Region", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) RETURN IF ( COUNTROWS ( t ) = 0, "No rates for this selection", MAXX ( TOPN ( 1, t, [r], DESC ), Dim_Region[Region] ) )', None),
+    ("Lowest Rate", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) RETURN IF ( COUNTROWS ( t ) = 0, BLANK (), MINX ( t, [r] ) )', "0.0"),
+    ("Lowest Region", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) RETURN IF ( COUNTROWS ( t ) = 0, "No rates for this selection", MAXX ( TOPN ( 1, t, [r], ASC ), Dim_Region[Region] ) )', None),
+    ("Regions With Rate", 'VAR t = FILTER ( ADDCOLUMNS ( FILTER ( ALL ( Dim_Region ), Dim_Region[Tile Row] > 0 ), "r", [Rate (Focus Year)] ), NOT ISBLANK ( [r] ) ) RETURN COUNTROWS ( t )', "0"),
+    ("Regions With Rate Sub", '"of the provinces and territories"', None),
     ("Canada Rate Text", 'VAR c = CALCULATE ( [Rate (Focus Year)], Dim_Region[Region] = "Canada" ) RETURN IF ( ISBLANK ( c ), "Canada: no rate is published for this source.", "Canada: " & FORMAT ( c, "0.0" ) & " per 100,000, counting only the places that report." )', None),
     ("Heat Max", "CALCULATE ( MAXX ( CROSSJOIN ( ALL ( Dim_Age[Age group] ), ALL ( Dim_HeatYear[Heat Year] ) ), [Heat Count] ), ALL ( Dim_Age ), ALL ( Dim_HeatYear ) )", "#,0"),
     ("Heat Fill", 'VAR v = [Heat Count] VAR k = DIVIDE ( v, [Heat Max] ) RETURN IF ( ISBLANK ( v ), BLANK (), SWITCH ( TRUE (), k < 0.1, "#FFF4DC", k < 0.25, "#FBD9A0", k < 0.45, "#F4B860", k < 0.7, "#E08A1E", "#B85C00" ) )', None),
@@ -314,9 +322,9 @@ MEASURES += [
     ("Coverage Fill", 'SWITCH ( [Coverage Status], "Reported", "#CFE6EA", "Suppressed", "#FBE3B3", "Not available", "#E3E3E3", "#FFFFFF" )', None),
     ("Coverage Font", 'SWITCH ( [Coverage Status], "Not in file", "#B5B5B5", "Not available", "#6B6B6B", "#1F2D3D" )', None),
     ("Age Count Sel", "VAR s = [Sel Source] VAR sub = [Sel Substance] RETURN CALCULATE ( [Age Sex Count], Dim_Source[Source] = s, Dim_Substance[Substance] = sub )", "#,0"),
-    ("Age Share of Total", "DIVIDE ( [Age Count (Focus Year)], [Count (Focus Year)] )", "0%"),
-    ("Share of Group", "DIVIDE ( [Age Count (Focus Year)], CALCULATE ( [Age Count (Focus Year)], REMOVEFILTERS ( Dim_Age ), REMOVEFILTERS ( Dim_Sex ) ) )", "0%"),
-    ("Who Headline", '[Showing Text] & ". About " & FORMAT ( [Male Share], "0%" ) & " are male and " & FORMAT ( [Age 30 to 49 Share], "0%" ) & " are aged 30 to 49."', None),
+    ("Age Share of Total", "DIVIDE ( [Age Count (Focus Year)], [Count (Focus Year)] )", "0.00%"),
+    ("Share of Group", "DIVIDE ( [Age Count (Focus Year)], CALCULATE ( [Age Count (Focus Year)], REMOVEFILTERS ( Dim_Age ), REMOVEFILTERS ( Dim_Sex ) ) )", "0.00%"),
+    ("Who Headline", '[Showing Text] & ". About " & FORMAT ( [Male Share], "0.00%" ) & " are male and " & FORMAT ( [Age 30 to 49 Share], "0.00%" ) & " are aged 30 to 49."', None),
     ("Data Through Text", '"Counts to " & [Latest Quarter Text] & "  |  Latest full year " & [Latest Full Year] & "  |  2026 is January to March only"', None),
 ]
 mt = ["table _Measures", "\tlineageTag: %s" % tag("table/_Measures"), ""]
@@ -513,7 +521,7 @@ def bg(name, H, boxes):
 
 FX = [20, 440, 860]
 CARD_X = [20, 335, 650, 965]; CARD_W = 295; ICONS = ["bars", "check", "clock", "warn"]
-ST_H, TR_H, PR_H, BU_H, WH_H, QU_H = 790, 1150, 870, 880, 910, 715
+ST_H, TR_H, PR_H, BU_H, WH_H, QU_H = 790, 1360, 1130, 1040, 1060, 715
 
 
 def frow(y): return [("card", x, y, 400, 110) for x in FX]
@@ -532,35 +540,57 @@ def block(name, x, y, w, h, head, bullets, z):
 
 
 def kcards(y, items, z0=300):
-    return [card("k%d" % i, CARD_X[i], y, CARD_W, 125, m, lab, z0 + i, sub=sub) for i, (m, lab, sub) in enumerate(items)]
+    return [card("k%d" % i, CARD_X[i], y, CARD_W, 110, m, lab, z0 + i, sub=sub) for i, (m, lab, sub) in enumerate(items)]
 
 
 SRC_X, SUB_X, YR_X, REG_X = 20, 230, 440, 650
-bg("canvas_start.png", ST_H, [("tint", 20, 120, 1240, 56)] + krow(190) + [("panel", 20, 335, 610, 170), ("panel", 650, 335, 610, 170), ("panel", 20, 525, 610, 130), ("panel", 650, 525, 610, 130), ("warn", 20, 675, 1240, 70)])
-bg("canvas_trend.png", TR_H, [("panel", 20, 120, 250, 64), ("panel", 280, 120, 280, 64), ("tint", 570, 120, 550, 64)] + krow(195) +
-   [("panel", 20, 340, 1240, 330), ("panel", 20, 690, 760, 400), ("panel", 800, 690, 460, 400)])
-bg("canvas_prov.png", PR_H, [("panel", 20, 120, 250, 64), ("panel", 280, 120, 280, 64), ("panel", 570, 120, 230, 64), ("tint", 810, 120, 310, 64),
-                             ("panel", 20, 200, 580, 520), ("panel", 620, 200, 640, 520), ("warn", 20, 740, 1240, 80)])
-bg("canvas_burden.png", BU_H, [("panel", 20, 120, 300, 64), ("tint", 340, 120, 780, 64)] + frow(195) +
-   [("panel", 20, 325, 610, 430), ("panel", 650, 325, 610, 430), ("warn", 20, 775, 1240, 70)])
+
+
+def fbox(n, x, y, head, big, txt, z):
+    """One of the three finding boxes used on every analysis page: heading, key number, one or two sentences."""
+    return textbox("f%d" % n, x, y, 400, 150, [[run(head, 12, NAVY, True)], [run(big, 22, "#C77700", True)], [run(txt, 10.5, INK2)]], z, p=(10, 16, 6, 16))
+
+
+def findings(y, items):
+    return [fbox(i + 1, 20 + 420 * i, y, h, b, t, 820 + i) for i, (h, b, t) in enumerate(items)]
+
+
+def footnote(y, text, z=800):
+    return textbox("note", 20, y, 1240, 50, [[run("Footnote: ", 9, INK, True), run(text, 9, INK2)]], z, p=(8, 16, 4, 18))
+
+
+FP = [("panel", 20, 0, 400, 150), ("panel", 440, 0, 400, 150), ("panel", 860, 0, 400, 150)]
+
+
+def fpanels(y): return [(k, x, y, w, h) for k, x, _, w, h in FP]
+
+
+bg("canvas_start.png", ST_H, [("tint", 20, 120, 1100, 64)] + krow(200, 110) + [("panel", 20, 335, 610, 170), ("panel", 650, 335, 610, 170), ("panel", 20, 525, 610, 130), ("panel", 650, 525, 610, 130), ("warn", 20, 675, 1240, 50)])
+bg("canvas_trend.png", TR_H, [("panel", 20, 120, 250, 64), ("panel", 280, 120, 280, 64), ("tint", 570, 120, 550, 64)] + krow(200, 110) +
+   [("panel", 20, 330, 1240, 330), ("panel", 20, 680, 760, 400), ("panel", 800, 680, 460, 400)] + fpanels(1100) + [("warn", 20, 1270, 1240, 50)])
+bg("canvas_prov.png", PR_H, [("panel", 20, 120, 250, 64), ("panel", 280, 120, 280, 64), ("panel", 570, 120, 230, 64), ("tint", 810, 120, 310, 64)] + krow(200, 110) +
+   [("panel", 20, 330, 580, 520), ("panel", 620, 330, 640, 520)] + fpanels(870) + [("warn", 20, 1040, 1240, 50)])
+bg("canvas_burden.png", BU_H, [("panel", 20, 120, 300, 64), ("tint", 340, 120, 780, 64)] + krow(200, 110) +
+   [("panel", 20, 330, 610, 430), ("panel", 650, 330, 610, 430)] + fpanels(780) + [("warn", 20, 950, 1240, 50)])
 bg("canvas_quality.png", QU_H, [("panel", 20, 130, 720, 540), ("panel", 760, 130, 500, 300), ("panel", 760, 445, 500, 225)])
-bg("canvas_who.png", WH_H, [("panel", 20, 120, 230, 64), ("panel", 260, 120, 260, 64), ("panel", 530, 120, 230, 64), ("panel", 770, 120, 260, 64), ("panel", 1040, 120, 140, 64)] + frow(195) +
-   [("panel", 20, 325, 740, 380), ("panel", 20, 715, 740, 60), ("panel", 780, 325, 480, 450), ("warn", 20, 795, 1240, 70)])
+bg("canvas_who.png", WH_H, [("panel", 20, 120, 230, 64), ("panel", 260, 120, 260, 64), ("panel", 530, 120, 230, 64), ("panel", 770, 120, 260, 64), ("panel", 1040, 120, 140, 64)] + krow(200, 110) +
+   [("panel", 20, 330, 740, 380), ("panel", 20, 720, 740, 60), ("panel", 780, 330, 480, 450)] + fpanels(800) + [("warn", 20, 970, 1240, 50)])
 
 pages = {}
 
 # ---- Start here
 st = header("Opioid and stimulant harms in Canada: what has changed since 2016?", "Start here: the headline numbers, what they mean, and what I would do about them.")
-st += [textbox("q", 20, 120, 1240, 56, [[run("The question:  ", 10, INK, True),
+st += [reset_button(1140, 132, 120, 40, 150),
+       textbox("q", 20, 120, 1100, 64, [[run("The question:  ", 10, INK, True),
             run("Which harm measures are falling, which are not, and where is the burden greatest, so a public health team knows where to plan?", 10, INK2)]], 100, p=(12, 18, 8, 18))]
-st += kcards(190, [("Opioid Deaths LFY", "Opioid deaths, latest full year", "=Deaths LFY Text"),
+st += kcards(200, [("Opioid Deaths LFY", "Opioid deaths, latest full year", "=Deaths LFY Text"),
                    ("Opioid Deaths vs Peak %", "Deaths against the peak", "=Other Peaks Text"),
-                   ("Opioid EMS vs Peak %", "EMS responses against the peak", "=EMS Quarter Note"),
-                   ("Hosp per Death", "Hospital stays per opioid death", "=Hosp per Death Text")])
+                   ("Opioid EMS vs Peak %", "EMS against the peak", "=EMS Quarter Note"),
+                   ("Hosp per Death", "Hospital stays per death", "=Hosp per Death Text")])
 st += [block("finds", 20, 335, 610, 170, "What the data shows", [
-           "Opioid deaths are 29% below the 2023 peak (8,083 to 5,704), but EMS responses are only 8% below theirs. The measures do not fall together.",
+           "Opioid deaths are 29.43% below the 2023 peak (8,083 to 5,704), but EMS responses are only 7.84% below theirs. The measures do not fall together.",
            "Rates vary widely: in 2024 British Columbia had 35.7 deaths per 100,000, Ontario 14.0 and Quebec 3.4.",
-           "Around three in four deaths are men, and about half are aged 30 to 49."], 300),
+           "Around 71.64% of deaths are men, and 52.58% are aged 30 to 49."], 300),
        block("recs", 650, 335, 610, 170, "What I would do", [
            "Track EMS responses and emergency department visits next to deaths: deaths alone understate the ongoing burden.",
            "Start with the high-rate places (British Columbia, Yukon, Manitoba, Alberta, Saskatchewan: 22 to 36 per 100,000 in 2024), using the same year for every place.",
@@ -573,9 +603,7 @@ st += [block("finds", 20, 335, 610, 170, "What the data shows", [
            "Source: Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada (data updated September 2026). Counts and rates only, no individual records.",
            "The file is a flattened export of website charts; I rebuilt it as three fact tables and six dimensions.",
            "2026 covers January to March only, so full years end at 2025."], 400),
-       textbox("limit", 20, 675, 1240, 70, [[run("Main limit:  ", 10, INK, True),
-            run("a Canada total only adds up the places that report. Hospital stays leave out Quebec, and emergency department visits cover 7 of 13 provinces and "
-                "territories. A suppressed or missing value is never shown as zero.", 10, INK2)]], 500, p=(12, 18, 8, 22))]
+       footnote(675, "a Canada total only adds up the places that report. Hospital stays leave out Quebec, and emergency department visits cover 7 of 13 provinces and territories. A suppressed or missing value is never shown as zero.", 500)]
 st += footer(ST_H)
 pages["start"] = dict(name="Start here", H=ST_H, img="canvas_start.png", visuals=st)
 
@@ -585,17 +613,21 @@ tr += [slicer("src", 20, 120, 250, 64, "Dim_Source", "Source", "Source (none = D
        slicer("sub", 280, 120, 280, 64, "Dim_Substance", "Substance", "Substance (none = Opioids)", 101, sync="Substance"),
        reset_button(1140, 132, 120, 40, 150),
        card("headline", 570, 120, 550, 64, "Trend Headline", None, 200, font=(10, NAVY), p=(10, 18, 8, 18))]
-tr += kcards(195, [("Latest Quarter Count", "Latest quarter", "=Latest Quarter Text"), ("Quarter YoY %", "Against a year earlier", None),
+tr += kcards(200, [("Latest Quarter Count", "Latest quarter", "=Latest Quarter Text"), ("Quarter YoY %", "Against a year earlier", None),
                    ("Peak Quarter Count", "Highest quarter", "=Peak Quarter Text"), ("Latest Full Year Count", "Latest full year", "=Latest Full Year Text")])
-tr += [chart("line", 20, 340, 1240, 330, "lineChart", {"Category": [C("Date", "Date", "Quarter")], "Y": [M("Quarter Count Sel", "Count")]}, 400,
+tr += [chart("line", 20, 330, 1240, 330, "lineChart", {"Category": [C("Date", "Date", "Quarter")], "Y": [M("Quarter Count Sel", "Count")]}, 400,
              "Quarterly count, Canada", "Canada here means the places that report for this source. Pick a source and substance above.",
              "Line chart of quarterly counts", objects={"categoryAxis": [{"properties": {"axisType": s("Scalar")}}]}),
-       chart("cols", 20, 690, 760, 400, "columnChart", {"Category": [C("Date", "Year Label", "Year")], "Y": [M("Count Sel", "Count")]}, 500,
+       chart("cols", 20, 680, 760, 400, "columnChart", {"Category": [C("Date", "Year Label", "Year")], "Y": [M("Count Sel", "Count")]}, 500,
              "Yearly count", "2026 covers January to March only and is shown in grey.", "Column chart of yearly counts",
              objects={"dataPoint": [fill(NAVY), fill(GREY, by_value("Date", "Year Label", "'2026 (Jan to Mar)'"))]}, labels=True),
-       chart("tbl", 800, 690, 460, 400, "tableEx", {"Values": [C("Date", "Year Label", "Year"), M("Count Sel", "Count"), M("Rate Sel", "Rate per 100,000")]}, 600,
+       chart("tbl", 800, 680, 460, 400, "tableEx", {"Values": [C("Date", "Year Label", "Year"), M("Count Sel", "Count"), M("Rate Sel", "Rate per 100,000")]}, 600,
              "Yearly count and rate", "EMS has no published rate, so that column stays blank for EMS responses.", "Table of yearly counts and rates",
              objects={"total": [{"properties": {"totals": boolean(False)}}]})]
+tr += findings(1100, [("01 · The 2020 jump", "+71.68%", "Opioid deaths rose from 3,602 in 2019 to 6,184 in 2020, the sharpest rise in the series (deaths and opioids chosen)."),
+                      ("02 · The peak", "8,083", "Deaths peaked at 8,083 in 2023 and were 5,704 in 2025, 29.43% below the peak."),
+                      ("03 · Read with care", "Q1 only", "2026 covers January to March only, so full years end at 2025 and 2026 is shown in grey.")])
+tr += [footnote(1270, "counts are for the source and substance chosen above. Canada means only the places that report, and a missing value is never shown as zero.", 810)]
 tr += footer(TR_H)
 pages["trend"] = dict(name="Trend", H=TR_H, img="canvas_trend.png", visuals=tr)
 
@@ -605,7 +637,9 @@ pv += [slicer("src", 20, 120, 250, 64, "Dim_Source", "Source", "Source (none = D
        slicer("sub", 280, 120, 280, 64, "Dim_Substance", "Substance", "Substance (none = Opioids)", 101, sync="Substance"),
        slicer("yr", 570, 120, 230, 64, "Date", "Year Label", "Year (none = 2024)", 102, sync="Year"), reset_button(1140, 132, 120, 40, 150),
        card("headline", 810, 120, 310, 64, "Showing Text", None, 200, font=(11, NAVY), p=(10, 18, 8, 18))]
-pv += [chart("map", 30, 200, 560, 340, "pivotTable", {"Rows": [C("Dim_Region", "Tile Row Label", "Group")], "Columns": [C("Dim_Region", "Tile Col", "Column")], "Values": [M("Tile Label", "Rate per 100,000")]}, 300,
+pv += kcards(200, [("Canada Rate", "Canada rate per 100,000", "=Canada Rate Sub"), ("Highest Rate", "Highest rate", "=Highest Region"),
+                   ("Lowest Rate", "Lowest rate", "=Lowest Region"), ("Regions With Rate", "Regions with a rate", "=Regions With Rate Sub")])
+pv += [chart("map", 30, 330, 560, 340, "pivotTable", {"Rows": [C("Dim_Region", "Tile Row Label", "Group")], "Columns": [C("Dim_Region", "Tile Col", "Column")], "Values": [M("Tile Label", "Rate per 100,000")]}, 300,
              "Rate per 100,000: tile map of Canada", "=Rate Available Text", "Tile map of Canada: each province or territory is a tile shaded by its rate",
              objects={"values": [{"properties": {"backColor": field_color("Tile Fill"), "fontColor": field_color("Tile Font"), "fontSize": num(20)},
                                   "selector": {"data": [{"dataViewWildcard": {"matchingOption": 1}}], "metadata": "_Measures.Tile Label"}}],
@@ -613,19 +647,19 @@ pv += [chart("map", 30, 200, 560, 340, "pivotTable", {"Rows": [C("Dim_Region", "
                       "subTotals": [{"properties": {"rowSubtotals": boolean(False), "columnSubtotals": boolean(False)}}],
                       "columnHeaders": [{"properties": {"fontColor": solid("#FFFFFF"), "backColor": solid("#FFFFFF")}}],
                       "rowHeaders": [{"properties": {"fontColor": solid("#FFFFFF"), "backColor": solid("#FFFFFF")}}]}),
-       textbox("legend", 30, 546, 560, 56, [[run("Lighter = lower rate    ", 9, INK2), run("■ ", 12, "#E4ECF3"), run("■ ", 12, "#A9C3D9"), run("■ ", 12, "#5F8FB5"), run("■ ", 12, "#2D5F8A"), run("■ ", 12, "#1B3A5C"),
+       textbox("legend", 30, 676, 560, 56, [[run("Lighter = lower rate    ", 9, INK2), run("■ ", 12, "#E4ECF3"), run("■ ", 12, "#A9C3D9"), run("■ ", 12, "#5F8FB5"), run("■ ", 12, "#2D5F8A"), run("■ ", 12, "#1B3A5C"),
                                           run("  darker = higher rate    ", 9, INK2), run("■ ", 12, "#E3E3E3"), run("n/a = not reported", 9, INK2)],
                                          [run("Tiles sit roughly where each province is. Colours compare tiles on this page.", 9, INK2)]], 350, p=(6, 14, 8, 14)),
-       card("canada", 30, 606, 560, 40, "Canada Rate Text", None, 360, font=(11, NAVY), p=(10, 14, 8, 14)),
-       card("extremes", 30, 652, 560, 40, "Tile Extremes", None, 361, font=(11, NAVY), p=(10, 14, 8, 14)),
-       chart("tbl", 620, 200, 640, 520, "tableEx", {"Values": [C("Dim_Region", "Region"), M("Count (Focus Year)", "Count"), M("Rate (Focus Year)", "Rate per 100,000"), M("Value Status", "Status")]}, 400,
+       card("canada", 30, 736, 560, 40, "Canada Rate Text", None, 360, font=(11, NAVY), p=(10, 14, 8, 14)),
+       card("extremes", 30, 782, 560, 40, "Tile Extremes", None, 361, font=(11, NAVY), p=(10, 14, 8, 14)),
+       chart("tbl", 620, 330, 640, 520, "tableEx", {"Values": [C("Dim_Region", "Region"), M("Count (Focus Year)", "Count"), M("Rate (Focus Year)", "Rate per 100,000"), M("Value Status", "Status")]}, 400,
              "Count, rate and status by region", "Status shows Suppressed or Not available. Regions with no data are left out.",
-             "Table of counts, rates and reporting status by region", sort=(mea("Rate (Focus Year)"), "Descending"),
-             objects={"total": [{"properties": {"totals": boolean(False)}}]}),
-       textbox("note", 20, 740, 1240, 80, [[run("Read with care: ", 9, INK, True),
-            run("rates are crude, not age-adjusted, and reporting systems differ by province, so use the ranking to ask questions and not to judge. The Canada rate "
-                "only adds up the places that report. Some 2025 values moved by more than half in a year (deaths in Ontario fell 38% and in Quebec rose 93%), which looks like "
-                "reporting timing, so this page opens on 2024.", 9, INK2)]], 500, p=(10, 16, 6, 18))]
+             "Table of counts, rate and reporting status by region", sort=(mea("Rate (Focus Year)"), "Descending"),
+             objects={"total": [{"properties": {"totals": boolean(False)}}]})]
+pv += findings(870, [("01 · The highest rates", "35.7", "In 2024 British Columbia had 35.7 deaths per 100,000, then Yukon 29.4, Manitoba 25.0 and Alberta 24.4."),
+                     ("02 · The lowest rates", "3.4", "Quebec had 3.4 and Ontario 14.0 per 100,000 in 2024: British Columbia's rate is more than ten times Quebec's."),
+                     ("03 · Read with care", "2024 first", "Some 2025 values look provisional (Ontario deaths -37.49%, Quebec +93.14%), so the page opens on 2024.")])
+pv += [footnote(1040, "rates are crude, not age-adjusted, and reporting differs by province, so use the ranking to ask questions, not to judge. The Canada rate only adds up the places that report.", 810)]
 pv += footer(PR_H)
 pages["provinces"] = dict(name="Provinces", H=PR_H, img="canvas_prov.png", visuals=pv)
 
@@ -633,31 +667,33 @@ pages["provinces"] = dict(name="Provinces", H=PR_H, img="canvas_prov.png", visua
 bu = header("Deaths have fallen faster than ambulance calls", "Opioid deaths, hospital stays, emergency department visits and EMS responses for Canada, side by side.")
 bu += [slicer("reg", 20, 120, 300, 64, "Dim_Region", "Region", "Region (blank = Canada)", 100, mode="Dropdown"), reset_button(1140, 132, 120, 40, 150),
        card("headline", 340, 120, 780, 64, "Burden Headline", None, 200, font=(10, NAVY), p=(10, 18, 8, 18))]
-bu += facts(195, [("Deaths: latest quarter against a year earlier", "Deaths Latest Quarter YoY %", "Latest Quarter Text", False),
-                  ("Hospital stays: latest quarter against a year earlier", "Hosp Latest Quarter YoY %", "Latest Quarter Text", False),
-                  ("EMS responses: latest quarter against a year earlier", "EMS Latest Quarter YoY %", "Latest Quarter Text", False)])
-bu += [chart("idx", 20, 325, 610, 430, "lineChart", {"Category": [C("Date", "Year")], "Y": [M("Index 2019", "Index (2019 = 100)")], "Series": [C("Dim_Source", "Source")]}, 300,
+bu += kcards(200, [("Deaths Latest Quarter YoY %", "Deaths vs a year earlier", "=Latest Quarter Text"),
+                   ("Hosp Latest Quarter YoY %", "Hospital stays vs a year earlier", "=Latest Quarter Text"),
+                   ("ED Latest Quarter YoY %", "ED visits vs a year earlier", "=Latest Quarter Text"),
+                   ("EMS Latest Quarter YoY %", "EMS responses vs a year earlier", "=Latest Quarter Text")])
+bu += [chart("idx", 20, 330, 610, 430, "lineChart", {"Category": [C("Date", "Year")], "Y": [M("Index 2019", "Index (2019 = 100)")], "Series": [C("Dim_Source", "Source")]}, 300,
              "Opioid counts, indexed to 2019", "Each line starts at 100 in 2019. Full years only.", "Line chart of opioid counts indexed to 2019 by source",
              objects={"legend": [{"properties": {"show": boolean(True), "position": s("Bottom")}}], "categoryAxis": [{"properties": {"axisType": s("Scalar")}}]}),
-       chart("tbl", 650, 325, 610, 430, "tableEx", {"Values": [C("Date", "Year Label", "Year"), M("Deaths (Opioids)", "Deaths"), M("Hospital stays (Opioids)", "Hospital stays"),
+       chart("tbl", 650, 330, 610, 430, "tableEx", {"Values": [C("Date", "Year Label", "Year"), M("Deaths (Opioids)", "Deaths"), M("Hospital stays (Opioids)", "Hospital stays"),
                                                              M("ED Visits (Opioids)", "ED visits"), M("EMS Responses (Opioids)", "EMS responses"), M("Hosp per Death (Year)", "Stays per death")]}, 400,
              "Opioid counts by year", "ED visits and hospital stays cover only the places that report each year.", "Table of opioid counts by year and source",
-             objects={"total": [{"properties": {"totals": boolean(False)}}]}),
-       textbox("note", 20, 775, 1240, 70, [[run("Limit: ", 9, INK, True),
-            run("the four sources count different things (a death, a hospital stay, a visit, an ambulance call) and cover different places, so compare their direction and not their size. "
-                "The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.", 9, INK2)]], 500, p=(10, 16, 6, 18))]
+             objects={"total": [{"properties": {"totals": boolean(False)}}]})]
+bu += findings(780, [("01 · Against the peak", "-29.43%", "Opioid deaths are 29.43% below their 2023 peak, hospital stays 21.75% and ED visits 28.51% below theirs, but EMS responses only 7.84%."),
+                     ("02 · The latest quarter", "+60.93%", "In 2026 Q1 EMS responses were 60.93% above a year earlier and hospital stays 13.55% above, while deaths were 5.31% below."),
+                     ("03 · Read with care", "Direction", "The four sources count different things and cover different places, so compare their direction, not their size.")])
+bu += [footnote(950, "the sources count a death, a hospital stay, a visit and an ambulance call. The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.", 810)]
 bu += footer(BU_H)
 pages["burden"] = dict(name="Four measures", H=BU_H, img="canvas_burden.png", visuals=bu)
 
 # ---- Who
-wh = header("Three in four deaths are men, and half are aged 30 to 49", "Counts by age group and sex for one source, substance and year.")
+wh = header("Seven in ten deaths are men, and half are aged 30 to 49", "Counts by age group and sex for one source, substance and year.")
 wh += [slicer("src", 20, 120, 230, 64, "Dim_Source", "Source", "Source (none = Deaths)", 100, sync="Source"),
        slicer("sub", 260, 120, 260, 64, "Dim_Substance", "Substance", "Substance (none = Opioids)", 101, sync="Substance"),
        slicer("yr", 530, 120, 230, 64, "Date", "Year Label", "Year (none = 2024)", 102, sync="Year"),
        slicer("reg", 770, 120, 260, 64, "Dim_Region", "Region", "Region (blank = Canada)", 103), reset_button(1050, 132, 120, 40, 150)]
-wh += facts(195, [("Male share", "Male Share", "Showing Text", False), ("Aged 30 to 49", "Age 30 to 49 Share", "Showing Text", False),
-                  ("Total with age and sex shown", "Age Share of Total", None, False)])
-wh += [chart("heat", 20, 325, 740, 380, "pivotTable", {"Rows": [C("Dim_Age", "Age group")], "Columns": [C("Dim_HeatYear", "Heat Year", "Year")], "Values": [M("Heat Count", "Count")]}, 300,
+wh += kcards(200, [("Male Share", "Male share", "=Showing Text"), ("Age 30 to 49 Share", "Aged 30 to 49", "=Showing Text"),
+                   ("Age Share of Total", "With age and sex shown", None), ("Age Count (Focus Year)", "Deaths or cases shown", "=Showing Text")])
+wh += [chart("heat", 20, 330, 740, 380, "pivotTable", {"Rows": [C("Dim_Age", "Age group")], "Columns": [C("Dim_HeatYear", "Heat Year", "Year")], "Values": [M("Heat Count", "Count")]}, 300,
              "Heat map: count by age group and year", "Darker means more. All years for the chosen source and substance. 2026 Q1 is January to March only.",
              "Matrix of counts by age group and year",
              objects={"values": [{"properties": {"backColor": field_color("Heat Fill"), "fontColor": field_color("Heat Font"), "fontSize": num(15)},
@@ -665,13 +701,14 @@ wh += [chart("heat", 20, 325, 740, 380, "pivotTable", {"Rows": [C("Dim_Age", "Ag
                       "grid": [{"properties": {"rowPadding": num(7)}}],
                       "columnHeaders": [{"properties": {"fontSize": num(14)}}], "rowHeaders": [{"properties": {"fontSize": num(14)}}],
                       "subTotals": [{"properties": {"rowSubtotals": boolean(False), "columnSubtotals": boolean(False)}}]}),
-       textbox("insight", 20, 715, 740, 60, [[run("What it shows:  ", 9.5, INK, True), run("every age group roughly doubled from 2019 to 2021, ages 30 to 39 are highest in every year, and counts have fallen since 2023.", 9.5, INK2)]], 310, p=(12, 16, 6, 16)),
-       chart("tbl", 780, 325, 480, 450, "tableEx", {"Values": [C("Dim_Age", "Age group"), C("Dim_Sex", "Sex"), M("Age Count (Focus Year)", "Count"), M("Share of Group", "Share of total")]}, 400,
+       textbox("insight", 20, 720, 740, 60, [[run("What it shows:  ", 9.5, INK, True), run("every age group roughly doubled from 2019 to 2021, ages 30 to 39 are highest in every year, and counts have fallen since 2023.", 9.5, INK2)]], 310, p=(12, 16, 6, 16)),
+       chart("tbl", 780, 330, 480, 450, "tableEx", {"Values": [C("Dim_Age", "Age group"), C("Dim_Sex", "Sex"), M("Age Count (Focus Year)", "Count"), M("Share of Group", "Share of total")]}, 400,
              "Count and share by age group and sex", "Blank means suppressed or not available, not zero.", "Table of counts and shares by age group and sex",
-             objects={"total": [{"properties": {"totals": boolean(False)}}]}),
-       textbox("note", 20, 795, 1240, 70, [[run("Limit: ", 9, INK, True),
-            run("PHAC suppresses small counts, so the age and sex cells add up to less than the total (91% in 2025, 99% in 2024). Smaller regions show many blank cells. "
-                "Sex is reported as male or female only.", 9, INK2)]], 500, p=(10, 16, 6, 18))]
+             objects={"total": [{"properties": {"totals": boolean(False)}}]})]
+wh += findings(800, [("01 · Men", "71.64%", "In 2024, 71.64% of opioid deaths were men (deaths and opioids chosen)."),
+                     ("02 · Aged 30 to 49", "52.58%", "52.58% of opioid deaths in 2024 were aged 30 to 49, the largest group."),
+                     ("03 · Read with care", "98.73%", "The age and sex split covers 98.73% of 2024 deaths and 91.09% of 2025. The rest is suppressed.")])
+wh += [footnote(970, "PHAC suppresses small counts, so age and sex cells add up to less than the total. Smaller regions show many blank cells. Sex is reported as male or female only.", 810)]
 wh += footer(WH_H)
 pages["who"] = dict(name="Who", H=WH_H, img="canvas_who.png", visuals=wh)
 
@@ -687,10 +724,10 @@ dq += [chart("cov", 20, 130, 720, 540, "pivotTable", {"Rows": [C("Dim_Region", "
                       "subTotals": [{"properties": {"rowSubtotals": boolean(False), "columnSubtotals": boolean(False)}}]}),
        block("found", 760, 130, 500, 300, "What I found in the file and what I did", [
            "34,890 rows and 39 columns, with English and French copies of every label. It is a chart export, not a table, so I rebuilt it as three tables (yearly, quarterly, age and sex).",
-           "62% of values are numbers (5% are real zeros), 25% are blank (not available) and 13% are suppressed. I keep each kind separate and never show missing as zero.",
+           "62.08% of values are numbers (5.11% are real zeros), 24.82% are blank (not available) and 13.09% are suppressed. I keep each kind separate and never show missing as zero.",
            "A Canada total adds up only the places that report: hospital stays leave out Quebec and emergency department visits cover 7 of 13 provinces and territories.",
-           "Quarters add up to as much as 1.6% less than the published year, so I never build a year from quarters.",
-           "2026 covers January to March only. Some 2025 values look provisional (Ontario deaths -38%, Quebec +93%), so I compare provinces on 2024.",
+           "Quarters add up to as much as 1.57% less than the published year, so I never build a year from quarters.",
+           "2026 covers January to March only. Some 2025 values look provisional (Ontario deaths -37.49%, Quebec +93.14%), so I compare provinces on 2024.",
            "Checks: no duplicate keys, Canada totals reconciled to the places that report, and every headline number checked against a separate Python calculation."], 400),
        block("terms", 760, 445, 500, 225, "Terms in plain language", [
            "Crude rate: cases per 100,000 people living in that place, not adjusted for age.",

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "found",
+  "position": {
+    "x": 760,
+    "y": 130,
+    "z": 500,
+    "width": 500,
+    "height": 300,
+    "tabOrder": 500
+  },
+  "visual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "What I found in the data and what I did",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Category names repeat across the lender hierarchy (for example 'Chartered banks' appears under several parents), so I use only the 8 categories that appear once per month.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Credit cards (2011 to 2012) and personal loans (2013 to 2014) show year-over-year spikes above 20% that look like reclassifications, so I use them as latest-month figures only.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Prime and mortgage rates are weekly series, so each month shows the last weekly value.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  I found no Statistics Canada table with delinquency or arrears, so none is reported.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Checks: every headline number was checked against the model tables.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "16.0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10.0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

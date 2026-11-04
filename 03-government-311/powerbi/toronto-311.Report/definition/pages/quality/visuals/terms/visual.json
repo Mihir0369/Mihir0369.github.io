@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "terms",
+  "position": {
+    "x": 760,
+    "y": 445,
+    "z": 510,
+    "width": 500,
+    "height": 260,
+    "tabOrder": 510
+  },
+  "visual": {
+    "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Terms in plain language",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  311: Toronto's city line for non-emergency service requests.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Open: status Open or In Progress when the data was taken.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Division: the city department that handles the request.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Taxonomy era: whether a request type name existed before January 2025, only after it, or in both periods.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\u2022  Customer-initiated: requests residents and businesses made, not work the city started itself.",
+                    "textStyle": {
+                      "fontSize": "9.5pt",
+                      "color": "#4A5B6C"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "16.0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10.0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

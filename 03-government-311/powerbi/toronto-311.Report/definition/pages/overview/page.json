@@ -3,7 +3,7 @@
   "name": "overview",
   "displayName": "Overview",
   "displayOption": "FitToWidth",
-  "height": 930,
+  "height": 940,
   "width": 1280,
   "objects": {
     "outspace": [

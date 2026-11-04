@@ -43,7 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  62% of values are numbers (5% are real zeros), 25% are blank (not available) and 13% are suppressed. I keep each kind separate and never show missing as zero.",
+                    "value": "\u2022  62.08% of values are numbers (5.11% are real zeros), 24.82% are blank (not available) and 13.09% are suppressed. I keep each kind separate and never show missing as zero.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -65,7 +65,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  Quarters add up to as much as 1.6% less than the published year, so I never build a year from quarters.",
+                    "value": "\u2022  Quarters add up to as much as 1.57% less than the published year, so I never build a year from quarters.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -76,7 +76,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  2026 covers January to March only. Some 2025 values look provisional (Ontario deaths -38%, Quebec +93%), so I compare provinces on 2024.",
+                    "value": "\u2022  2026 covers January to March only. Some 2025 values look provisional (Ontario deaths -37.49%, Quebec +93.14%), so I compare provinces on 2024.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"

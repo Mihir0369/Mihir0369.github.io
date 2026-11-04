@@ -44,7 +44,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Start here: the question, three findings, and how to use this report.",
+                    "value": "Start here: the question, the headline numbers, and how to use this report.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#E4ECF3"

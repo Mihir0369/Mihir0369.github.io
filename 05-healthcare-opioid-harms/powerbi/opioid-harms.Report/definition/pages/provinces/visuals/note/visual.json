@@ -3,11 +3,11 @@
   "name": "note",
   "position": {
     "x": 20,
-    "y": 740,
-    "z": 500,
+    "y": 1040,
+    "z": 810,
     "width": 1240,
-    "height": 80,
-    "tabOrder": 500
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Read with care: ",
+                    "value": "Footnote: ",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#1F2D3D",
@@ -28,7 +28,7 @@
                     }
                   },
                   {
-                    "value": "rates are crude, not age-adjusted, and reporting systems differ by province, so use the ranking to ask questions and not to judge. The Canada rate only adds up the places that report. Some 2025 values moved by more than half in a year (deaths in Ontario fell 38% and in Quebec rose 93%), which looks like reporting timing, so this page opens on 2024.",
+                    "value": "rates are crude, not age-adjusted, and reporting differs by province, so use the ranking to ask questions, not to judge. The Canada rate only adds up the places that report.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#4A5B6C"
@@ -87,7 +87,7 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "10.0D"
+                  "Value": "8.0D"
                 }
               }
             },
@@ -101,7 +101,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6.0D"
+                  "Value": "4.0D"
                 }
               }
             },

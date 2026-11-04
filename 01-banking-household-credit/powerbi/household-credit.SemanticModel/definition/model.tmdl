@@ -22,5 +22,6 @@ ref table _Measures
 ref table Dim_Category
 ref table Dim_DebtMeasure
 ref table LagSteps
+ref table Coverage
 
 ref cultureInfo en-US

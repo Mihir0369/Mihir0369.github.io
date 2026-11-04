@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "k2",
   "position": {
     "x": 650,
-    "y": 195,
+    "y": 200,
     "z": 302,
     "width": 295,
-    "height": 125,
+    "height": 110,
     "tabOrder": 302
   },
   "visual": {
@@ -33,6 +33,21 @@
           ]
         }
       }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.0D"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "background": [
@@ -87,7 +102,32 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Still open'"
+                  "Value": "'Recorded as open'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Of Year Sub"
                 }
               }
             }
@@ -100,7 +140,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Still open'"
+                  "Value": "'Card: Recorded as open'"
                 }
               }
             }
@@ -120,21 +160,21 @@
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "18.0D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "6.0D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12.0D"
+                  "Value": "18.0D"
                 }
               }
             }

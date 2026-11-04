@@ -3,14 +3,15 @@
   "name": "stack",
   "position": {
     "x": 650,
-    "y": 325,
-    "z": 400,
-    "height": 340,
+    "y": 330,
+    "z": 500,
     "width": 610,
-    "tabOrder": 400
+    "height": 340,
+    "tabOrder": 500
   },
   "visual": {
     "visualType": "hundredPercentStackedBarChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "Dim_Division.Division",
-              "nativeQueryRef": "Division",
-              "active": true
+              "nativeQueryRef": "Division"
             }
           ]
         },
@@ -71,6 +71,26 @@
       }
     },
     "objects": {
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top'"
+                }
+              }
+            }
+          }
+        }
+      ],
       "dataPoint": [
         {
           "properties": {
@@ -324,14 +344,13 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'100 percent stacked bar of outcome mix by division'"
+                  "Value": "'Stacked bar chart of the outcome mix by division'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

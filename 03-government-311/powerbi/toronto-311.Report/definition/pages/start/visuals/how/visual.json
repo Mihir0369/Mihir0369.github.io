@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "how",
   "position": {
     "x": 20,
-    "y": 370,
-    "z": 300,
+    "y": 525,
+    "z": 320,
     "width": 610,
-    "height": 260,
-    "tabOrder": 300
+    "height": 150,
+    "tabOrder": 320
   },
   "visual": {
     "visualType": "textbox",
@@ -32,7 +32,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Use the page buttons at the top right to move between pages.",
+                    "value": "\u2022  Use the page tabs. Overview shows demand per month; Outcomes compares divisions; Request types shows what residents ask for.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -43,7 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Each page opens with its key findings; they change with the filters.",
+                    "value": "\u2022  On Outcomes, right-click a division bar and choose Drill through, then Division detail, to see its request types.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -54,40 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Overview: how demand moved and how much is still open. The Year filter carries across pages.",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "•  Outcomes: which divisions leave requests open. Hover over a bar for its outcome mix.",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "•  Right-click a division bar, choose Drill through, then Division detail, to see its request types.",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "•  Request types: what residents ask for. Use the Taxonomy era filter to compare types fairly.",
+                    "value": "\u2022  The Year filter carries across pages (it opens on 2025). Reset filters clears every slicer.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"

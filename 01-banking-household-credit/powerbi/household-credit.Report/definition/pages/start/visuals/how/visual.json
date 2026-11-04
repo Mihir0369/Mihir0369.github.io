@@ -3,11 +3,11 @@
   "name": "how",
   "position": {
     "x": 20,
-    "y": 370,
-    "z": 300,
+    "y": 525,
+    "z": 320,
     "width": 610,
-    "height": 260,
-    "tabOrder": 300
+    "height": 150,
+    "tabOrder": 320
   },
   "visual": {
     "visualType": "textbox",
@@ -43,29 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  Rates: the policy rate, prime rate and 5-year mortgage rate over time.",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "\u2022  Credit: how household credit and each category has grown. ",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "\u2022  Rate lag: pick a lag in months; the scatter and the correlation update.",
+                    "value": "\u2022  Rates, Credit and Rate lag go deeper; pick a lag in months and the scatter and correlation update.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"

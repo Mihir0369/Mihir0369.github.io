@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "note",
   "position": {
     "x": 20,
-    "y": 955,
-    "z": 600,
+    "y": 1180,
+    "z": 810,
     "width": 1240,
-    "height": 70,
-    "tabOrder": 600
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Limit: ",
+                    "value": "Footnote: ",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#1F2D3D",
@@ -28,7 +28,7 @@
                     }
                   },
                   {
-                    "value": "open means New or In Progress at the time of the data snapshot. The data cannot tell a genuine backlog from a status that was never updated, because it has no close date.",
+                    "value": "open means status Open or In Progress at the data snapshot. The data cannot tell a genuine backlog from a status that was never updated, because it has no close date.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#4A5B6C"
@@ -94,21 +94,21 @@
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "14.0D"
+                  "Value": "16.0D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "4.0D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "14.0D"
+                  "Value": "18.0D"
                 }
               }
             }

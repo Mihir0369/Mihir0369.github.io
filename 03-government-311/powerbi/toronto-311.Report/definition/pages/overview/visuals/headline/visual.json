@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "headline",
   "position": {
     "x": 340,
@@ -41,7 +41,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13.0D"
+                  "Value": "11.0D"
                 }
               }
             },
@@ -53,6 +53,13 @@
                       "Value": "'#1B3A5C'"
                     }
                   }
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.0D"
                 }
               }
             }

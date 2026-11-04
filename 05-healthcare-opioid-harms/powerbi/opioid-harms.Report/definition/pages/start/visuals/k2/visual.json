@@ -3,10 +3,10 @@
   "name": "k2",
   "position": {
     "x": 650,
-    "y": 190,
+    "y": 200,
     "z": 302,
     "width": 295,
-    "height": 125,
+    "height": 110,
     "tabOrder": 302
   },
   "visual": {
@@ -87,7 +87,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'EMS responses against the peak'"
+                  "Value": "'EMS against the peak'"
                 }
               }
             }
@@ -125,7 +125,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: EMS responses against the peak'"
+                  "Value": "'Card: EMS against the peak'"
                 }
               }
             }

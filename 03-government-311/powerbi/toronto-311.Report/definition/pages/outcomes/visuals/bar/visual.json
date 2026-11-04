@@ -3,14 +3,15 @@
   "name": "bar",
   "position": {
     "x": 20,
-    "y": 325,
-    "z": 300,
-    "height": 340,
+    "y": 330,
+    "z": 400,
     "width": 610,
-    "tabOrder": 300
+    "height": 340,
+    "tabOrder": 400
   },
   "visual": {
     "visualType": "clusteredBarChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "Dim_Division.Division",
-              "nativeQueryRef": "Division",
-              "active": true
+              "nativeQueryRef": "Division"
             }
           ]
         },
@@ -66,7 +66,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -137,6 +138,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.0D"
+                }
+              }
             }
           }
         }
@@ -195,7 +203,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Still open, by division'"
+                  "Value": "'Recorded as open, by division'"
                 }
               }
             }
@@ -228,41 +236,13 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Bar chart of open percentage by division'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualTooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'ReportPage'"
-                }
-              }
-            },
-            "section": {
-              "expr": {
-                "Literal": {
-                  "Value": "'tip_status'"
+                  "Value": "'Bar chart of the share of requests recorded as open by division'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

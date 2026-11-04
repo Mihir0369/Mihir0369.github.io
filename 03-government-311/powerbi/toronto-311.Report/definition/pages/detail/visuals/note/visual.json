@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "note",
   "position": {
     "x": 20,
-    "y": 825,
-    "z": 500,
+    "y": 1040,
+    "z": 810,
     "width": 1240,
-    "height": 90,
-    "tabOrder": 500
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,17 +20,17 @@
               {
                 "textRuns": [
                   {
-                    "value": "Limit: ",
+                    "value": "Footnote: ",
                     "textStyle": {
-                      "fontSize": "10pt",
+                      "fontSize": "9pt",
                       "color": "#1F2D3D",
                       "fontWeight": "bold"
                     }
                   },
                   {
-                    "value": "open means New or In Progress at the data snapshot. These counts show where open requests concentrate; they cannot separate a real backlog from statuses that were never updated. Request types renamed in 2025 appear separately.",
+                    "value": "the page shows one division at a time and follows the Year filter. Open means status Open or In Progress at the data snapshot, not a confirmed backlog.",
                     "textStyle": {
-                      "fontSize": "10pt",
+                      "fontSize": "9pt",
                       "color": "#4A5B6C"
                     }
                   }
@@ -94,21 +94,21 @@
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "14.0D"
+                  "Value": "16.0D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "4.0D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "14.0D"
+                  "Value": "18.0D"
                 }
               }
             }

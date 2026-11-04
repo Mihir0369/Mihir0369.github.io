@@ -3,10 +3,10 @@
   "name": "k1",
   "position": {
     "x": 335,
-    "y": 195,
+    "y": 200,
     "z": 301,
     "width": 295,
-    "height": 125,
+    "height": 110,
     "tabOrder": 301
   },
   "visual": {
@@ -145,21 +145,21 @@
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "18.0D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "6.0D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12.0D"
+                  "Value": "18.0D"
                 }
               }
             }

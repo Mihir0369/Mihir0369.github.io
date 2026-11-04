@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "foot",
   "position": {
     "x": 20,
-    "y": 896,
+    "y": 906,
     "z": 9000,
-    "width": 1000,
+    "width": 800,
     "height": 26,
     "tabOrder": 9000
   },

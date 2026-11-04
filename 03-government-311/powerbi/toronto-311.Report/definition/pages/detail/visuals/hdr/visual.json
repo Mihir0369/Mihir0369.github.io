@@ -5,12 +5,13 @@
     "x": 0,
     "y": 0,
     "z": 0,
-    "height": 104,
     "width": 1280,
+    "height": 104,
     "tabOrder": 0
   },
   "visual": {
     "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
     "objects": {
       "general": [
         {
@@ -19,11 +20,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "PORTFOLIO PROJECT  ·  REAL DATA: CITY OF TORONTO OPEN DATA, 2023 TO 2025",
+                    "value": "PORTFOLIO PROJECT  \u00b7  REAL DATA: CITY OF TORONTO OPEN DATA, 2023 TO 2025",
                     "textStyle": {
-                      "fontWeight": "bold",
                       "fontSize": "8pt",
-                      "color": "#f2c078"
+                      "color": "#F2C078",
+                      "fontWeight": "bold"
                     }
                   }
                 ]
@@ -31,11 +32,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Division detail: which request types are still open?",
+                    "value": "Division detail: which request types stay open",
                     "textStyle": {
-                      "fontWeight": "bold",
                       "fontSize": "22pt",
-                      "color": "#ffffff"
+                      "color": "#FFFFFF",
+                      "fontWeight": "bold"
                     }
                   }
                 ]
@@ -43,10 +44,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Drill through from the Outcomes page to see the request types behind a division.",
+                    "value": "Drill through from the Outcomes page to see one division's request types.",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#e4ecf3"
+                      "color": "#E4ECF3"
                     }
                   }
                 ]
@@ -130,7 +131,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

@@ -3,14 +3,15 @@
   "name": "bar",
   "position": {
     "x": 20,
-    "y": 325,
-    "z": 300,
-    "height": 480,
+    "y": 330,
+    "z": 400,
     "width": 610,
-    "tabOrder": 300
+    "height": 520,
+    "tabOrder": 400
   },
   "visual": {
     "visualType": "clusteredBarChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "Dim_ServiceType.Service Type",
-              "nativeQueryRef": "Service Type",
-              "active": true
+              "nativeQueryRef": "Service Type"
             }
           ]
         },
@@ -66,7 +66,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -94,6 +95,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.0D"
                 }
               }
             }
@@ -174,7 +182,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Largest request types for the selected filters.'"
+                  "Value": "'The 15 largest request types for the selection.'"
                 }
               }
             }
@@ -187,20 +195,19 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Bar chart of top request types'"
+                  "Value": "'Bar chart of the largest request types'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
   "filterConfig": {
     "filters": [
       {
-        "name": "efd55ef848cb0e533ec4",
+        "name": "topn",
         "field": {
           "Column": {
             "Expression": {
@@ -299,20 +306,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "574b93b019bd6d209730",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Requests"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

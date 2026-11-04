@@ -3,7 +3,7 @@
   "name": "start",
   "displayName": "Start here",
   "displayOption": "FitToWidth",
-  "height": 780,
+  "height": 800,
   "width": 1280,
   "objects": {
     "outspace": [

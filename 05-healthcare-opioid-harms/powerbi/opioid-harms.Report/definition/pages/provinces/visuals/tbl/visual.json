@@ -3,7 +3,7 @@
   "name": "tbl",
   "position": {
     "x": 620,
-    "y": 200,
+    "y": 330,
     "z": 400,
     "width": 640,
     "height": 520,
@@ -198,7 +198,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Table of counts, rates and reporting status by region'"
+                  "Value": "'Table of counts, rate and reporting status by region'"
                 }
               }
             }

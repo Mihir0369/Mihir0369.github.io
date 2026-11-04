@@ -38,12 +38,13 @@ The report is a Power BI project (`powerbi/toronto-311.pbip`, PBIR + TMDL, so ev
 **Measures (DAX).** Requests, Resolved, Cancelled, Open and their shares; year-over-year change; "vs rest" gap for parks and forestry; and text measures that write the findings on each page from the current filters (headline, busiest month, largest type, and so on).
 
 **Pages**
-1. **Start here:** the question, three findings calculated from the latest year in the data, how to use the report, and the main limit.
+1. **Start here:** the question, four headline numbers calculated from the latest year in the data, how to use the report, and the main limit.
 2. **Overview:** KPI cards, key findings, monthly requests by year.
-3. **Outcomes:** open share by division, outcome mix, scorecard, a hover tooltip, and drill-through to **Division detail** (request types behind one division).
+3. **Outcomes:** open share by division, outcome mix, scorecard, and drill-through to **Division detail** (request types behind one division).
 4. **Request types:** top types with Year, Taxonomy era and Division filters, and the January 2025 renaming warning.
+5. **Data quality:** what the file covers, the repaired rows, the status mapping and the limits of the data.
 
-Every page has navigation buttons, a synced Year filter and a Reset filters button. A figure that is not comparable across years is shown as a count or a same-year gap, not a year-over-year change. Reconciled against the SQL: yearly totals, open share by division, and the 58.2% renamed-type share.
+Every page has four icon number cards, three findings, a footnote, a Year filter that opens on the latest year and a Reset filters button. A figure that is not comparable across years is shown as a count or a same-year gap, not a year-over-year change. Reconciled against the SQL: yearly totals, open share by division, and the 58.2% renamed-type share.
 
 ## Interview talking points
 - You found that the dataset cannot answer "how long do requests take" and said so, instead of forcing it.

@@ -32,7 +32,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  Opioid deaths are 29% below the 2023 peak (8,083 to 5,704), but EMS responses are only 8% below theirs. The measures do not fall together.",
+                    "value": "\u2022  Opioid deaths are 29.43% below the 2023 peak (8,083 to 5,704), but EMS responses are only 7.84% below theirs. The measures do not fall together.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -54,7 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "\u2022  Around three in four deaths are men, and about half are aged 30 to 49.",
+                    "value": "\u2022  Around 71.64% of deaths are men, and 52.58% are aged 30 to 49.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"

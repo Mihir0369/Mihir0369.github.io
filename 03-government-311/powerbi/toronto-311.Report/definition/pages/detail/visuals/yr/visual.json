@@ -5,12 +5,13 @@
     "x": 90,
     "y": 120,
     "z": 100,
-    "height": 64,
     "width": 220,
+    "height": 64,
     "tabOrder": 100
   },
   "visual": {
     "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -116,6 +117,11 @@
         }
       ]
     },
+    "syncGroup": {
+      "groupName": "Year",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
     "visualContainerObjects": {
       "background": [
         {
@@ -216,12 +222,6 @@
           }
         }
       ]
-    },
-    "syncGroup": {
-      "groupName": "Year",
-      "fieldChanges": true,
-      "filterChanges": true
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

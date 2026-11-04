@@ -38,6 +38,11 @@
           "type": "Image"
         },
         {
+          "name": "canvas_quality.png",
+          "path": "canvas_quality.png",
+          "type": "Image"
+        },
+        {
           "name": "canvas_rates.png",
           "path": "canvas_rates.png",
           "type": "Image"

@@ -3,14 +3,15 @@
   "name": "line",
   "position": {
     "x": 20,
-    "y": 470,
+    "y": 330,
     "z": 400,
-    "height": 305,
     "width": 1240,
+    "height": 330,
     "tabOrder": 400
   },
   "visual": {
     "visualType": "lineChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "Date.Month",
-              "nativeQueryRef": "Month",
-              "active": true
+              "nativeQueryRef": "Month"
             }
           ]
         },
@@ -71,128 +71,23 @@
       }
     },
     "objects": {
-      "dataPoint": [
+      "legend": [
         {
           "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#A9B7C6'"
-                    }
-                  }
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bottom'"
                 }
               }
             }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "Date"
-                          }
-                        },
-                        "Property": "Year"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "2023L"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#5F7C99'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "Date"
-                          }
-                        },
-                        "Property": "Year"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "2024L"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#1B3A5C'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "Date"
-                          }
-                        },
-                        "Property": "Year"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "2025L"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
           }
         }
       ]
@@ -250,7 +145,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Requests per month, one line per year'"
+                  "Value": "'Requests per month'"
                 }
               }
             }
@@ -270,7 +165,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Demand peaks every summer, and 2025 runs above 2023 and 2024 for most months.'"
+                  "Value": "'The selected year by month. Reset filters to compare all three years.'"
                 }
               }
             }
@@ -283,14 +178,13 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Line chart of requests per month with one line per year'"
+                  "Value": "'Line chart of requests per month'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

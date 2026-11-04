@@ -1,36 +1,31 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
   "themeCollection": {
     "customTheme": {
       "name": "Toronto311Portfolio.json",
+      "type": "RegisteredResources",
       "reportVersionAtImport": {
         "visual": "1.8.0",
         "report": "2.0.0",
         "page": "1.3.0"
-      },
-      "type": "RegisteredResources"
+      }
     }
   },
-  "objects": {
-    "outspacePane": [
-      {
-        "properties": {
-          "expanded": {
-            "expr": {
-              "Literal": {
-                "Value": "true"
-              }
-            }
-          }
-        }
-      }
-    ]
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true
   },
   "resourcePackages": [
     {
       "name": "RegisteredResources",
       "type": "RegisteredResources",
       "items": [
+        {
+          "name": "Toronto311Portfolio.json",
+          "path": "Toronto311Portfolio.json",
+          "type": "CustomTheme"
+        },
         {
           "name": "canvas_detail.png",
           "path": "canvas_detail.png",
@@ -47,6 +42,11 @@
           "type": "Image"
         },
         {
+          "name": "canvas_quality.png",
+          "path": "canvas_quality.png",
+          "type": "Image"
+        },
+        {
           "name": "canvas_start.png",
           "path": "canvas_start.png",
           "type": "Image"
@@ -55,19 +55,8 @@
           "name": "canvas_types.png",
           "path": "canvas_types.png",
           "type": "Image"
-        },
-        {
-          "name": "Toronto311Portfolio.json",
-          "path": "Toronto311Portfolio.json",
-          "type": "CustomTheme"
         }
       ]
     }
-  ],
-  "settings": {
-    "useStylableVisualContainerHeader": true,
-    "defaultDrillFilterOtherVisuals": true,
-    "allowChangeFilterTypes": true,
-    "useEnhancedTooltips": true
-  }
+  ]
 }

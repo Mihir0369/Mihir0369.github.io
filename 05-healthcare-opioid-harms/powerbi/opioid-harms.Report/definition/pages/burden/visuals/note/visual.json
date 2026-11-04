@@ -3,11 +3,11 @@
   "name": "note",
   "position": {
     "x": 20,
-    "y": 775,
-    "z": 500,
+    "y": 950,
+    "z": 810,
     "width": 1240,
-    "height": 70,
-    "tabOrder": 500
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Limit: ",
+                    "value": "Footnote: ",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#1F2D3D",
@@ -28,7 +28,7 @@
                     }
                   },
                   {
-                    "value": "the four sources count different things (a death, a hospital stay, a visit, an ambulance call) and cover different places, so compare their direction and not their size. The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.",
+                    "value": "the sources count a death, a hospital stay, a visit and an ambulance call. The EMS rise in 2026 comes mostly from British Columbia and Winnipeg and may reflect how services record calls.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#4A5B6C"
@@ -87,7 +87,7 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "10.0D"
+                  "Value": "8.0D"
                 }
               }
             },
@@ -101,7 +101,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6.0D"
+                  "Value": "4.0D"
                 }
               }
             },

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "seldiv",
   "position": {
     "x": 330,
@@ -41,7 +41,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13.0D"
+                  "Value": "12.0D"
                 }
               }
             },
@@ -53,6 +53,13 @@
                       "Value": "'#1B3A5C'"
                     }
                   }
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.0D"
                 }
               }
             }
@@ -100,33 +107,26 @@
           }
         }
       ],
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Division selected'"
-                }
-              }
-            }
-          }
-        }
-      ],
       "general": [
         {
           "properties": {
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card: Division selected'"
+                  "Value": "'Card: Selected Division'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -139,7 +139,7 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "10.0D"
                 }
               }
             },
@@ -153,7 +153,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6.0D"
+                  "Value": "8.0D"
                 }
               }
             },

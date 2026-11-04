@@ -12,10 +12,61 @@ cultureInfo en-US
 			          "ConceptualProperty": "Open"
 			        }
 			      },
+			      "State": "Generated"
+			    },
+			    "dim_servicetype.taxonomy_era": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_ServiceType",
+			          "ConceptualProperty": "Taxonomy Era"
+			        }
+			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Open requests": {
+			          "Type name period": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.era_types": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Era Types"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Type names": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.era_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Era Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Share of requests": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

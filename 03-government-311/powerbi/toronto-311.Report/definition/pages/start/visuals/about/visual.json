@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "about",
   "position": {
     "x": 650,
-    "y": 370,
+    "y": 525,
     "z": 400,
     "width": 610,
-    "height": 260,
+    "height": 150,
     "tabOrder": 400
   },
   "visual": {
@@ -32,7 +32,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Source: City of Toronto Open Data, 311 Service Requests, 2023 to 2025 (Open Government Licence - Toronto).",
+                    "value": "\u2022  Source: City of Toronto Open Data, 311 Service Requests, 2023 to 2025: 1,351,594 requests, summarised to 295,239 monthly rows.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -43,7 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  1,351,594 requests, cleaned in SQL (about 8% of rows needed repair) and summarised monthly into 295,239 rows.",
+                    "value": "\u2022  Star schema: one fact table of monthly counts, with Date, Division, Request type and Status dimensions.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"
@@ -54,18 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Star schema: one fact table with Date, Division, Request type and Status dimensions. Measures are written in DAX.",
-                    "textStyle": {
-                      "fontSize": "9.5pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "•  Totals reconcile with the SQL results: yearly counts, open share by division and the 58.2% renamed-type share.",
+                    "value": "\u2022  There is no close date. Open means status Open or In Progress when the data was taken.",
                     "textStyle": {
                       "fontSize": "9.5pt",
                       "color": "#4A5B6C"

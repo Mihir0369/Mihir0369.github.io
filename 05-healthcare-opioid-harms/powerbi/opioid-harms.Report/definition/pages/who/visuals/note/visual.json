@@ -3,11 +3,11 @@
   "name": "note",
   "position": {
     "x": 20,
-    "y": 795,
-    "z": 500,
+    "y": 970,
+    "z": 810,
     "width": 1240,
-    "height": 70,
-    "tabOrder": 500
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Limit: ",
+                    "value": "Footnote: ",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#1F2D3D",
@@ -28,7 +28,7 @@
                     }
                   },
                   {
-                    "value": "PHAC suppresses small counts, so the age and sex cells add up to less than the total (91% in 2025, 99% in 2024). Smaller regions show many blank cells. Sex is reported as male or female only.",
+                    "value": "PHAC suppresses small counts, so age and sex cells add up to less than the total. Smaller regions show many blank cells. Sex is reported as male or female only.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#4A5B6C"
@@ -87,7 +87,7 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "10.0D"
+                  "Value": "8.0D"
                 }
               }
             },
@@ -101,7 +101,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6.0D"
+                  "Value": "4.0D"
                 }
               }
             },

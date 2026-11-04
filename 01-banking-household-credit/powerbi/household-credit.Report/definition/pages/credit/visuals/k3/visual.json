@@ -3,10 +3,10 @@
   "name": "k3",
   "position": {
     "x": 965,
-    "y": 195,
+    "y": 200,
     "z": 303,
     "width": 295,
-    "height": 125,
+    "height": 110,
     "tabOrder": 303
   },
   "visual": {
@@ -94,6 +94,31 @@
           }
         }
       ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Credit Latest Text"
+                }
+              }
+            }
+          }
+        }
+      ],
       "general": [
         {
           "properties": {
@@ -120,21 +145,21 @@
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "18.0D"
                 }
               }
             },
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "8.0D"
+                  "Value": "6.0D"
                 }
               }
             },
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12.0D"
+                  "Value": "18.0D"
                 }
               }
             }

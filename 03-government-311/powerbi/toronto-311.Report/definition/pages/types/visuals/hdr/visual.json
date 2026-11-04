@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "hdr",
   "position": {
     "x": 0,
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "PORTFOLIO PROJECT  ·  REAL DATA: CITY OF TORONTO OPEN DATA, 2023 TO 2025",
+                    "value": "PORTFOLIO PROJECT  \u00b7  REAL DATA: CITY OF TORONTO OPEN DATA, 2023 TO 2025",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#F2C078",

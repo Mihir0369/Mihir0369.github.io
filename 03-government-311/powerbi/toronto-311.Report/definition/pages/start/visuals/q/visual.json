@@ -5,12 +5,13 @@
     "x": 20,
     "y": 120,
     "z": 100,
+    "width": 1100,
     "height": 64,
-    "width": 1240,
     "tabOrder": 100
   },
   "visual": {
     "visualType": "textbox",
+    "drillFilterOtherVisuals": true,
     "objects": {
       "general": [
         {
@@ -21,16 +22,16 @@
                   {
                     "value": "The question:  ",
                     "textStyle": {
-                      "fontWeight": "bold",
                       "fontSize": "10pt",
-                      "color": "#1f2d3d"
+                      "color": "#1F2D3D",
+                      "fontWeight": "bold"
                     }
                   },
                   {
                     "value": "Where does the city leave requests unresolved, and what is behind the growth in 311 demand?",
                     "textStyle": {
                       "fontSize": "10pt",
-                      "color": "#4a5b6c"
+                      "color": "#4A5B6C"
                     }
                   }
                 ]
@@ -114,7 +115,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

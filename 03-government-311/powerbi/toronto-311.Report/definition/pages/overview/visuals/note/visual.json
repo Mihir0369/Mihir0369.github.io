@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "note",
   "position": {
     "x": 20,
-    "y": 795,
-    "z": 500,
+    "y": 850,
+    "z": 810,
     "width": 1240,
-    "height": 80,
-    "tabOrder": 500
+    "height": 50,
+    "tabOrder": 810
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Definitions: ",
+                    "value": "Footnote: ",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#1F2D3D",
@@ -28,26 +28,7 @@
                     }
                   },
                   {
-                    "value": "Resolved = Completed or Closed. Open = New or In Progress at the data snapshot. Open does not mean overdue: the data has no close date.",
-                    "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#4A5B6C"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Read with care: ",
-                    "textStyle": {
-                      "fontSize": "9pt",
-                      "color": "#1F2D3D",
-                      "fontWeight": "bold"
-                    }
-                  },
-                  {
-                    "value": "request types were renamed in January 2025, so the February 2025 spike (the busiest month in 2025) partly reflects new snow-related types that did not exist before.",
+                    "value": "requests per month cover every status. Open means status Open or In Progress at the data snapshot. The Year slicer opens on 2025, and the headline and cards follow it.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "color": "#4A5B6C"
@@ -120,7 +101,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "6.0D"
+                  "Value": "4.0D"
                 }
               }
             },

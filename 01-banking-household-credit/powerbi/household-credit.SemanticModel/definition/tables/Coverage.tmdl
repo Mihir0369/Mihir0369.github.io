@@ -1,0 +1,36 @@
+table Coverage
+	lineageTag: 640b5bd8-d50a-514b-b4bf-9486fcaf9b0e
+
+	column Source
+		lineageTag: f9947b9a-1e36-5136-934c-10a7f7187608
+		summarizeBy: none
+		sourceColumn: [Source]
+		sortByColumn: 'Sort Order'
+
+	column Frequency
+		lineageTag: a8eec49d-3ad8-5c74-b253-3aef55eed40e
+		summarizeBy: none
+		sourceColumn: [Frequency]
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 50ecc3f9-7753-51ba-add9-efa5d5796619
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+	partition Coverage = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Source", STRING,
+				    "Frequency", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        { "Household credit (Statistics Canada)", "Monthly", 1 },
+				        { "Interest rates (Bank of Canada)", "Monthly, from weekly series", 2 },
+				        { "Debt service ratio (Statistics Canada)", "Quarterly", 3 },
+				        { "Rate-lag correlations (my calculation)", "By lag, 0 to 24 months", 4 }
+				    }
+				)

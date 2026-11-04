@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "back",
   "position": {
     "x": 20,
     "y": 128,
-    "z": 90,
+    "z": 120,
     "width": 56,
     "height": 48,
-    "tabOrder": 90
+    "tabOrder": 120
   },
   "visual": {
     "visualType": "actionButton",
@@ -46,7 +46,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'← Back'"
+                  "Value": "'\u2190 Back'"
                 }
               }
             },
@@ -193,7 +193,7 @@
             "tooltip": {
               "expr": {
                 "Literal": {
-                  "Value": "'← Back'"
+                  "Value": "'\u2190 Back'"
                 }
               }
             }
@@ -207,40 +207,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Back to the previous page'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "top": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "right": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "bottom": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "left": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
                 }
               }
             }

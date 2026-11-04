@@ -3,14 +3,15 @@
   "name": "tbl",
   "position": {
     "x": 650,
-    "y": 325,
-    "z": 400,
-    "height": 480,
+    "y": 330,
+    "z": 500,
     "width": 610,
-    "tabOrder": 400
+    "height": 520,
+    "tabOrder": 500
   },
   "visual": {
     "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -55,8 +56,7 @@
                 }
               },
               "queryRef": "_Measures.Open",
-              "nativeQueryRef": "Open",
-              "displayName": "Open requests"
+              "nativeQueryRef": "Open"
             },
             {
               "field": {
@@ -74,7 +74,40 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Open"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
       }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "background": [
@@ -149,7 +182,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Sorted by the number of requests still open.'"
+                  "Value": "'The 15 types with the most open requests.'"
                 }
               }
             }
@@ -162,14 +195,118 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Table of request types with requests, open requests and open share'"
+                  "Value": "'Table of request types in this division'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "topn",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_ServiceType"
+              }
+            },
+            "Property": "Service Type"
+          }
+        },
+        "type": "TopN",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "subquery",
+              "Expression": {
+                "Subquery": {
+                  "Query": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Dim_ServiceType",
+                        "Type": 0
+                      },
+                      {
+                        "Name": "_",
+                        "Entity": "_Measures",
+                        "Type": 0
+                      }
+                    ],
+                    "Select": [
+                      {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Service Type"
+                        },
+                        "Name": "field"
+                      }
+                    ],
+                    "OrderBy": [
+                      {
+                        "Direction": 2,
+                        "Expression": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "_"
+                              }
+                            },
+                            "Property": "Open"
+                          }
+                        }
+                      }
+                    ],
+                    "Top": 15
+                  }
+                }
+              },
+              "Type": 2
+            },
+            {
+              "Name": "d",
+              "Entity": "Dim_ServiceType",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Service Type"
+                      }
+                    }
+                  ],
+                  "Table": {
+                    "SourceRef": {
+                      "Source": "subquery"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }

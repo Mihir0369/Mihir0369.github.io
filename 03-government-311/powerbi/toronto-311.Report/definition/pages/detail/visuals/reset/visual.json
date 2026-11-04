@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "reset",
   "position": {
     "x": 1140,
@@ -200,7 +200,7 @@
             "tooltip": {
               "expr": {
                 "Literal": {
-                  "Value": "'Reset all filters'"
+                  "Value": "'Reset filters'"
                 }
               }
             }
@@ -214,40 +214,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Reset all filters'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "top": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "right": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "bottom": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
-                }
-              }
-            },
-            "left": {
-              "expr": {
-                "Literal": {
-                  "Value": "0.0D"
                 }
               }
             }

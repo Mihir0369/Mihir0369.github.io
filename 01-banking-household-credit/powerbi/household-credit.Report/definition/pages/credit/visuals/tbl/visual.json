@@ -3,10 +3,10 @@
   "name": "tbl",
   "position": {
     "x": 20,
-    "y": 700,
+    "y": 690,
     "z": 600,
     "width": 1240,
-    "height": 330,
+    "height": 310,
     "tabOrder": 600
   },
   "visual": {

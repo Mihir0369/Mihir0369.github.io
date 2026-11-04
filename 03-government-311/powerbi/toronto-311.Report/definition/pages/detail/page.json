@@ -3,7 +3,7 @@
   "name": "detail",
   "displayName": "Division detail",
   "displayOption": "FitToWidth",
-  "height": 980,
+  "height": 1130,
   "width": 1280,
   "objects": {
     "outspace": [
