@@ -195,7 +195,7 @@
 
     var h = sec("case-head s-head");
     var cr = div("crumbs", h);
-    cr.appendChild(el("a", { href: "index.html#work" }, "Project work")); cr.appendChild(document.createTextNode(" / " + p.sector));
+    cr.appendChild(el("a", { href: "index.html#work" }, "Projects")); cr.appendChild(document.createTextNode(" / " + p.sector));
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));
@@ -226,7 +226,7 @@
     var chp = div("chips", pf);
     (S.chips || (p.techniques || []).slice(0, 7)).forEach(function (t) { chp.appendChild(el("span", { "class": "chip" }, t)); });
     var dls = div("dls", pf);
-    (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn " + (i ? "primary" : "ghost"), href: d.file, download: "" }, d.label)); });
+    (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn" + (i ? "" : " impact"), href: d.file, download: "" }, d.label)); });
     if (p.downloads) r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
 
     var kf = sec("s-tldr", "Key findings");
@@ -361,7 +361,7 @@
       var dl0 = el("div", { "class": "downloads" });
       p.downloads.forEach(function (d) {
         var bx = el("div", { "class": "dl" });
-        bx.appendChild(el("a", { "class": "btn primary", href: d.file, download: "" }, d.label));
+        bx.appendChild(el("a", { "class": "btn", href: d.file, download: "" }, d.label));
         dl0.appendChild(bx);
       });
       rb.appendChild(dl0);
@@ -410,7 +410,7 @@
       var dl = el("div", { "class": "downloads" });
       p.downloads.forEach(function (d) {
         var box = el("div", { "class": "dl" });
-        box.appendChild(el("a", { "class": "btn primary", href: d.file, download: "" }, d.label));
+        box.appendChild(el("a", { "class": "btn", href: d.file, download: "" }, d.label));
         box.appendChild(el("p", {}, d.note));
         dl.appendChild(box);
       });

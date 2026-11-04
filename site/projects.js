@@ -837,3 +837,76 @@ window.PROJECTS = [
 
 // Chart format when you have results (shown on the case page):
 // chart: { type: "bar", title: "Fatal share by hour", labels: ["0","1"], values: [3.1, 2.8], unit: "%" }
+
+// ---- Homepage story content (mentor feedback): personality, skills, experience as work + impact, project problems and key features.
+window.PROFILE.story = {
+  about: "I work across data preparation, reporting design, stakeholder communication and analytical problem-solving. My focus is accurate, understandable reporting that helps teams track performance and make decisions with confidence.",
+  traits: [
+    ["Starts from the decision", "Every case opens with the question a decision-maker would ask, such as where Toronto 311 leaves requests unresolved."],
+    ["Careful with the numbers", "In the 311 study, 'open' means open at the data snapshot, not a confirmed backlog. I say so on the page."],
+    ["Explains it plainly", "Peer tutor in Excel, Power BI and statistics, and presented procurement spend trends to non-technical stakeholders."],
+    ["Built to be reused", "Each project ships a downloadable Power BI project, SQL and documented DAX: 318 measures across four reports."]
+  ],
+  impact: [
+    ["50%", "Reduction in sales deal-tracking time", "Impact Zero"],
+    ["$400K+", "Sales pipeline covered by one Power BI dashboard", "Impact Zero"],
+    ["30%", "Potential procurement cost savings identified", "Scalezix"],
+    ["22 hrs", "Weekly reporting effort removed", "Scalezix"]
+  ]
+};
+window.PROFILE.stack = [
+  ["Reporting and modelling", ["Power BI", "DAX", "Power Query", "Star-schema models", "PBIP / TMDL"]],
+  ["Data preparation", ["SQL", "MySQL", "SQLite", "Python (pandas)", "Excel (XLOOKUP, Pivot Tables)"]],
+  ["Platform", ["Microsoft Fabric", "Lakehouse", "Notebooks", "Semantic models", "Git and GitHub"]]
+];
+window.PROFILE.experienceStory = [
+  { when: "Oct 2025 - Present", role: "Data Analyst", org: "Elevara Digital, Toronto, ON", items: [
+    ["Write SQL (joins, aggregations, filters) to pull and consolidate business data and produce data exports.", "Reporting and analysis start from one consolidated, reliable set of data."],
+    ["Clean, validate and reconcile reporting datasets.", "More complete, accurate and consistent data behind every report."],
+    ["Work with stakeholders to define data requirements and KPI calculations.", "Agreed KPI definitions and reporting solutions the business can use."],
+    ["Build and maintain Power BI dashboards.", "Management sees operational trends and findings to support decisions."]
+  ]},
+  { when: "Apr 2025 - Sep 2025", role: "Data Analyst Intern", org: "Impact Zero, Toronto, ON", items: [
+    ["Cleaned and consolidated HubSpot CRM data and built a Power BI dashboard.", "Covered over $400K in pipeline revenue and cut sales deal-tracking time by 50%."],
+    ["Created custom reporting metrics and presented pipeline findings to leadership.", "Leadership had clear numbers to support business decisions."],
+    ["Built a Python and Streamlit app to summarize 500+ meeting notes and extract action items.", "Improved executive task follow-up by 35%."]
+  ]},
+  { when: "Jun 2023 - Aug 2025", role: "Peer Tutor", org: "Humber College, Toronto, ON", items: [
+    ["Ran workshops and one-to-one support in Excel, Power BI and statistics.", "Learners with different technical levels could follow and apply the material."],
+    ["Explained data modelling, regression and hypothesis testing in plain language.", "Students applied analytical concepts to their coursework."]
+  ]},
+  { when: "Dec 2021 - Oct 2022", role: "Jr Reporting Analyst", org: "Scalezix Technologies, Ahmedabad, India", items: [
+    ["Built Power BI models and dashboards to analyze procurement spend across purchasing channels.", "Gave leadership visibility and identified potential cost savings of 30%."],
+    ["Prepared procurement data with Excel Power Query, Pivot Tables and XLOOKUP.", "Reduced weekly reporting effort by 22 hours."],
+    ["Managed recurring weekly reporting and presented spend trends to non-technical stakeholders.", "Deadlines met and findings understood by the people who had to act on them."]
+  ]}
+];
+(function () {
+  var X = {
+    "household-credit": { problem: "How long do interest-rate rises take to slow household borrowing?", features: [
+      "Rate-lag selector (0 to 24 months) that compares credit growth with an earlier rate change",
+      "Policy, prime and mortgage rates side by side with household credit, 2010 to 2026",
+      "Year-over-year growth for total credit and each category, with a scorecard",
+      "Debt-service burden tracked next to rates",
+      "Data-quality page: what each source covers and where the gaps are"] },
+    "collision-risk": { problem: "When and where do Canadian roads turn deadly?", features: [
+      "Heat map of fatal share by hour and weekday, with night hours highlighted",
+      "2020 against 2019, with fatal and injury collisions indexed to 2019",
+      "What-if scenario: how much of the gap between risky and safer roads to close",
+      "People page: fatality rates by road user, age, safety device and vehicle",
+      "Decomposition tree to split fatal collisions by any factor"] },
+    "toronto-311": { problem: "Where does Toronto 311 leave requests unresolved, and can its numbers be compared year to year?", features: [
+      "Five report pages plus a drill-through page, with one-click Reset filters",
+      "Year-over-year demand by division and request type, with dynamic card subtitles",
+      "Open-request rate by division that exposes the 49.45% outlier",
+      "Flags the January 2025 request-type change that breaks year-over-year comparisons",
+      "Data-quality page stating that 'open' means open at the data snapshot"] },
+    "substance-harms": { problem: "Are opioid harms really falling, or only some measures of them?", features: [
+      "Deaths, hospital stays, ED visits and EMS responses side by side",
+      "Quarterly trend by data source and substance, with yearly totals",
+      "Provincial tile map of rates, with suppressed and missing values labelled",
+      "Heat map of counts by age group and year, with the sex split",
+      "Data-quality page: who reports what, and how missing values are handled"] }
+  };
+  window.PROJECTS.forEach(function (p) { if (X[p.id]) { p.problem = X[p.id].problem; p.features = X[p.id].features; } });
+})();

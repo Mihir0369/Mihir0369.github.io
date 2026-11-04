@@ -1,0 +1,10 @@
+/* Two button styles used on every page.
+   .btn         simple button (outline)
+   .btn.impact  impact button (gold, used for the one main action in a block) */
+.btn, a.btn, button.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 7px; font-family: inherit; font-weight: 750; font-size: 13px; line-height: 1.2; text-decoration: none; cursor: pointer; background: #fff; color: #142C43; border: 1.5px solid #142C43; transition: transform .2s, box-shadow .2s, background .2s, color .2s; }
+.btn:hover { background: #142C43; color: #fff; transform: translateY(-2px); text-decoration: none; }
+.btn.impact, a.btn.impact { background: #E8A342; border-color: #E8A342; color: #0C2236; box-shadow: 0 6px 18px #E8A34245; }
+.btn.impact:hover { background: #F0B555; border-color: #F0B555; color: #0C2236; box-shadow: 0 10px 28px #E8A34270; }
+.btn.small { padding: 9px 15px; font-size: 12px; }
+.on-dark .btn:not(.impact) { background: transparent; color: #fff; border-color: #8FA6B7; }
+.on-dark .btn:not(.impact):hover { background: #fff; color: #142C43; border-color: #fff; }
