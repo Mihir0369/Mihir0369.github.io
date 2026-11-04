@@ -1,5 +1,7 @@
 (function () {
-  var P = window.PROFILE, list = window.PROJECTS;
+  var P = window.PROFILE;
+  // Only finished case studies are shown; unfinished ones (no findings yet) stay off the homepage.
+  var list = window.PROJECTS.filter(function (p) { return p.found && p.found.length; });
 
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -7,66 +9,84 @@
     if (text != null) n.textContent = text;
     return n;
   }
+  function shot(p) { var s = p.shots && p.shots[p.hero != null ? p.hero : 0]; return s ? s.file : null; }
+  function href(p) { return "case.html?id=" + encodeURIComponent(p.id); }
 
-  // Profile
-  (function () {
-    var b = document.getElementById("brand"), parts = P.name.split(" ");
-    var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
-    var n = document.createElement("span"); n.textContent = P.name;
-    b.textContent = ""; b.appendChild(m); b.appendChild(n);
-  })();
-  (function () {
-    var h = document.getElementById("headline"); h.textContent = "";
-    P.headline.split("*").forEach(function (t, i) { if (!t) return; if (i % 2) { var e = document.createElement("span"); e.className = "hl"; e.textContent = t; h.appendChild(e); } else h.appendChild(document.createTextNode(t)); });
-  })();
-  document.getElementById("intro").textContent = P.intro;
+  // brand
+  var b = document.getElementById("brand"), parts = P.name.split(" ");
+  b.textContent = "";
+  b.appendChild(el("span", { "class": "mono" }, (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase()));
+  var nm = el("span", {}, P.name); nm.appendChild(el("small", {}, "DATA · INSIGHTS · BUSINESS IMPACT")); b.appendChild(nm);
+
+  // links
   document.getElementById("email").href = P.email;
-  ["linkedin", "nav-linkedin"].forEach(function (id) { var l = document.getElementById(id); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; });
+  ["linkedin", "linkedin2"].forEach(function (id) { var l = document.getElementById(id); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; });
   var rs = document.getElementById("resume");
   if (P.resume) rs.href = P.resume; else rs.remove();
-  document.getElementById("tools").textContent = P.tools;
-  var certs = document.getElementById("certs");
+  document.getElementById("burger").addEventListener("click", function () { document.getElementById("menu").classList.toggle("open"); });
+  Array.prototype.forEach.call(document.querySelectorAll("#menu a"), function (a) { a.addEventListener("click", function () { document.getElementById("menu").classList.remove("open"); }); });
+
+  // pills: certifications and tools
+  var pills = document.getElementById("pills");
   P.certs.forEach(function (c) {
-    certs.appendChild(c.url ? Object.assign(el("a", { "class": "chip", href: c.url, target: "_blank", rel: "noopener" }, c.label)) : el("span", { "class": "chip" }, c.label));
+    var a = el("a", { "class": "pill cert", href: c.url || "#", target: "_blank", rel: "noopener" }, "✓ Microsoft " + c.label.split(" ")[0]);
+    pills.appendChild(a);
   });
+  ["Power BI · DAX", "SQL · Python", "Microsoft Fabric"].forEach(function (t) { pills.appendChild(el("span", { "class": "pill" }, t)); });
 
-  // Headline findings: every project's headline, empty ones shown as placeholders
-  var stats = document.getElementById("stats");
-  list.forEach(function (p) {
-    var s = el("div", { "class": "stat" });
-    var empty = p.headline.value == null;
-    s.appendChild(el("div", { "class": "big" + (empty ? " empty" : "") }, empty ? "to fill in" : p.headline.value));
-    s.appendChild(el("div", { "class": "label" }, p.headline.label));
-    stats.appendChild(s);
+  // featured: Toronto 311 if present, else the first project
+  var feat = list.filter(function (p) { return p.id === "toronto-311"; })[0] || list[0];
+  var rest = list.filter(function (p) { return p !== feat; });
+
+  var shell = document.getElementById("shell"), img = document.getElementById("shell-img");
+  shell.href = href(feat); img.src = shot(feat); img.alt = "Power BI report: " + feat.title;
+
+  var f = document.getElementById("feature");
+  var copy = el("div", { "class": "copy" });
+  copy.appendChild(el("div", { "class": "industry" }, "Featured case study · " + feat.sector));
+  copy.appendChild(el("h3", {}, feat.title));
+  copy.appendChild(el("p", {}, feat.summary));
+  var res = el("div", { "class": "result" });
+  res.appendChild(el("b", {}, feat.headline.value + " " + feat.headline.label));
+  res.appendChild(el("small", {}, "Real data · " + feat.source));
+  copy.appendChild(res);
+  var tg = el("div", { "class": "tags2" });
+  feat.tools.forEach(function (t) { tg.appendChild(el("span", { "class": "tag2" }, t)); });
+  copy.appendChild(tg);
+  var ln = el("div", { "class": "links2" });
+  ln.appendChild(el("a", { "class": "tlink", href: href(feat) }, "Explore case study ↗"));
+  ln.appendChild(el("a", { "class": "tlink sec2", href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + feat.repo, target: "_blank", rel: "noopener" }, "GitHub source ↗"));
+  copy.appendChild(ln);
+  var art = el("div", { "class": "art" });
+  var fi = el("img", { src: shot(feat), alt: "Power BI report page: " + feat.title, loading: "lazy" });
+  art.appendChild(fi);
+  f.appendChild(copy); f.appendChild(art);
+
+  // other case studies
+  var grid = document.getElementById("grid");
+  rest.forEach(function (p, i) {
+    var a = el("a", { "class": "pcard", href: href(p) });
+    var th = el("div", { "class": "pthumb t" + (i % 3) });
+    th.appendChild(el("img", { src: shot(p), alt: "Power BI report page: " + p.title, loading: "lazy" }));
+    a.appendChild(th);
+    var c = el("div", { "class": "copy" });
+    c.appendChild(el("div", { "class": "industry" }, p.sector + " · " + p.area));
+    c.appendChild(el("h3", {}, p.title));
+    c.appendChild(el("p", {}, p.summary));
+    var t = el("div", { "class": "tags2" });
+    p.tools.slice(0, 3).forEach(function (x) { t.appendChild(el("span", { "class": "tag2" }, x)); });
+    c.appendChild(t);
+    c.appendChild(el("span", { "class": "tlink" }, "Explore case study ↗"));
+    a.appendChild(c); grid.appendChild(a);
   });
+  document.getElementById("count").textContent = "Showing " + list.length + " finished case studies · more in progress";
 
-  // Filters and cards
-  var sectors = ["All"].concat(list.map(function (p) { return p.sector; }).filter(function (v, i, a) { return a.indexOf(v) === i; }));
-  var filters = document.getElementById("filters"), grid = document.getElementById("grid"), active = "All";
-
-  function renderGrid() {
-    grid.innerHTML = "";
-    list.filter(function (p) { return active === "All" || p.sector === active; }).forEach(function (p) {
-      var a = el("a", { "class": "card", href: "case.html?id=" + encodeURIComponent(p.id) });
-      a.appendChild(el("div", { "class": "meta" }, p.sector + " · " + p.area));
-      a.appendChild(el("h3", {}, p.title));
-      a.appendChild(el("p", {}, p.summary));
-      if (!p.found.length) a.appendChild(el("span", { "class": "draft" }, "Draft: findings to add"));
-      var tl = el("div", { "class": "tagline" });
-      tl.appendChild(el("span", { "class": "tag real" }, p.provenance + " data"));
-      p.tools.slice(0, 3).forEach(function (t) { tl.appendChild(el("span", { "class": "tag" }, t)); });
-      a.appendChild(tl);
-      grid.appendChild(a);
-    });
-  }
-  sectors.forEach(function (s) {
-    var b = el("button", { type: "button", "aria-pressed": s === "All" ? "true" : "false" }, s);
-    b.addEventListener("click", function () {
-      active = s;
-      Array.prototype.forEach.call(filters.children, function (c) { c.setAttribute("aria-pressed", c === b ? "true" : "false"); });
-      renderGrid();
-    });
-    filters.appendChild(b);
+  // about list
+  var al = document.getElementById("alist");
+  [["Data & reporting experience", "Elevara Digital · Impact Zero · Scalezix Technologies"],
+   ["Microsoft Certified: Power BI Data Analyst Associate", "PL-300 certification"],
+   ["Microsoft Certified: Fabric Analytics Engineer Associate", "DP-600 certification"],
+   ["Graduate Certificate, Business Insights and Analytics", "Humber Polytechnic, Toronto"]].forEach(function (r) {
+    var d = el("div", { "class": "aitem" }); d.appendChild(el("b", {}, r[0])); d.appendChild(el("span", {}, r[1])); al.appendChild(d);
   });
-  renderGrid();
 })();

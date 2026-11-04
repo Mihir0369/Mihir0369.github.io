@@ -3,65 +3,110 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mihir Jasani | Data Analyst &amp; Power BI Portfolio</title>
-  <meta name="description" content="Business intelligence case studies built on Canadian public data.">
+  <title>Mihir Jasani | Data Analyst &amp; Business Intelligence</title>
+  <meta name="description" content="Mihir Jasani, Toronto-based data analyst with Power BI and Microsoft Fabric certifications. Case studies built on Canadian public data.">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="home.css">
 </head>
-<body>
+<body class="home">
   <header class="site">
-    <div class="wrap">
+    <div class="wrap2">
       <a class="brand" href="index.html" id="brand"></a>
-      <nav>
-        <a class="on" href="#work">Work</a>
+      <nav class="menu" id="menu" aria-label="Main navigation">
+        <a href="#work">Project work</a>
+        <a href="#impact">Impact</a>
+        <a href="#approach">Approach</a>
         <a href="about.html">About</a>
-        <a id="nav-linkedin" href="#">LinkedIn</a>
+        <a class="cta" href="#contact">Let's connect &#8599;</a>
       </nav>
+      <button class="burger" id="burger" aria-label="Toggle menu">&#9776;</button>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="eyebrow">Data analyst · Power BI · SQL · Fabric · Toronto</div>
-      <h1 id="headline">Mihir Jasani: Data Analyst building Power BI reporting from messy data</h1>
-      <p class="intro" id="intro">Toronto-based data analyst with Power BI (PL-300) and Microsoft Fabric (DP-600) certifications. Five case studies on Canadian public data, each with a Power BI report, SQL and Python.</p>
-      <div class="actions">
-        <a class="btn primary" href="#work">View projects</a>
-        <a class="btn" id="resume" href="#">Download resume</a>
-        <a class="btn" id="email" href="#">Contact</a>
-        <a class="btn" id="linkedin" href="#">LinkedIn</a>
-        <a class="btn" href="about.html">About</a>
-      </div>
-      <div class="chips" id="certs"></div>
-      <div class="tools" id="tools"></div>
-    </section>
-
-    <section aria-labelledby="h-find">
-      <h2 id="h-find">Headline findings</h2>
-      <div class="stats" id="stats"></div>
-    </section>
-
-    <section id="work" aria-labelledby="h-work">
-      <h2 id="h-work">Case studies</h2>
-      <div class="filters" id="filters" role="group" aria-label="Filter by sector"></div>
-      <div class="grid" id="grid"></div>
-    </section>
-
-    <section id="how" aria-labelledby="h-how">
-      <h2 id="h-how">How I work</h2>
-      <div class="principles">
-        <div class="card"><h3>Start from the decision</h3><p>Each project opens with the question someone has to answer and ends with a recommendation they can act on.</p></div>
-        <div class="card"><h3>Say what the data cannot tell you</h3><p>Every case study lists its limits: what the source covers, what it leaves out, and what I assumed.</p></div>
-        <div class="card"><h3>Build it to be reused</h3><p>Repeatable load scripts, a star-schema model, and documented DAX measures, all in version control.</p></div>
+  <main>
+    <section class="hero2" id="home">
+      <div class="wrap2 grid2">
+        <div>
+          <div class="eyebrow2">Toronto, Canada &nbsp;/&nbsp; Data &amp; Business Intelligence</div>
+          <h1>From messy data to <em>clear business decisions.</em></h1>
+          <p class="lead">I'm <strong style="color:#153248">Mihir Jasani</strong>, a data analyst who builds reliable Power BI reporting and SQL-powered analysis. I clean and reconcile the data, then turn it into dashboards that teams can understand, trust and act on.</p>
+          <div class="acts">
+            <a class="btn gold" href="#work">Explore my Project work &#8599;</a>
+            <a class="btn line" id="resume" href="#" download>Download Resume (PDF)</a>
+            <a class="btn line" id="linkedin" href="#">LinkedIn</a>
+          </div>
+          <div class="pills" id="pills"></div>
+        </div>
+        <a class="shell" id="shell" href="#" aria-label="Open the featured case study">
+          <div class="shell-top"><span>POWER BI REPORT</span><span class="live">&#9679; REAL PUBLIC DATA</span></div>
+          <img id="shell-img" alt="Power BI report page from the featured case study">
+        </a>
       </div>
     </section>
 
-    <section aria-labelledby="h-data">
-      <h2 id="h-data">About the data</h2>
-      <p>Every project uses public Canadian data, and the source and licence are named on each page. No employer or client data is used anywhere on this site.</p>
+    <section class="impact2" id="impact">
+      <div class="wrap2 in">
+        <div class="intro">Business impact, not just dashboards.<span>Results from my analyst roles. The case studies below use public data only.</span></div>
+        <div class="cell"><strong>50%</strong><span>Reduction in sales deal-tracking time (Impact Zero)</span></div>
+        <div class="cell"><strong>$400K+</strong><span>Sales pipeline covered by one Power BI dashboard</span></div>
+        <div class="cell"><strong>30%</strong><span>Potential procurement cost savings identified (Scalezix)</span></div>
+      </div>
+    </section>
+
+    <section class="sec" id="work">
+      <div class="wrap2">
+        <div class="sec-head">
+          <div><div class="eyebrow2">01 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div>
+          <p>Case studies across city services, transportation safety, finance and healthcare. Each one leads with the decision, not the tool.</p>
+        </div>
+        <article class="feature2" id="feature"></article>
+        <div class="pgrid" id="grid"></div>
+        <div class="mini-foot"><span id="count"></span><a target="_blank" rel="noopener" href="https://github.com/Mihir0369/portfolio_website">View GitHub repository &#8599;</a></div>
+      </div>
+    </section>
+
+    <section class="sec approach2" id="approach">
+      <div class="wrap2">
+        <div class="sec-head">
+          <div><div class="eyebrow2">02 / How I work</div><h2>Useful analysis starts<br>before the dashboard.</h2></div>
+          <p>A clear process builds confidence that the analysis can be maintained, explained and used.</p>
+        </div>
+        <div class="agrid">
+          <article class="acard"><div class="n">01 / DEFINE</div><h3>Start from the decision</h3><p>Turn the question into explicit measures and say what a useful answer should help someone do next.</p></article>
+          <article class="acard"><div class="n">02 / VALIDATE</div><h3>Make the numbers trustworthy</h3><p>Check completeness, reconcile totals, document data quality issues and state what the source cannot tell you.</p></article>
+          <article class="acard"><div class="n">03 / DELIVER</div><h3>Build it to be reused</h3><p>SQL, Python, Power Query, a star-schema model and documented DAX, all in version control.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="about">
+      <div class="wrap2 about2">
+        <div>
+          <div class="eyebrow2">03 / About me</div>
+          <h2>An analyst who connects the technical work to the business question.</h2>
+          <p>I work across data preparation, reporting design, stakeholder communication and analytical problem-solving. My focus is accurate, understandable reporting that helps teams track performance and make decisions with confidence.</p>
+          <div class="acts" style="margin-top:24px"><a class="btn line" href="about.html">Read more about me</a></div>
+        </div>
+        <div class="alist" id="alist"></div>
+      </div>
+    </section>
+
+    <section class="contact2" id="contact">
+      <div class="wrap2 in">
+        <div>
+          <div class="eyebrow2">LET'S WORK TOGETHER</div>
+          <h2>Need someone who can turn reporting complexity into clarity?</h2>
+          <p>Open to Data Analyst, BI Analyst, Reporting Analyst and related roles in Canada.</p>
+        </div>
+        <div class="cbtns">
+          <a class="btn gold" id="email" href="#">Email me &#8599;</a>
+          <a class="btn line" id="linkedin2" href="#" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer><div class="wrap">Built with HTML, CSS and JavaScript. Data sources are credited on each project.</div></footer>
+  <footer><div class="wrap2" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span>&copy; 2026 Mihir Jasani</span><span>Data sources are credited on each case study. No employer or client data is used on this site.</span></div></footer>
 
   <script src="projects.js"></script>
   <script src="app.js"></script>

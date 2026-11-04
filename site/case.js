@@ -4,7 +4,7 @@
   var p = list.filter(function (x) { return x.id === id; })[0];
   var main = document.getElementById("main");
   var host = main;
-  (function () { var l = document.getElementById("nav-linkedin"); l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; })();
+  (function () { var l = document.getElementById("nav-linkedin"); if (!l) return; l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; })();
   (function () {
     var b = document.getElementById("brand"), parts = P.name.split(" ");
     var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
@@ -195,7 +195,7 @@
 
     var h = sec("case-head s-head");
     var cr = div("crumbs", h);
-    cr.appendChild(el("a", { href: "index.html#work" }, "Work")); cr.appendChild(document.createTextNode(" / " + p.sector));
+    cr.appendChild(el("a", { href: "index.html#work" }, "Project work")); cr.appendChild(document.createTextNode(" / " + p.sector));
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));

@@ -6,7 +6,7 @@
   var b = document.getElementById("brand"), parts = P.name.split(" ");
   var m = el("span", "mono", (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase());
   b.textContent = ""; b.appendChild(m); b.appendChild(el("span", null, P.name));
-  var nl = document.getElementById("nav-linkedin"); nl.href = P.linkedin; nl.target = "_blank"; nl.rel = "noopener noreferrer";
+  
   document.title = "About | " + P.name;
 
   var layout = el("div", "about-layout"), left = el("div", "about-main"), side = el("aside", "about-side");

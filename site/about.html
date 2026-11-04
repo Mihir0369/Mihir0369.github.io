@@ -5,17 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About | Mihir Jasani, Data Analyst</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme.css">
 </head>
-<body>
+<body class="inner">
   <header class="site">
-    <div class="wrap">
+    <div class="wrap2">
       <a class="brand" href="index.html" id="brand"></a>
-      <nav><a href="index.html#work">Work</a><a class="on" href="about.html">About</a><a id="nav-linkedin" href="#">LinkedIn</a></nav>
+      <nav class="menu" id="menu" aria-label="Main navigation">
+        <a href="index.html#work">Project work</a>
+        <a href="index.html#impact">Impact</a>
+        <a href="index.html#approach">Approach</a>
+        <a href="about.html" class="on">About</a>
+        <a class="cta" href="index.html#contact">Let's connect &#8599;</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Toggle menu">&#9776;</button>
     </div>
   </header>
   <main class="wrap about" id="main"></main>
-  <footer><div class="wrap">Data sources are credited on each project.</div></footer>
+  <footer><div class="wrap">&copy; 2026 Mihir Jasani &middot; Data sources are credited on each project.</div></footer>
   <script src="projects.js"></script>
   <script src="about.js"></script>
+  <script src="nav.js"></script>
 </body>
 </html>
