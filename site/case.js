@@ -185,6 +185,23 @@
     }
     put(code.slice(last));
   }
+  // SQL highlighter: comments, strings, keywords, functions and numbers, with the same colours as the DAX panel
+  var SQL_TOKEN = /(--[^\n]*)|('(?:[^']|'')*')|\b(SELECT|FROM|WHERE|GROUP\s+BY|ORDER\s+BY|PARTITION\s+BY|HAVING|LIMIT|WITH|AS|JOIN|LEFT|RIGHT|INNER|OUTER|ON|AND|OR|NOT|IN|IS|NULL|CASE|WHEN|THEN|ELSE|END|DISTINCT|OVER|DESC|ASC|BETWEEN|LIKE|UNION|ALL|EXISTS)\b|\b([A-Za-z_]\w*)(?=\s*\()|\b(\d+(?:\.\d+)?)\b/gi;
+  function sql(host, code) {
+    var last = 0, m;
+    function put(txt, cls) { if (!txt) return; if (cls) host.appendChild(el("span", { "class": cls }, txt)); else host.appendChild(document.createTextNode(txt)); }
+    SQL_TOKEN.lastIndex = 0;
+    while ((m = SQL_TOKEN.exec(code))) {
+      put(code.slice(last, m.index));
+      if (m[1]) put(m[1], "sq-com");
+      else if (m[2]) put(m[2], "dx-str");
+      else if (m[3]) put(m[3].toUpperCase(), "dx-kw");
+      else if (m[4]) put(m[4], "dx-fn");
+      else put(m[5], "sq-num");
+      last = SQL_TOKEN.lastIndex;
+    }
+    put(code.slice(last));
+  }
   function renderStory() {
     main.textContent = "";
     var EV = window.EVIDENCE || {};
@@ -197,7 +214,7 @@
 
     var h = sec("case-head s-head");
     var cr = div("crumbs", h);
-    cr.appendChild(el("a", { href: "index.html#work" }, "Projects")); cr.appendChild(document.createTextNode(" / " + p.sector));
+    cr.appendChild(el("a", { href: "index.html#projects" }, "Projects")); cr.appendChild(document.createTextNode(" / " + p.sector));
     h.appendChild(el("span", { "class": "tag" }, p.sector + " \u00b7 " + p.area));
     h.appendChild(el("h1", {}, p.title));
     h.appendChild(el("p", { "class": "dek" }, S.dek));
@@ -205,25 +222,25 @@
     h.appendChild(p.kpis ? cardRow(p.kpis, "kpis", true)
       : cardRow([{ label: p.headline.label, value: p.headline.value == null ? "to fill in" : p.headline.value, sub: "Headline result", icon: "bars" }], "kpis one", true));
     var mr = div("meta-row", h);
-    S.meta.forEach(function (m) {
+    S.meta.filter(function (m) { return m.k === "Tools" || /^Source/.test(m.k); }).forEach(function (m) {
       var sp = el("span"); sp.appendChild(el("b", {}, m.k + ": "));
       if (m.links) { m.links.forEach(function (l, li) { if (li) sp.appendChild(document.createTextNode(" \u00b7 ")); sp.appendChild(el("a", { href: l.href, target: "_blank", rel: "noopener noreferrer" }, l.v)); }); }
       else if (m.href) { var ml = el("a", { href: m.href, target: "_blank", rel: "noopener noreferrer" }, m.v); sp.appendChild(ml); } else sp.appendChild(document.createTextNode(m.v));
       mr.appendChild(sp);
     });
-    if (S.toc && S.chapters) {
+    if (false && S.toc && S.chapters) {
       var jp = div("jump", h); jp.appendChild(el("b", {}, "Jump to: "));
       S.chapters.forEach(function (c, ci) { jp.appendChild(el("a", { href: "#ch-" + ci }, c.n.replace(" \u00b7 ", " "))); });
     }
 
     (function () {
-      var ab = div("actions", main);
+      var ab = div("actions", h); h.insertBefore(ab, h.querySelector(".meta-row"));
       var zip = (p.downloads || []).filter(function (d) { return /\.zip$/.test(d.file); })[0];
       [["#report", "View report", " impact"], ["#sql", "View SQL", ""], ["#model", "View data model", ""]].forEach(function (x) { ab.appendChild(el("a", { "class": "btn" + x[2], href: x[0] }, x[1])); });
       if (zip) ab.appendChild(el("a", { "class": "btn", href: zip.file, download: "" }, "Download Power BI project"));
     })();
     (function () {
-      var s = sec("s-exec", "Executive summary");
+      var s = sec("s-exec", "Executive summary"); s.id = "summary";
       var g = div("exec", s);
       function row(k, v, node) {
         var d = div("er", g); d.appendChild(el("b", {}, k));
@@ -262,7 +279,7 @@
     (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn" + (i ? "" : " impact"), href: d.file, download: "" }, d.label)); });
     if (p.downloads) r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
 
-    var kf = sec("s-tldr", "Key findings");
+    var kf = sec("s-tldr", "Key findings"); kf.id = "findings"; main.insertBefore(kf, r);
     var fnd = S.findings || p.found || [];
     if (fnd.length) { var ol = el("ol"); fnd.forEach(function (t) { ol.appendChild(rich(el("li"), t)); }); kf.appendChild(ol); }
     else kf.appendChild(slot("Findings to fill in after the analysis: 3 to 5 findings, each with a number and its sample size."));
@@ -309,7 +326,7 @@
       show(0);
     });
 
-    var rc = sec("s-block", "Recommendations");
+    var rc = sec("s-block", "Recommendations"); rc.id = "recommendations";
     var recs = S.recs || (p.recommend || []).map(function (t) { return { text: t }; });
     var rg = div("s-recs", rc);
     if (!recs.length) rc.appendChild(slot("Recommendations to fill in: 2 to 3 actions, each with who should act and what to measure."));
@@ -326,7 +343,7 @@
       var nl = el("ol"); S.next.forEach(function (t) { nl.appendChild(rich(el("li"), t)); }); nx.appendChild(nl);
     }
 
-    var mt = sec("s-block", "Data, model and method");
+    var mt = sec("s-block", "Data, model and method"); mt.id = "method";
     var pl = div("pipeline", mt);
     var pipe = S.pipeline || (p.approach || []).map(function (t, i) { return { i: "0" + (i + 1) + " \u00b7 STEP", s: t }; });
     pipe.forEach(function (x) {
@@ -337,7 +354,6 @@
       var md = div("model-diagram", mt); md.id = "model";
       md.appendChild(el("h3", {}, "Model diagram"));
       md.appendChild(el("img", { src: EV.model[p.id].img, alt: "Star-schema diagram of the " + p.id + " model: " + EV.model[p.id].rels + " relationships, fact tables in the centre and dimensions around them", loading: "lazy" }));
-      md.appendChild(el("p", { "class": "pbi-note wrapnote" }, "Drawn from the real relationships.tmdl file. Fact tables are dark, dimensions light."));
     }
     var bg = div("build-grid", mt);
     if (p.model && p.model.measures) {
@@ -364,13 +380,39 @@
       sq.appendChild(el("p", { "class": "pbi-note wrapnote" }, "Real queries from the project repository, shown unchanged."));
       EV.sql[p.id].items.forEach(function (q) {
         var b = div("sqlq", sq);
-        b.appendChild(el("h3", {}, q.name));
+        var hd = div("sqlhead", b);
+        hd.appendChild(el("h3", {}, q.name));
+        var tools = div("sqltools", hd);
+        tools.appendChild(el("span", { "class": "lang" }, "SQL"));
+        var cp = el("button", { type: "button", "class": "btn small", "aria-label": "Copy the " + q.name + " query" }, "Copy");
+        cp.addEventListener("click", function () {
+          function done() { cp.textContent = "Copied"; setTimeout(function () { cp.textContent = "Copy"; }, 1600); }
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(q.sql).then(done, done);
+          else { var ta = el("textarea"); ta.value = q.sql; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove(); done(); }
+        });
+        tools.appendChild(cp);
         b.appendChild(el("p", {}, q.why));
-        b.appendChild(el("pre", { "class": "code" }, q.sql));
+        var pre = el("pre", { "class": "code sqlcode" }); sql(pre, q.sql); b.appendChild(pre);
       });
       var lk = el("a", { "class": "btn small", href: EV.sql[p.id].file, target: "_blank", rel: "noopener" }, "View the full SQL file on GitHub \u2197");
       sq.appendChild(lk);
     }
+
+    (function () {
+      var items = [["summary", "Summary"], ["findings", "Findings"], ["report", "Report"], ["coverage", "Coverage"], ["ch-0", "Analysis"], ["recommendations", "Recommendations"], ["method", "Method"], ["sql", "SQL"]]
+        .filter(function (x) { return document.getElementById(x[0]); });
+      var nv2 = el("nav", { "class": "pagenav", "aria-label": "On this page" });
+      nv2.appendChild(el("span", {}, "On this page"));
+      items.forEach(function (x) { nv2.appendChild(el("a", { href: "#" + x[0] }, x[1])); });
+      main.insertBefore(nv2, h.nextSibling);
+      var links = [].slice.call(nv2.querySelectorAll("a"));
+      function spy() {
+        var line = nv2.getBoundingClientRect().bottom + 40, cur = null;
+        links.forEach(function (a) { var s = document.getElementById(a.getAttribute("href").slice(1)); if (s && s.getBoundingClientRect().top <= line) cur = a; });
+        links.forEach(function (a) { if (a === cur) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+      }
+      window.addEventListener("scroll", spy, { passive: true }); spy();
+    })();
 
     var done = list.filter(function (x) { return x.found && x.found.length; });
     var idx = done.indexOf(p);
@@ -388,7 +430,7 @@
 
   /* ---- head */
   var head = el("section", { "class": "case-head" });
-  head.appendChild(el("a", { "class": "back", href: "index.html#work" }, "← All case studies"));
+  head.appendChild(el("a", { "class": "back", href: "index.html#projects" }, "← All case studies"));
   head.appendChild(el("div", { "class": "eyebrow" }, p.sector + " · " + p.area));
   head.appendChild(el("h1", {}, p.title));
   head.appendChild(el("p", { "class": "intro" }, p.summary));
@@ -540,14 +582,10 @@
     viewer.classList.add("open"); document.body.style.overflow = "hidden";
   }
   function gallery() {
-    var gal = el("div", { "class": "shots" });
-    var wrap = null;
-    if (p.hero != null) {
-      wrap = el("div", { "class": "gal-wrap" });
-      gal.className = "shots thumbs";
-    }
+    var gal = el("div", { "class": "shots thumbs" });
+    var wrap = el("div", { "class": "gal-wrap" });
     p.shots.forEach(function (s, si) {
-      var big = wrap && si === p.hero;
+      var big = false;
       var fig = el("figure", { "class": "shot" + (big ? " shot-main" : "") });
       var img = el("img", { src: s.file, alt: s.caption, loading: big ? "eager" : "lazy" });
       img.addEventListener("error", function () { img.replaceWith(slot("Screenshot not added yet: save it as site/" + s.file)); });
@@ -558,7 +596,8 @@
       fig.appendChild(el("figcaption", {}, big ? s.caption + " (click to enlarge)" : s.caption));
       if (big) wrap.appendChild(fig); else gal.appendChild(fig);
     });
-    if (wrap) { wrap.appendChild(el("p", { "class": "gal-label" }, "All report pages")); wrap.appendChild(gal); return wrap; }
+    var tn = gal.children.length; if (wrap && tn) gal.style.gridTemplateColumns = "repeat(" + (tn <= 4 ? tn : (tn <= 6 ? 3 : 4)) + ", minmax(0, 1fr))";
+    if (wrap) { wrap.appendChild(el("p", { "class": "gal-label" }, "Report pages (click one to enlarge)")); wrap.appendChild(gal); return wrap; }
     return gal;
   }
   if (!p.brief && p.shots && p.shots.length) section("The Power BI report", gallery(), "pbi");

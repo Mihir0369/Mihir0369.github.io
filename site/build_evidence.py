@@ -145,7 +145,7 @@ def model_svg(mdir):
         for k, t in enumerate(r):
             pos[t] = (x0 + k * (BW + 14), y)
         y += BH + 26
-    H = y + 20
+    H = (y + 20) if bot else (fy + BH + 40)
     s = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" role="img" aria-label="Star-schema diagram drawn from the model relationships">' % (W, H),
          '<rect width="100%" height="100%" fill="#fff"/>']
     for a, b in rels:

@@ -279,7 +279,7 @@ window.PROJECTS = [
       {"type": "bar", "orient": "v", "title": "Share of collisions that are fatal, by hour of day (amber = 10 pm to 6 am)", "labels": ["12a", "1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12p", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p"], "values": [3.81, 3.93, 4.4, 4.05, 4.89, 3.24, 2.09, 1.43, 1.0, 1.62, 1.6, 1.41, 1.37, 1.62, 1.42, 1.37, 1.33, 1.42, 1.6, 1.64, 2.18, 2.28, 2.3, 3.2], "unit": "% fatal", "suffix": "%", "decimals": 2, "highlight": [0, 1, 2, 3, 4, 5, 22, 23], "noLabels": true},
       {"type": "bar", "orient": "v", "title": "Collisions by month, 2019 and 2020", "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "unit": "collisions", "noLabels": true, "datasets": [{"label": "2019", "color": "#1B3A5C", "values": [9713, 8327, 7480, 6787, 8037, 9328, 9596, 9371, 9122, 9614, 9370, 9036]}, {"label": "2020", "color": "#2A7F8E", "values": [8519, 7525, 5121, 3251, 5095, 6788, 7652, 7918, 7580, 7270, 6948, 6322]}]},
       {"type": "line", "title": "2020 as a percentage of the same month of 2019 (100 = no change)", "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "unit": "index", "noLabels": true, "datasets": [{"label": "Injury collisions", "color": "#1B3A5C", "values": [88, 90, 68, 47, 63, 72, 79, 84, 83, 75, 74, 70]}, {"label": "Fatal collisions", "color": "#C77700", "values": [97, 107, 84, 88, 101, 101, 99, 108, 116, 100, 90, 83]}, {"label": "2019 level", "color": "#8A9BAE", "values": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]}]},
-      {"type": "bar", "title": "Fatal collisions avoided if the gap were fully closed (2019 and 2020 together)", "labels": ["Add traffic control where there is none", "Treat curved roads like straight ones", "Make night as safe as midday"], "values": [1744, 459, 402], "unit": "fatal collisions avoided", "highlight": 0},
+      {"type": "bar", "title": "Illustrative scenario: fewer fatal collisions recorded if the gap were fully closed (2019 and 2020 together)", "labels": ["Uncontrolled roads at the fatal share of signalled roads", "Curved roads at the fatal share of straight roads", "Night at the fatal share of midday"], "values": [1744, 459, 402], "unit": "fewer fatal collisions (assumed)", "highlight": 0},
       {"type": "bar", "title": "Occupants: share who die, by safety device", "labels": ["No safety device used", "No safety device equipped", "Safety device used", "Other safety device"], "values": [6.98, 0.52, 0.43, 0.35], "unit": "% who die", "suffix": "%", "decimals": 2, "highlight": 0},
       {"type": "bar", "title": "Share of records with an unknown value, by field", "labels": ["Safety device", "Collision type", "Traffic control", "Age band", "Road alignment", "Road surface", "Weather", "Time of day"], "values": [21.99, 8.95, 7.25, 5.56, 5.22, 4.63, 1.71, 0.96], "unit": "% unknown", "suffix": "%", "decimals": 2, "highlight": 0}
     ],
@@ -324,10 +324,10 @@ window.PROJECTS = [
                   "Injury collisions account for 99.92% of the 25,792 fewer collisions. April 2020 was the lowest month, 52.10% below April 2019, while fatal collisions stayed between 83% and 116% of their 2019 level all year."],
           note: "2020 was a pandemic year, so this is a change in the mix of recorded collisions, not proof that driving became riskier.",
           tabs: ["Collisions by month", "Fatal against injury"], src: "Source: Transport Canada. In the second view each line is 2020 as a percentage of the same month of 2019 (100 = no change). Monthly fatal counts are small (about 70 to 200), so single months move more." },
-        { n: "03 \u00b7 CONDITIONS", ch: 2, title: "Illustrative scenario: if uncontrolled roads had the fatal share of signalled ones, about 1,744 fewer fatal collisions would be recorded",
+        { n: "03 \u00b7 CONDITIONS", ch: 2, title: "Illustrative scenario: closing the gap on uncontrolled roads",
           paras: ["Roads with no traffic control carry 2,349 of the 3,225 fatal collisions (72.84%) and are 2.41% fatal, against 0.62% at signals. The report turns that gap into an illustrative what-if scenario: a dropdown sets how much of it to close.",
                   "Under the assumption that all of the gap closes on uncontrolled roads, about 1,744 fewer fatal collisions (54.09%) would be recorded. Giving curved roads the fatal share of straight ones would remove about 459 (14.25%), and giving night the fatal share of midday about 402 (12.46%)."],
-          note: "Illustrative scenario: assumed effect, not an observed outcome. Assumption: the gap between higher and lower fatal-share roads is caused by the road. Formula: see below. Limits: no traffic volumes, the three levers overlap, and nothing here shows that any safety intervention would work.",
+          note: "Illustrative scenario: assumed effect, not an observed outcome. Assumption: the gap between higher and lower fatal-share roads is caused by the road. Limits: no traffic volumes, the three levers overlap, and nothing here shows that any safety intervention would work.",
           tabs: [], src: "Scenario formula: fatal collisions removed = fatal collisions on the risky roads x (1 - safer fatal share / risky fatal share) x share of the gap closed. It is arithmetic on an assumption, not a measured result." },
         { n: "04 \u00b7 PEOPLE", ch: 3, title: "Occupants with no safety device used die 16 times as often",
           paras: ["Among drivers and passengers, 6.98% of those with no safety device used die, against 0.43% of those who used one: 16.09 times as often. The gap holds in every age band, at 7.02% to 10.83% for ages 16 and over, against 0.30% to 1.05%.",
@@ -845,7 +845,7 @@ window.PROFILE.story = {
     ["Starts from the decision", "Every case opens with the question a decision-maker would ask, such as which Toronto 311 requests are recorded as open at the data snapshot."],
     ["Careful with the numbers", "In the 311 study, 'open' means open at the data snapshot, not a confirmed backlog. I say so on the page."],
     ["Explains it plainly", "Peer tutor in Excel, Power BI and statistics, and presented procurement spend trends to non-technical stakeholders."],
-    ["Validated, not just built", "Every dimension carries an unknown member so no record vanishes from a chart, headline numbers are reconciled to SQL checks, and each DAX measure is documented. Measure counts sit in each case study's technical notes."]
+    ["Validated, not just built", "Every dimension has an unknown member, headline numbers reconcile to SQL checks, and every DAX measure is documented."]
   ],
   impact: [
     ["50%", "Reduction in sales deal-tracking time", "Impact Zero", "Reported result"],
@@ -856,9 +856,12 @@ window.PROFILE.story = {
   impactNote: "Figures are as reported on my resume. Pipeline coverage is the value of deals the dashboard tracked, not revenue won, and procurement savings are potential savings identified in spend data, not savings realized.",
 };
 window.PROFILE.stack = [
-  ["Reporting and modelling", ["Power BI", "DAX", "Power Query", "Star-schema models", "PBIP / TMDL"]],
-  ["Data preparation", ["SQL", "MySQL", "SQLite", "Python (pandas)", "Excel (XLOOKUP, Pivot Tables)"]],
-  ["Platform", ["Microsoft Fabric", "Lakehouse", "Notebooks", "Semantic models", "Git and GitHub"]]
+  ["Reporting and modelling", ["Power BI", "DAX", "Power Query", "Star-schema models", "Time intelligence", "Calculation groups", "What-if parameters", "Drill-through", "PBIP / TMDL"]],
+  ["Data preparation", ["SQL", "MySQL", "SQLite", "Python (pandas)", "API extraction (requests)", "HubSpot CRM data", "Microsoft Access"]],
+  ["Excel and office tools", ["Pivot Tables", "XLOOKUP", "Power Query", "Power Pivot", "Charts", "PowerPoint", "Word"]],
+  ["Automation and apps", ["Streamlit", "FastAPI", "Docker", "AWS EC2", "GitHub Actions"]],
+  ["Platform and delivery", ["Microsoft Fabric", "Lakehouse", "Notebooks", "Semantic models", "Git and GitHub"]],
+  ["Data quality and analysis practice", ["Data cleansing", "Validation", "Reconciliation", "Calculation documentation", "Requirements gathering", "KPI definition", "Stakeholder communication"]]
 ];
 window.PROFILE.experienceStory = [
   { when: "Oct 2025 - Present", role: "Data Analyst", org: "Elevara Digital, Toronto, ON", items: [

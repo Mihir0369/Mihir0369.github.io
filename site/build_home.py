@@ -8,11 +8,17 @@ import json, os, re, datetime
 
 BASE_URL = BASE
 n_done, n_dev = len(L), len(ALL) - len(L)
-IMPL = {  # business implication per card, taken from the recommendations on each case page
-    "toronto-311": "Audit the open-status records before treating them as a backlog, and publish a closed date and a request-type mapping.",
-    "household-credit": "Test the 18-month lag before setting lending targets around it, and add arrears data to test repayment pressure.",
-    "collision-risk": "Track the fatal share, not only the count. Use night, single-vehicle and uncontrolled-road patterns as a watch list, not as risk per trip.",
-    "substance-harms": "Report deaths, hospital stays, emergency visits and EMS responses together, and state which places each source covers.",
+IMPL = {  # one short business implication per card, taken from the recommendations on each case page
+    "toronto-311": "Audit open-status records before reading them as a backlog.",
+    "household-credit": "Test the 18-month lag before building lending targets on it.",
+    "collision-risk": "Track the fatal share, not only the collision count.",
+    "substance-harms": "Report all four measures together, with each source's coverage.",
+}
+QUESTION = {  # short card heading; the full question is on the case page
+    "toronto-311": "Which 311 requests are recorded as open, and are the numbers comparable year to year?",
+    "household-credit": "At what lag is credit growth most associated with earlier rate changes?",
+    "collision-risk": "When and where do Canadian roads turn deadly?",
+    "substance-harms": "Are opioid harms falling, or only some measures of them?",
 }
 HOME = {  # one result line per project card (all values already published on the case page)
     "toronto-311": "49.45% of 2025 parks, forestry and environment requests are recorded as open, against 1.37% to 6.60% in every other division",
@@ -43,22 +49,32 @@ def home_shots(p):
     return [sh[i] for i in sorted(set(idx))][:3], sh[hero]
 
 
-def card(p):
+SHORT = {"toronto-311": "Toronto 311", "household-credit": "Household credit", "collision-risk": "Collision safety", "substance-harms": "Opioid harms"}
+
+
+def card(p, n=0):
     thumbs, first = home_shots(p)
     w, h = dims(first["file"])
     tabs = "".join(
         '<button class="pv-tab" type="button" role="tab" id="tab-%s-%d" aria-selected="%s" tabindex="%s" aria-controls="pv-%s" data-src="%s" data-cap="%s" aria-label="%s" title="%s"><img src="%s" alt="" width="76" height="48" loading="lazy" decoding="async"></button>'
         % (p["id"], i, "true" if s is first else "false", "0" if s is first else "-1", p["id"], E(img_main(s["file"])), E(s["caption"]), E(s["caption"]), E(s["caption"]), E(img_sm(s["file"])))
         for i, s in enumerate(thumbs))
-    return ('<article class="proj"><div class="copy"><div class="industry">%s &middot; %s</div>'
+    return ('<article class="proj" id="proj-%s"><div class="copy"><div class="industry">%s &middot; %s &middot; %s</div>'
             '<dl class="qa"><div><dt>Business question</dt><dd class="q">%s</dd></div><div><dt>Key finding</dt><dd class="result">%s</dd></div>'
-            '<div><dt>Business implication</dt><dd>%s</dd></div><div><dt>Skills demonstrated</dt><dd>%s</dd></div></dl>'
+            '<div><dt>Business implication</dt><dd>%s</dd></div><div><dt>Skills demonstrated</dt><dd class="tags">%s</dd></div></dl>'
             '<div class="btns"><a class="btn impact" href="%s">Case study &#8599;</a>'
             '<a class="btn" href="https://github.com/Mihir0369/portfolio_website/tree/main/%s" target="_blank" rel="noopener">GitHub &#8599;</a></div></div>'
             '<div class="pv"><div id="pv-%s" role="tabpanel"><a class="pv-link" href="%s" title="Open the full case study"><img class="pv-main" src="%s" width="%d" height="%d" alt="Power BI report page: %s" loading="lazy" decoding="async"></a></div>'
             '<div class="pv-cap" aria-live="polite">%s</div><div class="pv-tabs" role="tablist" aria-label="%s report pages">%s</div></div></article>') % (
-        E(p["sector"]), E(p["area"]), E(p["problem"]), E(HOME[p["id"]]), E(IMPL[p["id"]]), E(p["skills"]), href(p), p["repo"],
+        p["id"], "%02d" % n, E(p["sector"]), E(p["area"]), E(QUESTION[p["id"]]), E(HOME[p["id"]]), E(IMPL[p["id"]]), "".join('<span class="tag2">%s</span>' % E(s.strip()[:1].upper() + s.strip()[1:]) for s in p["skills"].split(",")[:4]), href(p), p["repo"],
         p["id"], href(p), E(img_main(first["file"])), w, h, E(first["caption"]), E(first["caption"]), E(p["problem"]), tabs)
+
+
+CHIPS = {
+    "Data Analyst": ["SQL", "Power BI", "KPI definitions", "Data reconciliation"],
+    "Data Analyst Intern": ["$400K+ pipeline covered", "50% faster deal tracking", "35% better follow-up"],
+    "Jr Reporting Analyst": ["30% potential savings", "22 hrs a week saved", "Power BI", "Excel Power Query"],
+}
 
 
 def xp(x):
@@ -70,54 +86,69 @@ def xp(x):
         return '<div class="nq">%s</div>' % E(r) if r == "Not quantified" else "<div>%s</div>" % E(r)
     rows = "".join('<div class="xrow"><div>%s</div><div>%s</div>%s</div>' % (E(a), E(d), res(r)) for a, d, r in x["items"])
     return ('<article class="job"><div class="job-top"><h3>%s <small>&middot; %s</small></h3><span class="when">%s</span></div>'
-            '<div class="xhead"><span>Action</span><span>Deliverable</span><span>Result</span></div>%s</article>') % (E(x["role"]), E(x["org"]), E(x["when"]), rows)
+            '<div class="jchips">%s</div><div class="xhead"><span>Action</span><span>Deliverable</span><span>Result</span></div>%s</article>') % (E(x["role"]), E(x["org"]), E(x["when"]), "".join('<span class="tag2">%s</span>' % E(c) for c in CHIPS.get(x["role"], [])), rows)
 
 
 certs = "".join(
     '<div class="cert2"><span class="code">%s</span><div><b>%s</b><span>Microsoft Certified</span></div><a class="btn small" href="%s" target="_blank" rel="noopener">Verify &#8599;</a></div>'
     % (E(c["label"].split(" ")[0]), E(c["label"].split(" ", 1)[1]), E(c["url"])) for c in P["certs"])
-NOTES = ["Used in all four case studies and at work", "SQL checks and Python loaders behind every project", "DP-600 certified; case study 4 is in development"]
-stack = "".join('<div class="scard"><h3>%s</h3><div class="tags2">%s</div><p class="note">%s</p></div>' % (E(t), tags(xs), E(NOTES[i])) for i, (t, xs) in enumerate(P["stack"]))
-traits = "".join('<div class="trait"><b>%s</b><span>%s</span></div>' % (E(a), E(b)) for a, b in S["traits"])
-impact = "".join('<div class="cell"><strong>%s</strong><span>%s</span><em>%s</em><small>%s</small></div>' % (E(a), E(b), E(c), E(d)) for a, b, c, d in S["impact"])
-proof = "".join('<a class="pill cert" href="%s" target="_blank" rel="noopener">&#10003; Microsoft %s <small>verify</small></a>' % (E(c["url"]), E(c["label"].split(" ")[0])) for c in P["certs"])
-proof += '<span class="pill">%d end-to-end case studies on real public data</span><span class="pill">Every project downloadable on GitHub</span>' % n_done
+stack = "".join('<div class="scard"><h3>%s</h3><div class="tags2">%s</div></div>' % (E(t), tags(xs)) for t, xs in P["stack"])
+traits = "".join('<div class="trait"><i>%02d</i><b>%s</b><span>%s</span></div>' % (i + 1, E(a), E(b)) for i, (a, b) in enumerate(S["traits"]))
+impact = "".join('<div class="cell"><strong>%s</strong><span>%s</span><em>%s</em></div>' % (E(a), E(b), E(c)) for a, b, c, d in S["impact"])
+proof = "".join('<a class="chip-c" href="%s" target="_blank" rel="noopener" title="Verify on Microsoft Learn" aria-label="Microsoft %s certification, verify on Microsoft Learn">&#10003; %s &#8599;</a>' % (E(c["url"]), E(c["label"].split(" ")[0]), E(c["label"].split(" ")[0])) for c in P["certs"])
 
-PHOTO = '<img src="images/mihir.jpg" alt="Mihir Jasani, data analyst" width="168" height="168">' if os.path.exists("images/mihir.jpg") else ""
+FRONT, BACK = "images/03-outcomes.webp", "images/cr-2-when.webp"
+FW, FH = dims("images/03-outcomes.png")
+BW, BH = dims("images/cr-2-when.png")
+PHOTO = '<img src="images/mihir.jpg" alt="Mihir Jasani, data analyst" width="116" height="116">' if os.path.exists("images/mihir.jpg") else ""
 
 main = """
     <section class="hero2" id="home">
-      <div class="wrap2 hero-c">
-        <div class="portrait"><span class="mono-big">MJ</span>%(photo)s</div>
-        <div class="hello">Hello, I'm <strong>Mihir Jasani</strong></div>
-        <div class="role"><b>Data Analyst</b> &middot; Power BI &middot; SQL &middot; Microsoft Fabric</div>
-        <div class="avail"><i></i>Toronto, Canada &middot; Open to Data, BI and Reporting Analyst roles</div>
-        <h1>From messy data to <em>clear business decisions.</em></h1>
-        <p class="lead">I build reliable Power BI reporting and SQL-powered analysis. I clean and reconcile the data, then turn it into dashboards that teams can understand, trust and act on.</p>
-        <div class="acts">
-          <a class="btn impact" href="#work">Explore my Project work &#8599;</a>
-          <a class="btn" id="resume" href="downloads/Mihir-Jasani-Resume.pdf" download>Download Resume (PDF)</a>
-          <a class="btn" id="email0" href="%(mailto)s">Email me</a>
-          <a class="btn" id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+      <div class="wrap2 hero-g">
+        <div class="hcopy">
+          <div class="ident">
+            <div class="portrait"><span class="mono-big">MJ</span>%(photo)s</div>
+            <div>
+              <div class="hname">Mihir Jasani</div>
+              <div class="role"><b>Data Analyst</b> at Elevara Digital, Toronto</div>
+            </div>
+          </div>
+          <h1>From messy data to <em>clear business decisions.</em></h1>
+          <p class="lead">I build reliable Power BI reporting and SQL-powered analysis. I clean and reconcile the data, then turn it into dashboards that teams can understand, trust and act on.</p>
+          <div class="skillline">Power BI &middot; DAX &middot; SQL &middot; Python &middot; Microsoft Fabric</div>
+          <div class="acts">
+            <a class="btn impact" href="#projects">Explore my Project work &#8599;</a>
+            <a class="btn" id="resume" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
+            <a class="btn" id="email0" href="%(mailto)s">Email me</a>
+            <a class="btn" id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+          </div>
+          <div class="trust"><span class="avail"><i></i>Open to Data, BI &amp; Reporting roles &middot; Toronto</span>%(proof)s</div>
         </div>
-        <div class="proof">%(proof)s</div>
+        <a class="hshot" href="toronto-311.html" aria-label="Open the Toronto 311 case study">
+          <span class="win">
+            <span class="wbar"><span class="dots"><i></i><i></i><i></i></span><b>Featured case study &middot; Toronto 311</b></span>
+            <img src="%(front)s" width="%(fw)d" height="%(fh)d" alt="Power BI report from the Toronto 311 case study: share of requests recorded as open by division" fetchpriority="high" decoding="async">
+            <span class="wover"><span class="wbtn">View case study &#8599;</span><small>Executive summary, SQL, data model and all report pages</small></span>
+          </span>
+        </a>
       </div>
     </section>
 
     <section class="impact2" id="impact">
       <div class="wrap2">
-        <div class="in">
-          <div class="intro">01 / Results I have delivered.<span>From my analyst roles. The case studies below use public data only.</span></div>
+        <div class="ihead">
+          <div><div class="eyebrow2">01 / Results</div><h2>Results I have delivered</h2></div>
+        </div>
+        <div class="igrid">
           %(impact)s
         </div>
-        <p class="inote">%(inote)s</p>
       </div>
     </section>
 
     <section class="sec" id="work">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">02 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div>
-          <p>Each case study starts with the problem it solves. Open one for the executive summary, data coverage, SQL checks and the full report.</p></div>
+        <div class="sec-head"><div><div class="eyebrow2">02 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div></div>
+        <nav class="pnav" id="projects" aria-label="Jump to a project"><span>Jump to</span>%(pnav)s</nav>
         %(projects)s
         <div class="mini-foot"><span>Showing %(nd)d finished case studies &middot; %(nv)d in development</span><a class="btn small" target="_blank" rel="noopener" href="https://github.com/Mihir0369/portfolio_website">View GitHub repository &#8599;</a></div>
       </div>
@@ -129,6 +160,7 @@ main = """
           <div class="eyebrow2">03 / About and approach</div>
           <h2>I turn messy data into decisions people can trust.</h2>
           <p>%(about)s</p>
+          <div class="acts"><a class="btn impact" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a><a class="btn" href="%(mailto)s">Email me</a></div>
         </div>
         <div class="traits">%(traits)s</div>
       </div>
@@ -136,18 +168,19 @@ main = """
 
     <section class="sec" id="skills">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">04 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div>
-          <p>Verified Microsoft credentials, and the stack I use day to day.</p></div>
-        <div class="stack">%(stack)s</div>
+        <div class="sec-head"><div><div class="eyebrow2">04 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div></div>
+        <div class="glabel">Certifications</div>
         <div class="certs">%(certs)s</div>
+        <div class="glabel">Tools</div>
+        <div class="stack">%(stack)s</div>
+        <div class="glabel">Education</div>
         <div class="edu2"><div><b>Graduate Certificate, Business Insights and Analytics</b><span>Humber Polytechnic, Toronto</span></div><div><b>B.Tech, Information Technology</b><span>P.P. Savani University</span></div></div>
       </div>
     </section>
 
     <section class="sec alt" id="experience">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">05 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div>
-          <p>Each duty shows the action, the deliverable and the result. Where a result was not measured, it says so.</p></div>
+        <div class="sec-head"><div><div class="eyebrow2">05 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div></div>
         %(exp)s
       </div>
     </section>
@@ -158,15 +191,16 @@ main = """
           <div class="eyebrow2">LET'S WORK TOGETHER</div>
           <h2>Need someone who can turn reporting complexity into clarity?</h2>
           <p>Based in Toronto, Ontario. Open to Data Analyst, BI Analyst, Reporting Analyst and related roles in Canada.</p>
+          <p class="cemail"><a href="%(mailto)s">%(emailtext)s</a></p>
         </div>
         <div class="cbtns">
           <a class="btn impact" id="email" href="%(mailto)s">Email me &#8599;</a>
-          <a class="btn" href="downloads/Mihir-Jasani-Resume.pdf" download>Resume (PDF)</a>
+          <a class="btn" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
           <a class="btn" id="linkedin2" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
         </div>
       </div>
-    </section>""" % dict(mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, inote=E(S["impactNote"]), about=E(S["about"]), traits=traits, stack=stack, certs=certs,
-                         exp="".join(xp(x) for x in P["experienceStory"]), projects="".join(card(p) for p in L), nd=n_done, nv=n_dev)
+    </section>""" % dict(emailtext=E(P["email"].replace("mailto:", "")), front=FRONT, back=BACK, fw=FW, fh=FH, bw=BW, bh=BH, mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, about=E(S["about"]), traits=traits, stack=stack, certs=certs,
+                         exp="".join(xp(x) for x in P["experienceStory"]), projects="".join(card(p, i + 1) for i, p in enumerate(L)), pnav="".join('<a href="#proj-%s">%s</a>' % (p["id"], E(SHORT[p["id"]])) for p in L), nd=n_done, nv=n_dev)
 
 ld = {"@context": "https://schema.org", "@type": "Person", "name": P["name"], "jobTitle": "Data Analyst", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
       "sameAs": [P["linkedin"]], "knowsAbout": ["Power BI", "DAX", "SQL", "Python", "Microsoft Fabric", "Data analysis"]}
@@ -199,6 +233,7 @@ page = """<!doctype html>
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="pages.css">
+  <link rel="stylesheet" href="unify.css">
   %(jsonld)s
 </head>
 <body class="home">
@@ -248,7 +283,7 @@ def case_main(p):
           ("Recommended business action", rec), ("Limitations", " ".join(p["limits"][:2]))]
     rows = "".join('<div class="er"><b>%s</b><span>%s</span></div>' % (E(a), E(b)) for a, b in ex)
     cov = "".join('<div class="er"><b>%s</b><span>%s</span></div>' % (E(a), E(b)) for a, b in EV["coverage"][p["id"]])
-    return ('<section class="case-head s-head"><div class="crumbs"><a href="index.html#work">Projects</a> / %s</div><span class="tag">%s &middot; %s</span>'
+    return ('<section class="case-head s-head"><div class="crumbs"><a href="index.html#projects">Projects</a> / %s</div><span class="tag">%s &middot; %s</span>'
             '<h1>%s</h1><p class="dek">%s</p><p class="bottom"><b class="bl">Bottom line: </b>%s</p></section>'
             '%s<section class="s-exec"><h2>Executive summary</h2><div class="exec">%s</div></section>'
             '<section class="s-tldr"><h2>Key findings</h2><ol>%s</ol></section>'
@@ -291,6 +326,7 @@ def case_page(p):
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="pages.css">
+  <link rel="stylesheet" href="unify.css">
 </head>
 <body class="inner">
   %(skip)s
@@ -305,7 +341,7 @@ def case_page(p):
   <script src="nav.js"></script>
 </body>
 </html>
-""" % dict(title=E(title), desc=E(desc), url=url, img=img, skip=SKIP, header=header("index.html"), footer=footer(), main=case_main(p), id=p["id"])
+""" % dict(title=E(title), desc=E(desc), url=url, img=img, skip=SKIP, header=header("index.html"), footer=footer("index.html"), main=case_main(p), id=p["id"])
 
 
 for p in L:
@@ -314,9 +350,9 @@ for p in L:
 # legacy case.html?id=... redirects to the project page
 open("case.html", "w", encoding="utf-8").write("""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Case study | Mihir Jasani</title><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex"><link rel="canonical" href="%sindex.html#work">
-<script>var m = new URLSearchParams(location.search).get("id"); var ok = %s; location.replace(ok.indexOf(m) > -1 ? m + ".html" : "index.html#work");</script></head>
-<body><p>Redirecting to the <a href="index.html#work">projects</a>.</p></body></html>
+<meta name="robots" content="noindex"><link rel="canonical" href="%sindex.html#projects">
+<script>var m = new URLSearchParams(location.search).get("id"); var ok = %s; location.replace(ok.indexOf(m) > -1 ? m + ".html" : "index.html#projects");</script></head>
+<body><p>Redirecting to the <a href="index.html#projects">projects</a>.</p></body></html>
 """ % (BASE_URL, json.dumps([p["id"] for p in L])))
 
 open("404.html", "w", encoding="utf-8").write("""<!doctype html>
@@ -328,7 +364,7 @@ open("404.html", "w", encoding="utf-8").write("""<!doctype html>
 <div class="eyebrow2" style="justify-content:center">404</div>
 <h1>That page does not exist.</h1>
 <p>The link may be old or mistyped. These pages are live:</p>
-<p><a class="btn impact" href="%(b)sindex.html">Home</a> <a class="btn" href="%(b)sindex.html#work">Case studies</a></p>
+<p><a class="btn impact" href="%(b)sindex.html">Home</a> <a class="btn" href="%(b)sindex.html#projects">Case studies</a></p>
 </main></body></html>
 """ % dict(b=BASE_URL))
 

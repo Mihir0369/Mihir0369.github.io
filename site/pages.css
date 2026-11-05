@@ -12,3 +12,29 @@ footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
 .burger { min-width: 44px; min-height: 44px; }
 .pill.cert { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
 .pill.cert small { font-size: 12px; text-decoration: underline; }
+
+.flinks { display: flex; gap: 18px; flex-wrap: wrap; }
+.flinks a { color: #C9DAE2; text-decoration: none; font-weight: 600; }
+.flinks a:hover { color: #fff; text-decoration: underline; }
+
+/* shared card hover (homepage and case pages): lift, amber edge, soft shadow */
+.trait, .scard, .cert2, .edu2 > div, .job, .impact2 .cell, .kpi, .pst, .rec, .step, .exec, .coverage, .sqlq, .panel, .fact, .skill, .side-card, .s-tldr li, .s-recs .rec, .pipeline .step, .viz, .s-viz .chartbox {
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+}
+.trait:hover, .scard:hover, .cert2:hover, .edu2 > div:hover, .job:hover, .kpi:hover, .pst:hover, .rec:hover, .panel:hover, .fact:hover, .skill:hover, .side-card:hover, .s-tldr li:hover, .s-recs .rec:hover, .viz:hover {
+  transform: translateY(-4px); border-color: #E8A342; box-shadow: 0 16px 34px rgba(13,34,47,.13), 0 0 0 1px #E8A34244;
+}
+.impact2 .cell:hover { transform: translateY(-4px); }
+.impact2 .cell:hover strong { color: #F4B95A; }
+.exec:hover, .coverage:hover { border-color: #E8A342; box-shadow: 0 12px 28px rgba(13,34,47,.10); }
+.sqlq:hover { transform: translateY(-3px); }
+.pill:hover, .tag2:hover, .chip:hover, .pnav a:hover, .jump a:hover { transform: translateY(-2px); transition: transform .18s ease, background-color .18s ease, border-color .18s ease; }
+.pill:hover { border-color: #E8A342; }
+.tag2:hover { background: #FFF1D3; color: #6D4410; }
+@media (hover: none) { .trait:hover, .scard:hover, .cert2:hover, .edu2 > div:hover, .job:hover, .kpi:hover, .pst:hover, .rec:hover, .panel:hover, .fact:hover, .skill:hover, .side-card:hover, .s-tldr li:hover, .viz:hover, .impact2 .cell:hover, .sqlq:hover, .pill:hover, .tag2:hover, .chip:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .trait:hover, .scard:hover, .cert2:hover, .edu2 > div:hover, .job:hover, .kpi:hover, .pst:hover, .rec:hover, .panel:hover, .fact:hover, .skill:hover, .side-card:hover, .s-tldr li:hover, .viz:hover, .impact2 .cell:hover, .sqlq:hover, .pill:hover, .tag2:hover, .chip:hover { transform: none !important; } }
+
+footer.foot .flinks a, .inner footer.foot .flinks a:not(.btn) { color: #C9DAE2; }
+footer.foot .flinks a:hover, .inner footer.foot .flinks a:not(.btn):hover { color: #fff; }
+footer.foot .fbot span { color: #B7C9D4; }
+footer.foot .fbot b { color: #E8A342; }

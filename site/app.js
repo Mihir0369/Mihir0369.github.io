@@ -28,12 +28,46 @@
   function spy() {
     if (!links.length) return;
     var cur = links[0];
-    links.forEach(function (a) { var s = document.getElementById(a.getAttribute("href").slice(1)); if (s && s.getBoundingClientRect().top <= 120) cur = a; });
+    links.forEach(function (a) { var id = a.getAttribute("href").slice(1); if (id === "projects") id = "work"; var s = document.getElementById(id); if (s && s.getBoundingClientRect().top <= 120) cur = a; });
     setActive(cur.getAttribute("href"));
   }
   window.addEventListener("scroll", spy, { passive: true });
   links.forEach(function (a) { a.addEventListener("click", function () { setActive(a.getAttribute("href")); }); });
   spy();
+
+
+
+  // "Projects" links scroll to the jump bar, so the first project is fully in view under the header
+  var jb = document.querySelector(".pnav");
+  function toProjects(smooth) {
+    // measure the first project card, not the sticky jump bar: the bar moves to the bottom of the section once you scroll past it
+    var card = document.querySelector(".proj");
+    if (!jb || !card) return;
+    var headerH = parseFloat(getComputedStyle(document.querySelector("header.site")).height) || 76;
+    var gap = parseFloat(getComputedStyle(jb).marginBottom) || 22;
+    var y = card.getBoundingClientRect().top + window.scrollY - (headerH + 6 + jb.offsetHeight + gap);
+    window.scrollTo({ top: Math.max(0, y), behavior: smooth ? "smooth" : "instant" });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#projects"], a[href="#work"]'), function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); history.pushState(null, "", "#projects"); toProjects(true); });
+  });
+  // arriving from another page (index.html#projects): the browser scrolls to the bar natively; re-apply once the page has settled
+  if (location.hash === "#projects" || location.hash === "#work") {
+    [0, 150, 500].forEach(function (ms) { setTimeout(function () { if (window.scrollY < 40 || ms) toProjects(false); }, ms); });
+  }
+
+  // project jump bar: mark the project in view
+  var pl = Array.prototype.slice.call(document.querySelectorAll(".pnav a"));
+  if (pl.length) {
+    var bar = document.querySelector(".pnav");
+    var markProject = function () {
+      var line = bar.getBoundingClientRect().bottom + 40, cur = null;   // a project is "current" once its top passes just under the sticky bar
+      pl.forEach(function (a) { var s = document.getElementById(a.getAttribute("href").slice(1)); if (s) { var r = s.getBoundingClientRect(); if (r.top <= line && r.bottom > line) cur = a; } });
+      pl.forEach(function (a) { if (a === cur) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+    };
+    window.addEventListener("scroll", markProject, { passive: true }); markProject();
+  }
 
   // project report tabs: click or arrow keys / Home / End; the selected tab swaps the preview
   Array.prototype.forEach.call(document.querySelectorAll(".proj"), function (card) {

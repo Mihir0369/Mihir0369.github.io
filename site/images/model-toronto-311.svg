@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 244" role="img" aria-label="Star-schema diagram drawn from the model relationships">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 204" role="img" aria-label="Star-schema diagram drawn from the model relationships">
 <rect width="100%" height="100%" fill="#fff"/>
 <line x1="410" y1="147" x2="218" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
 <line x1="410" y1="147" x2="368" y2="57" stroke="#B6C0C6" stroke-width="1.2"/>
@@ -14,5 +14,5 @@
 <text x="668" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#18344C">Dim_Status</text>
 <rect x="342" y="130" width="136" height="34" rx="6" fill="#142C43" stroke="#142C43"/>
 <text x="410" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8A342">requests</text>
-<text x="12" y="238" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#65727B">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: 4 relationships.</text>
+<text x="12" y="198" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#65727B">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: 4 relationships.</text>
 </svg>

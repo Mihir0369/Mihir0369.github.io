@@ -1,0 +1,153 @@
+/* One set of rules for type, buttons and hover behaviour, loaded last on every page (home and case studies).
+   Change a value here and it changes everywhere. */
+:root {
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: Consolas, "Courier New", monospace;
+  --ink: #172C3C;
+  --navy: #142C43;
+  --amber: #E8A342;
+  --amber-soft: #FFF8E9;
+  --chip-bg: #E8EEEB;
+  --chip-ink: #33495A;
+  --line: #D9DFDC;
+  --ease: .22s ease;
+  --lift: -4px;
+  --hover-shadow: 0 16px 34px rgba(13,34,47,.13), 0 0 0 1px #E8A34244;
+}
+
+/* ---------- fonts ---------- */
+html, body, button, input, select, textarea { font-family: var(--font); }
+pre, code, pre.code { font-family: var(--mono); }
+body.home h1, body.inner h1 { font-weight: 780; letter-spacing: -.03em; line-height: 1.12; color: var(--ink); }
+body.home h2, body.inner h2 { font-weight: 720; letter-spacing: -.025em; }
+body.home h3, body.inner h3 { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+body.home .menu a:not(.btn), body.inner .menu a:not(.btn) { font-size: 14px; font-weight: 650; }
+body.home p, body.inner p { line-height: 1.7; }
+
+/* ---------- buttons: one size, one radius, one hover ---------- */
+body .btn, body a.btn, body button.btn {
+  font-family: var(--font); font-size: 14px; font-weight: 750; line-height: 1.2; letter-spacing: 0;
+  padding: 12px 18px; min-height: 44px; border-radius: 8px; border: 1.5px solid var(--navy);
+  transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease), color var(--ease), border-color var(--ease);
+}
+body .btn.small, body a.btn.small { padding: 9px 16px; min-height: 40px; font-size: 13.5px; }
+body .btn.impact { border-color: var(--amber); }
+body .btn:not(.impact):hover { background: var(--navy); color: #fff; border-color: var(--navy); transform: translateY(-2px); text-decoration: none; }
+body .btn.impact:hover { background: #F0B555; border-color: #F0B555; color: #0C2236; transform: translateY(-2px); box-shadow: 0 10px 28px #E8A34270; text-decoration: none; }
+body .on-dark .btn:not(.impact) { background: transparent; color: #fff; border-color: #8FA6B7; }
+body .on-dark .btn:not(.impact):hover { background: #fff; color: var(--navy); border-color: #fff; }
+
+/* ---------- chips and tags: one look, one hover ---------- */
+body .tag2, body .chip, body.inner .chip, body.home .chip { font-family: var(--font); font-size: 13px; font-weight: 700; line-height: 1.5; padding: 5px 11px; border: 0; border-radius: 6px; background: var(--chip-bg); color: var(--chip-ink); transition: transform var(--ease), background-color var(--ease), color var(--ease); }
+body .job .jchips .tag2 { background: #FFF1D3; color: #6D4410; }
+body .tag2:hover, body .chip:hover { background: #FFF1D3; color: #6D4410; transform: translateY(-2px); transition: transform var(--ease), background-color var(--ease), color var(--ease); }
+/* chip-style links (jump bars, certification chips, availability) */
+body .pnav a, body .pagenav a, body .hero-g .trust .chip-c, body .hero-g .trust .avail, body .jump a {
+  font-family: var(--font); font-size: 13.5px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; background: #fff; color: var(--navy);
+  transition: transform var(--ease), background-color var(--ease), border-color var(--ease), color var(--ease);
+}
+body .hero-g .trust .avail { color: #1F5B3B; }
+body .pnav a:hover, body .pagenav a:hover, body .hero-g .trust .chip-c:hover, body .jump a:hover { border-color: var(--amber); background: var(--amber-soft); color: var(--navy); transform: translateY(-2px); }
+body .pnav a[aria-current="true"], body .pagenav a[aria-current="true"] { background: var(--navy); border-color: var(--navy); color: #fff !important; }
+
+/* ---------- cards: one hover everywhere (homepage and case pages) ---------- */
+body .proj, body .trait, body .scard, body .cert2, body .edu2 > div, body .job, body .impact2 .cell, body .kpi, body .pst, body .rec, body .panel, body .fact, body .skill, body .side-card, body .s-tldr li, body .viz, body .shot, body .step {
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background-color var(--ease);
+}
+body .proj:hover, body .proj:focus-within, body .trait:hover, body .scard:hover, body .cert2:hover, body .edu2 > div:hover, body .job:hover, body .kpi:hover, body .pst:hover, body .rec:hover, body .panel:hover, body .fact:hover, body .skill:hover, body .side-card:hover, body .s-tldr li:hover, body .viz:hover, body .shot:hover {
+  transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow);
+}
+body .impact2 .cell:hover { transform: translateY(var(--lift)); box-shadow: none; border-color: #436074; }
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  body .btn:hover, body .tag2:hover, body .chip:hover, body .pnav a:hover, body .pagenav a:hover, body .jump a:hover, body .hero-g .trust .chip-c:hover,
+  body .proj:hover, body .trait:hover, body .scard:hover, body .cert2:hover, body .edu2 > div:hover, body .job:hover, body .kpi:hover, body .pst:hover, body .rec:hover, body .panel:hover,
+  body .fact:hover, body .skill:hover, body .side-card:hover, body .s-tldr li:hover, body .viz:hover, body .shot:hover, body .impact2 .cell:hover { transform: none !important; }
+}
+
+/* specificity guards: nothing below the global rules may change the shared look */
+body .btn.small, body a.btn.small, body .menu a.btn, body header.site a.btn { border-radius: 8px; }
+body.inner .chip, body.inner .tag2 { border-radius: 6px; border: 0; }
+body .pnav a, body .pagenav a { padding: 8px 15px; }
+body .menu a:not(.btn) { transition: background-color var(--ease), color var(--ease); }
+
+/* case pages: every block has the same hover family */
+body.inner .s-viz, body.inner .model-diagram img, body.inner .sqlq pre, body.inner .next-nav a, body.inner .pipeline .step, body.inner .exec, body.inner .coverage {
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background-color var(--ease);
+}
+/* blocks that hold charts or code: edge and shadow only, so tooltips and text selection stay steady */
+body.inner .s-viz:hover, body.inner .model-diagram img:hover, body.inner .sqlq pre:hover, body.inner .exec:hover, body.inner .coverage:hover { border-color: var(--amber); box-shadow: 0 12px 28px rgba(13,34,47,.10); }
+/* small cards and links: lift, edge and shadow */
+body.inner .pipeline .step:hover, body.inner .next-nav a:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
+body.inner .sqlq:hover { transform: none; }
+body.inner .next-nav a { border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+
+@media (hover: none), (prefers-reduced-motion: reduce) { body.inner .pipeline .step:hover, body.inner .next-nav a:hover { transform: none !important; } }
+
+/* ================= case pages: every block follows the same card, lift and hover style ================= */
+/* the shared look: white card, light edge, 12 px radius; on hover lift 4 px with an amber edge and soft shadow */
+body.inner .exec, body.inner .coverage, body.inner .s-viz, body.inner .sqlq, body.inner .shot, body.inner .pipeline .step, body.inner .next-nav a, body.inner .model-diagram img {
+  background: #fff; border: 1px solid #E2E4DE; border-radius: 12px;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background-color var(--ease);
+}
+body.inner .exec:hover, body.inner .coverage:hover, body.inner .s-viz:hover, body.inner .sqlq:hover, body.inner .shot:hover, body.inner .pipeline .step:hover, body.inner .next-nav a:hover, body.inner .model-diagram img:hover {
+  transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow);
+}
+/* thumbnails: drop the older 5 px lift */
+body.inner .shot { overflow: hidden; }
+/* eyebrow labels readable on the cream background */
+body.inner .s-chapter .n, body.inner .pipeline .step .i, body.inner .step .i { color: #8A5410; font-weight: 800; }
+/* method steps: separate cards instead of one glued strip */
+body.inner .pipeline { gap: 14px; background: transparent; border: 0; border-radius: 0; overflow: visible; }
+body.inner .pipeline .step { padding: 16px 18px; box-shadow: 0 9px 23px #15314D0A; }
+/* SQL: each query is one card (title, description and code lift together) */
+body.inner .sqlq { padding: 20px 22px 22px; margin: 18px 0; }
+body.inner .sqlq pre { margin: 0; }
+body.inner .sqlq pre:hover { border-color: inherit; box-shadow: none; }
+/* previous / next */
+body.inner .next-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 36px; }
+body.inner .next-nav a { display: flex; flex-direction: column; gap: 8px; padding: 18px 22px; text-decoration: none; color: var(--ink) !important; font-size: 16px; font-weight: 700; line-height: 1.4; letter-spacing: -.01em; }
+body.inner .next-nav a span { font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; color: #8A5410; }
+body.inner .next-nav a.r { text-align: right; align-items: flex-end; }
+@media (max-width: 700px) { body.inner .next-nav { grid-template-columns: 1fr; } }
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  body.inner .exec:hover, body.inner .coverage:hover, body.inner .s-viz:hover, body.inner .sqlq:hover, body.inner .shot:hover, body.inner .pipeline .step:hover, body.inner .next-nav a:hover, body.inner .model-diagram img:hover { transform: none !important; }
+}
+
+body.inner .next-nav { margin: 36px 0 56px; width: 100%; }
+body.inner .next-nav a { max-width: none; width: 100%; box-sizing: border-box; }
+
+/* hero preview: same card and hover as every other card */
+body.home .hshot .win { border: 1px solid #E2E4DE; border-radius: 12px; box-shadow: 0 9px 23px #15314D0A; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+body.home .hshot:hover .win, body.home .hshot:focus-visible .win { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
+@media (hover: none), (prefers-reduced-motion: reduce) { body.home .hshot:hover .win { transform: none !important; } }
+
+/* hero preview: an always-visible call to action, so it clearly reads as clickable */
+body.home .hshot .win { position: relative; cursor: pointer; }
+body.home .hshot .wover { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 70px 16px 20px; background: linear-gradient(to bottom, rgba(20,44,67,0) 0%, rgba(20,44,67,.62) 62%, rgba(20,44,67,.82) 100%); pointer-events: none; }
+body.home .hshot .wbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; min-height: 44px; border-radius: 8px; background: var(--amber); border: 1.5px solid var(--amber); color: #0C2236; font-size: 14px; font-weight: 750; line-height: 1.2; box-shadow: 0 8px 22px rgba(232,163,66,.45); transition: transform var(--ease), background-color var(--ease), box-shadow var(--ease); }
+body.home .hshot .wover small { color: #E4EDF2; font-size: 12.5px; font-weight: 600; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,.35); }
+body.home .hshot:hover .wbtn, body.home .hshot:focus-visible .wbtn { background: #F0B555; border-color: #F0B555; transform: translateY(-2px); box-shadow: 0 10px 28px #E8A34270; }
+@media (max-width: 560px) { body.home .hshot .wover small { display: none; } body.home .hshot .wover { padding-top: 50px; } }
+@media (prefers-reduced-motion: reduce) { body.home .hshot:hover .wbtn { transform: none; } }
+
+/* report stat pills: same hover as every other pill chip (lift 2 px, amber edge, soft amber fill) */
+body.inner .s-pbi .pbi-stats > .pst { transition: transform var(--ease), background-color var(--ease), border-color var(--ease), color var(--ease); }
+body.inner .s-pbi .pbi-stats > .pst:hover { transform: translateY(-2px); border-color: var(--amber); background: var(--amber-soft); box-shadow: none; }
+@media (hover: none), (prefers-reduced-motion: reduce) { body.inner .s-pbi .pbi-stats > .pst:hover { transform: none !important; } }
+
+/* analysis chapters: the text and the chart are two matching cards, equal height, same hover */
+body.inner .s-chapter { align-items: stretch; }
+body.inner .s-chapter .text { background: #fff; border: 1px solid #E2E4DE; border-radius: 12px; padding: 26px 28px; box-shadow: 0 9px 23px #15314D0A; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+body.inner .s-chapter .s-viz { box-shadow: 0 9px 23px #15314D0A; }
+body.inner .s-chapter .text:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
+@media (hover: none), (prefers-reduced-motion: reduce) { body.inner .s-chapter .text:hover { transform: none !important; } }
+
+/* SQL cards: header with language label and Copy, highlighted code in the same panel style as the DAX measures */
+body.inner .sqlq .sqlhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+body.inner .sqlq .sqlhead h3 { margin: 0; }
+body.inner .sqlq .sqltools { display: inline-flex; align-items: center; gap: 10px; }
+body.inner .sqlq .lang { font-size: 11.5px; font-weight: 850; letter-spacing: .12em; color: #8A5410; background: #FFF1D3; padding: 4px 9px; border-radius: 6px; }
+body.inner .sqlq .btn.small { min-height: 34px; padding: 6px 14px; font-size: 13px; }
+body.inner pre.sqlcode { font-size: 13.5px; line-height: 1.65; background: #E4EBF0; border-radius: 8px; padding: 14px 16px; overflow-x: auto; white-space: pre; }
+.sq-com { color: #73828C; font-style: italic; }
+.sq-num { color: #B4532A; }
