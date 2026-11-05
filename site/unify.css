@@ -151,3 +151,7 @@ body.inner .sqlq .btn.small { min-height: 34px; padding: 6px 14px; font-size: 13
 body.inner pre.sqlcode { font-size: 13.5px; line-height: 1.65; background: #E4EBF0; border-radius: 8px; padding: 14px 16px; overflow-x: auto; white-space: pre; }
 .sq-com { color: #73828C; font-style: italic; }
 .sq-num { color: #B4532A; }
+
+/* hero availability chip: same hover as the certification chips beside it */
+body.home .hero-g .trust .avail:hover { border-color: var(--amber); background: var(--amber-soft); color: #1F5B3B; transform: translateY(-2px); }
+@media (hover: none), (prefers-reduced-motion: reduce) { body.home .hero-g .trust .avail:hover { transform: none !important; } }
