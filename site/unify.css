@@ -155,3 +155,13 @@ body.inner pre.sqlcode { font-size: 13.5px; line-height: 1.65; background: #E4EB
 /* hero availability chip: same hover as the certification chips beside it */
 body.home .hero-g .trust .avail:hover { border-color: var(--amber); background: var(--amber-soft); color: #1F5B3B; transform: translateY(-2px); }
 @media (hover: none), (prefers-reduced-motion: reduce) { body.home .hero-g .trust .avail:hover { transform: none !important; } }
+
+/* ---------- the small amber separator under headings: one size, one spacing everywhere ---------- */
+:root { --bar-w: 56px; --bar-h: 4px; --bar-above: 14px; --bar-below: 22px; }
+body.inner .s-head h1::after, body.inner .s-exec > h2::after, body.inner .s-tldr > h2::after, body.inner .s-block > h2::after, body.inner .pbi-head h2::after {
+  content: ""; display: block; width: var(--bar-w); height: var(--bar-h); background: var(--amber); border-radius: 2px; margin: var(--bar-above) 0 0;
+}
+body.inner .s-head h1, body.inner .s-exec > h2, body.inner .s-tldr > h2, body.inner .s-block > h2, body.inner .pbi-head h2 { margin-bottom: var(--bar-below); }
+
+/* homepage eyebrow labels: the same 12 px gap above every section heading */
+body.home .eyebrow2, body.home .impact2 .ihead .eyebrow2 { margin-bottom: 12px; }
