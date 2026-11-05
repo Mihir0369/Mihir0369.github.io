@@ -1,6 +1,6 @@
 # Data & BI Portfolio: Canadian public-data case studies
 
-**Live site:** https://mihir0369.github.io/portfolio_website/
+**Live site:** https://mihir0369.github.io/
 
 Four finished case studies and one in development, all built on Canadian public data. Each one follows the same path: the question, data preparation, SQL checks, a Power BI star-schema model with documented DAX, findings, and recommendations. Every project says what its data cannot tell you.
 

@@ -10,7 +10,7 @@ err = lambda m: errors.append(m)
 data = json.loads(subprocess.check_output(["node", "-e", "global.window={};require('./projects.js');console.log(JSON.stringify(window))"], text=True, encoding="utf-8"))
 PROJ, PROF = data["PROJECTS"], data["PROFILE"]
 DONE = [p for p in PROJ if p.get("found")]
-BASE = "https://mihir0369.github.io/portfolio_website/"
+BASE = "https://mihir0369.github.io/"
 JS_ANCHORS = {"report", "coverage", "sql", "model"}  # added by case.js in the browser
 
 

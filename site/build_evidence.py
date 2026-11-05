@@ -7,7 +7,7 @@ import html, json, os, re, datetime
 
 ROOT = os.path.abspath("..")
 E = lambda s: html.escape(str(s), quote=True)
-GH = "https://github.com/Mihir0369/portfolio_website/blob/main/"
+GH = "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/"
 
 PROJECTS = {
     "toronto-311": {"dir": "03-government-311", "model": "toronto-311"},

@@ -725,7 +725,7 @@
 
   var repo = el("p", {});
   repo.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
-  repo.appendChild(el("a", { href: "https://github.com/Mihir0369/portfolio_website/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
+  repo.appendChild(el("a", { href: "https://github.com/Mihir0369/Mihir0369.github.io/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
   repo.appendChild(document.createTextNode("."));
   host = main;
   section("Code and method", repo);

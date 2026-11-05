@@ -63,7 +63,7 @@ def card(p, n=0):
             '<dl class="qa"><div><dt>Business question</dt><dd class="q">%s</dd></div><div><dt>Key finding</dt><dd class="result">%s</dd></div>'
             '<div><dt>Business implication</dt><dd>%s</dd></div><div><dt>Skills demonstrated</dt><dd class="tags">%s</dd></div></dl>'
             '<div class="btns"><a class="btn impact" href="%s">Case study &#8599;</a>'
-            '<a class="btn" href="https://github.com/Mihir0369/portfolio_website/tree/main/%s" target="_blank" rel="noopener">GitHub &#8599;</a></div></div>'
+            '<a class="btn" href="https://github.com/Mihir0369/Mihir0369.github.io/tree/main/%s" target="_blank" rel="noopener">GitHub &#8599;</a></div></div>'
             '<div class="pv"><div id="pv-%s" role="tabpanel"><a class="pv-link" href="%s" title="Open the full case study"><img class="pv-main" src="%s" width="%d" height="%d" alt="Power BI report page: %s" loading="lazy" decoding="async"></a></div>'
             '<div class="pv-cap" aria-live="polite">%s</div><div class="pv-tabs" role="tablist" aria-label="%s report pages">%s</div></div></article>') % (
         p["id"], "%02d" % n, E(p["sector"]), E(p["area"]), E(QUESTION[p["id"]]), E(HOME[p["id"]]), E(IMPL[p["id"]]), "".join('<span class="tag2">%s</span>' % E(s.strip()[:1].upper() + s.strip()[1:]) for s in p["skills"].split(",")[:4]), href(p), p["repo"],
@@ -150,7 +150,7 @@ main = """
         <div class="sec-head"><div><div class="eyebrow2">02 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div></div>
         <nav class="pnav" id="projects" aria-label="Jump to a project"><span>Jump to</span>%(pnav)s</nav>
         %(projects)s
-        <div class="mini-foot"><span>Showing %(nd)d finished case studies &middot; %(nv)d in development</span><a class="btn small" target="_blank" rel="noopener" href="https://github.com/Mihir0369/portfolio_website">View GitHub repository &#8599;</a></div>
+        <div class="mini-foot"><span>Showing %(nd)d finished case studies &middot; %(nv)d in development</span><a class="btn small" target="_blank" rel="noopener" href="https://github.com/Mihir0369/Mihir0369.github.io">View GitHub repository &#8599;</a></div>
       </div>
     </section>
 
