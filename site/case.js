@@ -7,9 +7,8 @@
   (function () { var l = document.getElementById("nav-linkedin"); if (!l) return; l.href = P.linkedin; l.target = "_blank"; l.rel = "noopener noreferrer"; })();
   (function () {
     var b = document.getElementById("brand"), parts = P.name.split(" ");
-    var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
     var n = document.createElement("span"); n.textContent = P.name;
-    b.textContent = ""; b.appendChild(m); b.appendChild(n);
+    b.textContent = ""; b.appendChild(n);
   })();
 
   function el(tag, attrs, text) {

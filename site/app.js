@@ -3,10 +3,9 @@
   // brand
   var b = document.getElementById("brand"), parts = P.name.split(" ");
   b.textContent = "";
-  var m = document.createElement("span"); m.className = "mono"; m.textContent = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
   var n = document.createElement("span"); n.textContent = P.name;
   var s = document.createElement("small"); s.textContent = "DATA \u00b7 INSIGHTS \u00b7 BUSINESS IMPACT"; n.appendChild(s);
-  b.appendChild(m); b.appendChild(n);
+  b.appendChild(n);
 
   // contact links
   ["email", "email0", "linkedin", "linkedin2"].forEach(function (id) { var l = document.getElementById(id); if (l) l.href = id.indexOf("email") === 0 ? P.email : P.linkedin; });

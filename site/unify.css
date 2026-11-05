@@ -165,3 +165,9 @@ body.inner .s-head h1, body.inner .s-exec > h2, body.inner .s-tldr > h2, body.in
 
 /* homepage eyebrow labels: the same 12 px gap above every section heading */
 body.home .eyebrow2, body.home .impact2 .ihead .eyebrow2 { margin-bottom: 12px; }
+
+/* Experience: bullet points instead of a table */
+body .job .xlist { margin: 0; padding-left: 20px; list-style: disc; }
+body .job .xlist li { padding: 5px 0; font-size: 14.5px; line-height: 1.6; color: #3E4D57; }
+body .job .xlist li::marker { color: var(--amber); }
+body .job .xlist .xres { display: block; color: #142C43; font-weight: 650; }

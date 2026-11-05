@@ -82,11 +82,14 @@ def xp(x):
         return ('<article class="job compact"><div class="job-top"><h3>%s <small>&middot; %s</small></h3><span class="when">%s</span></div>'
                 '<p>Delivered Excel, Power BI and statistics workshops and one-to-one support, explaining data modelling, regression and hypothesis testing in accessible language.</p></article>') % (E(x["role"]), E(x["org"]), E(x["when"]))
 
-    def res(r):
-        return '<div class="nq">%s</div>' % E(r) if r == "Not quantified" else "<div>%s</div>" % E(r)
-    rows = "".join('<div class="xrow"><div>%s</div><div>%s</div>%s</div>' % (E(a), E(d), res(r)) for a, d, r in x["items"])
+    def li(a, d, r):
+        t = E(a)
+        if re.search(r"\d", d): t += " " + E(d)
+        if r != "Not quantified": t += ' <strong class="xres">%s</strong>' % E(r)
+        return "<li>%s</li>" % t
+    items = "".join(li(a, d, r) for a, d, r in x["items"])
     return ('<article class="job"><div class="job-top"><h3>%s <small>&middot; %s</small></h3><span class="when">%s</span></div>'
-            '<div class="jchips">%s</div><div class="xhead"><span>Action</span><span>Deliverable</span><span>Result</span></div>%s</article>') % (E(x["role"]), E(x["org"]), E(x["when"]), "".join('<span class="tag2">%s</span>' % E(c) for c in CHIPS.get(x["role"], [])), rows)
+            '<div class="jchips">%s</div><ul class="xlist">%s</ul></article>') % (E(x["role"]), E(x["org"]), E(x["when"]), "".join('<span class="tag2">%s</span>' % E(c) for c in CHIPS.get(x["role"], [])), items)
 
 
 certs = "".join(
