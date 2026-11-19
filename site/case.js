@@ -49,8 +49,8 @@
   /* ---------- charts */
   var css = getComputedStyle(document.documentElement);
   function cv(name, dflt) { return css.getPropertyValue(name).trim() || dflt; }
-  var COL = { navy: cv("--accent", "#1B3A5C"), amber: cv("--amber", "#C77700"), grey: cv("--grey", "#8A9BAE"), teal: cv("--teal", "#2A7F8E"),
-              muted: cv("--muted", "#4A5B6C"), line: cv("--line", "#D9E2E8"), light: "#C9D3DC" };
+  var COL = { navy: cv("--accent", "#004B87"), amber: cv("--amber", "#B47C00"), grey: cv("--grey", "#85827D"), teal: cv("--teal", "#24707D"),
+              muted: cv("--muted", "#575757"), line: cv("--line", "#DDDBD7"), light: "#B2C9DB" };
   if (window.Chart) { Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif'; Chart.defaults.color = COL.muted; }
 
   var valueLabels = {
@@ -63,7 +63,7 @@
         dctx.save(); dctx.textAlign = "center"; dctx.textBaseline = "middle";
         chart.getDatasetMeta(0).data.forEach(function (arc, i) {
           var pos = arc.tooltipPosition();
-          dctx.fillStyle = i === 0 ? "#FFFFFF" : cv("--text", "#1F2D3D");
+          dctx.fillStyle = i === 0 ? "#FFFFFF" : cv("--text", "#1A1A1A");
           dctx.font = '700 18px "Segoe UI", system-ui, sans-serif';
           dctx.fillText((100 * vals[i] / tot).toFixed(1) + "%", pos.x, pos.y - 10);
           dctx.font = '400 13px "Segoe UI", system-ui, sans-serif';
@@ -74,7 +74,7 @@
       }
       if (!opts.show) return;
       var ctx = chart.ctx; ctx.save();
-      ctx.fillStyle = cv("--text", "#1F2D3D"); ctx.font = '600 12px "Segoe UI", system-ui, sans-serif';
+      ctx.fillStyle = cv("--text", "#1A1A1A"); ctx.font = '600 12px "Segoe UI", system-ui, sans-serif';
       var horizontal = chart.options.indexAxis === "y";
       chart.getDatasetMeta(0).data.forEach(function (bar, i) {
         var v = chart.data.datasets[0].data[i];
@@ -106,7 +106,7 @@
         tooltip: { callbacks: { label: function (x) { return " " + x.label + ": " + fmt(x.raw) + " (" + (100 * x.raw / c.values.reduce(function (a, b) { return a + b; }, 0)).toFixed(1) + "%)"; } } } } };
     } else {
       var grouped = !!c.datasets;
-      var yearCols = [COL.light, "#5F7C99", COL.navy];
+      var yearCols = [COL.light, "#6693B7", COL.navy];
       var datasets = grouped
         ? c.datasets.map(function (d, i) {
             var lc = d.color || [COL.navy, COL.teal, COL.amber][i % 3];
