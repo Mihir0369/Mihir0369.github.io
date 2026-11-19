@@ -103,7 +103,7 @@ proof = "".join('<a class="chip-c" href="%s" target="_blank" rel="noopener" titl
 FRONT, BACK = "images/03-outcomes.webp", "images/cr-2-when.webp"
 FW, FH = dims("images/03-outcomes.png")
 BW, BH = dims("images/cr-2-when.png")
-PHOTO = '<img src="images/mihir.jpg" alt="Mihir Jasani, data analyst" width="116" height="116">' if os.path.exists("images/mihir.jpg") else ""
+PHOTO = '<img src="images/mihir.jpg" alt="Mihir Jasani, BI developer" width="116" height="116">' if os.path.exists("images/mihir.jpg") else ""
 
 main = """
     <section class="hero2" id="home">
@@ -111,21 +111,16 @@ main = """
         <div class="hcopy">
           <div class="ident">
             <div class="portrait"><span class="mono-big">MJ</span>%(photo)s</div>
-            <div>
-              <div class="hname">Mihir Jasani</div>
-              <div class="role"><b>BI Developer</b> at Elevara Digital, Toronto</div>
-            </div>
           </div>
-          <h1>From messy data to <em>clear business decisions.</em></h1>
-          <p class="lead">I build reliable Power BI reporting and SQL-powered analysis. I clean and reconcile the data, then turn it into dashboards that teams can understand, trust and act on.</p>
-          <div class="skillline">Power BI &middot; DAX &middot; SQL &middot; Python &middot; Microsoft Fabric</div>
+          <h1 class="hname1">Mihir Jasani</h1>
+          <p class="htitle"><b>BI Developer</b> &middot; Power BI, SQL Server, Microsoft Fabric &middot; Toronto</p>
+          <p class="lead">Currently at Elevara Digital, building semantic models and reports on Microsoft Fabric.</p>
           <div class="acts">
-            <a class="btn impact" href="#projects">Explore my Project work &#8599;</a>
-            <a class="btn" id="resume" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
-            <a class="btn" id="email0" href="%(mailto)s">Email me</a>
-            <a class="btn" id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+            <a class="btn impact" href="#projects">See my work</a>
+            <a class="btn" id="resume" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">Resume (PDF) &#8599;</a>
+            <span class="hlinks"><a id="email0" href="%(mailto)s">Email</a><a id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a></span>
           </div>
-          <div class="trust"><span class="avail"><i></i>Open to Data, BI &amp; Reporting roles &middot; Toronto</span>%(proof)s</div>
+          <div class="trust"><span class="avail"><i></i>Open to BI roles &middot; Toronto</span>%(proof)s</div>
         </div>
         <a class="hshot" href="toronto-311.html" aria-label="Open the Toronto 311 case study">
           <span class="win">
@@ -205,7 +200,7 @@ main = """
     </section>""" % dict(emailtext=E(P["email"].replace("mailto:", "")), front=FRONT, back=BACK, fw=FW, fh=FH, bw=BW, bh=BH, mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, about=E(S["about"]), traits=traits, stack=stack, certs=certs,
                          exp="".join(xp(x) for x in P["experienceStory"]), projects="".join(card(p, i + 1) for i, p in enumerate(L)), pnav="".join('<a href="#proj-%s">%s</a>' % (p["id"], E(SHORT[p["id"]])) for p in L), nd=n_done, nv=n_dev)
 
-ld = {"@context": "https://schema.org", "@type": "Person", "name": P["name"], "jobTitle": "Data Analyst", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
+ld = {"@context": "https://schema.org", "@type": "Person", "name": P["name"], "jobTitle": "BI Developer", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
       "sameAs": [P["linkedin"]], "knowsAbout": ["Power BI", "DAX", "SQL", "Python", "Microsoft Fabric", "Data analysis"]}
 itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Case studies", "itemListElement": [
     {"@type": "ListItem", "position": i + 1, "name": p["problem"], "description": p["summary"], "url": BASE_URL + href(p)} for i, p in enumerate(L)]}
@@ -217,17 +212,17 @@ page = """<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mihir Jasani | Data Analyst (Power BI, SQL, Fabric) | Toronto</title>
-  <meta name="description" content="Mihir Jasani, Toronto-based data analyst (Power BI PL-300, Microsoft Fabric DP-600). Four completed case studies on Canadian public data: Toronto 311, household credit, collision safety and opioid harms.">
+  <title>Mihir Jasani | BI Developer (Power BI, SQL, Fabric) | Toronto</title>
+  <meta name="description" content="Mihir Jasani, Toronto-based BI developer (Power BI PL-300, Microsoft Fabric DP-600). Four completed case studies on Canadian public data: Toronto 311, household credit, collision safety and opioid harms.">
   <link rel="canonical" href="%(base)s">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Mihir Jasani | Data Analyst (Power BI, SQL, Fabric) | Toronto">
+  <meta property="og:title" content="Mihir Jasani | BI Developer (Power BI, SQL, Fabric) | Toronto">
   <meta property="og:description" content="Four completed Power BI case studies on Canadian public data, each with SQL checks, documented DAX and stated limits.">
   <meta property="og:url" content="%(base)s">
   <meta property="og:image" content="%(base)simages/social-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Mihir Jasani, data analyst in Toronto: Power BI, SQL and Microsoft Fabric">
+  <meta property="og:image:alt" content="Mihir Jasani, BI developer in Toronto: Power BI, SQL and Microsoft Fabric">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="%(base)simages/social-card.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">

@@ -319,8 +319,8 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hero-g .role b { font-size: 16px; }
 .hero-g h1 { margin: 26px 0 14px; max-width: 640px; font-size: clamp(2.3rem, 3.9vw, 3.6rem); letter-spacing: -.05em; }
 .hero-g .lead { max-width: 560px; margin: 0; }
-.hproof { margin: 16px 0 0; max-width: 560px; font-size: 14.5px; line-height: 1.6; color: var(--text); border-left: 3px solid var(--gold); padding: 2px 0 2px 14px; }
-.hproof b { color: var(--contrastText); }
+.hproof { margin: 20px 0 0; max-width: 540px; font-size: 15px; line-height: 1.65; color: var(--text); border-left: 3px solid var(--accent); padding: 2px 0 2px 14px; }
+.hproof b { color: var(--text); font-weight: 650; }
 .hero-g .acts { justify-content: flex-start; margin-top: 26px; }
 .hero-g .avail { margin-top: 16px; }
 .hero-g .proof { justify-content: flex-start; margin-top: 18px; max-width: none; }
@@ -446,7 +446,7 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hero-g .hname { font-size: 1.55rem; font-weight: 750; letter-spacing: -.02em; color: var(--text); }
 .hero-g .role { margin-top: 4px; font-size: 15.5px; color: var(--muted); }
 .hero-g .role b { color: var(--text); font-size: inherit; font-weight: 700; }
-.hero-g h1 { margin: 34px 0 18px; max-width: 600px; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 770; letter-spacing: -.028em; line-height: 1.12; color: var(--text); }
+.hero-g h1 { margin: 34px 0 18px; max-width: 620px; font-size: clamp(2rem, 3.1vw, 2.8rem); font-weight: 770; letter-spacing: -.028em; line-height: 1.12; color: var(--text); }
 .hero-g h1 em { color: var(--accent); font-style: normal; }
 .hero-g .lead { max-width: 520px; font-size: 17px; line-height: 1.7; color: var(--muted); }
 .hero-g .skillline { margin-top: 18px; font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--text); }
@@ -455,7 +455,7 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hlinks a { font-size: 14.5px; font-weight: 700; color: var(--accent); text-decoration: none; padding: 8px 14px; border-radius: 8px; }
 .hlinks a + a { border-left: 1px solid var(--line); border-radius: 0 8px 8px 0; }
 .hlinks a:hover { background: var(--surface); text-decoration: underline; text-underline-offset: 4px; }
-.hero-g .trust { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 560px; }
+.hero-g .trust { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; max-width: 640px; }
 .hero-g .trust .avail, .hero-g .trust .chip-c { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 13px; margin: 0; border-radius: 8px; font-size: 13px; font-weight: 700; line-height: 1; text-decoration: none; box-sizing: border-box; }
 .hero-g .trust .avail { background: var(--surface); border: 1px solid var(--line); color: var(--good-dark); }
 .hero-g .trust .chip-c { background: var(--surface); border: 1px solid var(--line); color: var(--text); }
@@ -493,3 +493,9 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .pnav { scroll-margin-top: 0; }
 
 @media (min-width: 1200px) { .hero-g { grid-template-columns: 1.27fr .73fr; gap: 48px; } }
+
+/* Hero: name as the headline */
+.hero-g h1.hname1 { margin: 26px 0 10px; font-size: clamp(2.6rem, 4.6vw, 3.9rem); font-weight: 780; letter-spacing: -.035em; line-height: 1.05; color: var(--text); }
+.hero-g .htitle { margin: 0 0 18px; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: var(--muted); }
+.hero-g .htitle b { color: var(--accent); font-weight: 700; }
+.hero-g .lead { font-size: 16.5px; }
