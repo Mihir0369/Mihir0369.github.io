@@ -3,7 +3,7 @@
 footer.foot { background: var(--footBg); color: var(--footMuted); margin: 0; padding: 22px 0; font-size: 13px; border: 0; }
 footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
 .fbot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; }
-.fbot b { color: var(--gold); letter-spacing: .06em; }
+.fbot b { color: var(--footHead); letter-spacing: .06em; }
 
 
 @media (max-width: 590px) { footer.foot .wrap2 { width: min(100% - 36px, 1160px); } }
@@ -25,7 +25,7 @@ footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
   transform: translateY(-4px); border-color: var(--contrast); box-shadow: 0 16px 34px rgba(26,26,26,.13), 0 0 0 1px rgba(180,124,0,0.27);
 }
 .impact2 .cell:hover { transform: translateY(-4px); }
-.impact2 .cell:hover strong { color: var(--contrast); }
+.impact2 .cell:hover strong { color: var(--accentHover); }
 .exec:hover, .coverage:hover { border-color: var(--contrast); box-shadow: 0 12px 28px rgba(26,26,26,.10); }
 .sqlq:hover { transform: translateY(-3px); }
 .pill:hover, .tag2:hover, .chip:hover, .pnav a:hover, .jump a:hover { transform: translateY(-2px); transition: transform .18s ease, background-color .18s ease, border-color .18s ease; }
@@ -37,4 +37,4 @@ footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
 footer.foot .flinks a, .inner footer.foot .flinks a:not(.btn) { color: var(--footText); }
 footer.foot .flinks a:hover, .inner footer.foot .flinks a:not(.btn):hover { color: var(--footHead); }
 footer.foot .fbot span { color: var(--footMuted); }
-footer.foot .fbot b { color: var(--contrast); }
+footer.foot .fbot b { color: var(--footHead); }

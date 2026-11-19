@@ -4,7 +4,7 @@ body.inner { background: var(--bg); -webkit-font-smoothing: antialiased; }
 .inner header.site a:not(.btn) { color: var(--muted); text-decoration: none; }
 .inner header.site .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .inner .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 17px; letter-spacing: -.02em; color: var(--text) !important; }
-.inner .brand .mono { height: 36px; width: 36px; border-radius: 8px; background: var(--footBg); color: var(--contrast); display: grid; place-items: center; font-size: 13px; }
+.inner .brand .mono { height: 36px; width: 36px; border-radius: 8px; background: var(--accent); color: var(--btnText); display: grid; place-items: center; font-size: 13px; }
 .inner .brand small { display: block; font-weight: 500; font-size: 11px; color: var(--muted); letter-spacing: .06em; }
 .inner .menu { display: flex; align-items: center; gap: 28px; }
 .inner .menu a:not(.btn) { font-size: 13px; font-weight: 650; padding: 0; border: 0; }
