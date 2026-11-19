@@ -152,13 +152,13 @@ def model_svg(mdir):
         if a in pos and b in pos:
             ax, ay = pos[a][0] + BW / 2, pos[a][1] + BH / 2
             bx, by = pos[b][0] + BW / 2, pos[b][1] + BH / 2
-            s.append('<line x1="%.0f" y1="%.0f" x2="%.0f" y2="%.0f" stroke="#B6C0C6" stroke-width="1.2"/>' % (ax, ay, bx, by))
+            s.append('<line x1="%.0f" y1="%.0f" x2="%.0f" y2="%.0f" stroke="#C0BFBB" stroke-width="1.2"/>' % (ax, ay, bx, by))
     for t, (x, y) in pos.items():
         fact = t in facts
-        s.append('<rect x="%.0f" y="%.0f" width="%d" height="%d" rx="6" fill="%s" stroke="%s"/>' % (x, y, BW, BH, "#142C43" if fact else "#EDF1EF", "#142C43" if fact else "#C9D3D0"))
+        s.append('<rect x="%.0f" y="%.0f" width="%d" height="%d" rx="6" fill="%s" stroke="%s"/>' % (x, y, BW, BH, "#1A1A1A" if fact else "#F5F3EE", "#1A1A1A" if fact else "#DDDBD7"))
         label = t if len(t) <= 20 else t[:19] + "…"
-        s.append('<text x="%.0f" y="%.0f" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="%s">%s</text>' % (x + BW / 2, y + 21, "#E8A342" if fact else "#18344C", E(label)))
-    s.append('<text x="12" y="%d" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#65727B">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: %d relationships.</text>' % (H - 6, len(rels)))
+        s.append('<text x="%.0f" y="%.0f" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="%s">%s</text>' % (x + BW / 2, y + 21, "#B47C00" if fact else "#1A1A1A", E(label)))
+    s.append('<text x="12" y="%d" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#575757">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: %d relationships.</text>' % (H - 6, len(rels)))
     s.append("</svg>")
     return "\n".join(s), len(rels), facts
 
