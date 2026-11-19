@@ -49,7 +49,7 @@
   /* ---------- charts */
   var css = getComputedStyle(document.documentElement);
   function cv(name, dflt) { return css.getPropertyValue(name).trim() || dflt; }
-  var COL = { navy: cv("--accent", "#1F5F99"), amber: cv("--amber", "#C26A1B"), grey: cv("--grey", "#7A818C"), teal: cv("--teal", "#24707D"),
+  var COL = { navy: cv("--accent", "#1F5F99"), amber: cv("--highlight", "#1E2530"), grey: cv("--grey", "#7A818C"), teal: cv("--teal", "#24707D"),
               muted: cv("--muted", "#5A6474"), line: cv("--line", "#DFE1E4"), light: "#BCCFE0" };
   if (window.Chart) { Chart.defaults.font.family = 'Inter, "Segoe UI", system-ui, sans-serif'; Chart.defaults.color = COL.muted; }
 

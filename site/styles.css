@@ -7,8 +7,9 @@
   --text: #1E2530;
   --muted: #5A6474;
   --accent: #1F5F99;
-  --contrast: #C26A1B;
+  --highlight: #1E2530;          /* second chart colour (navy); Harbor has no orange */
   --gray: #B8BFC9;
+  --contrast: var(--accent);     /* rules, focus rings, hover borders */
 
   /* derived */
   --line: #DFE1E4;
@@ -35,7 +36,8 @@
   --good: #2E7D5B;
   --good-dark: #1F5B3B;
   --good-bright: #2FA866;
-  --bad: #B4532A;
+  --code-fn: #6639BA;            /* DAX measure names */
+  --code-num: #0550AE;           /* numbers in SQL */
 
   /* older names still used across the CSS and JS, pointed at the palette */
   --navy: var(--accent);
@@ -380,7 +382,7 @@ pre.code { margin: 0; white-space: pre-wrap; font-family: Consolas, "Courier New
 /* DAX measures on the light code panel */
 .dax-panel, .build-grid .panel { grid-column: 1 / -1; }
 pre.code.dax { white-space: pre; overflow-x: auto; line-height: 1.65; tab-size: 4; font-size: 13.5px; padding: 14px 18px; }
-.dx-name { color: var(--bad); font-weight: 600; }
+.dx-name { color: var(--code-fn); font-weight: 600; }
 .dx-fn { color: var(--navy); font-weight: 700; }
 .dx-kw { color: var(--navy); font-weight: 700; }
 .dx-var { color: var(--teal); font-weight: 600; }
