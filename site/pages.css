@@ -22,11 +22,11 @@ footer.foot .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; }
   transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
 }
 .trait:hover, .scard:hover, .cert2:hover, .edu2 > div:hover, .job:hover, .kpi:hover, .pst:hover, .rec:hover, .panel:hover, .fact:hover, .skill:hover, .side-card:hover, .s-tldr li:hover, .s-recs .rec:hover, .viz:hover {
-  transform: translateY(-4px); border-color: var(--contrast); box-shadow: 0 16px 34px rgba(26,26,26,.13), 0 0 0 1px rgba(180,124,0,0.27);
+  transform: translateY(-4px); border-color: var(--contrast); box-shadow: 0 16px 34px rgba(30,37,48,.13), 0 0 0 1px rgba(194,106,27,0.27);
 }
 .impact2 .cell:hover { transform: translateY(-4px); }
 .impact2 .cell:hover strong { color: var(--accentHover); }
-.exec:hover, .coverage:hover { border-color: var(--contrast); box-shadow: 0 12px 28px rgba(26,26,26,.10); }
+.exec:hover, .coverage:hover { border-color: var(--contrast); box-shadow: 0 12px 28px rgba(30,37,48,.10); }
 .sqlq:hover { transform: translateY(-3px); }
 .pill:hover, .tag2:hover, .chip:hover, .pnav a:hover, .jump a:hover { transform: translateY(-2px); transition: transform .18s ease, background-color .18s ease, border-color .18s ease; }
 .pill:hover { border-color: var(--contrast); }

@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 204" role="img" aria-label="Star-schema diagram drawn from the model relationships">
 <rect width="100%" height="100%" fill="#fff"/>
-<line x1="656" y1="147" x2="98" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="656" y1="147" x2="698" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="656" y1="147" x2="848" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="656" y1="147" x2="398" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="440" y1="147" x2="98" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="440" y1="147" x2="698" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="440" y1="147" x2="848" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="440" y1="147" x2="398" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="98" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="698" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="848" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="398" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="248" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<line x1="224" y1="147" x2="548" y2="57" stroke="#C0BFBB" stroke-width="1.2"/>
-<rect x="30" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="98" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Date</text>
-<rect x="180" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="248" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Dim_Age</text>
-<rect x="330" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="398" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Dim_Region</text>
-<rect x="480" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="548" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Dim_Sex</text>
-<rect x="630" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="698" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Dim_Source</text>
-<rect x="780" y="40" width="136" height="34" rx="6" fill="#F5F3EE" stroke="#DDDBD7"/>
-<text x="848" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1A1A1A">Dim_Substance</text>
-<rect x="156" y="130" width="136" height="34" rx="6" fill="#1A1A1A" stroke="#1A1A1A"/>
-<text x="224" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#B47C00">fact_age</text>
-<rect x="372" y="130" width="136" height="34" rx="6" fill="#1A1A1A" stroke="#1A1A1A"/>
-<text x="440" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#B47C00">fact_quarter</text>
-<rect x="588" y="130" width="136" height="34" rx="6" fill="#1A1A1A" stroke="#1A1A1A"/>
-<text x="656" y="151" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#B47C00">fact_year</text>
-<text x="12" y="198" font-family="Segoe UI,Arial,sans-serif" font-size="11" fill="#575757">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: 14 relationships.</text>
+<line x1="656" y1="147" x2="98" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="656" y1="147" x2="698" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="656" y1="147" x2="848" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="656" y1="147" x2="398" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="440" y1="147" x2="98" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="440" y1="147" x2="698" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="440" y1="147" x2="848" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="440" y1="147" x2="398" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="98" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="698" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="848" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="398" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="248" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<line x1="224" y1="147" x2="548" y2="57" stroke="#C3C5CA" stroke-width="1.2"/>
+<rect x="30" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="98" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Date</text>
+<rect x="180" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="248" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Dim_Age</text>
+<rect x="330" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="398" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Dim_Region</text>
+<rect x="480" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="548" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Dim_Sex</text>
+<rect x="630" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="698" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Dim_Source</text>
+<rect x="780" y="40" width="136" height="34" rx="6" fill="#F7F8FA" stroke="#DFE1E4"/>
+<text x="848" y="61" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#1E2530">Dim_Substance</text>
+<rect x="156" y="130" width="136" height="34" rx="6" fill="#1E2530" stroke="#1E2530"/>
+<text x="224" y="151" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">fact_age</text>
+<rect x="372" y="130" width="136" height="34" rx="6" fill="#1E2530" stroke="#1E2530"/>
+<text x="440" y="151" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">fact_quarter</text>
+<rect x="588" y="130" width="136" height="34" rx="6" fill="#1E2530" stroke="#1E2530"/>
+<text x="656" y="151" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">fact_year</text>
+<text x="12" y="198" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#5A6474">Fact tables (dark) and dimensions (light), drawn from relationships.tmdl: 14 relationships.</text>
 </svg>

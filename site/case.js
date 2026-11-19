@@ -49,9 +49,9 @@
   /* ---------- charts */
   var css = getComputedStyle(document.documentElement);
   function cv(name, dflt) { return css.getPropertyValue(name).trim() || dflt; }
-  var COL = { navy: cv("--accent", "#004B87"), amber: cv("--amber", "#B47C00"), grey: cv("--grey", "#85827D"), teal: cv("--teal", "#24707D"),
-              muted: cv("--muted", "#575757"), line: cv("--line", "#DDDBD7"), light: "#B2C9DB" };
-  if (window.Chart) { Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif'; Chart.defaults.color = COL.muted; }
+  var COL = { navy: cv("--accent", "#1F5F99"), amber: cv("--amber", "#C26A1B"), grey: cv("--grey", "#7A818C"), teal: cv("--teal", "#24707D"),
+              muted: cv("--muted", "#5A6474"), line: cv("--line", "#DFE1E4"), light: "#BCCFE0" };
+  if (window.Chart) { Chart.defaults.font.family = 'Inter, "Segoe UI", system-ui, sans-serif'; Chart.defaults.color = COL.muted; }
 
   var valueLabels = {
     id: "valueLabels",
@@ -63,10 +63,10 @@
         dctx.save(); dctx.textAlign = "center"; dctx.textBaseline = "middle";
         chart.getDatasetMeta(0).data.forEach(function (arc, i) {
           var pos = arc.tooltipPosition();
-          dctx.fillStyle = i === 0 ? "#FFFFFF" : cv("--text", "#1A1A1A");
-          dctx.font = '700 18px "Segoe UI", system-ui, sans-serif';
+          dctx.fillStyle = i === 0 ? "#FFFFFF" : cv("--text", "#1E2530");
+          dctx.font = '700 18px Inter, "Segoe UI", system-ui, sans-serif';
           dctx.fillText((100 * vals[i] / tot).toFixed(1) + "%", pos.x, pos.y - 10);
-          dctx.font = '400 13px "Segoe UI", system-ui, sans-serif';
+          dctx.font = '400 13px Inter, "Segoe UI", system-ui, sans-serif';
           dctx.fillText(Number(vals[i]).toLocaleString("en-CA"), pos.x, pos.y + 12);
         });
         dctx.restore();
@@ -74,7 +74,7 @@
       }
       if (!opts.show) return;
       var ctx = chart.ctx; ctx.save();
-      ctx.fillStyle = cv("--text", "#1A1A1A"); ctx.font = '600 12px "Segoe UI", system-ui, sans-serif';
+      ctx.fillStyle = cv("--text", "#1E2530"); ctx.font = '600 12px Inter, "Segoe UI", system-ui, sans-serif';
       var horizontal = chart.options.indexAxis === "y";
       chart.getDatasetMeta(0).data.forEach(function (bar, i) {
         var v = chart.data.datasets[0].data[i];
@@ -106,7 +106,7 @@
         tooltip: { callbacks: { label: function (x) { return " " + x.label + ": " + fmt(x.raw) + " (" + (100 * x.raw / c.values.reduce(function (a, b) { return a + b; }, 0)).toFixed(1) + "%)"; } } } } };
     } else {
       var grouped = !!c.datasets;
-      var yearCols = [COL.light, "#6693B7", COL.navy];
+      var yearCols = [COL.light, "#799FC2", COL.navy];
       var datasets = grouped
         ? c.datasets.map(function (d, i) {
             var lc = d.color || [COL.navy, COL.teal, COL.amber][i % 3];

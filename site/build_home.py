@@ -232,6 +232,7 @@ page = """<!doctype html>
   <meta name="twitter:image" content="%(base)simages/social-card.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="home.css">
@@ -325,6 +326,7 @@ def case_page(p):
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="theme.css">
@@ -362,7 +364,7 @@ open("404.html", "w", encoding="utf-8").write("""<!doctype html>
 <html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found | Mihir Jasani</title><meta name="robots" content="noindex">
 <link rel="icon" href="%(b)sfavicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="%(b)sstyles.css"><link rel="stylesheet" href="%(b)sbuttons.css"><link rel="stylesheet" href="%(b)shome.css"><link rel="stylesheet" href="%(b)spages.css"></head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="%(b)sstyles.css"><link rel="stylesheet" href="%(b)sbuttons.css"><link rel="stylesheet" href="%(b)shome.css"><link rel="stylesheet" href="%(b)spages.css"></head>
 <body class="home"><main id="content" style="max-width:640px;margin:12vh auto;padding:0 20px;text-align:center">
 <div class="eyebrow2" style="justify-content:center">404</div>
 <h1>That page does not exist.</h1>

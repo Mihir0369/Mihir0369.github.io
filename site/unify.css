@@ -4,7 +4,7 @@
   --mono: Consolas, "Courier New", monospace;
   --ease: .22s ease;
   --lift: -4px;
-  --hover-shadow: 0 16px 34px rgba(26,26,26,.13), 0 0 0 1px rgba(180,124,0,0.27);
+  --hover-shadow: 0 16px 34px rgba(30,37,48,.13), 0 0 0 1px rgba(194,106,27,0.27);
 }
 
 /* ---------- fonts ---------- */
@@ -25,7 +25,7 @@ body .btn, body a.btn, body button.btn {
 body .btn.small, body a.btn.small { padding: 9px 16px; min-height: 40px; font-size: 13.5px; }
 body .btn.impact { border-color: var(--accent); }
 body .btn:not(.impact):hover { background: var(--navy); color: var(--btnText); border-color: var(--navy); transform: translateY(-2px); text-decoration: none; }
-body .btn.impact:hover { background: var(--accentHover); border-color: var(--accentHover); color: var(--btnText); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,75,135,0.32); text-decoration: none; }
+body .btn.impact:hover { background: var(--accentHover); border-color: var(--accentHover); color: var(--btnText); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(31,95,153,0.32); text-decoration: none; }
 body .on-dark .btn:not(.impact) { background: transparent; color: var(--btnText); border-color: var(--btnBorder); }
 body .on-dark .btn:not(.impact):hover { background: var(--surface); color: var(--navy); border-color: var(--surface); }
 
@@ -67,7 +67,7 @@ body.inner .s-viz, body.inner .model-diagram img, body.inner .sqlq pre, body.inn
   transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease), background-color var(--ease);
 }
 /* blocks that hold charts or code: edge and shadow only, so tooltips and text selection stay steady */
-body.inner .s-viz:hover, body.inner .model-diagram img:hover, body.inner .sqlq pre:hover, body.inner .exec:hover, body.inner .coverage:hover { border-color: var(--amber); box-shadow: 0 12px 28px rgba(26,26,26,.10); }
+body.inner .s-viz:hover, body.inner .model-diagram img:hover, body.inner .sqlq pre:hover, body.inner .exec:hover, body.inner .coverage:hover { border-color: var(--amber); box-shadow: 0 12px 28px rgba(30,37,48,.10); }
 /* small cards and links: lift, edge and shadow */
 body.inner .pipeline .step:hover, body.inner .next-nav a:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
 body.inner .sqlq:hover { transform: none; }
@@ -90,7 +90,7 @@ body.inner .shot { overflow: hidden; }
 body.inner .s-chapter .n, body.inner .pipeline .step .i, body.inner .step .i { color: var(--contrastText); font-weight: 800; }
 /* method steps: separate cards instead of one glued strip */
 body.inner .pipeline { gap: 14px; background: transparent; border: 0; border-radius: 0; overflow: visible; }
-body.inner .pipeline .step { padding: 16px 18px; box-shadow: 0 9px 23px rgba(26,26,26,0.04); }
+body.inner .pipeline .step { padding: 16px 18px; box-shadow: 0 9px 23px rgba(30,37,48,0.04); }
 /* SQL: each query is one card (title, description and code lift together) */
 body.inner .sqlq { padding: 20px 22px 22px; margin: 18px 0; }
 body.inner .sqlq pre { margin: 0; }
@@ -109,16 +109,16 @@ body.inner .next-nav { margin: 36px 0 56px; width: 100%; }
 body.inner .next-nav a { max-width: none; width: 100%; box-sizing: border-box; }
 
 /* hero preview: same card and hover as every other card */
-body.home .hshot .win { border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 9px 23px rgba(26,26,26,0.04); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+body.home .hshot .win { border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 9px 23px rgba(30,37,48,0.04); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
 body.home .hshot:hover .win, body.home .hshot:focus-visible .win { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
 @media (hover: none), (prefers-reduced-motion: reduce) { body.home .hshot:hover .win { transform: none !important; } }
 
 /* hero preview: an always-visible call to action, so it clearly reads as clickable */
 body.home .hshot .win { position: relative; cursor: pointer; }
-body.home .hshot .wover { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 70px 16px 20px; background: linear-gradient(to bottom, rgba(26,26,26,0) 0%, rgba(26,26,26,.62) 62%, rgba(26,26,26,.82) 100%); pointer-events: none; }
-body.home .hshot .wbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; min-height: 44px; border-radius: 8px; background: var(--accent); border: 1.5px solid var(--accent); color: var(--btnText); font-size: 14px; font-weight: 750; line-height: 1.2; box-shadow: 0 8px 22px rgba(0,75,135,.3); transition: transform var(--ease), background-color var(--ease), box-shadow var(--ease); }
+body.home .hshot .wover { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 70px 16px 20px; background: linear-gradient(to bottom, rgba(30,37,48,0) 0%, rgba(30,37,48,.62) 62%, rgba(30,37,48,.82) 100%); pointer-events: none; }
+body.home .hshot .wbtn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; min-height: 44px; border-radius: 8px; background: var(--accent); border: 1.5px solid var(--accent); color: var(--btnText); font-size: 14px; font-weight: 750; line-height: 1.2; box-shadow: 0 8px 22px rgba(31,95,153,.3); transition: transform var(--ease), background-color var(--ease), box-shadow var(--ease); }
 body.home .hshot .wover small { color: var(--footText); font-size: 12.5px; font-weight: 600; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,.35); }
-body.home .hshot:hover .wbtn, body.home .hshot:focus-visible .wbtn { background: var(--accentHover); border-color: var(--accentHover); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,75,135,0.32); }
+body.home .hshot:hover .wbtn, body.home .hshot:focus-visible .wbtn { background: var(--accentHover); border-color: var(--accentHover); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(31,95,153,0.32); }
 @media (max-width: 560px) { body.home .hshot .wover small { display: none; } body.home .hshot .wover { padding-top: 50px; } }
 @media (prefers-reduced-motion: reduce) { body.home .hshot:hover .wbtn { transform: none; } }
 
@@ -129,8 +129,8 @@ body.inner .s-pbi .pbi-stats > .pst:hover { transform: translateY(-2px); border-
 
 /* analysis chapters: the text and the chart are two matching cards, equal height, same hover */
 body.inner .s-chapter { align-items: stretch; }
-body.inner .s-chapter .text { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 26px 28px; box-shadow: 0 9px 23px rgba(26,26,26,0.04); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
-body.inner .s-chapter .s-viz { box-shadow: 0 9px 23px rgba(26,26,26,0.04); }
+body.inner .s-chapter .text { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 26px 28px; box-shadow: 0 9px 23px rgba(30,37,48,0.04); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+body.inner .s-chapter .s-viz { box-shadow: 0 9px 23px rgba(30,37,48,0.04); }
 body.inner .s-chapter .text:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
 @media (hover: none), (prefers-reduced-motion: reduce) { body.inner .s-chapter .text:hover { transform: none !important; } }
 

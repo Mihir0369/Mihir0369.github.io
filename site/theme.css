@@ -1,6 +1,6 @@
 /* Overall design for the case pages and the About page (same look as the homepage). Loaded after styles.css. */
 body.inner { background: var(--bg); -webkit-font-smoothing: antialiased; }
-.inner header.site { position: sticky; top: 0; z-index: 40; background: var(--paper2); border-bottom: 1px solid var(--line); box-shadow: 0 6px 24px rgba(26,26,26,.03); }
+.inner header.site { position: sticky; top: 0; z-index: 40; background: var(--paper2); border-bottom: 1px solid var(--line); box-shadow: 0 6px 24px rgba(30,37,48,.03); }
 .inner header.site a:not(.btn) { color: var(--muted); text-decoration: none; }
 .inner header.site .wrap2 { width: min(1160px, calc(100% - 72px)); margin: auto; height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .inner .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 17px; letter-spacing: -.02em; color: var(--text) !important; }
@@ -27,7 +27,7 @@ body.inner { background: var(--bg); -webkit-font-smoothing: antialiased; }
 
 /* cards and panels */
 .inner .kpi, .inner .side-card, .inner .rec, .inner .panel, .inner .step, .inner .helpcard, .inner .skill, .inner .fact, .inner .pst, .inner .viz, .inner .s-viz .chartbox, .inner .shot {
-  border-radius: 12px; box-shadow: 0 9px 23px rgba(26,26,26,0.04);
+  border-radius: 12px; box-shadow: 0 9px 23px rgba(30,37,48,0.04);
 }
 .inner .side-card { border: 1px solid var(--line); }
 .inner .s-head .bottom { border-left-color: var(--contrast); border-radius: 0 7px 7px 0; }
@@ -55,9 +55,9 @@ body.inner { background: var(--bg); -webkit-font-smoothing: antialiased; }
 
 /* report page cards pop up on hover and open in a viewer */
 .inner .shot { transition: transform .2s, box-shadow .2s; }
-.inner .shot:hover { transform: translateY(-5px); box-shadow: 0 15px 34px rgba(26,26,26,0.10); }
+.inner .shot:hover { transform: translateY(-5px); box-shadow: 0 15px 34px rgba(30,37,48,0.10); }
 .inner .shot a { cursor: zoom-in; display: block; }
-.viewer { position: fixed; inset: 0; background: rgba(26,26,26,.78); z-index: 99; display: none; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(5px); }
+.viewer { position: fixed; inset: 0; background: rgba(30,37,48,.78); z-index: 99; display: none; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(5px); }
 .viewer.open { display: flex; }
 .viewer-box { position: relative; max-width: min(1300px, 100%); max-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .viewer-img { max-width: 100%; max-height: calc(100vh - 130px); width: auto; height: auto; background: var(--surface); border-radius: 8px; box-shadow: 0 25px 85px rgba(0,0,0,.4); }
@@ -118,7 +118,7 @@ body.inner { background: var(--bg); -webkit-font-smoothing: antialiased; }
 .model-diagram img { max-width: 100%; }
 
 /* ---- project page: sticky page bar, stronger section headings, compact report section ---- */
-.pagenav { position: sticky; top: 76px; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px -12px 10px; padding: 10px 12px; background: rgba(245,243,238,.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); border-radius: 0 0 12px 12px; }
+.pagenav { position: sticky; top: 76px; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px -12px 10px; padding: 10px 12px; background: rgba(247,248,250,.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); border-radius: 0 0 12px 12px; }
 .pagenav span { font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
 .pagenav a { background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 7px 14px; font-size: 13.5px; font-weight: 700; color: var(--accent) !important; text-decoration: none; transition: border-color .2s, background .2s, transform .18s; }
 .pagenav a:hover { border-color: var(--contrast); background: var(--contrastSoft); transform: translateY(-2px); }
