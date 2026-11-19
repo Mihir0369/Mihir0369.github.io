@@ -113,7 +113,7 @@ main = """
             <div class="portrait"><span class="mono-big">MJ</span>%(photo)s</div>
             <div>
               <div class="hname">Mihir Jasani</div>
-              <div class="role"><b>Data Analyst</b> at Elevara Digital, Toronto</div>
+              <div class="role"><b>BI Developer</b> at Elevara Digital, Toronto</div>
             </div>
           </div>
           <h1>From messy data to <em>clear business decisions.</em></h1>
@@ -121,7 +121,7 @@ main = """
           <div class="skillline">Power BI &middot; DAX &middot; SQL &middot; Python &middot; Microsoft Fabric</div>
           <div class="acts">
             <a class="btn impact" href="#projects">Explore my Project work &#8599;</a>
-            <a class="btn" id="resume" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
+            <a class="btn" id="resume" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
             <a class="btn" id="email0" href="%(mailto)s">Email me</a>
             <a class="btn" id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
           </div>
@@ -163,7 +163,7 @@ main = """
           <div class="eyebrow2">03 / About and approach</div>
           <h2>I turn messy data into decisions people can trust.</h2>
           <p>%(about)s</p>
-          <div class="acts"><a class="btn impact" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a><a class="btn" href="%(mailto)s">Email me</a></div>
+          <div class="acts"><a class="btn impact" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a><a class="btn" href="%(mailto)s">Email me</a></div>
         </div>
         <div class="traits">%(traits)s</div>
       </div>
@@ -198,7 +198,7 @@ main = """
         </div>
         <div class="cbtns">
           <a class="btn impact" id="email" href="%(mailto)s">Email me &#8599;</a>
-          <a class="btn" href="downloads/Mihir-Jasani-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
+          <a class="btn" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
           <a class="btn" id="linkedin2" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
         </div>
       </div>

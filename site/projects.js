@@ -7,7 +7,7 @@ window.PROFILE = {
   intro: "I'm Mihir Jasani, a data analyst. I write the SQL, clean and reconcile the data, and build the Power BI dashboards that management uses to make decisions, most recently at Elevara Digital. I'm certified in Power BI (PL-300) and Microsoft Fabric (DP-600). My day-to-day work is confidential, so these case studies (four completed, one in development) use real Canadian public data. Each one is a short story: the question, the data, what I found and what I'd recommend.",
   email: "mailto:mihirjasani369@gmail.com",
   linkedin: "https://www.linkedin.com/in/mihir-jasani/",
-  resume: "downloads/Mihir-Jasani-Resume.pdf?v=2",
+  resume: "downloads/Mihir-Jasani-BI-Resume.pdf",
   certs: [
     { label: "PL-300 Power BI Data Analyst Associate", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/EC785C0EC14FA2EC?sharingId=43D033F7F8EE565A" },
     { label: "DP-600 Fabric Analytics Engineer Associate", url: "https://learn.microsoft.com/api/credentials/share/en-us/MihirJasani-7391/51AF5C13B57788B4?sharingId=43D033F7F8EE565A" }
@@ -850,7 +850,7 @@ window.PROFILE.story = {
     ["50%", "Reduction in sales deal-tracking time", "Impact Zero", "Reported result"],
     ["$400K+", "Sales pipeline covered by one Power BI dashboard", "Impact Zero", "Pipeline value tracked, not revenue won"],
     ["30%", "Potential procurement cost savings identified", "Scalezix", "Potential savings, not realized"],
-    ["22 hrs", "Weekly reporting effort removed", "Scalezix", "Reported result, per week"]
+    ["22 hrs", "Reporting effort removed", "Scalezix", "Reported result, per week"]
   ],
   impactNote: "Figures are as reported on my resume. Pipeline coverage is the value of deals the dashboard tracked, not revenue won, and procurement savings are potential savings identified in spend data, not savings realized.",
 };
