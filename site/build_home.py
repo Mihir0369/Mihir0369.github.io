@@ -1,5 +1,5 @@
 """Build the static site from projects.js and evidence.js:
-  - index.html: Hero > Impact > Projects > About > Skills > Experience > Contact
+  - index.html: Hero > Projects > About > Skills > Experience > Contact
   - one crawlable page per finished project: <id>.html (with its own title, description, canonical and social tags)
   - case.html (legacy link) redirects to the project page; sitemap.xml
 Run from the site folder after editing projects.js:  python build_evidence.py && python build_home.py"""
@@ -140,20 +140,9 @@ main = """
       </div>
     </section>
 
-    <section class="impact2" id="impact">
-      <div class="wrap2">
-        <div class="ihead">
-          <div><div class="eyebrow2">01 / Results</div><h2>Results I have delivered</h2></div>
-        </div>
-        <div class="igrid">
-          %(impact)s
-        </div>
-      </div>
-    </section>
-
     <section class="sec" id="work">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">02 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div></div>
+        <div class="sec-head"><div><div class="eyebrow2">01 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div></div>
         <nav class="pnav" id="projects" aria-label="Jump to a project"><span>Jump to</span>%(pnav)s</nav>
         %(projects)s
         <div class="mini-foot"><span>Showing %(nd)d finished case studies &middot; %(nv)d in development</span><a class="btn small" target="_blank" rel="noopener" href="https://github.com/Mihir0369/Mihir0369.github.io">View GitHub repository &#8599;</a></div>
@@ -163,7 +152,7 @@ main = """
     <section class="sec alt" id="about">
       <div class="wrap2 about2">
         <div>
-          <div class="eyebrow2">03 / About and approach</div>
+          <div class="eyebrow2">02 / About and approach</div>
           <h2>I turn messy data into decisions people can trust.</h2>
           <p>%(about)s</p>
           <div class="acts"><a class="btn impact" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a><a class="btn" href="%(mailto)s">Email me</a></div>
@@ -174,7 +163,7 @@ main = """
 
     <section class="sec" id="skills">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">04 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div></div>
+        <div class="sec-head"><div><div class="eyebrow2">03 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div></div>
         <div class="glabel">Certifications</div>
         <div class="certs">%(certs)s</div>
         <div class="glabel">Tools</div>
@@ -186,7 +175,7 @@ main = """
 
     <section class="sec alt" id="experience">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">05 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div></div>
+        <div class="sec-head"><div><div class="eyebrow2">04 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div></div>
         %(exp)s
       </div>
     </section>
