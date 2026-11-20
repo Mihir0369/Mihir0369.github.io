@@ -127,8 +127,8 @@ main = """
           <div class="hl-head"><span class="hl-eyebrow">Case studies</span><span class="hl-meta">Public Canadian data</span></div>
           <ul class="hl-rows">
             <li><a class="hrow2" href="toronto-311.html"><span class="hr-tag">Public sector</span><span class="hr-name">Toronto 311</span><span class="hr-find"><b>49.45%%</b> of parks requests are still open. No other division is above 7%%.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
-            <li><a class="hrow2" href="household-credit.html"><span class="hr-tag">Banking</span><span class="hr-name">Household credit</span><span class="hr-find">Borrowing reacts to rate changes about <b>18&nbsp;months</b> later.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
-            <li><a class="hrow2" href="collision-risk.html"><span class="hr-tag">Insurance</span><span class="hr-name">Road collisions</span><span class="hr-find">Overnight collisions are <b>2.24&times;</b> as likely to be fatal as daytime ones.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
+            <li><a class="hrow2" href="household-credit.html"><span class="hr-tag">Banking</span><span class="hr-name">Household credit</span><span class="hr-find">Credit growth lines up best with rate changes from about <b>18&nbsp;months</b> earlier.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
+            <li><a class="hrow2" href="collision-risk.html"><span class="hr-tag">Insurance</span><span class="hr-name">Road collisions</span><span class="hr-find">Of recorded collisions, overnight ones are <b>2.24&times;</b> as likely to be fatal.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
             <li><a class="hrow2" href="substance-harms.html"><span class="hr-tag">Healthcare</span><span class="hr-name">Opioid harms</span><span class="hr-find">Deaths fell <b>29%%</b> from the 2023 peak. Ambulance calls fell only 8%%.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
           </ul>
           <div class="hl-foot"><a href="#projects">See all case studies &#8594;</a></div>

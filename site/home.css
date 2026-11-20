@@ -549,3 +549,5 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hl-foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 560px) { .hlist { padding: 18px 4px 14px; } .hrow2, .hl-head { padding-left: 16px; padding-right: 16px; } .hl-foot { margin: 6px 16px 0; } }
 .hrow2 { padding: 12px 20px; } .hr-name { font-size: 15.5px; } .hr-find { font-size: 13.5px; margin-top: 2px; } .hlist { padding: 18px 8px 14px; } .hl-head { padding-bottom: 6px; }
+.hero-g .portrait { width: 120px; height: 120px; }
+@media (max-width: 560px) { .hero-g .portrait { width: 96px; height: 96px; } }
