@@ -98,7 +98,8 @@ certs = "".join(
 stack = "".join('<div class="scard"><h3>%s</h3><div class="tags2">%s</div></div>' % (E(t), tags(xs)) for t, xs in P["stack"])
 traits = "".join('<div class="trait"><i>%02d</i><b>%s</b><span>%s</span></div>' % (i + 1, E(a), E(b)) for i, (a, b) in enumerate(S["traits"]))
 impact = "".join('<div class="cell"><strong>%s</strong><span>%s</span><em>%s</em></div>' % (E(a), E(b), E(c)) for a, b, c, d in S["impact"])
-proof = "".join('<a class="chip-c" href="%s" target="_blank" rel="noopener" title="Verify on Microsoft Learn" aria-label="Microsoft %s certification, verify on Microsoft Learn">&#10003; %s &#8599;</a>' % (E(c["url"]), E(c["label"].split(" ")[0]), E(c["label"].split(" ")[0])) for c in P["certs"])
+CERT_SHORT = {"PL-300": "Power BI", "DP-600": "Fabric"}
+proof = "".join('<a class="chip-c" href="%s" target="_blank" rel="noopener" title="Verify on Microsoft Learn" aria-label="Microsoft %s %s certification, verify on Microsoft Learn">&#10003; %s <span class="cn">%s</span> &#8599;</a>' % (E(c["url"]), E(c["label"].split(" ")[0]), E(CERT_SHORT.get(c["label"].split(" ")[0], "")), E(c["label"].split(" ")[0]), E(CERT_SHORT.get(c["label"].split(" ")[0], ""))) for c in P["certs"])
 
 FRONT, BACK = "images/03-outcomes.webp", "images/cr-2-when.webp"
 FW, FH = dims("images/03-outcomes.png")
@@ -114,20 +115,27 @@ main = """
           </div>
           <h1 class="hname1">Mihir Jasani</h1>
           <p class="htitle"><b>BI Developer</b> &middot; Power BI, SQL Server, Microsoft Fabric &middot; Toronto</p>
-          <p class="lead">Currently at Elevara Digital, building semantic models and reports on Microsoft Fabric.</p>
+          <p class="lead">I work at Elevara Digital, where the thing I&rsquo;m proudest of is a KPI library that gives 1,000+ metrics one agreed definition each, so reports stop disagreeing. Before that, I built sales reporting at Impact Zero in Toronto and procurement reporting at Scalezix in Ahmedabad.</p>
           <div class="acts">
             <a class="btn impact" href="#projects">See my work</a>
             <a class="btn" id="resume" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">Resume (PDF) &#8599;</a>
             <span class="hlinks"><a id="email0" href="%(mailto)s">Email</a><a id="linkedin" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a></span>
           </div>
-          <div class="trust"><span class="avail"><i></i>Open to BI roles &middot; Toronto</span>%(proof)s</div>
+          <div class="trust">%(proof)s</div>
         </div>
-        <a class="hshot" href="toronto-311.html" aria-label="Open the Toronto 311 case study">
-          <span class="win">
-            <span class="wbar"><span class="dots"><i></i><i></i><i></i></span><b>Featured case study &middot; Toronto 311</b></span>
-            <img src="%(front)s" width="%(fw)d" height="%(fh)d" alt="Power BI report from the Toronto 311 case study: share of requests recorded as open by division" fetchpriority="high" decoding="async">
-            <span class="wover"><span class="wbtn">View case study &#8599;</span><small>Executive summary, SQL, data model and all report pages</small></span>
-          </span>
+        <a class="hcard" href="toronto-311.html" aria-label="Read the Toronto 311 case study">
+          <span class="hc-top"><span class="hc-eyebrow">Featured case study &middot; Toronto 311</span><span class="hc-meta">2025 &middot; share of requests still open</span></span>
+          <span class="hc-title">One division leaves half its requests open</span>
+          <span class="hc-sub">Parks, Forestry &amp; Environment against every other City division</span>
+          <ul class="hc-bars" aria-label="Share of 2025 requests recorded as open, by division">
+              <li class="hrow on"><span class="hl">Parks, Forestry &amp; Environment</span><span class="ht"><span class="hb" style="width:100.0%%"></span></span><span class="hv">49.45%%</span></li>
+              <li class="hrow"><span class="hl">Transportation Services</span><span class="ht"><span class="hb" style="width:13.3%%"></span></span><span class="hv">6.60%%</span></li>
+              <li class="hrow"><span class="hl">Toronto Water</span><span class="ht"><span class="hb" style="width:11.6%%"></span></span><span class="hv">5.73%%</span></li>
+              <li class="hrow"><span class="hl">Municipal Licensing &amp; Standards</span><span class="ht"><span class="hb" style="width:11.4%%"></span></span><span class="hv">5.62%%</span></li>
+              <li class="hrow"><span class="hl">Solid Waste Management</span><span class="ht"><span class="hb" style="width:3.4%%"></span></span><span class="hv">1.67%%</span></li>
+              <li class="hrow"><span class="hl">311</span><span class="ht"><span class="hb" style="width:2.8%%"></span></span><span class="hv">1.37%%</span></li>
+          </ul>
+          <span class="hc-foot"><span>Built in Power BI and SQL &middot; City of Toronto Open Data, 1.35M requests</span><span class="hc-go">Read the case study &#8594;</span></span>
         </a>
       </div>
     </section>
