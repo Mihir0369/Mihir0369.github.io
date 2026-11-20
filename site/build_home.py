@@ -123,20 +123,16 @@ main = """
           </div>
           <div class="trust">%(proof)s</div>
         </div>
-        <a class="hcard" href="toronto-311.html" aria-label="Read the Toronto 311 case study">
-          <span class="hc-top"><span class="hc-eyebrow">Featured case study &middot; Toronto 311</span><span class="hc-meta">2025 &middot; share of requests still open</span></span>
-          <span class="hc-title">One division leaves half its requests open</span>
-          <span class="hc-sub">Parks, Forestry &amp; Environment against every other City division</span>
-          <ul class="hc-bars" aria-label="Share of 2025 requests recorded as open, by division">
-              <li class="hrow on"><span class="hl">Parks, Forestry &amp; Environment</span><span class="ht"><span class="hb" style="width:100.0%%"></span></span><span class="hv">49.45%%</span></li>
-              <li class="hrow"><span class="hl">Transportation Services</span><span class="ht"><span class="hb" style="width:13.3%%"></span></span><span class="hv">6.60%%</span></li>
-              <li class="hrow"><span class="hl">Toronto Water</span><span class="ht"><span class="hb" style="width:11.6%%"></span></span><span class="hv">5.73%%</span></li>
-              <li class="hrow"><span class="hl">Municipal Licensing &amp; Standards</span><span class="ht"><span class="hb" style="width:11.4%%"></span></span><span class="hv">5.62%%</span></li>
-              <li class="hrow"><span class="hl">Solid Waste Management</span><span class="ht"><span class="hb" style="width:3.4%%"></span></span><span class="hv">1.67%%</span></li>
-              <li class="hrow"><span class="hl">311</span><span class="ht"><span class="hb" style="width:2.8%%"></span></span><span class="hv">1.37%%</span></li>
+        <div class="hlist">
+          <div class="hl-head"><span class="hl-eyebrow">Case studies</span><span class="hl-meta">Public Canadian data</span></div>
+          <ul class="hl-rows">
+            <li><a class="hrow2" href="toronto-311.html"><span class="hr-tag">Public sector</span><span class="hr-name">Toronto 311</span><span class="hr-find"><b>49.45%%</b> of parks requests are still open. No other division is above 7%%.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
+            <li><a class="hrow2" href="household-credit.html"><span class="hr-tag">Banking</span><span class="hr-name">Household credit</span><span class="hr-find">Borrowing reacts to rate changes about <b>18&nbsp;months</b> later.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
+            <li><a class="hrow2" href="collision-risk.html"><span class="hr-tag">Insurance</span><span class="hr-name">Road collisions</span><span class="hr-find">Overnight collisions are <b>2.24&times;</b> as likely to be fatal as daytime ones.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
+            <li><a class="hrow2" href="substance-harms.html"><span class="hr-tag">Healthcare</span><span class="hr-name">Opioid harms</span><span class="hr-find">Deaths fell <b>29%%</b> from the 2023 peak. Ambulance calls fell only 8%%.</span><span class="hr-go" aria-hidden="true">&#8594;</span></a></li>
           </ul>
-          <span class="hc-foot"><span>Built in Power BI and SQL &middot; City of Toronto Open Data, 1.35M requests</span><span class="hc-go">Read the case study &#8594;</span></span>
-        </a>
+          <div class="hl-foot"><span>Power BI file, SQL checks and limits for each.</span><a href="#projects">See all &#8594;</a></div>
+        </div>
       </div>
     </section>
 
