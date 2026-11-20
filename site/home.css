@@ -527,3 +527,4 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hero-g .hbefore { margin: 12px 0 0; max-width: 580px; font-size: 15px; line-height: 1.6; color: var(--muted); }
 .hero-g .htitle::after { content: ""; display: block; width: 44px; height: 2px; margin-top: 20px; background: var(--accent); border-radius: 2px; opacity: .85; }
 .hero-g .htitle { margin-bottom: 20px; }
+.hero2 { background: var(--bg); }
