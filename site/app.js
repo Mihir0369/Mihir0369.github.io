@@ -33,8 +33,12 @@
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = links[links.length - 1];
     setActive(cur.getAttribute("href"));
   }
-  window.addEventListener("scroll", spy, { passive: true });
-  links.forEach(function (a) { a.addEventListener("click", function () { setActive(a.getAttribute("href")); }); });
+  // after a menu click, keep the clicked link selected while the page scrolls there,
+  // instead of lighting up every section it passes; resume normal tracking once scrolling stops
+  var locked = false, idle;
+  function unlockSoon() { clearTimeout(idle); idle = setTimeout(function () { locked = false; spy(); }, 140); }
+  window.addEventListener("scroll", function () { if (locked) unlockSoon(); else spy(); }, { passive: true });
+  links.forEach(function (a) { a.addEventListener("click", function () { setActive(a.getAttribute("href")); locked = true; unlockSoon(); }); });
   spy();
 
 
