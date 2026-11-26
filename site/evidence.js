@@ -2,7 +2,6 @@
 window.EVIDENCE = {
  "sql": {
   "toronto-311": {
-   "file": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/03-government-311/sql/analysis.sql",
    "items": [
     {
      "name": "Division scorecard (2025)",
@@ -22,7 +21,6 @@ window.EVIDENCE = {
    ]
   },
   "household-credit": {
-   "file": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/01-banking-household-credit/sql/analysis.sql",
    "items": [
     {
      "name": "Rates, yearly averages",
@@ -37,7 +35,6 @@ window.EVIDENCE = {
    ]
   },
   "collision-risk": {
-   "file": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/02-insurance-collision-risk/sql/analysis.sql",
    "items": [
     {
      "name": "Night against day",
@@ -57,7 +54,6 @@ window.EVIDENCE = {
    ]
   },
   "substance-harms": {
-   "file": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/05-healthcare-opioid-harms/sql/analysis.sql",
    "items": [
     {
      "name": "Uniqueness check",
@@ -212,8 +208,7 @@ window.EVIDENCE = {
    "rels": 4,
    "facts": [
     "requests"
-   ],
-   "src": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/03-government-311/powerbi/"
+   ]
   },
   "household-credit": {
    "img": "images/model-household-credit.svg",
@@ -222,16 +217,14 @@ window.EVIDENCE = {
     "fact_credit",
     "fact_debt",
     "fact_rates"
-   ],
-   "src": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/01-banking-household-credit/powerbi/"
+   ]
   },
   "collision-risk": {
    "img": "images/model-collision-risk.svg",
    "rels": 17,
    "facts": [
     "fact_person"
-   ],
-   "src": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/02-insurance-collision-risk/powerbi/"
+   ]
   },
   "substance-harms": {
    "img": "images/model-substance-harms.svg",
@@ -240,8 +233,7 @@ window.EVIDENCE = {
     "fact_age",
     "fact_quarter",
     "fact_year"
-   ],
-   "src": "https://github.com/Mihir0369/Mihir0369.github.io/blob/main/05-healthcare-opioid-harms/powerbi/"
+   ]
   }
  },
  "built": "November 2026"

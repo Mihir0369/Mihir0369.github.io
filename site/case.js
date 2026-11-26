@@ -393,8 +393,6 @@
         b.appendChild(el("p", {}, q.why));
         var pre = el("pre", { "class": "code sqlcode" }); sql(pre, q.sql); b.appendChild(pre);
       });
-      var lk = el("a", { "class": "btn small", href: EV.sql[p.id].file, target: "_blank", rel: "noopener" }, "View the full SQL file on GitHub \u2197");
-      sq.appendChild(lk);
     }
 
     (function () {
@@ -722,10 +720,5 @@
 
   section("Limits of this analysis", ul(p.limits));
 
-  var repo = el("p", {});
-  repo.appendChild(document.createTextNode("Code, SQL and the method write-up: "));
-  repo.appendChild(el("a", { href: "https://github.com/Mihir0369/Mihir0369.github.io/tree/main/" + p.repo, target: "_blank", rel: "noopener" }, p.repo + "/ on GitHub"));
-  repo.appendChild(document.createTextNode("."));
   host = main;
-  section("Code and method", repo);
 })();
