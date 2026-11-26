@@ -200,12 +200,12 @@ page = """<!doctype html>
   <meta property="og:title" content="Mihir Jasani | BI Developer (Power BI, SQL, Fabric) | Toronto">
   <meta property="og:description" content="Four completed Power BI case studies on Canadian public data, each with SQL checks, documented DAX and stated limits.">
   <meta property="og:url" content="%(base)s">
-  <meta property="og:image" content="%(base)simages/social-card.png">
+  <meta property="og:image" content="%(base)simages/social-card.png?v=2">
   <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image:height" content="627">
   <meta property="og:image:alt" content="Mihir Jasani, BI developer in Toronto: Power BI, SQL and Microsoft Fabric">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="%(base)simages/social-card.png">
+  <meta name="twitter:image" content="%(base)simages/social-card.png?v=2">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
