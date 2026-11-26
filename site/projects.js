@@ -32,7 +32,7 @@ window.PROFILE = {
     ["Delivery", "short written findings, limits stated, recommendations a decision-maker can use"]
   ],
   education: [
-    "Graduate Certificate, Business Insights and Analytics, Humber Polytechnic",
+    "Graduate Certificate, Business Insights and Analytics, Humber College",
     "B.Tech, Information Technology, P.P. Savani University"
   ]
 };
@@ -855,12 +855,13 @@ window.PROFILE.story = {
   impactNote: "Figures are as reported on my resume. Pipeline coverage is the value of deals the dashboard tracked, not revenue won, and procurement savings are potential savings identified in spend data, not savings realized.",
 };
 window.PROFILE.stack = [
-  ["Reporting and modelling", ["Power BI", "DAX", "Power Query", "Star-schema models", "Time intelligence", "Calculation groups", "What-if parameters", "Drill-through", "PBIP / TMDL"]],
-  ["Data preparation", ["Alteryx", "SQL", "MySQL", "SQLite", "Python (pandas)", "API extraction (requests)", "HubSpot CRM data", "Microsoft Access"]],
-  ["Excel and office tools", ["Pivot Tables", "XLOOKUP", "Power Query", "Power Pivot", "Charts", "PowerPoint", "Word"]],
-  ["Automation and apps", ["Streamlit", "FastAPI", "Docker", "AWS EC2", "GitHub Actions"]],
-  ["Platform and delivery", ["Microsoft Fabric", "Lakehouse", "Notebooks", "Semantic models", "Git and GitHub"]],
-  ["Data quality and analysis practice", ["Data cleansing", "Validation", "Reconciliation", "Calculation documentation", "Requirements gathering", "KPI definition", "Stakeholder communication"]]
+  ["Power BI", ["DAX", "Power Query", "Star-schema data modelling", "Row-level security (RLS)", "On-premises data gateway", "Deployment and workspace management", "PBIP files"]],
+  ["Microsoft Fabric", ["Lakehouse", "Warehouse", "Direct Lake semantic models", "OneLake", "Notebooks", "Azure Data Factory", "Semantic Link", "REST API"]],
+  ["SQL and ETL", ["SQL Server (T-SQL)", "MySQL", "Stored procedures and views", "CTEs and window functions", "SSIS", "SSRS", "Alteryx"]],
+  ["Excel and Python", ["Power Query", "Pivot Tables", "VLOOKUP and INDEX-MATCH", "Python", "Streamlit", "HubSpot CRM data"]],
+  ["AI-assisted BI", ["Claude Code", "Codex", "MCP servers", "PBIP-based model and report changes"]],
+  ["Data governance", ["KPI library", "Report catalog", "Master data management", "Data validation and reconciliation"]],
+  ["Ways of working", ["Agile sprints", "Requirements scoping", "Data storytelling", "Presenting to leadership", "Training report users"]]
 ];
 window.PROFILE.experienceStory = [{"when": "Sept 2025 - Present", "role": "BI Developer", "org": "Elevara Digital, Toronto, ON", "items": [["Built and maintained end-to-end Power BI solutions for clients, from data preparation and modelling through deployment, and communicated operational trends to support management decisions.", "", ""], ["Built shared semantic models on Fabric Lakehouse and Warehouse, with T-SQL views in the Warehouse as curated reporting layers, giving multiple reports one trusted source.", "", ""], ["Connected Power BI to the on-prem SQL Server EDW through the data gateway, and moved large datasets into Fabric Lakehouse tables so semantic models could run in Direct Lake mode without scheduled refreshes.", "", ""], ["Designed star-schema semantic models and RLS, keeping heavy transformation at the SQL level, applying Power Query steps that fold back to the source wherever possible, and limiting DAX to report-level measures, keeping models efficient.", "", ""], ["Developed SQL Server stored procedures, views and complex queries (joins, CTEs, window functions) to clean, validate and reconcile datasets keeping reports accurate and consistent.", "", ""], ["Built an AI-assisted report catalog covering 50+ Power BI reports, their data sources and owners, helping users find the right report and reducing duplicate report requests.", "", ""], ["Developed an indicator library that standardized 1,000+ KPI definitions and calculation logic, giving reports across teams consistent numbers.", "", ""], ["Partnered with stakeholders in Agile sprints to scope reporting needs, define KPI logic and recommend reporting solutions.", "", ""]]}, {"when": "Jun 2023 - Sept 2025", "role": "Data Analyst Intern (Co-op), Peer Tutor", "org": "Impact Zero & Humber College, Toronto, ON", "items": [["Cleaned and consolidated HubSpot CRM data and built a Power BI dashboard covering $400K+ in pipeline revenue, cutting sales deal tracking time by 50%.", "", ""], ["Created custom reporting metrics and presented sales pipeline findings to leadership to support business decisions.", "", ""], ["Built a Python and Streamlit app that summarizes 100+ meeting notes and extracts action items, improving executive task follow-up by 35%.", "", ""], ["Delivered workshops and one-on-one support in Excel, Power BI and statistics, adapting explanations to each learner's technical level. Explained regression analysis and hypothesis testing in plain language, helping students apply them to coursework.", "", ""]]}, {"when": "Jul 2021 - Dec 2022", "role": "Data Analyst", "org": "Scalezix Technologies, Ahmedabad, India", "items": [["Used Excel Power Query, Pivot Tables, VLOOKUP and INDEX-MATCH to analyze procurement data, reducing effort by 22 hours.", "", ""], ["Wrote complex SQL queries, stored procedures and views to prepare data for reporting.", "", ""], ["Developed Power BI data models and dashboards to analyze procurement spend across purchasing channels, improving leadership visibility and identifying potential cost savings of 30%.", "", ""], ["Managed recurring weekly reporting deliverables and presented spend trends to non-technical stakeholders and trained 10 internal users on Power BI.", "", ""]]}];
 (function () {

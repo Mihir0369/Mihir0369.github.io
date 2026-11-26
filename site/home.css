@@ -551,3 +551,12 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hrow2 { padding: 12px 20px; } .hr-name { font-size: 15.5px; } .hr-find { font-size: 13.5px; margin-top: 2px; } .hlist { padding: 18px 8px 14px; } .hl-head { padding-bottom: 6px; }
 .hero-g .portrait { width: 120px; height: 120px; }
 @media (max-width: 560px) { .hero-g .portrait { width: 96px; height: 96px; } }
+
+/* Skills: plain two-column list instead of chip cards */
+.stack2 { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px 28px; }
+.stack2 .srow { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 18px 0; }
+.stack2 .srow + .srow { border-top: 1px solid var(--line); }
+.stack2 dt { font-size: 15px; font-weight: 700; color: var(--text); }
+.stack2 dd { margin: 0; font-size: 15px; line-height: 1.7; color: var(--muted); }
+@media (max-width: 640px) { .stack2 { padding: 4px 20px; } .stack2 .srow { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; } }
+.stack2 dd span { white-space: nowrap; }
