@@ -174,12 +174,13 @@ main = """
           <p class="cemail"><a href="%(mailto)s">%(emailtext)s</a></p>
         </div>
         <div class="cbtns">
-          <a class="btn impact" id="email" href="%(mailto)s">Email me &#8599;</a>
+          <a class="btn impact" id="book" href="%(book)s" target="_blank" rel="noopener">Book a 20-minute coffee chat &#8599;</a>
+          <a class="btn" id="email" href="%(mailto)s">Email me</a>
           <a class="btn" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
           <a class="btn" id="linkedin2" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
         </div>
       </div>
-    </section>""" % dict(emailtext=E(P["email"].replace("mailto:", "")), front=FRONT, back=BACK, fw=FW, fh=FH, bw=BW, bh=BH, mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, about=E(S["about"]), traits=traits, stack=stack, certs=certs,
+    </section>""" % dict(book=BOOK, emailtext=E(P["email"].replace("mailto:", "")), front=FRONT, back=BACK, fw=FW, fh=FH, bw=BW, bh=BH, mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, about=E(S["about"]), traits=traits, stack=stack, certs=certs,
                          exp="".join(xp(x) for x in P["experienceStory"]), projects="".join(card(p, i + 1) for i, p in enumerate(L)), pnav="".join('<a href="#proj-%s">%s</a>' % (p["id"], E(SHORT[p["id"]])) for p in L), nd=n_done, nv=n_dev)
 
 ld = {"@context": "https://schema.org", "@type": "Person", "name": P["name"], "jobTitle": "BI Developer", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},

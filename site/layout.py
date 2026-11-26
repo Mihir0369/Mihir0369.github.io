@@ -12,14 +12,15 @@ L.sort(key=lambda p: order.index(p["id"]) if p["id"] in order else 99)
 href = lambda p: p["id"] + ".html"
 tags = lambda xs: "".join('<span class="tag2">%s</span>' % E(t) for t in xs)
 
+BOOK = "https://calendar.app.google/yGT9TNy97ezvtcaW6"
 NAV = [("Home", "home"), ("Projects", "projects"), ("Skills", "skills"), ("Experience", "experience")]
 
 
 def header(prefix=""):
     links = "".join('<a href="%s#%s">%s</a>' % (prefix, h, n) for n, h in NAV)
     return ('<header class="site"><div class="wrap2"><a class="brand" href="index.html" id="brand"></a>'
-            '<nav class="menu" id="menu" aria-label="Main navigation">%s<a class="btn impact small" href="%s#contact">Let&#39;s connect &#8599;</a></nav>'
-            '<button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">&#9776;</button></div></header>') % (links, prefix)
+            '<nav class="menu" id="menu" aria-label="Main navigation">%s<a class="btn impact small" href="' + BOOK + '" target="_blank" rel="noopener">Let&#39;s connect &#8599;</a></nav>'
+            '<button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">&#9776;</button></div></header>') % links
 
 
 def footer(prefix=""):
