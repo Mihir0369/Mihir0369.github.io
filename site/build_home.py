@@ -142,7 +142,6 @@ main = """
         <div class="sec-head"><div><div class="eyebrow2">01 / Project work</div><h2>Real data. Real questions.<br>Clear, defensible findings.</h2></div></div>
         <nav class="pnav" id="projects" aria-label="Jump to a project"><span>Jump to</span>%(pnav)s</nav>
         %(projects)s
-        <div class="mini-foot"><span>Showing %(nd)d finished case studies &middot; %(nv)d in development</span></div>
       </div>
     </section>
 
@@ -350,4 +349,16 @@ open("404.html", "w", encoding="utf-8").write("""<!doctype html>
 urls = [""] + [href(p) for p in L]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'] + ["  <url><loc>%s%s</loc></url>" % (BASE_URL, u) for u in urls] + ["</urlset>"]
 open("sitemap.xml", "w", encoding="utf-8").write(chr(10).join(sm) + chr(10))
+# cache-busting: tag local CSS/JS with a short hash of the file, so browsers fetch the new version after each change
+import hashlib, glob
+def _ver(m):
+    f = m.group(2)
+    try: h = hashlib.md5(open(f, "rb").read()).hexdigest()[:8]
+    except OSError: return m.group(0)
+    return '%s="%s?v=%s"' % (m.group(1), f, h)
+for _f in ["index.html", "case.html"] + [href(p) for p in L]:
+    if os.path.exists(_f):
+        _t = open(_f, encoding="utf-8").read()
+        _t = re.sub(r'(href|src)="([a-z0-9_-]+\.(?:css|js))(?:\?v=[0-9a-f]+)?"', _ver, _t)
+        open(_f, "w", encoding="utf-8").write(_t)
 print("built: index + %d project pages (%d in development)" % (n_done, n_dev))

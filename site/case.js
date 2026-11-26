@@ -373,7 +373,7 @@
 
     if (EV.sql && EV.sql[p.id]) {
       var sq = sec("s-block", "SQL and data validation"); sq.id = "sql";
-      sq.appendChild(el("p", { "class": "pbi-note wrapnote" }, "Real queries from the project repository, shown unchanged."));
+      sq.appendChild(el("p", { "class": "pbi-note wrapnote" }, "Real queries from the project, shown unchanged."));
       EV.sql[p.id].items.forEach(function (q) {
         var b = div("sqlq", sq);
         var hd = div("sqlhead", b);
