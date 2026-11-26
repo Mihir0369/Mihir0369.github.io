@@ -573,3 +573,9 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .score-card ul { list-style: none; margin: 0; padding: 0; }
 .score-card li { font-size: 15px; line-height: 1.5; color: var(--text); padding: 9px 0; border-top: 1px solid var(--line); }
 @media (max-width: 900px) { .score { grid-template-columns: 1fr; } }
+/* Hero case-study list: same card hover as the rest of the site, clearer row hover */
+.hlist { transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+.hlist:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
+.hrow2:hover, .hrow2:focus-visible { background: var(--tint); }
+.hrow2:hover .hr-name, .hrow2:focus-visible .hr-name { color: var(--accent); }
+@media (hover: none), (prefers-reduced-motion: reduce) { .hlist:hover { transform: none; } }
