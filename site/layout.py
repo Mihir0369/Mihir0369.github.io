@@ -13,7 +13,7 @@ href = lambda p: p["id"] + ".html"
 tags = lambda xs: "".join('<span class="tag2">%s</span>' % E(t) for t in xs)
 
 BOOK = "https://calendar.app.google/yGT9TNy97ezvtcaW6"
-NAV = [("Home", "home"), ("Projects", "projects"), ("Skills", "skills"), ("Experience", "experience")]
+NAV = [("Home", "home"), ("Projects", "projects"), ("Skills", "skills"), ("Experience", "experience"), ("Contact", "contact")]
 
 
 def header(prefix=""):
