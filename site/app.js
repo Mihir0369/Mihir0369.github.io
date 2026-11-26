@@ -29,6 +29,8 @@
     if (!links.length) return;
     var cur = links[0];
     links.forEach(function (a) { var id = a.getAttribute("href").slice(1); if (id === "projects") id = "work"; var s = document.getElementById(id); if (s && s.getBoundingClientRect().top <= 120) cur = a; });
+    // the last section (Contact) is too short to reach the top of the screen: select it once the page is scrolled to the bottom
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = links[links.length - 1];
     setActive(cur.getAttribute("href"));
   }
   window.addEventListener("scroll", spy, { passive: true });
