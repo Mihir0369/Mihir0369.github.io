@@ -565,3 +565,11 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .stack2 { transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
 .stack2:hover { transform: translateY(var(--lift)); border-color: var(--amber); box-shadow: var(--hover-shadow); }
 @media (hover: none), (prefers-reduced-motion: reduce) { .stack2:hover { transform: none; } }
+
+/* Skills C: three core cards, then the rest as a list */
+.score { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.score-card { border-top: 3px solid var(--accent) !important; padding: 24px 26px 18px; }
+.score-card h3 { margin: 0 0 10px; font-size: 18px; color: var(--text); }
+.score-card ul { list-style: none; margin: 0; padding: 0; }
+.score-card li { font-size: 15px; line-height: 1.5; color: var(--text); padding: 9px 0; border-top: 1px solid var(--line); }
+@media (max-width: 900px) { .score { grid-template-columns: 1fr; } }

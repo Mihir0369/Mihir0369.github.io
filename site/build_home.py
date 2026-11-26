@@ -94,7 +94,9 @@ def xp(x):
 certs = "".join(
     '<div class="cert2"><span class="code">%s</span><div><b>%s</b><span>Microsoft Certified</span></div><a class="btn small" href="%s" target="_blank" rel="noopener">Verify &#8599;</a></div>'
     % (E(c["label"].split(" ")[0]), E(c["label"].split(" ", 1)[1]), E(c["url"])) for c in P["certs"])
-stack = "".join('<div class="srow"><dt>%s</dt><dd>%s</dd></div>' % (E(t), " &middot; ".join("<span>%s</span>" % E(x) for x in xs)) for t, xs in P["stack"])
+CORE = 3
+stack = ('<div class="score">' + "".join('<div class="scard score-card"><h3>%s</h3><ul>%s</ul></div>' % (E(t), "".join("<li>%s</li>" % E(x) for x in xs)) for t, xs in P["stack"][:CORE]) + '</div>'
+         + '<dl class="stack2">' + "".join('<div class="srow"><dt>%s</dt><dd>%s</dd></div>' % (E(t), " &middot; ".join("<span>%s</span>" % E(x) for x in xs)) for t, xs in P["stack"][CORE:]) + '</dl>')
 traits = "".join('<div class="trait"><i>%02d</i><b>%s</b><span>%s</span></div>' % (i + 1, E(a), E(b)) for i, (a, b) in enumerate(S["traits"]))
 impact = "".join('<div class="cell"><strong>%s</strong><span>%s</span><em>%s</em></div>' % (E(a), E(b), E(c)) for a, b, c, d in S["impact"])
 CERT_SHORT = {"PL-300": "Power BI", "DP-600": "Fabric"}
@@ -162,7 +164,7 @@ main = """
         <div class="glabel">Certifications</div>
         <div class="certs">%(certs)s</div>
         <div class="glabel">Tools</div>
-        <dl class="stack2">%(stack)s</dl>
+        %(stack)s
         <div class="glabel">Education</div>
         <div class="edu2"><div><b>Graduate Certificate, Business Insights and Analytics</b><span>Humber College, Toronto</span></div><div><b>B.Tech, Information Technology</b><span>P.P. Savani University</span></div></div>
       </div>
