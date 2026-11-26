@@ -12,7 +12,7 @@ L.sort(key=lambda p: order.index(p["id"]) if p["id"] in order else 99)
 href = lambda p: p["id"] + ".html"
 tags = lambda xs: "".join('<span class="tag2">%s</span>' % E(t) for t in xs)
 
-NAV = [("Home", "home"), ("Projects", "projects"), ("About", "about"), ("Skills", "skills"), ("Experience", "experience")]
+NAV = [("Home", "home"), ("Projects", "projects"), ("Skills", "skills"), ("Experience", "experience")]
 
 
 def header(prefix=""):

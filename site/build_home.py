@@ -146,21 +146,9 @@ main = """
       </div>
     </section>
 
-    <section class="sec alt" id="about">
-      <div class="wrap2 about2">
-        <div>
-          <div class="eyebrow2">02 / About and approach</div>
-          <h2>I turn messy data into decisions people can trust.</h2>
-          <p>%(about)s</p>
-          <div class="acts"><a class="btn impact" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a><a class="btn" href="%(mailto)s">Email me</a></div>
-        </div>
-        <div class="traits">%(traits)s</div>
-      </div>
-    </section>
-
-    <section class="sec" id="skills">
+    <section class="sec alt" id="skills">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">03 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div></div>
+        <div class="sec-head"><div><div class="eyebrow2">02 / Tech stack and certifications</div><h2>The tools behind the work.</h2></div></div>
         <div class="glabel">Certifications</div>
         <div class="certs">%(certs)s</div>
         <div class="glabel">Tools</div>
@@ -170,9 +158,9 @@ main = """
       </div>
     </section>
 
-    <section class="sec alt" id="experience">
+    <section class="sec" id="experience">
       <div class="wrap2">
-        <div class="sec-head"><div><div class="eyebrow2">04 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div></div>
+        <div class="sec-head"><div><div class="eyebrow2">03 / Experience</div><h2>What I did, what I delivered, what it changed.</h2></div></div>
         %(exp)s
       </div>
     </section>
