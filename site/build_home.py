@@ -168,16 +168,15 @@ main = """
     <section class="contact2 on-dark" id="contact">
       <div class="wrap2 in">
         <div>
-          <div class="eyebrow2">LET'S WORK TOGETHER</div>
-          <h2>Need someone who can turn reporting complexity into clarity?</h2>
-          <p>Based in Toronto, Ontario. Open to Data Analyst, BI Analyst, Reporting Analyst and related roles in Canada.</p>
+          <div class="eyebrow2">Contact</div>
+          <h2>Let&rsquo;s talk.</h2>
+          <p>I&rsquo;m a BI developer at Elevara Digital in Toronto. If you&rsquo;re hiring, working on something in Power BI or Fabric, or just want to compare notes, book a 20&#8209;minute coffee chat. Email works too.</p>
           <p class="cemail"><a href="%(mailto)s">%(emailtext)s</a></p>
         </div>
         <div class="cbtns">
           <a class="btn impact" id="book" href="%(book)s" target="_blank" rel="noopener">Book a 20-minute coffee chat &#8599;</a>
-          <a class="btn" id="email" href="%(mailto)s">Email me</a>
-          <a class="btn" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">View Resume (PDF) &#8599;</a>
           <a class="btn" id="linkedin2" href="%(linkedin)s" target="_blank" rel="noopener noreferrer">LinkedIn &#8599;</a>
+          <a class="btn" href="downloads/Mihir-Jasani-BI-Resume.pdf" target="_blank" rel="noopener">Resume (PDF) &#8599;</a>
         </div>
       </div>
     </section>""" % dict(book=BOOK, emailtext=E(P["email"].replace("mailto:", "")), front=FRONT, back=BACK, fw=FW, fh=FH, bw=BW, bh=BH, mailto=E(P["email"]), linkedin=E(P["linkedin"]), photo=PHOTO, proof=proof, impact=impact, about=E(S["about"]), traits=traits, stack=stack, certs=certs,

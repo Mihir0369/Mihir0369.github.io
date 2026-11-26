@@ -26,4 +26,4 @@ def header(prefix=""):
 def footer(prefix=""):
     return ('<footer class="foot"><div class="wrap2 fbot"><span>&copy; 2026 Mihir Jasani &middot; Data sources are credited on each case study. No employer or client data is used on this site.</span>'
             '<nav class="flinks" aria-label="Footer links"><a href="https://github.com/Mihir0369/Mihir0369.github.io" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/mihir-jasani/" target="_blank" rel="noopener">LinkedIn</a><a href="%s">Back to top &#8593;</a></nav>'
-            '<b>Clean data. Clear decisions.</b></div></footer>') % ("#home" if not prefix else "#content")
+            '</div></footer>') % ("#home" if not prefix else "#content")

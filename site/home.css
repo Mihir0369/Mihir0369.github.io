@@ -579,3 +579,4 @@ body.home { background: var(--bg) radial-gradient(circle at 12% 8%, var(--contra
 .hrow2:hover, .hrow2:focus-visible { background: var(--tint); }
 .hrow2:hover .hr-name, .hrow2:focus-visible .hr-name { color: var(--accent); }
 @media (hover: none), (prefers-reduced-motion: reduce) { .hlist:hover { transform: none; } }
+.contact2 .in > div:first-child p { max-width: 600px; }
