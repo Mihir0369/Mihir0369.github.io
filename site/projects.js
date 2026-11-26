@@ -119,8 +119,7 @@ window.PROJECTS = [
     ],
     techniques: ["Star schema", "Date table", "Year-over-year DAX", "Lag selector", "DAX variables", "Reset-filters bookmark", "Custom theme (JSON)", "PBIP + TMDL project"],
     downloads: [
-      { label: "Download report (PDF)", file: "downloads/household-credit-report.pdf", note: "All five report pages, as exported from Power BI Desktop." },
-      { label: "Download the Power BI project (.zip)", file: "downloads/household-credit-powerbi-project.zip", note: "The .pbip project plus the model CSVs. The README inside says how to set the CSV folder." }
+      { label: "Download report (PDF)", file: "downloads/household-credit-report.pdf", note: "All five report pages, as exported from Power BI Desktop." }
     ],
     chapters: [
       { visuals: [{ ref: 0 }] },
@@ -264,8 +263,7 @@ window.PROJECTS = [
     ],
     techniques: ["Star schema with unknown members", "Date table", "Time intelligence", "Calculation group", "What-if parameter", "Heat map by DAX colour", "Decomposition tree", "Data-quality page", "PBIP + TMDL project"],
     downloads: [
-      { label: "Download report (PDF)", file: "downloads/collision-risk-report.pdf", note: "All seven report pages, as exported from Power BI Desktop." },
-      { label: "Download the Power BI project (.zip)", file: "downloads/collision-risk-powerbi-project.zip", note: "The .pbip project plus the model CSVs (about 25 MB). The README inside says how to set the CSV folder." }
+      { label: "Download report (PDF)", file: "downloads/collision-risk-report.pdf", note: "All seven report pages, as exported from Power BI Desktop." }
     ],
     chapters: [
       { visuals: [{ ref: 0 }] },
@@ -393,8 +391,7 @@ window.PROJECTS = [
       { action: "Test whether duplicate or repeat calls drive cancellations on the cancel-heavy types. This is a hypothesis, not a finding.", owner: "311 service operations", track: "Cancelled share: 10.33% overall in 2025, 38.84% for dead-wildlife pick-up." }
     ],
     downloads: [
-      { label: "Download report (PDF)", file: "downloads/toronto-311-report.pdf", note: "All five report pages, as exported from Power BI Desktop." },
-      { label: "Download the Power BI project (.zip)", file: "downloads/toronto-311-powerbi-project.zip", note: "The .pbip project with the model, measures and pages, plus the monthly summary CSV. Open it in Power BI Desktop (free); the README inside says how to set the CSV path." }
+      { label: "Download report (PDF)", file: "downloads/toronto-311-report.pdf", note: "All five report pages, as exported from Power BI Desktop." }
     ],
     story: {
       bottom: "one division leaves about half its requests open, and request type names changed in 2025, so the 14.47% rise in demand cannot be split into more problems and new labels. The extract has no close date, so open means open at extraction, not a confirmed backlog, and time to close cannot be measured.",
@@ -744,8 +741,7 @@ window.PROJECTS = [
     ],
     techniques: ["Star schema", "Date table", "Slicer defaults in DAX", "Tile-grid map", "Heat map by DAX colour", "Suppression handling", "Data-quality page", "PBIP + TMDL project"],
     downloads: [
-      { label: "Download report (PDF)", file: "downloads/opioid-harms-report.pdf", note: "All six report pages, as exported from Power BI Desktop." },
-      { label: "Download the Power BI project (.zip)", file: "downloads/opioid-harms-powerbi-project.zip", note: "The .pbip project plus the model CSVs. The README inside says how to set the CSV folder." }
+      { label: "Download report (PDF)", file: "downloads/opioid-harms-report.pdf", note: "All six report pages, as exported from Power BI Desktop." }
     ],
     chapters: [
       { visuals: [{ ref: 0 }] },

@@ -234,9 +234,7 @@
 
     (function () {
       var ab = div("actions", h); h.insertBefore(ab, h.querySelector(".meta-row"));
-      var zip = (p.downloads || []).filter(function (d) { return /\.zip$/.test(d.file); })[0];
       [["#report", "View report", " impact"], ["#sql", "View SQL", ""], ["#model", "View data model", ""]].forEach(function (x) { ab.appendChild(el("a", { "class": "btn" + x[2], href: x[0] }, x[1])); });
-      if (zip) ab.appendChild(el("a", { "class": "btn", href: zip.file, download: "" }, "Download Power BI project"));
     })();
     (function () {
       var s = sec("s-exec", "Executive summary"); s.id = "summary";
@@ -276,7 +274,6 @@
     if (p.features && p.features.length) { var fw = div("report-includes", r); fw.appendChild(el("h3", {}, "What the report includes")); fw.appendChild(ul(p.features)); }
     var dls = div("dls", pf);
     (p.downloads || []).forEach(function (d, i) { dls.appendChild(el("a", { "class": "btn" + (i ? "" : " impact"), href: d.file, download: "" }, d.label)); });
-    if (p.downloads) r.appendChild(el("p", { "class": "pbi-note" }, "Open the .pbip file in Power BI Desktop (free). The model, DAX measures and report pages are all editable."));
 
     var kf = sec("s-tldr", "Key findings"); kf.id = "findings"; main.insertBefore(kf, r);
     var fnd = S.findings || p.found || [];

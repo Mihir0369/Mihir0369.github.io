@@ -249,10 +249,7 @@ def first_shot(p):
 
 
 def actions(p):
-    z = next((d for d in p.get("downloads", []) if d["file"].endswith(".zip")), None)
     b = '<a class="btn impact" href="#report">View report</a><a class="btn" href="#sql">View SQL</a><a class="btn" href="#model">View data model</a>'
-    if z:
-        b += '<a class="btn" href="%s" download>Download Power BI project</a>' % E(z["file"])
     return '<div class="actions">%s</div>' % b
 
 
